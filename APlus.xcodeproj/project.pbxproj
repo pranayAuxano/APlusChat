@@ -133,6 +133,7 @@
 		FA9817E429BA19F8007C59AB /* OwnReplyTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA9817E229BA19F8007C59AB /* OwnReplyTVCell.swift */; };
 		FA9817E729BA1A0F007C59AB /* OtherReplyTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA9817E529BA1A0F007C59AB /* OtherReplyTVCell.swift */; };
 		FA9817E829BA1A0F007C59AB /* OtherReplyTVCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA9817E629BA1A0F007C59AB /* OtherReplyTVCell.xib */; };
+		FAD13B0229BB5F3600278154 /* reply.png in Resources */ = {isa = PBXBuildFile; fileRef = FAD13B0129BB5F3600278154 /* reply.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -275,6 +276,7 @@
 		FA9817E229BA19F8007C59AB /* OwnReplyTVCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OwnReplyTVCell.swift; sourceTree = "<group>"; };
 		FA9817E529BA1A0F007C59AB /* OtherReplyTVCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OtherReplyTVCell.swift; sourceTree = "<group>"; };
 		FA9817E629BA1A0F007C59AB /* OtherReplyTVCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OtherReplyTVCell.xib; sourceTree = "<group>"; };
+		FAD13B0129BB5F3600278154 /* reply.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = reply.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -707,6 +709,7 @@
 				FA9817E029BA0CF0007C59AB /* reply */,
 				12B8FABD2976D10A001680DB /* chat-bg.png */,
 				12B8FAC32976D10A001680DB /* group-placeholder.jpg */,
+				FAD13B0129BB5F3600278154 /* reply.png */,
 				12B8FAB82976D109001680DB /* placeholder-profile-img.png */,
 				12B8FABE2976D10A001680DB /* default.png */,
 			);
@@ -992,6 +995,7 @@
 				12B8FADA2976D10A001680DB /* default.png in Resources */,
 				129197FA28F6FAAC000AD9D4 /* CreateGrpVC.xib in Resources */,
 				1263237B296D4F15001AD625 /* OpenSans-SemiboldItalic.ttf in Resources */,
+				FAD13B0229BB5F3600278154 /* reply.png in Resources */,
 				FA35EC4E299A1CF700B75EF4 /* document@3x.png in Resources */,
 				FA35EC49299A1CF700B75EF4 /* audio@3x.png in Resources */,
 				12632377296D4F15001AD625 /* OpenSans-Italic.ttf in Resources */,

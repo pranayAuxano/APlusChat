@@ -194,7 +194,7 @@
                                 <constraint firstItem="6C1-r0-AUs" firstAttribute="leading" secondItem="B4P-7D-bGP" secondAttribute="leading" id="GiP-jS-cPz"/>
                                 <constraint firstAttribute="trailing" secondItem="cRV-uj-Y4B" secondAttribute="trailing" id="MHs-lK-uqL"/>
                                 <constraint firstItem="cRV-uj-Y4B" firstAttribute="top" secondItem="B4P-7D-bGP" secondAttribute="top" id="PUl-ar-leG"/>
-                                <constraint firstAttribute="bottom" secondItem="6C1-r0-AUs" secondAttribute="bottom" priority="250" constant="64" id="cRa-Yw-7mk"/>
+                                <constraint firstAttribute="bottom" secondItem="6C1-r0-AUs" secondAttribute="bottom" priority="250" id="cRa-Yw-7mk"/>
                                 <constraint firstItem="cRV-uj-Y4B" firstAttribute="leading" secondItem="B4P-7D-bGP" secondAttribute="leading" id="r2e-Tv-8xH"/>
                             </constraints>
                         </view>
