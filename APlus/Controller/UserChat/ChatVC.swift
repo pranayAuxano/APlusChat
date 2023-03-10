@@ -155,13 +155,13 @@ public class ChatVC: UIViewController {
         tblUserChat.register(UINib(nibName: "OwnImgChatBubbleCell", bundle: bundle), forCellReuseIdentifier: "OwnImgChatBubbleCell")
         tblUserChat.register(UINib(nibName: "OwnFileBubbleCell", bundle: bundle), forCellReuseIdentifier: "OwnFileBubbleCell")
         tblUserChat.register(UINib(nibName: "OwnAudioBubbleCell", bundle: bundle), forCellReuseIdentifier: "OwnAudioBubbleCell")
-        tblUserChat.register(UINib(nibName: "OwnReplyTVCell", bundle: nil), forCellReuseIdentifier: "OwnReplyTVCell")   //  For reply msg.
+        tblUserChat.register(UINib(nibName: "OwnReplyTVCell", bundle: bundle), forCellReuseIdentifier: "OwnReplyTVCell")   //  For reply msg.
         
         tblUserChat.register(UINib(nibName: "OtherChatBubbleCell", bundle: bundle), forCellReuseIdentifier: "OtherChatBubbleCell")
         tblUserChat.register(UINib(nibName: "OtherImgChatBubbleCell", bundle: bundle), forCellReuseIdentifier: "OtherImgChatBubbleCell")
         tblUserChat.register(UINib(nibName: "OtherFileBubbleCell", bundle: bundle), forCellReuseIdentifier: "OtherFileBubbleCell")
         tblUserChat.register(UINib(nibName: "OtherAudioBubbleCell", bundle: bundle), forCellReuseIdentifier: "OtherAudioBubbleCell")
-        tblUserChat.register(UINib(nibName: "OtherReplyTVCell", bundle: nil), forCellReuseIdentifier: "OtherReplyTVCell")   //  For reply msg.
+        tblUserChat.register(UINib(nibName: "OtherReplyTVCell", bundle: bundle), forCellReuseIdentifier: "OtherReplyTVCell")   //  For reply msg.
         
         if isHideUserDetailView {
             self.viewBackUserName.isHidden = true
