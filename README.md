@@ -1,1 +1,3 @@
 # APlusChat
+
+pod 'APlus'

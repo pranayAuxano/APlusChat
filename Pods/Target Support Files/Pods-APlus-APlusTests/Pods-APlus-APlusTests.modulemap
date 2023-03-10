@@ -1,0 +1,6 @@
+framework module Pods_APlus_APlusTests {
+  umbrella header "Pods-APlus-APlusTests-umbrella.h"
+
+  export *
+  module * { export * }
+}
