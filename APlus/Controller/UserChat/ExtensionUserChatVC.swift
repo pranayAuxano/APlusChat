@@ -693,7 +693,7 @@ extension ChatVC : UITableViewDelegate, UITableViewDataSource {
             {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "OtherFileBubbleCell", for: indexPath) as! OtherFileBubbleCell
                 cell.viewMsg.backgroundColor = .white
-                cell.imgDocument.image = UIImage(named: "document")
+                cell.imgDocument.image = UIImage(named: "document.png")
                 //cell.lblFileName.text = "Document File"
                 let fileName : String = self.arrSectionMsg![indexPath.section][indexPath.row].fileName ?? "Document File"
                 cell.lblFileName.text = fileName == "" ? "Document File" : fileName

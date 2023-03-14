@@ -204,7 +204,7 @@
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GBU-zI-Lqc">
                                     <rect key="frame" x="8" y="8" width="44" height="44"/>
                                     <constraints>
-                                        <constraint firstAttribute="width" secondItem="GBU-zI-Lqc" secondAttribute="height" multiplier="1.5:1.5" id="zJu-m5-txX"/>
+                                        <constraint firstAttribute="width" secondItem="GBU-zI-Lqc" secondAttribute="height" multiplier="1:1" id="wec-jf-prR"/>
                                     </constraints>
                                     <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                     <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
@@ -219,10 +219,10 @@
                                     </connections>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="l79-Vx-RRj">
-                                    <rect key="frame" x="345" y="11.666666666666629" width="37" height="37"/>
+                                    <rect key="frame" x="337" y="7.6666666666666288" width="45" height="45"/>
                                     <constraints>
                                         <constraint firstAttribute="width" secondItem="l79-Vx-RRj" secondAttribute="height" id="FB4-0j-Nrh"/>
-                                        <constraint firstAttribute="width" constant="37" id="Gju-Gs-ezn"/>
+                                        <constraint firstAttribute="width" constant="45" id="Gju-Gs-ezn"/>
                                     </constraints>
                                     <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                     <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
@@ -237,22 +237,22 @@
                                     </connections>
                                 </button>
                                 <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Type a message" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="2d5-Xd-ydd">
-                                    <rect key="frame" x="60" y="5" width="277" height="50"/>
+                                    <rect key="frame" x="60" y="5" width="269" height="50"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                     <textInputTraits key="textInputTraits"/>
                                 </textField>
                             </subviews>
                             <color key="backgroundColor" systemColor="systemGray4Color"/>
                             <constraints>
+                                <constraint firstItem="GBU-zI-Lqc" firstAttribute="centerY" secondItem="qKS-K1-Nvs" secondAttribute="centerY" id="3ZU-Yq-arb"/>
                                 <constraint firstItem="GBU-zI-Lqc" firstAttribute="leading" secondItem="qKS-K1-Nvs" secondAttribute="leading" constant="8" id="7ke-pu-TrE"/>
                                 <constraint firstAttribute="bottom" secondItem="2d5-Xd-ydd" secondAttribute="bottom" constant="5" id="9Jb-Mb-Jh5"/>
                                 <constraint firstItem="2d5-Xd-ydd" firstAttribute="top" secondItem="qKS-K1-Nvs" secondAttribute="top" constant="5" id="Aqa-nH-sow"/>
                                 <constraint firstItem="l79-Vx-RRj" firstAttribute="leading" secondItem="2d5-Xd-ydd" secondAttribute="trailing" constant="8" id="Jn3-bp-7DM"/>
-                                <constraint firstAttribute="bottom" secondItem="GBU-zI-Lqc" secondAttribute="bottom" constant="8" id="Ltp-VD-A5F"/>
-                                <constraint firstItem="GBU-zI-Lqc" firstAttribute="top" secondItem="qKS-K1-Nvs" secondAttribute="top" constant="8" id="OGH-X7-s9n"/>
                                 <constraint firstItem="2d5-Xd-ydd" firstAttribute="leading" secondItem="GBU-zI-Lqc" secondAttribute="trailing" constant="8" id="WiT-qa-QXO"/>
                                 <constraint firstAttribute="trailing" secondItem="l79-Vx-RRj" secondAttribute="trailing" constant="8" id="b5Q-fl-k6g"/>
                                 <constraint firstAttribute="height" constant="60" id="k8H-Ln-ndY"/>
+                                <constraint firstItem="GBU-zI-Lqc" firstAttribute="width" secondItem="l79-Vx-RRj" secondAttribute="width" multiplier="0.977778" id="vVk-PA-f7y"/>
                                 <constraint firstItem="l79-Vx-RRj" firstAttribute="centerY" secondItem="qKS-K1-Nvs" secondAttribute="centerY" id="wEF-Ld-zlk"/>
                             </constraints>
                         </view>
