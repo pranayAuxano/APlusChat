@@ -330,7 +330,6 @@ public class ChatVC: UIViewController {
         for (_, user) in self.recentChatUser!.users!.enumerated() {
             self.arrUserName?.append(AllUser(userId: user.userId, userName: user.name))
         }
-        print(self.arrUserName)
     }
     
     func getUserName(userId : String) -> String {
@@ -566,10 +565,10 @@ public class ChatVC: UIViewController {
         if txtTypeMsg.text! != "" {
             let param : [String : Any] = ["message": txtTypeMsg.text!, "isRead" : false, "type" : "text", "viewBy" : (recentChatUser?.members)!, "readBy" : SocketChatManager.sharedInstance.myUserId, "sentAt" : "", "sentBy" : SocketChatManager.sharedInstance.myUserId, "timeMilliSeconds" : "",
                                           "replyUser": self.isSwipe ? getUserName(userId: self.swipeReplyMsg?.sentBy ?? "") : "",
-                                          "replyUserId" : self.isSwipe ? self.swipeReplyMsg?.sentBy : "",
-                                          "replyMsg": self.isSwipe ? (self.isImg ? swipeReplyMsg?.image : lblReplyMsg.text) : "",
-                                          "replyMsgType": self.isSwipe ? self.swipeReplyMsg?.type : "",
-                                          "replyMsgId": self.isSwipe ? self.swipeReplyMsg?.msgId : ""] as [String : Any]
+                                          "replyUserId" : (self.isSwipe ? self.swipeReplyMsg?.sentBy : "") ?? "",
+                                          "replyMsg": (self.isSwipe ? (self.isImg ? swipeReplyMsg?.image : lblReplyMsg.text) : "") ?? "",
+                                          "replyMsgType": (self.isSwipe ? self.swipeReplyMsg?.type : "") ?? "",
+                                          "replyMsgId": (self.isSwipe ? self.swipeReplyMsg?.msgId : "") ?? ""] as [String : Any]
             let param1 : [String : Any] = ["messageObj" : param, "groupId" : (recentChatUser?.groupId)!, "secretKey" : SocketChatManager.sharedInstance.secretKey, "userId": SocketChatManager.sharedInstance.myUserId, "userName": SocketChatManager.sharedInstance.myUserName]
             //SocketChatManager.sharedInstance.sendMsg(message: param1)
             
@@ -582,10 +581,10 @@ public class ChatVC: UIViewController {
                                             "sentAt" : sentAt,
                                             "message" : txtTypeMsg.text!,
                                             "replyUser": self.isSwipe ? getUserName(userId: self.swipeReplyMsg?.sentBy ?? "") : "",
-                                            "replyUserId": self.isSwipe ? self.swipeReplyMsg?.sentBy : "",
-                                            "replyMsg": self.isSwipe ? (self.isImg ? swipeReplyMsg?.image : lblReplyMsg.text) : "",
-                                            "replyMsgType": self.isSwipe ? self.swipeReplyMsg?.type : "",
-                                            "replyMsgId": self.isSwipe ? self.swipeReplyMsg?.msgId : ""]
+                                            "replyUserId": self.isSwipe ? (self.swipeReplyMsg?.sentBy ?? "") : "",
+                                            "replyMsg": self.isSwipe ? (self.isImg ? (self.swipeReplyMsg?.image ?? "") : lblReplyMsg.text!) : "",
+                                            "replyMsgType": self.isSwipe ? (self.swipeReplyMsg?.type ?? "") : "",
+                                            "replyMsgId": self.isSwipe ? (self.swipeReplyMsg?.msgId ?? "") : ""]
                 self.btnCloseTap(UIButton())
                 if self.loadChatMsgToArray(msg: msg, timestamp: timestamp) {
                     txtTypeMsg.text = ""
