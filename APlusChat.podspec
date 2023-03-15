@@ -16,7 +16,7 @@ Pod::Spec.new do |spec|
   spec.author       = { "pranay.prajapati" => "pranay.prajapati@auxanoglobalservices.com" }
 
 
-  spec.platform     = :ios, "12.5"
+  spec.platform     = :ios, "11"
   spec.swift_versions = "5.0"
   
   spec.source       = { :git => "https://github.com/pranayprajapati/APlusChat.git", :tag => spec.version.to_s }
