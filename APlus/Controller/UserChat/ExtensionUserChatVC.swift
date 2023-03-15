@@ -164,7 +164,7 @@ extension ChatVC : UIImagePickerControllerDelegate, UINavigationControllerDelega
                                 let param : [String : Any] = ["file": url, "isRead" : false, "type" : "image", "viewBy" : (self.recentChatUser?.members)!, "readBy" : SocketChatManager.sharedInstance.myUserId, "sentAt" : "", "sentBy" : SocketChatManager.sharedInstance.myUserId, "timeMilliSeconds" : "", "fileName" : self.imgFileName, "contentType" : self.imgFileName.mimeType(), "replyUser": "", "replyMsg": "", "replyMsgId": ""]
                                 let param1 : [String : Any] = ["messageObj" : param, "groupId" : self.groupId, "secretKey" : SocketChatManager.sharedInstance.secretKey, "userId": SocketChatManager.sharedInstance.myUserId, "userName": SocketChatManager.sharedInstance.myUserName]
                                 
-                                self.sendMessage(param: param1)
+                                _ = self.sendMessage(param: param1)
                             }
                         }
                     }
@@ -223,7 +223,7 @@ extension ChatVC : UIImagePickerControllerDelegate, UINavigationControllerDelega
                             let param : [String : Any] = ["file": url, "isRead" : false, "type" : "image", "viewBy" : (self.recentChatUser?.members)!, "readBy" : SocketChatManager.sharedInstance.myUserId, "sentAt" : "", "sentBy" : SocketChatManager.sharedInstance.myUserId, "timeMilliSeconds" : "", "fileName" : self.imgFileName, "contentType" : self.imgFileName.mimeType(), "replyUser": "", "replyMsg": "", "replyMsgId": ""]
                             let param1 : [String : Any] = ["messageObj" : param, "groupId" : self.groupId, "secretKey" : SocketChatManager.sharedInstance.secretKey, "userId": SocketChatManager.sharedInstance.myUserId, "userName": SocketChatManager.sharedInstance.myUserName]
 
-                            self.sendMessage(param: param1)
+                            _ = self.sendMessage(param: param1)
                         }
                     }
                 }
@@ -338,7 +338,7 @@ extension ChatVC : UIDocumentPickerDelegate, UIDocumentMenuDelegate {
                         let param : [String : Any] = ["file": url, "isRead" : false, "type" : "image", "viewBy" : (self.recentChatUser?.members)!, "readBy" : SocketChatManager.sharedInstance.myUserId, "sentAt" : "", "sentBy" : SocketChatManager.sharedInstance.myUserId, "timeMilliSeconds" : "", "fileName" : self.imgFileName, "contentType" : self.imgFileName.mimeType(), "replyUser": "", "replyMsg": "", "replyMsgId": ""]
                         let param1 : [String : Any] = ["messageObj" : param, "groupId" : self.groupId, "secretKey" : SocketChatManager.sharedInstance.secretKey, "userId": SocketChatManager.sharedInstance.myUserId, "userName": SocketChatManager.sharedInstance.myUserName]
                         
-                        self.sendMessage(param: param1)
+                        _ = self.sendMessage(param: param1)
                     }
                 }
             }
