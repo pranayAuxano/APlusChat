@@ -105,7 +105,7 @@ public class ProfDetailVC: UIViewController {
     @IBAction func btnSaveTap(_ sender: UIButton) {
         if !Validations.isValidUserName(userName: txtUserName.text!) {
             let imgData = imgProfile.image?.pngData()
-            SocketChatManager.sharedInstance.updateProfile(param: ["userId" : SocketChatManager.sharedInstance.myUserId, "secretKey" : SocketChatManager.sharedInstance.secretKey, "name": txtUserName.text! , "profilePicture" : isPictureSelect ? imgData : "", "fileName" : imgFileName, "contentType" : mimeType])
+            SocketChatManager.sharedInstance.updateProfile(param: ["userId" : SocketChatManager.sharedInstance.myUserId, "secretKey" : SocketChatManager.sharedInstance.secretKey, "name": txtUserName.text! , "profilePicture" : isPictureSelect ? imgData as Any : "", "fileName" : imgFileName, "contentType" : mimeType])
             isPictureSelect = false
         } else {
             let alertWarning = UIAlertController(title: "", message: "Enter username.", preferredStyle: .alert)
