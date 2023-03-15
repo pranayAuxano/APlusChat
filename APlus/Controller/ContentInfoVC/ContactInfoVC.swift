@@ -308,7 +308,7 @@ public class ContactInfoVC: UIViewController {
     }
     
     @IBAction func btnUpdateTap(_ sender: UIButton) {
-        var param = ["groupId" : groupId, "name" : txtUserName.text!, "groupImage" : isPictureSelect ? (imgProfile.image)?.pngData() : "", "fileName" : imgFileName, "contentType" : mimeType] as [String : Any]
+        let param = ["groupId" : groupId, "name" : txtUserName.text!, "groupImage" : isPictureSelect ? (imgProfile.image)?.pngData() : "", "fileName" : imgFileName, "contentType" : mimeType] as [String : Any]
         isPictureSelect = false
         
         ProgressHUD.show()

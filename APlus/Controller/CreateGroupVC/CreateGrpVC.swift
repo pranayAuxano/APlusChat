@@ -103,7 +103,7 @@ public class CreateGrpVC: UIViewController {
                 "isGroup": true,
                 "createdBy": SocketChatManager.sharedInstance.myUserId,
                 "groupId": "",
-                "groupImage": isPictureSelect ? (imgGroup.image)?.pngData() : "",
+                "groupImage": isPictureSelect ? (imgGroup.image)?.pngData() as Any : "",
                 "members": arrUserIds,
                 "isDeactivateUser": false,
                 "modifiedBy": "",
