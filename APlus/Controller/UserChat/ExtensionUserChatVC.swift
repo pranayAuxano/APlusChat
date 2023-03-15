@@ -506,13 +506,13 @@ extension ChatVC : SocketDelegate {
         let msg : [String : Any] = ["sentBy" : message.sentBy!,
                                     "type" : message.type!,
                                     "sentAt" : sentAt,
-                                    "fileName" : message.name,
+                                    "fileName" : message.name ?? "",
                                     key : value,
-                                    "replyUser": message.replyUser,
+                                    "replyUser": message.replyUser ?? "",
                                     "replyUserId": "",
-                                    "replyMsg": message.replyMsg,
+                                    "replyMsg": message.replyMsg ?? "",
                                     "replyMsgType": "",
-                                    "replyMsgId": message.replyMsgId]
+                                    "replyMsgId": message.replyMsgId ?? ""]
         
         if message.sentBy != SocketChatManager.sharedInstance.myUserId {
             if self.loadChatMsgToArray(msg: msg, timestamp: timestamp) {
