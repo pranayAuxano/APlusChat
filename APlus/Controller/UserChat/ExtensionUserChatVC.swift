@@ -905,7 +905,7 @@ extension ChatVC : UITableViewDelegate, UITableViewDataSource {
             completionHandler(true)
         }
         
-        action.image = UIImage(named: "reply")
+        action.image = UIImage(named: "reply", in: self.bundle, compatibleWith: nil) //UIImage(named: "reply")
         action.backgroundColor = .systemBlue.withAlphaComponent(0.01)
         return UISwipeActionsConfiguration(actions: [action])
     }   //  */
@@ -1066,7 +1066,7 @@ extension ChatVC {
     
     func loadImage(_ image: String) {
         
-        imgReplyImage.image = UIImage(named: "default")
+        imgReplyImage.image = UIImage(named: "default", in: self.bundle, compatibleWith: nil)  //UIImage(named: "default")
         imgReplyImage.image = UIImage(contentsOfFile: image)
         if image != "" {
             var imageURL: URL?
@@ -1098,7 +1098,7 @@ extension ChatVC {
     
     func loadImage1(_ image: String) -> UIImage {
         
-        imgReplyImage.image = UIImage(named: "default")
+        imgReplyImage.image = UIImage(named: "default", in: self.bundle, compatibleWith: nil)   //UIImage(named: "default")
         imgReplyImage.image = UIImage(contentsOfFile: image)
         if image != "" {
             var imageURL: URL?
@@ -1126,6 +1126,6 @@ extension ChatVC {
             }
             //return UIImage(named: "default") ?? UIImage()
         }
-        return UIImage(named: "default") ?? UIImage()
+        return UIImage(named: "default", in: self.bundle, compatibleWith: nil) ?? UIImage()
     }
 }

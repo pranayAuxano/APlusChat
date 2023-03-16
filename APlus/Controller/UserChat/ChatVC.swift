@@ -82,6 +82,7 @@ public class ChatVC: UIViewController {
     var arrUserName : [AllUser]? = []
     public var isHideUserDetailView: Bool = false
     public var isDirectToChat: Bool = false
+    var bundle = Bundle()
     
     public init() {
         super.init(nibName: "UserChatVC", bundle: Bundle(for: ChatVC.self))
@@ -173,6 +174,8 @@ public class ChatVC: UIViewController {
     }
     
     public override func viewWillAppear(_ animated: Bool) {
+        bundle = Bundle(for: ChatVC.self)
+        
         self.navigationController?.isNavigationBarHidden = true
         txtTypeMsg.delegate = self
         imgProfilePic.layer.cornerRadius = imgProfilePic.frame.width / 2
@@ -228,7 +231,7 @@ public class ChatVC: UIViewController {
         
         var isSendMsg: Bool = false
         if isGroup {
-            self.imgProfilePic.image = UIImage(named: "group-placeholder.jpg")
+            self.imgProfilePic.image = UIImage(named: "group-placeholder", in: bundle, compatibleWith: nil) //UIImage(named: "group-placeholder.jpg")
             isGroup = true
             strDisName = (recentChatUser?.name)!
             strProfileImg = recentChatUser?.groupImage ?? ""
@@ -248,7 +251,7 @@ public class ChatVC: UIViewController {
             }
             
             isGroup = false
-            self.imgProfilePic.image = UIImage(named: "placeholder-profile-img.png")
+            self.imgProfilePic.image = UIImage(named: "placeholder-profile-img", in: bundle, compatibleWith: nil) //UIImage(named: "placeholder-profile-img.png")
             for i in 0 ..< (recentChatUser?.users?.count ?? 0) {
                 if (recentChatUser?.users?[i].userId)! != SocketChatManager.sharedInstance.myUserId {
                     strDisName = (recentChatUser?.users?[i].name)!
@@ -286,7 +289,7 @@ public class ChatVC: UIViewController {
                             self.imgProfilePic.image = imageToCache
                             imageCache.setObject(imageToCache, forKey: imageURL as AnyObject)
                         } else {
-                            self.imgProfilePic.image = self.isGroup ? UIImage(named: "group-placeholder.jpg") : UIImage(named: "placeholder-profile-img.png")
+                            self.imgProfilePic.image = self.isGroup ? UIImage(named: "group-placeholder", in: self.bundle, compatibleWith: nil) : UIImage(named: "placeholder-profile-img", in: self.bundle, compatibleWith: nil)
                         }
                     }
                 }

@@ -26,10 +26,13 @@ class OtherReplyTVCell: UITableViewCell {
     @IBOutlet weak var constraintImgBottom: NSLayoutConstraint!
     
     private var imageRequest: Cancellable?
+    var bundle = Bundle()
     
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        bundle = Bundle(for: OtherReplyTVCell.self)
+        
         self.viewMsgRply.clipsToBounds = true
         self.viewMsgRply.layer.cornerRadius = 5
         
@@ -39,7 +42,7 @@ class OtherReplyTVCell: UITableViewCell {
 
     func configure(_ msgType : String,_ image : String,_ data : String) {
         if msgType == "video" {
-            ImgReplyImg.image = UIImage(named: "default")
+            ImgReplyImg.image = UIImage(named: "default", in: self.bundle, compatibleWith: nil) //UIImage(named: "default")
             if data != "" {
                 let imageData = try? Data(contentsOf: URL(string: data)!)
                 if let imageData = imageData {
@@ -48,7 +51,7 @@ class OtherReplyTVCell: UITableViewCell {
             }
         }
         else if msgType == "image" {
-            ImgReplyImg.image = UIImage(named: "default")
+            ImgReplyImg.image = UIImage(named: "default", in: self.bundle, compatibleWith: nil) //UIImage(named: "default")
             ImgReplyImg.image = UIImage(contentsOfFile: image)
             if image != "" {
                 var imageURL: URL?
@@ -80,7 +83,7 @@ class OtherReplyTVCell: UITableViewCell {
     
     override func prepareForReuse() {
         // Reset Thumbnail Image View
-        ImgReplyImg.image = UIImage(named: "default")
+        ImgReplyImg.image = UIImage(named: "default", in: self.bundle, compatibleWith: nil) //UIImage(named: "default")
         // Cancel Image Request
         imageRequest?.cancel()
     }

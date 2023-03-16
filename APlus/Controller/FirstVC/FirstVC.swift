@@ -37,6 +37,7 @@ public class FirstVC: UIViewController {
     public var hideTopView : Bool = false   //  for hide top bar from chat.
     
     let activityIndicator = UIActivityIndicatorView()
+    var bundle = Bundle()
     
     public init() {
         super.init(nibName: "FirstVC", bundle: Bundle(for: FirstVC.self))
@@ -76,7 +77,7 @@ public class FirstVC: UIViewController {
             return self
         }
         
-        imgProfilePic.image = UIImage(named: "placeholder-profile-img.png")
+        imgProfilePic.image = UIImage(named: "placeholder-profile-img", in: bundle, compatibleWith: nil)    //UIImage(named: "placeholder-profile-img.png")
         
         self.searchBar.delegate = self
         self.searchBar.showsCancelButton = true
@@ -85,7 +86,7 @@ public class FirstVC: UIViewController {
         tblChatList.dataSource = self
         tblChatList.delegate = self
         
-        let bundle = Bundle(for: FirstVC.self)
+        //let bundle = Bundle(for: FirstVC.self)
         self.tblChatList.register(UINib(nibName: "UserDetailTVCell", bundle: bundle), forCellReuseIdentifier: "UserDetailTVCell")
         
         if Network.reachability.isReachable {
@@ -107,6 +108,8 @@ public class FirstVC: UIViewController {
     }
     
     public override func viewWillAppear(_ animated: Bool) {
+        bundle = Bundle(for: FirstVC.self)
+        
         self.navigationController?.isNavigationBarHidden = true
         imgProfilePic.layer.cornerRadius = imgProfilePic.frame.height / 2
         SocketChatManager.sharedInstance.socketDelegate = self
@@ -180,7 +183,7 @@ public class FirstVC: UIViewController {
         
         SocketChatManager.sharedInstance.myUserName = self.profileDetail?.name ?? ""
         
-        imgProfilePic.image = UIImage(named: "placeholder-profile-img.png")
+        imgProfilePic.image = UIImage(named: "placeholder-profile-img", in: bundle, compatibleWith: nil)    //UIImage(named: "placeholder-profile-img.png")
         if profileDetail.profilePicture! != "" {
             // setup activityIndicator...
             activityIndicator.color = .darkGray
@@ -260,9 +263,9 @@ extension FirstVC : UITableViewDelegate, UITableViewDataSource {
             msgType = (self.arrRecentChatUserList?[indexPath.row].recentMessage?.type)!
         }
         
-        cell.imgProfile.image = UIImage(named: "placeholder-profile-img")
+        cell.imgProfile.image = UIImage(named: "placeholder-profile-img", in: bundle, compatibleWith: nil)  //UIImage(named: "placeholder-profile-img")
         if (self.arrRecentChatUserList?[indexPath.row].isGroup)! {
-            cell.imgProfile.image = UIImage(named: "group-placeholder")
+            cell.imgProfile.image = UIImage(named: "group-placeholder", in: bundle, compatibleWith: nil)  //UIImage(named: "group-placeholder")
             cell.configure((self.arrRecentChatUserList?[indexPath.row].name)!, self.arrRecentChatUserList?[indexPath.row].groupImage ?? "", msgType, isGroup: true)
         } else {
             for (_, item) in ((self.arrRecentChatUserList?[indexPath.row].users)!).enumerated() {

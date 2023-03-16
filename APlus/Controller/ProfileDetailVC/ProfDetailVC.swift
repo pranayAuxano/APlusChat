@@ -32,6 +32,7 @@ public class ProfDetailVC: UIViewController {
     var isCameraOpen : Bool = false
     var mimeType : String = ""
     var isPictureSelect : Bool = false
+    var bundle = Bundle()
     
     //var myUserId : String = "0"
     private var imageRequest: Cancellable?
@@ -67,6 +68,8 @@ public class ProfDetailVC: UIViewController {
     }
     
     public override func viewWillAppear(_ animated: Bool) {
+        bundle = Bundle(for: ProfDetailVC.self)
+        
         self.navigationController?.isNavigationBarHidden = true
         
         txtUserName.delegate = self
@@ -154,7 +157,7 @@ public class ProfDetailVC: UIViewController {
         print("Get response of profile details.")
         txtUserName.text = profileDetail.name ?? ""
         
-        imgProfile.image = UIImage(named: "placeholder-profile-img.png")
+        imgProfile.image = UIImage(named: "placeholder-profile-img", in: self.bundle, compatibleWith: nil)  //UIImage(named: "placeholder-profile-img.png")
         if profileDetail.profilePicture! != "" {
             var imageURL: URL?
             imageURL = URL(string: profileDetail.profilePicture!)!
@@ -172,7 +175,7 @@ public class ProfDetailVC: UIViewController {
                         self.imgProfile.image = imageToCache
                         imageCache.setObject(imageToCache, forKey: imageURL as AnyObject)
                     } else {
-                        self.imgProfile.image = UIImage(named: "placeholder-profile-img.png")
+                        self.imgProfile.image = UIImage(named: "placeholder-profile-img", in: self.bundle, compatibleWith: nil) //UIImage(named: "placeholder-profile-img.png")
                     }
                 }
             }

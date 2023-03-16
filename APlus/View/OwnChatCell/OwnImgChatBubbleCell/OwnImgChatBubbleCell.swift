@@ -18,19 +18,22 @@ class OwnImgChatBubbleCell: UITableViewCell {
     
     private var imageRequest: Cancellable?
     let hud = JGProgressHUD()
+    var bundle = Bundle()
     
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        bundle = Bundle(for: OwnImgChatBubbleCell.self)
+        
         self.viewImg.layer.cornerRadius = 5
         imgVideo.isHidden = true
     }
 
     func configure(_ msgType : String,_ image : String,_ data : String) {
         if msgType == "video" {
-            img.image = UIImage(named: "default")
+            img.image = UIImage(named: "default", in: self.bundle, compatibleWith: nil)    //UIImage(named: "default")
             imgVideo.isHidden = false
-            imgVideo.image = UIImage(named: "Play")
+            imgVideo.image = UIImage(named: "Play", in: self.bundle, compatibleWith: nil)    //UIImage(named: "Play")
             if data != "" {
                 let imageData = try? Data(contentsOf: URL(string: data)!)
                 if let imageData = imageData {
@@ -44,7 +47,7 @@ class OwnImgChatBubbleCell: UITableViewCell {
             } else {
                 hud.show(in: viewImg)
             }
-            img.image = UIImage(named: "default")
+            img.image = UIImage(named: "default", in: self.bundle, compatibleWith: nil) //UIImage(named: "default")
             img.image = UIImage(contentsOfFile: image)
             if image != "" {
                 var imageURL: URL?
@@ -74,7 +77,7 @@ class OwnImgChatBubbleCell: UITableViewCell {
     override func prepareForReuse() {
         imgVideo.isHidden = true
         // Reset Thumbnail Image View
-        img.image = UIImage(named: "default")
+        img.image = UIImage(named: "default", in: self.bundle, compatibleWith: nil) //UIImage(named: "default")
         // Cancel Image Request
         imageRequest?.cancel()
     }

@@ -63,6 +63,7 @@ public class ContactInfoVC: UIViewController {
     var isCameraOpen : Bool = false
     var mimeType : String = ""
     var isPictureSelect : Bool = false
+    var bundle = Bundle()
     
     public init() {
         super.init(nibName: "ContactInfo", bundle: Bundle(for: ContactInfoVC.self))
@@ -94,7 +95,7 @@ public class ContactInfoVC: UIViewController {
         btnProfilePic.isHidden = true
         
         if (recentChatUser?.isGroup)! {
-            self.imgProfile.image = UIImage(named: "group-placeholder")
+            self.imgProfile.image = UIImage(named: "group-placeholder", in: self.bundle, compatibleWith: nil)   //UIImage(named: "group-placeholder")
             viewExit.isHidden = false
             viewTblAddParticiExitGrp.isHidden = false
             strProfileImg = recentChatUser?.groupImage ?? ""
@@ -153,7 +154,7 @@ public class ContactInfoVC: UIViewController {
                 //constraintBottomDeleteGroup.constant = 0
             }
         } else {
-            self.imgProfile.image = UIImage(named: "placeholder-profile-img")
+            self.imgProfile.image = UIImage(named: "placeholder-profile-img", in: self.bundle, compatibleWith: nil)   //UIImage(named: "placeholder-profile-img")
             
             viewTblAddParticiExitGrp.isHidden = true
             
@@ -213,6 +214,8 @@ public class ContactInfoVC: UIViewController {
     }
     
     public override func viewWillAppear(_ animated: Bool) {
+        bundle = Bundle(for: ContactInfoVC.self)
+        
         self.navigationController?.isNavigationBarHidden = true
         viewProfilePic.layer.cornerRadius = viewProfilePic.frame.width / 2
         imgProfile.layer.cornerRadius = imgProfile.frame.width / 2

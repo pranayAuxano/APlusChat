@@ -36,7 +36,7 @@ public class GroupContVC: UIViewController {
     var arrSelectedUser : [[String: Any]] = []
     var contectInfoVC : (()->ContactInfoVC)?
     var recentChatUser : GetUserList?
-    
+    var bundle = Bundle()
     
     public init() {
         super.init(nibName: "GroupContVC", bundle: Bundle(for: GroupContVC.self))
@@ -74,6 +74,8 @@ public class GroupContVC: UIViewController {
     }
     
     public override func viewWillAppear(_ animated: Bool) {
+        bundle = Bundle(for: GroupContVC.self)
+        
         ProgressHUD.show()
         //userId, secretKey
         SocketChatManager.sharedInstance.getUserList(param: ["userId" : SocketChatManager.sharedInstance.myUserId, "secretKey" : SocketChatManager.sharedInstance.secretKey], from: false)

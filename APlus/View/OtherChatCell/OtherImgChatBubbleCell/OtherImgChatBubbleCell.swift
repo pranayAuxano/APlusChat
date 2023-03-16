@@ -18,10 +18,13 @@ class OtherImgChatBubbleCell: UITableViewCell {
     @IBOutlet weak var constTopImgToUser: NSLayoutConstraint!
     
     private var imageRequest: Cancellable?
+    var bundle = Bundle()
     
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        bundle = Bundle(for: OtherImgChatBubbleCell.self)
+        
         self.viewImg.layer.cornerRadius = 5
         imgVideo.isHidden = true
         
@@ -32,9 +35,9 @@ class OtherImgChatBubbleCell: UITableViewCell {
     
     func configure(_ msgType : String,_ image : String,_ data : String) {
         if msgType == "video" {
-            img.image = UIImage(named: "default")
+            img.image = UIImage(named: "default", in: self.bundle, compatibleWith: nil) //UIImage(named: "default")
             imgVideo.isHidden = false
-            imgVideo.image = UIImage(named: "Play")
+            imgVideo.image = UIImage(named: "Play", in: self.bundle, compatibleWith: nil)    //UIImage(named: "Play")
             
             if data != "" {
                 let imageData = try? Data(contentsOf: URL(string: data)!)
@@ -44,7 +47,7 @@ class OtherImgChatBubbleCell: UITableViewCell {
             }
         }
         else if msgType == "image" {
-            img.image = UIImage(named: "default")
+            img.image = UIImage(named: "default", in: self.bundle, compatibleWith: nil) //UIImage(named: "default")
             img.image = UIImage(contentsOfFile: image)
             if image != "" {
                 var imageURL: URL?
@@ -70,7 +73,7 @@ class OtherImgChatBubbleCell: UITableViewCell {
     override func prepareForReuse() {
         imgVideo.isHidden = true
         // Reset Thumbnail Image View
-        img.image = UIImage(named: "default")
+        img.image = UIImage(named: "default", in: self.bundle, compatibleWith: nil) //UIImage(named: "default")
         
         // Cancel Image Request
         imageRequest?.cancel()

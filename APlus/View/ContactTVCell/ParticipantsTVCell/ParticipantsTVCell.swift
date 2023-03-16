@@ -17,10 +17,13 @@ class ParticipantsTVCell: UITableViewCell {
     private var imageRequest: Cancellable?
     var contectInfoVC: (()->ContactInfoVC)?
     var strUserId : String = ""
+    var bundle = Bundle()
     
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        bundle = Bundle(for: ParticipantsTVCell.self)
+        
         imgProfile.layer.cornerRadius = imgProfile.frame.height / 2
         lblAdmin.clipsToBounds = true
         lblAdmin.layer.cornerRadius = 7
@@ -33,7 +36,7 @@ class ParticipantsTVCell: UITableViewCell {
     }
     
     func configure(_ image : String) {
-        imgProfile.image = UIImage(named: "placeholder-profile-img.png")
+        imgProfile.image = UIImage(named: "placeholder-profile-img", in: self.bundle, compatibleWith: nil)  //UIImage(named: "placeholder-profile-img.png")
         if image != "" {
             var imageURL: URL?
             imageURL = URL(string: image)!
@@ -53,7 +56,7 @@ class ParticipantsTVCell: UITableViewCell {
                         self.imgProfile.image = imageToCache
                         imageCache.setObject(imageToCache, forKey: imageURL as AnyObject)
                     } else {
-                        self.imgProfile.image = UIImage(named: "placeholder-profile-img.png")
+                        self.imgProfile.image = UIImage(named: "placeholder-profile-img", in: self.bundle, compatibleWith: nil) //UIImage(named: "placeholder-profile-img.png")
                     }
                 }
             }
@@ -66,7 +69,7 @@ class ParticipantsTVCell: UITableViewCell {
     
     override func prepareForReuse() {
         // Reset Thumbnail Image View
-        //imgProfile.image = UIImage(named: "default")
+        //imgProfile.image = UIImage(named: "default", in: self.bundle, compatibleWith: nil)    //UIImage(named: "default")
         // Cancel Image Request
         imageRequest?.cancel()
     }

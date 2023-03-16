@@ -30,6 +30,7 @@ public class ContListVC: UIViewController {
     var arrReadCount : [[String: Any]] = []//["unreadCount":0, "userId":""]
     var arrUserIds : [String] = []
     var arrRecentChatUserList : [GetUserList]? = []
+    var bundle = Bundle()
     
     public init() {
         super.init(nibName: "ContactList", bundle: Bundle(for: ContListVC.self))
@@ -60,6 +61,8 @@ public class ContListVC: UIViewController {
     }
     
     public override func viewWillAppear(_ animated: Bool) {
+        bundle = Bundle(for: ContListVC.self)
+        
         ProgressHUD.show()
         //userId, secretKey
         SocketChatManager.sharedInstance.getUserList(param: ["userId" : SocketChatManager.sharedInstance.myUserId, "secretKey" : SocketChatManager.sharedInstance.secretKey], from: true)
@@ -99,7 +102,7 @@ extension ContListVC : UITableViewDelegate, UITableViewDataSource {
         cell.imgContactImg.layer.cornerRadius = cell.imgContactImg.frame.height / 2
         cell.lblSeparator.backgroundColor = .gray.withAlphaComponent(0.5)
         
-        cell.imgContactImg.image = UIImage(named: "placeholder-profile-img.png")
+        cell.imgContactImg.image = UIImage(named: "placeholder-profile-img", in: self.bundle, compatibleWith: nil)  //UIImage(named: "placeholder-profile-img.png")
         cell.configure(self.arrContactList![indexPath.row].profilePicture ?? "")
         //cell.lblName.text = contactList?.list![indexPath.row].name ?? ""
         cell.lblName.text = self.arrContactList![indexPath.row].name ?? ""

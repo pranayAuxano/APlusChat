@@ -23,10 +23,13 @@ class UserDetailTVCell: UITableViewCell {
     @IBOutlet weak var viewMainBG: UIView!
     
     private var imageRequest: Cancellable?
+    var bundle = Bundle()
     
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        bundle = Bundle(for: UserDetailTVCell.self)
+        
         lblUnreadMsgCount.clipsToBounds = true
         lblLastMsg.isHidden = true
         viewRecentPhoto.isHidden = true
@@ -52,23 +55,23 @@ class UserDetailTVCell: UITableViewCell {
             lblLastMsg.isHidden = false
         } else if msgType == "image" {
             viewRecentPhoto.isHidden = false
-            imgRecentPhoto.image = UIImage(named: "image")
+            imgRecentPhoto.image = UIImage(named: "image", in: self.bundle, compatibleWith: nil) //UIImage(named: "image")
             lblRecentPhotoVideoFile.text = "Photo"
         } else if msgType == "audio" {
             viewRecentPhoto.isHidden = false
-            imgRecentPhoto.image = UIImage(named: "audio")
+            imgRecentPhoto.image = UIImage(named: "audio", in: self.bundle, compatibleWith: nil) //UIImage(named: "audio")
             lblRecentPhotoVideoFile.text = "Audio"
         } else if msgType == "video" {
             viewRecentPhoto.isHidden = false
-            imgRecentPhoto.image = UIImage(named: "video")
+            imgRecentPhoto.image = UIImage(named: "video", in: self.bundle, compatibleWith: nil) //UIImage(named: "video")
             lblRecentPhotoVideoFile.text = "Video"
         } else if msgType == "document" {
             viewRecentPhoto.isHidden = false
-            imgRecentPhoto.image = UIImage(named: "document")
+            imgRecentPhoto.image = UIImage(named: "document", in: self.bundle, compatibleWith: nil) //UIImage(named: "document")
             lblRecentPhotoVideoFile.text = "File"
         }
         
-        imgProfile.image = UIImage(named: "placeholder-profile-img.png")
+        imgProfile.image = UIImage(named: "placeholder-profile-img", in: self.bundle, compatibleWith: nil) //UIImage(named: "placeholder-profile-img.png")
         if groupImage != "" {
             var imageURL: URL?
             imageURL = URL(string: groupImage)!
@@ -85,7 +88,7 @@ class UserDetailTVCell: UITableViewCell {
                         self.imgProfile.image = imageToCache
                         imageCache.setObject(imageToCache, forKey: imageURL as AnyObject)
                     } else {
-                        self.imgProfile.image = isGroup ? UIImage(named: "group-placeholder.jpg") : UIImage(named: "placeholder-profile-img.png")
+                        self.imgProfile.image = isGroup ? UIImage(named: "group-placeholder", in: self.bundle, compatibleWith: nil) : UIImage(named: "placeholder-profile-img", in: self.bundle, compatibleWith: nil)
                     }
                 }
             }
