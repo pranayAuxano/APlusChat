@@ -593,10 +593,12 @@ extension ChatVC : UITableViewDelegate, UITableViewDataSource {
             if msgType == "document"
             {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "OwnFileBubbleCell", for: indexPath) as! OwnFileBubbleCell
-                //cell.viewMsg.backgroundColor = Colors.themeRED.returnColor()
                 cell.viewMsg.backgroundColor = Colors.lightTheme.returnColor()
-                cell.imgDocument.image = UIImage(named: "document")
-                //cell.lblFileName.text = "Document File"
+                
+                //let bundle = Bundle(for: ChatVC.self)
+                //cell.imgDocument.image = UIImage(named: "document", in: bundle, compatibleWith: nil)
+                //cell.imgDocument.image = UIImage(named: "document")
+                
                 let fileName : String = self.arrSectionMsg![indexPath.section][indexPath.row].fileName ?? "Document File"
                 cell.lblFileName.text = fileName == "" ? "Document File" : fileName
                 cell.configure(msgType, self.arrSectionMsg![indexPath.section][indexPath.row].document ?? "")
@@ -607,7 +609,6 @@ extension ChatVC : UITableViewDelegate, UITableViewDataSource {
             else if msgType == "image"
             {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "OwnImgChatBubbleCell", for: indexPath) as! OwnImgChatBubbleCell
-                //cell.viewImg.backgroundColor = Colors.themeRED.returnColor()
                 cell.viewImg.backgroundColor = Colors.lightTheme.returnColor()
                 cell.configure(msgType, (self.arrSectionMsg![indexPath.section][indexPath.row].image)!, "")
                 cell.lblTime.text = Utility.convertTimestamptoTimeString(timestamp: "\((self.arrSectionMsg![indexPath.section][indexPath.row].sentAt?.seconds)!)")
@@ -616,7 +617,6 @@ extension ChatVC : UITableViewDelegate, UITableViewDataSource {
             else if msgType == "video"
             {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "OwnImgChatBubbleCell", for: indexPath) as! OwnImgChatBubbleCell
-                //cell.viewImg.backgroundColor = Colors.themeRED.returnColor()
                 cell.viewImg.backgroundColor = Colors.lightTheme.returnColor()
                 cell.configure(msgType, "", (self.arrSectionMsg![indexPath.section][indexPath.row].base64Thumbnail ?? ""))
                 cell.lblTime.text = Utility.convertTimestamptoTimeString(timestamp: "\((self.arrSectionMsg![indexPath.section][indexPath.row].sentAt?.seconds)!)")
@@ -625,9 +625,12 @@ extension ChatVC : UITableViewDelegate, UITableViewDataSource {
             else if msgType == "audio"
             {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "OwnAudioBubbleCell", for: indexPath) as! OwnAudioBubbleCell
-                //cell.viewMsg.backgroundColor = Colors.themeRED.returnColor()
                 cell.viewMsg.backgroundColor = Colors.lightTheme.returnColor()
-                cell.imgAudio.image = UIImage(named: "audio")
+                
+                //let bundle = Bundle(for: ChatVC.self)
+                //cell.imgDocument.image = UIImage(named: "audio", in: bundle, compatibleWith: nil)
+                //cell.imgAudio.image = UIImage(named: "audio")
+                
                 cell.lblFileName.text = "Audio File"
                 cell.lblTime.text = Utility.convertTimestamptoTimeString(timestamp: "\((self.arrSectionMsg![indexPath.section][indexPath.row].sentAt?.seconds)!)")
                 return cell
@@ -636,7 +639,6 @@ extension ChatVC : UITableViewDelegate, UITableViewDataSource {
             {
                 if self.arrSectionMsg![indexPath.section][indexPath.row].replyMsgId ?? "" == "" {
                     let cell = tableView.dequeueReusableCell(withIdentifier: "OwnChatBubbleCell", for: indexPath) as! OwnChatBubbleCell
-                    //cell.viewMsg.backgroundColor = Colors.themeRED.returnColor()
                     cell.viewMsg.backgroundColor = Colors.lightTheme.returnColor()
                     cell.lblMsg.text = (self.arrSectionMsg![indexPath.section][indexPath.row].message)!
                     cell.lblTime.text = Utility.convertTimestamptoTimeString(timestamp: "\((self.arrSectionMsg![indexPath.section][indexPath.row].sentAt?.seconds)!)")
@@ -693,8 +695,11 @@ extension ChatVC : UITableViewDelegate, UITableViewDataSource {
             {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "OtherFileBubbleCell", for: indexPath) as! OtherFileBubbleCell
                 cell.viewMsg.backgroundColor = .white
-                cell.imgDocument.image = UIImage(named: "document.png")
-                //cell.lblFileName.text = "Document File"
+                
+                //let bundle = Bundle(for: ChatVC.self)
+                //cell.imgDocument.image = UIImage(named: "document", in: bundle, compatibleWith: nil)
+                //cell.imgDocument.image = UIImage(named: "document")
+                
                 let fileName : String = self.arrSectionMsg![indexPath.section][indexPath.row].fileName ?? "Document File"
                 cell.lblFileName.text = fileName == "" ? "Document File" : fileName
                 cell.lblTime.text = Utility.convertTimestamptoTimeString(timestamp: "\((self.arrSectionMsg![indexPath.section][indexPath.row].sentAt?.seconds)!)")
@@ -730,7 +735,11 @@ extension ChatVC : UITableViewDelegate, UITableViewDataSource {
             {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "OtherAudioBubbleCell", for: indexPath) as! OtherAudioBubbleCell
                 cell.viewMsg.backgroundColor = .white
-                cell.imgAudio.image = UIImage(named: "audio")
+                
+                //let bundle = Bundle(for: ChatVC.self)
+                //cell.imgDocument.image = UIImage(named: "audio", in: bundle, compatibleWith: nil)
+                //cell.imgAudio.image = UIImage(named: "audio")
+                
                 cell.lblFileName.text = "Audio File"
                 cell.lblTime.text = Utility.convertTimestamptoTimeString(timestamp: "\((self.arrSectionMsg![indexPath.section][indexPath.row].sentAt?.seconds)!)")
                 return cell
