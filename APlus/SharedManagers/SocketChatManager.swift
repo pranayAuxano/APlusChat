@@ -15,7 +15,7 @@ protocol SocketDelegate {
     func getRecentUser(message : String)
     func recentChatUserList(userList : [GetUserList])
     func getPreviousChatMsg(message : String)
-    func getUnreadChat(noOfChat: Int)
+    //func getUnreadChat(noOfChat: Int)
 }
 
 /*extension SocketDelegate {
@@ -412,12 +412,12 @@ public class SocketChatManager {
         })
     }
     
-    public func getUnreadChatRes(event : String) {
+    /*public func getUnreadChatRes(event : String) {
         socket?.on(event, callback: { (data, ack) in
             print("get-groups-call - \((data.first)!)")
             self.socketDelegate?.getUnreadChat(noOfChat: data.first as! Int)
         })
-    }
+    }   //  */
     
     // MARK: -
     
@@ -603,14 +603,14 @@ public class SocketChatManager {
         }
     }
     
-    public func getUnreadChat(event: String, param: [String : Any]) {
+    /*public func getUnreadChat(event: String, param: [String : Any]) {
         //user-unread-count
         if Network.reachability.isReachable {
             socket?.emit(event, param)
             socket?.off(event)
             self.getUnreadChatRes(event: "user-unread-count-res")
         }
-    }
+    }   //  */
     
     func connectToServerWithNickname(nickname: String, completionHandler: @escaping (_ userList: [[String: AnyObject]]?) -> Void) {
         socket?.emit("connectUser", "abc")
