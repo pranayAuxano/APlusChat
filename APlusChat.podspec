@@ -3,7 +3,7 @@
 Pod::Spec.new do |spec|
 
   spec.name         = "APlusChat"
-  spec.version      = "0.0.1.1.2.5"
+  spec.version      = "0.0.1.1.3.0"		# 0.0.1.1.1 - published
   spec.summary      = "APlusChat Chat is light weight SDK use for ChatSocket."
 
   spec.description  = "Plus Chat is light weight SDK use Socket.io for Real Time Communication."
@@ -13,7 +13,7 @@ Pod::Spec.new do |spec|
   spec.license      = "MIT"
 
 
-  spec.author       = { "pranay.prajapati" => "pranay.prajapati@auxanoglobalservices.com" }
+  spec.author       = { "pranayprajapati" => "pranay.prajapati@auxanoglobalservices.com" }
 
 
   spec.platform     = :ios, "12"
