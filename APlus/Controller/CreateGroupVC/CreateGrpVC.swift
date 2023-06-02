@@ -7,6 +7,7 @@
 
 import UIKit
 import Photos
+import ProgressHUD
 
 public class CreateGrpVC: UIViewController {
 
@@ -101,25 +102,36 @@ public class CreateGrpVC: UIViewController {
             let param = [
                 "secretKey": SocketChatManager.sharedInstance.secretKey,
                 "isGroup": true,
-                "createdBy": SocketChatManager.sharedInstance.myUserId,
-                "groupId": "",
-                "groupImage": isPictureSelect ? (imgGroup.image)?.pngData() as Any : "",
-                "members": arrUserIds,
-                "isDeactivateUser": false,
-                "modifiedBy": "",
-                "name": txtGroupName.text!,
-                "online": [],
-                "pinnedGroup": [],
-                "readCount": arrReadCount,
-                "typing": [],
-                "blockUsers": [],
-                "viewBy": arrUserIds,
-                "recentMessage": [],
-                "users": arrContactList,
-                "fileName" : imgFileName,
-                "contentType" : mimeType] as [String : Any]
+                "userId": SocketChatManager.sharedInstance.myUserId,
+                "groupImage": "",
+                "members": self.arrUserIds,
+                "name": self.txtGroupName.text!
+            ] as [String : Any]
             
-            SocketChatManager.sharedInstance.createGroup(param: ["groupDetails": param], from: true)
+            let dictiParam = [
+                "secretKey": SocketChatManager.sharedInstance.secretKey,
+                "userId": SocketChatManager.sharedInstance.myUserId,
+                "groupId": "",
+                "senderName": "",
+                "type": "image",
+                "image": imgFileName,
+                "isChat": 0
+            ] as [String : Any]
+            
+            ProgressHUD.show()
+            if isPictureSelect {
+                NetworkManager.sharedInstance.uploadImage(dictiParam: dictiParam, image: imgGroup.image!, type: "video", contentType: "")
+                { strDisPic in
+                    self.createGroup(param: param, strDisPic: strDisPic)
+                } errorCompletion: { errMsg in
+                    ProgressHUD.dismiss()
+                    let toastMsg = ToastUtility.Builder(message: errMsg, controller: self, keyboardActive: false)
+                    toastMsg.setColor(background: .red, text: .black)
+                    toastMsg.show()
+                }
+            } else {
+                self.createGroup(param: param, strDisPic: "")
+            }
         } else {
             let alertWarning = UIAlertController(title: "", message: "Please enter group name.", preferredStyle: .alert)
             alertWarning.addAction(UIAlertAction(title: "OK", style: .cancel, handler: { alert in
@@ -128,16 +140,28 @@ public class CreateGrpVC: UIViewController {
         }
     }
     
-    func responseBack(_ isUpdate : Bool) {
-        if isUpdate {
-            /*for controller in self.navigationController!.viewControllers as Array {
-                if controller.isKind(of: ViewController.self) {
-                    self.navigationController!.popToViewController(controller, animated: true)
-                    break
-                }
-            }   //  */
-//            self.navigationController?.popViewController(animated: true)
-            self.navigationController?.popToViewController(FirstVC(), animated: true)
+    func createGroup(param: [String : Any], strDisPic: String) {
+        var param1 = param
+        param1["groupImage"] = strDisPic
+        NetworkManager.sharedInstance.createGroup(param: param1) { strId in
+            ProgressHUD.dismiss()
+            DispatchQueue.main.async {
+                self.navigationController?.popToViewController(FirstVC(), animated: true)
+                // Assuming you have a reference to the navigation controller
+                /*if let viewControllers = self.navigationController?.viewControllers {
+                    for viewController in viewControllers {
+                        if viewController is ViewController {
+                            self.navigationController?.popToViewController(viewController, animated: true)
+                            break
+                        }
+                    }
+                }   //  */
+            }
+        } errorCompletion: { errMsg in
+            ProgressHUD.dismiss()
+            let toastMsg = ToastUtility.Builder(message: errMsg, controller: self, keyboardActive: false)
+            toastMsg.setColor(background: .red, text: .black)
+            toastMsg.show()
         }
     }
 }

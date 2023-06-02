@@ -46,11 +46,11 @@ public class ContactInfoVC: UIViewController {
     @IBOutlet weak var constraintHeightDeleteGroup: NSLayoutConstraint!
     @IBOutlet weak var constraintBottomDeleteGroup: NSLayoutConstraint!
     
-    //var myUserId : String = ""
     var groupId : String = ""    //  roomId
+    var isGroup: Bool = false
     var isAdmin : Bool = false
     var isRemoveMember : Bool = false
-    var recentChatUser : GetUserList?
+    var groupDetail: GroupDetail?
     var strProfileImg : String?
     var imagePicker = UIImagePickerController()
     var arrReadCount : [[String: Any]] = []//["unreadCount":0, "userId":""]
@@ -63,6 +63,7 @@ public class ContactInfoVC: UIViewController {
     var isCameraOpen : Bool = false
     var mimeType : String = ""
     var isPictureSelect : Bool = false
+    var isImagePickerOpen: Bool = false
     var bundle = Bundle()
     
     public init() {
@@ -90,71 +91,73 @@ public class ContactInfoVC: UIViewController {
             return self
         }
         
-        txtUserName.isEnabled = false
-        btnUpdate.isHidden = true
-        btnProfilePic.isHidden = true
+        self.txtUserName.isEnabled = false
+        self.btnUpdate.isHidden = true
+        self.btnProfilePic.isHidden = true
         
-        if (recentChatUser?.isGroup)! {
-            self.imgProfile.image = UIImage(named: "group-placeholder", in: self.bundle, compatibleWith: nil)   //UIImage(named: "group-placeholder")
+        self.txtUserName.layer.cornerRadius = self.txtUserName.frame.height / 2
+        self.txtUserName.layer.borderColor = UIColor.black.cgColor
+        self.txtUserName.layer.borderWidth = 0
+        
+        tblParticipants.dataSource = self
+        tblParticipants.delegate = self
+        
+        let bundle = Bundle(for: ContactInfoVC.self)
+        tblParticipants.register(UINib(nibName: "ParticipantsTVCell", bundle: bundle), forCellReuseIdentifier: "ParticipantsTVCell")
+    }
+    
+    public override func viewWillAppear(_ animated: Bool) {
+        bundle = Bundle(for: ContactInfoVC.self)
+        
+        self.navigationController?.isNavigationBarHidden = true
+        viewProfilePic.layer.cornerRadius = viewProfilePic.frame.width / 2
+        imgProfile.layer.cornerRadius = imgProfile.frame.width / 2
+        
+        if !isImagePickerOpen {
+            self.groupDetailSocketCall()
+        } else {
+            self.isImagePickerOpen = false
+        }
+    }
+    
+    func groupDetailSocketCall() {
+        SocketChatManager.sharedInstance.reqGroupDetail(param: ["userId": SocketChatManager.sharedInstance.myUserId, "secretKey": SocketChatManager.sharedInstance.secretKey, "groupId": groupId])    // Need for detail screen
+    }
+    
+    func getGroupDetail(groupDetail : GroupDetail) {
+        self.groupDetail = groupDetail
+        groupId = self.groupDetail?.groupId ?? ""
+        isGroup = self.groupDetail?.isGroup ?? false
+        
+        if isGroup {
+            self.imgProfile.image = UIImage(named: "group-placeholder")
             viewExit.isHidden = false
             viewTblAddParticiExitGrp.isHidden = false
-            strProfileImg = recentChatUser?.groupImage ?? ""
+            strProfileImg = self.groupDetail?.groupImage ?? ""
             
-            txtUserName.text = (recentChatUser?.name)!
+            txtUserName.text = (self.groupDetail?.name)!
             txtUserName.isEnabled = false
-            lblEmail.text = "\((recentChatUser?.users?.count)!) participants"
-            if (recentChatUser?.createdBy)! == SocketChatManager.sharedInstance.myUserId {
+            lblEmail.text = "\((self.groupDetail?.users?.count)!) participants"
+            if (self.groupDetail?.createdBy)! == SocketChatManager.sharedInstance.myUserId {
                 isAdmin = true
                 isRemoveMember = true
                 
                 txtUserName.isEnabled = true
                 viewDelete.isHidden = false
-                btnUpdate.isHidden = false
+                //btnUpdate.isHidden = false
                 btnProfilePic.isHidden = false
                 viewParticipants.isHidden = false
-                lblParticipants.text = "\((recentChatUser?.users?.count)!) participants"
+                lblParticipants.text = "\((self.groupDetail?.users?.count)!) participants"
                 constraintHeightParticipants.constant = 40
                 btnDelete.setTitle("Delete Group", for: .normal)
                 //constraintTopViewDelete.priority = .defaultHigh
-                
-            } else {
-                if recentChatUser?.groupPermission?[0].permission?.addProfilePicture ?? 0 == 1 {
-                    btnProfilePic.isHidden = false
-                    btnUpdate.isHidden = false
-                }
-                if recentChatUser?.groupPermission?[0].permission?.changeGroupName ?? 0 == 1 {
-                    txtUserName.isEnabled = true
-                    btnUpdate.isHidden = false
-                }
-                if recentChatUser?.groupPermission?[0].permission?.addMember ?? 0 == 1 {
-                    viewParticipants.isHidden = false
-                    lblParticipants.text = "\((recentChatUser?.users?.count)!) participants"
-                    constraintHeightParticipants.constant = 40
-                }
-                if recentChatUser?.groupPermission?[0].permission?.removeMember ?? 0 == 1 {
-                    isRemoveMember = true
-                }
-                if recentChatUser?.groupPermission?[0].permission?.exitGroup ?? 0 != 1 {
-                    viewExit.isHidden = true
-                    constraintHeightExitGroup.constant = 0
-                    //constraintHeightExitGroup.constant = 60
-                } //else {
-                    //constraintHeightExitGroup.constant = 0
-                //}
-                if recentChatUser?.groupPermission?[0].permission?.deleteChat ?? 0 != 1 {
-                    viewDelete.isHidden = true
-                    constraintHeightDeleteGroup.constant = 0
-                    constraintBottomDeleteGroup.constant = 0
-                } else {
-                    viewDelete.isHidden = false
-                    constraintHeightDeleteGroup.constant = 60
-                    constraintBottomDeleteGroup.constant = 8
-                }
-                //constraintHeightDeleteGroup.constant = 0
-                //constraintBottomDeleteGroup.constant = 0
+                //self.constraintHeighttblParticipants.constant = CGFloat((self.groupDetail?.users?.count)! * 70)
+                self.viewScrollView.layoutIfNeeded()
             }
+            self.constraintHeighttblParticipants.constant = CGFloat((self.groupDetail?.users?.count)! * 70)
+            self.setPermissions()
         } else {
-            self.imgProfile.image = UIImage(named: "placeholder-profile-img", in: self.bundle, compatibleWith: nil)   //UIImage(named: "placeholder-profile-img")
+            self.imgProfile.image = UIImage(named: "placeholder-profile-img")
             
             viewTblAddParticiExitGrp.isHidden = true
             
@@ -167,12 +170,12 @@ public class ContactInfoVC: UIViewController {
                 btnDelete.setTitle("Delete Chat", for: .normal)
             }
             
-            for i in 0 ..< (recentChatUser?.users?.count)! {
-                if (recentChatUser?.users?[i].userId)! != SocketChatManager.sharedInstance.myUserId {
-                    //lblUserName.text = (recentChatUser?.users?[i].name)!
-                    txtUserName.text = (recentChatUser?.users?[i].name)!
-                    lblEmail.text = (recentChatUser?.users?[i].mobileEmail)!
-                    strProfileImg = recentChatUser?.users?[i].profilePicture ?? ""
+            for i in 0 ..< (self.groupDetail?.users?.count)! {
+                if (self.groupDetail?.users?[i].userId)! != SocketChatManager.sharedInstance.myUserId {
+                    //lblUserName.text = (self.groupDetail?.users?[i].name)!
+                    txtUserName.text = (self.groupDetail?.users?[i].name)!
+                    lblEmail.text = (self.groupDetail?.users?[i].mobileEmail)!
+                    strProfileImg = self.groupDetail?.users?[i].profilePicture ?? ""
                 }
             }
             if #available(iOS 15.0, *) {
@@ -186,6 +189,7 @@ public class ContactInfoVC: UIViewController {
             var imageURL: URL?
             var isFromCatch : Bool = false
             imageURL = URL(string: strProfileImg!)!
+            //self.imgProfile.image = nil
             // retrieves image if already available in cache
             if let imageFromCache = imageCache.object(forKey: imageURL as AnyObject) as? UIImage {
                 self.imgProfile.image = imageFromCache
@@ -205,42 +209,68 @@ public class ContactInfoVC: UIViewController {
                 }
             }
         }
-        
-        tblParticipants.dataSource = self
-        tblParticipants.delegate = self
-        
-        let bundle = Bundle(for: ContactInfoVC.self)
-        tblParticipants.register(UINib(nibName: "ParticipantsTVCell", bundle: bundle), forCellReuseIdentifier: "ParticipantsTVCell")
+        self.tblParticipants.reloadData()
     }
     
-    public override func viewWillAppear(_ animated: Bool) {
-        bundle = Bundle(for: ContactInfoVC.self)
+    func setPermissions() {
+        if self.groupDetail?.groupPermission?[0].permission?.addProfilePicture ?? 0 == 0 {
+            btnProfilePic.isHidden = true
+            //btnUpdate.isHidden = true
+        }
         
-        self.navigationController?.isNavigationBarHidden = true
-        viewProfilePic.layer.cornerRadius = viewProfilePic.frame.width / 2
-        imgProfile.layer.cornerRadius = imgProfile.frame.width / 2
+        if self.groupDetail?.groupPermission?[0].permission?.changeGroupName ?? 0 == 0 {
+            self.txtUserName.layer.borderWidth = 0.0
+            txtUserName.isEnabled = false
+            //btnUpdate.isHidden = true
+        } else {
+            //self.txtUserName.layer.borderWidth = 1.0
+        }
         
-        self.constraintHeighttblParticipants.constant = CGFloat((self.recentChatUser?.users?.count)! * 70)
-        self.viewScrollView.layoutIfNeeded()
+        if (self.groupDetail?.groupPermission?[0].permission?.addProfilePicture ?? 0 == 1) || (self.groupDetail?.groupPermission?[0].permission?.changeGroupName ?? 0 == 1) {
+            btnUpdate.isHidden = false
+        }
+        
+        if self.groupDetail?.groupPermission?[0].permission?.addMember ?? 0 == 1 {
+            viewParticipants.isHidden = false
+            lblParticipants.text = "\((self.groupDetail?.users?.count)!) participants"
+            constraintHeightParticipants.constant = 40
+        }
+        
+        if self.groupDetail?.groupPermission?[0].permission?.removeMember ?? 0 == 1 {
+            isRemoveMember = true
+        }
+        
+        if self.groupDetail?.groupPermission?[0].permission?.exitGroup ?? 0 == 0 {
+            viewExit.isHidden = true
+            constraintHeightExitGroup.constant = 0
+            //constraintHeightExitGroup.constant = 60
+        }
+        
+        if self.groupDetail?.groupPermission?[0].permission?.deleteChat ?? 0 == 0 {
+            viewDelete.isHidden = true
+            constraintHeightDeleteGroup.constant = 0
+            constraintBottomDeleteGroup.constant = 0
+        } else {
+            viewDelete.isHidden = false
+            constraintHeightDeleteGroup.constant = 60
+            constraintBottomDeleteGroup.constant = 8
+        }
     }
-    
     
     @IBAction func btnBackTap(_ sender: UIButton) {
-        userChatVC!().memberRemoveRes(true, updatedRecentChatUser: recentChatUser!)
+        //userChatVC!().memberRemoveRes(true, updatedRecentChatUser: recentChatUser!)
         self.navigationController?.popViewController(animated: true)
     }
     
     @IBAction func btnAddMemberTap(_ sender: UIButton) {
         arrSelectedUser.removeAll()
         arrUserIds.removeAll()
-        for i in 0 ..< (recentChatUser?.users!.count)! {
-            arrUserIds.append((recentChatUser?.users![i].userId)!)
-            let contectDetail = ["userId" : recentChatUser?.users![i].userId ?? "",
-                                 "serverUserId" : recentChatUser?.users![i].serverUserId ?? "",
-                                 "profilePicture" : recentChatUser?.users![i].profilePicture ?? "",
-                                 "name" : recentChatUser?.users![i].name ?? "",
-                                 "mobile_email" : recentChatUser?.users![i].mobileEmail ?? "",
-                                 "groups" : recentChatUser?.users![i].groups ?? []] as [String : Any]
+        for i in 0 ..< (groupDetail?.users!.count)! {
+            arrUserIds.append((groupDetail?.users![i].userId)!)
+            let contectDetail = ["userId" : self.groupDetail?.users![i].userId ?? "",//self.groupDetail?.users![i].userId ?? "",
+                                 "profilePicture" : self.groupDetail?.users![i].profilePicture ?? "",
+                                 "name" : self.groupDetail?.users![i].name ?? "",
+                                 "mobile_email" : self.groupDetail?.users![i].mobileEmail ?? ""] as [String : Any]
             arrSelectedUser.append(contectDetail)
         }
         
@@ -249,7 +279,7 @@ public class ContactInfoVC: UIViewController {
         vc.arrSelectedUser = arrSelectedUser
         vc.isAddMember = true
         vc.groupId = groupId
-        vc.recentChatUser = recentChatUser
+        vc.groupDetail = groupDetail
         vc.contectInfoVC = { return self }
         self.navigationController?.pushViewController(vc, animated: true)
     }
@@ -257,7 +287,7 @@ public class ContactInfoVC: UIViewController {
     @IBAction func btnExitDeleteTap(_ sender: UIButton) {
         if sender.tag == 0 {
             // 0 for Exit
-            if (recentChatUser?.isGroup)! {
+            if (groupDetail?.isGroup)! {
                 //(groupId, userId)
                 let alertController = UIAlertController(title: "Are you sure you want to exit group ?", message: "", preferredStyle: .alert)
                 let OKAction = UIAlertAction(title: "OK", style: .default) { action in
@@ -272,7 +302,7 @@ public class ContactInfoVC: UIViewController {
             }
         } else if sender.tag == 1 {
             // 1 for Delete
-            if (recentChatUser?.isGroup)! {
+            if (groupDetail?.isGroup)! {
                 let alertController = UIAlertController(title: "Are you sure you want to delete group ?", message: "", preferredStyle: .alert)
                 let OKAction = UIAlertAction(title: "OK", style: .default) { action in
                     //Delete group
@@ -306,69 +336,51 @@ public class ContactInfoVC: UIViewController {
             /*let sb = UIStoryboard(name: "Main", bundle: nil)
             let vc =  sb.instantiateViewController(withIdentifier: "ViewController") as! ViewController
             self.navigationController?.popToViewController(vc, animated: true)  //  */
-            self.navigationController?.popViewController(animated: true)
+            //self.navigationController?.popViewController(animated: true)
+        } else {
+            ProgressHUD.dismiss()
+            let toastMsg = ToastUtility.Builder(message: "Group details not updated.", controller: self, keyboardActive: false)
+            toastMsg.setColor(background: .red, text: .black)
+            toastMsg.show()
         }
     }
     
     @IBAction func btnUpdateTap(_ sender: UIButton) {
-        let param = ["groupId" : groupId, "name" : txtUserName.text!, "groupImage" : isPictureSelect ? (imgProfile.image)?.pngData() : "", "fileName" : imgFileName, "contentType" : mimeType] as [String : Any]
-        isPictureSelect = false
+        var param = ["groupId" : groupId,
+                     "name" : txtUserName.text!,
+                     "groupImage" : self.groupDetail?.groupImage ?? "",
+                     "fileName" : imgFileName,
+                     "contentType" : mimeType,
+                     "secretKey" : SocketChatManager.sharedInstance.secretKey] as [String : Any]
         
-        ProgressHUD.show()
-        SocketChatManager.sharedInstance.updateGroup(param: param)
-    }
-    
-    /*@IBAction func btnUpdateTap(_ sender: UIButton) {
-        var param = ["groupId" : groupId, "name" : txtUserName.text!, "groupImage" : isPictureSelect ? (imgProfile.image)?.pngData() : "", "fileName" : imgFileName, "contentType" : mimeType] as [String : Any]
+        let apiParam = [
+            "secretKey": SocketChatManager.sharedInstance.secretKey,
+            "userId": SocketChatManager.sharedInstance.myUserId,
+            "groupId": "",
+            "senderName": "",
+            "type": "image",
+            "image": imgFileName != "" ? imgFileName : "",
+            "isChat": 0,
+        ] as [String : Any]
         
         if isPictureSelect {
             ProgressHUD.show()
             DispatchQueue.main.async {
-                NetworkManager.sharedInstance.uploadMedia(fileName: self.imgFileName, image: ((self.imgProfile.image)?.pngData()!.bytes)!, contentType: self.imgFileName.mimeType()) { url in
-                    print(url)
-                    if url != "" {
-                        let param = ["groupId" : self.groupId, "name" : self.txtUserName.text!, "groupImage" : url, "fileName" : self.imgFileName, "contentType" : self.mimeType] as [String : Any]
-                        self.isPictureSelect = false
-                        
-                        SocketChatManager.sharedInstance.updateGroup(param: param)
-                    }
-                    else {
-                        ProgressHUD.dismiss()
-                    }
+                NetworkManager.sharedInstance.uploadImage(dictiParam: apiParam, image: self.imgProfile.image!, type: "image", contentType: "") { imgUrl in
+                    param["groupImage"] = imgUrl
+                    self.isPictureSelect = false
+                    SocketChatManager.sharedInstance.updateGroup(param: param)
+                } errorCompletion: { errMsg in
+                    ProgressHUD.dismiss()
+                    let toastMsg = ToastUtility.Builder(message: errMsg, controller: self, keyboardActive: false)
+                    toastMsg.setColor(background: .red, text: .black)
+                    toastMsg.show()
                 }
             }
         } else {
             isPictureSelect = false
-            
             ProgressHUD.show()
             SocketChatManager.sharedInstance.updateGroup(param: param)
-        }
-    }
-    /// */
-    
-    func profileUpdateRes(_ isUpdate : Bool) {
-        if isUpdate {
-            ProgressHUD.dismiss()
-            
-            let alertController = UIAlertController(title: "Profile updated successfully.", message: "", preferredStyle: .alert)
-            let OKAction = UIAlertAction(title: "OK", style: .default) { action in
-                //Update profile.
-                //self.navigationController?.popViewController(animated: true)
-            }
-            alertController.addAction(OKAction)
-            self.present(alertController, animated: true, completion: nil)
-        }
-    }
-    
-    func addMemberRes(userList : GetUserList) {
-        recentChatUser = userList
-        lblEmail.text = "\((recentChatUser?.users?.count)!) participants"
-        lblParticipants.text = "\((recentChatUser?.users?.count)!) participants"
-        self.tblParticipants.reloadData()
-        
-        DispatchQueue.main.async {
-            self.constraintHeighttblParticipants.constant = self.tblParticipants.contentSize.height
-            self.updateViewConstraints()
         }
     }
     

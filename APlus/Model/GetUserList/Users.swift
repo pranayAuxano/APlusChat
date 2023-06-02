@@ -7,8 +7,7 @@
 
 import Foundation
 
-struct Users: Codable {
-    
+/*struct Users: Codable {
     enum CodingKeys: String, CodingKey {
         case serverUserId
         case userId
@@ -34,5 +33,19 @@ struct Users: Codable {
         name = try container.decodeIfPresent(String.self, forKey: .name)
         mobileEmail = try container.decodeIfPresent(String.self, forKey: .mobileEmail)
     }   //  */
-    
+}   //  */
+
+// MARK: - User
+struct User: Codable {
+    var name: String?
+    var profilePicture: String?
+    var mobileEmail: String?
+    var userId: String?
+
+    enum CodingKeys: String, CodingKey {
+        case name
+        case profilePicture
+        case mobileEmail = "mobile_email"
+        case userId
+    }
 }

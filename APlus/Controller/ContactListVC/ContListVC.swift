@@ -20,8 +20,6 @@ public class ContListVC: UIViewController {
     
     var contactList : ContactList?
     
-    //var myUserId : String = ""
-    //var secretKey : String = ""
     var arrAllContactList : [List]?
     var arrContactList : [List]?
     var arrSelectedContact : [List]? = []
@@ -29,7 +27,7 @@ public class ContListVC: UIViewController {
     var arrSelectedUser : [[String: Any]] = []
     var arrReadCount : [[String: Any]] = []//["unreadCount":0, "userId":""]
     var arrUserIds : [String] = []
-    var arrRecentChatUserList : [GetUserList]? = []
+    var arrRecentChatGroupList : [GetGroupList]? = []
     var bundle = Bundle()
     
     public init() {
@@ -122,17 +120,17 @@ extension ContListVC : UITableViewDelegate, UITableViewDataSource {
     
     func createOneToOneChat(selectUserId : String) {
         var isPrevious : Bool = false
-        for i in 0 ..< (arrRecentChatUserList?.count ?? 0) {
-            if !(arrRecentChatUserList?[i].isGroup ?? false) {
-                for (_, info) in (arrRecentChatUserList?[i].users)!.enumerated() {
-                    if info.userId == selectUserId {
-                        let vc = ChatVC()
-                        vc.recentChatUser = arrRecentChatUserList?[i]
-                        self.navigationController?.pushViewController(vc, animated: true)
-                        isPrevious = true
-                        break
-                    }
-                }
+        for i in 0 ..< (arrRecentChatGroupList?.count ?? 0) {
+            if !(arrRecentChatGroupList![i].isGroup ?? false) && (selectUserId == arrRecentChatGroupList![i].opponentUserId) {
+                let vc = ChatVC()
+                vc.isHideUserDetailView = false
+                vc.isGroup = self.arrRecentChatGroupList?[i].isGroup ?? false
+                vc.groupId = self.arrRecentChatGroupList?[i].groupId ?? ""
+                vc.strDisName = self.arrRecentChatGroupList?[i].groupName ?? ""
+                vc.strProfileImg = self.arrRecentChatGroupList?[i].imagePath ?? ""
+                self.navigationController?.pushViewController(vc, animated: true)
+                isPrevious = true
+                break
             }
             if isPrevious {
                 break
@@ -158,33 +156,34 @@ extension ContListVC : UITableViewDelegate, UITableViewDataSource {
             let param = [
                 "secretKey": SocketChatManager.sharedInstance.secretKey,
                 "isGroup": false,
-                "createdBy": SocketChatManager.sharedInstance.myUserId,
-                "groupId": "",
+                "userId": SocketChatManager.sharedInstance.myUserId,
                 "groupImage": "",
                 "members": arrUserIds,
-                "isDeactivateUser": false,
-                "modifiedBy": "",
-                "name": "",
-                "online": [],
-                "pinnedGroup": [],
-                "readCount": arrReadCount,
-                "typing": [],
-                "blockUsers": [],
-                "viewBy": arrUserIds,
-                "recentMessage": [],
-                "users": arrSelectedUser] as [String : Any]
+                //"groupPermission": [],
+                "name": ""
+                ] as [String : Any]
             
-            SocketChatManager.sharedInstance.createGroup(param: ["groupDetails": param], from: false)
-        }
-    }
-    
-    func responseBack(_ isUpdate : Bool) {
-        if isUpdate {
-            self.navigationController?.popViewController(animated: true)
+            NetworkManager.sharedInstance.createGroup(param: param) { str in
+                print("API call response. --> \(str)")
+                DispatchQueue.main.async {
+                    self.navigationController?.popViewController(animated: true)
+                    let vc = ChatVC()
+                    vc.isHideUserDetailView = false
+                    vc.isGroup = false
+                    vc.groupId = str
+                    vc.strDisName = self.arrSelectedContact![0].name ?? ""
+                    vc.strProfileImg = self.arrSelectedContact![0].profilePicture ?? ""
+                    self.navigationController?.pushViewController(vc, animated: true)
+                }
+            } errorCompletion: { errMsg in
+                ProgressHUD.dismiss()
+                let toastMsg = ToastUtility.Builder(message: errMsg, controller: self, keyboardActive: false)
+                toastMsg.setColor(background: .red, text: .black)
+                toastMsg.show()
+            }
         }
     }
 }
-
 
 extension ContListVC : UISearchBarDelegate {
     public func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {

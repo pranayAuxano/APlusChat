@@ -13,8 +13,6 @@ class NetworkManager: NSObject {
     static let sharedInstance = NetworkManager()
     private override init() {}
     
-    //rewuest-body: {"id":"6271005aa0b24b24eb781674","secretKey":"U2FsdGVkX18AsTXTniJJwZ9KaiRWQki0Gike3TN+QyXws0hyLIdcRN4abTk84a7r"}
-    
     let monitor = NWPathMonitor()
     private var status: NWPath.Status = .requiresConnection
     var isReachable: Bool { status == .satisfied }
@@ -62,13 +60,13 @@ class NetworkManager: NSObject {
     }
     
     func download(url : URL, fileLocation : URL, obj : ChatVC, completion : @escaping (_ result : String) -> Void) {
-        
         let downloadTask = URLSession.shared.dataTask(with: url) { data, response, error in
             //let saveFile = documentUrl.appendingPathComponent(fileLocation)
             //try FileManager.default.moveItem(at: fileUrl, to: savedFile)
             //data?.write(to: saveFile, options: .noFileProtection)
             do {
-                try data?.write(to: fileLocation)
+                //try data?.write(to: fileLocation)
+                try data?.write(to: fileLocation, options: Data.WritingOptions.atomic)
                 DispatchQueue.main.async {
                     let alertController = UIAlertController(title: "File Download", message: "File downloaded successfully.", preferredStyle: .alert)
                     let OKAction = UIAlertAction(title: "OK", style: .default) { action in
@@ -84,13 +82,7 @@ class NetworkManager: NSObject {
         downloadTask.resume()
     }
     
-    /*func uploadImage(fileName : String, image: [UInt8], contentType: String, completion: @escaping ((String) -> Void)) {
-        self.uploadMedia(url: "http://3.139.188.226:5000/user/public/upload-file", fileName: fileName, image: image, contentType: contentType) { url in
-            completion(url)
-        }
-    }       /// */
-    
-    func uploadMedia(url: String = "http://3.139.188.226:5000/user/public/upload-file", fileName: String,image file: [UInt8], contentType: String, COMPLETION completion: @escaping ((String) -> Void)) {
+    /*func uploadMedia(url: String = "http://3.139.188.226:5000/user/public/upload-file", fileName: String,image file: [UInt8], contentType: String, COMPLETION completion: @escaping ((String) -> Void)) {
         //let data = file.pngData()!.bytes
         let params = ["file": file, "fileName": fileName, "contentType" : contentType] as Dictionary<String, Any>
 
@@ -118,6 +110,133 @@ class NetworkManager: NSObject {
         task.resume()
     }   //  */
     
+    func uploadImage(url: String = "http://3.139.188.226:5000/user/public/upload-file-new",
+                     dictiParam: [String: Any],
+                     image: Any,
+                     type: String,
+                     contentType: String,
+                     COMPLETION completion: @escaping ((String) -> Void),
+                     errorCompletion: @escaping ((String) -> Void)) {
+        let boundary = UUID().uuidString
+        let session = URLSession.shared
+        var urlRequest = URLRequest(url: URL(string: url)!)
+        urlRequest.httpMethod = "POST"
+        urlRequest.setValue("multipart/form-data; boundary=\(boundary)", forHTTPHeaderField: "Content-Type")
+        
+        var data = Data()
+        for (key, value) in dictiParam {
+            
+            if key == "image" {
+                if type == "image" {
+                    let img: UIImage = image as! UIImage
+                    data.append("\r\n--\(boundary)\r\n".data(using: .utf8)!)
+                    data.append("Content-Disposition: form-data; name=\"\("selectFile")\"; filename=\"\(value as! String)\"\r\n".data(using: .utf8)!)
+                    data.append("Content-Type: image/png\r\n\r\n".data(using: .utf8)!)
+                    data.append(img.pngData()!)
+                } else if type == "video" {
+                    let video = image as! Data
+                    data.append("\r\n--\(boundary)\r\n".data(using: .utf8)!)
+                    data.append("Content-Disposition: form-data; name=\"\("selectFile")\"; filename=\"\(value as! String)\"\r\n".data(using: .utf8)!)
+                    data.append("Content-Type: \(contentType)\r\n\r\n".data(using: .utf8)!)
+                    //data.append(img.pngData()!)
+                    data.append(video)
+                } else if type == "document" {
+                    let url = image as! URL
+                    do {
+                        let myData = try Data(contentsOf: url)
+                        data.append("\r\n--\(boundary)\r\n".data(using: .utf8)!)
+                        data.append("Content-Disposition: form-data; name=\"\("selectFile")\"; filename=\"\(value as! String)\"\r\n".data(using: .utf8)!)
+                        data.append("Content-Type: \(contentType)\r\n\r\n".data(using: .utf8)!)
+                        data.append(myData)
+                    } catch let err {
+                        print(err)
+                        return
+                    }
+                } else if type == "audio" {
+                    
+                }
+            } else {
+                data.append("\r\n--\(boundary)\r\n".data(using: .utf8)!)
+                data.append("Content-Disposition: form-data; name=\"\(key)\"\r\n\r\n".data(using: .utf8)!)
+                data.append("\(value)".data(using: .utf8)!)
+            }
+        }
+        data.append("\r\n--\(boundary)--\r\n".data(using: .utf8)!)
+        
+        print(data)
+        
+        session.uploadTask(with: urlRequest, from: data, completionHandler: { responseData, response, error in
+            if error == nil {
+                DispatchQueue.main.async {
+                    if (error != nil) {
+                        return
+                    }
+                    do {
+                        let dictData = try JSONSerialization.jsonObject(with: responseData!, options: .allowFragments) as? NSDictionary
+                        let status = dictData!["success"] as! Int
+                        if status == 1 {
+                            print(dictData)
+                            completion(dictData!["file"] as! String)
+                        } else {
+                            let errors = dictData!["errors"] as? [[String: Any]]
+                            errorCompletion(errors![0]["msg"] as! String)
+                        }
+                    } catch {
+                        errorCompletion(error.localizedDescription)
+                    }
+                }
+            } else {
+                errorCompletion(error!.localizedDescription)
+            }
+        }).resume()
+    }
+    
+    func createGroup(url: String = "http://3.139.188.226:5000/user/public/create-group", param: [String : Any], COMPLETION completion: @escaping ((String) -> Void), errorCompletion: @escaping ((String) -> Void)) {
+        //let data = file.pngData()!.bytes
+        //let params = ["file": file, "fileName": fileName, "contentType" : contentType] as Dictionary<String, Any>
+        
+        let url1 = URL(string: url)
+        let config = URLSessionConfiguration.default // Session Configuration
+        let session = URLSession(configuration: config) // Load configuration into Session
+
+        var request = URLRequest(url: URL(string: url)!)
+        request.httpMethod = "POST"
+        
+        request.timeoutInterval = 60
+        request.addValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
+
+        request.cachePolicy = .reloadIgnoringCacheData
+        
+        if param != nil {
+            let theJSONData = try? JSONSerialization.data(withJSONObject: param, options: JSONSerialization.WritingOptions.init(rawValue: 0))
+            let JsonString = String.init(data: theJSONData!, encoding: String.Encoding(rawValue: String.Encoding.utf8.rawValue))
+            
+            print("json : \(JsonString!)")
+            request.httpBody = JsonString!.data(using: String.Encoding(rawValue: String.Encoding.utf8.rawValue), allowLossyConversion:true)
+        }
+        
+        print(URLRequest(url: url1!))
+        let task = session.dataTask(with: request, completionHandler:{
+            (data, response, error) in
+            if error == nil {
+                guard let data = data else { return }
+                do {
+                    let jsonDecoder = JSONDecoder()
+                    let jsonResponse = try JSONSerialization.jsonObject(with: data, options: [])
+                    print(jsonResponse)
+                    let dataReceived: CreateGroupRes = try jsonDecoder.decode(CreateGroupRes.self, from: data)
+                    completion(dataReceived.groupId ?? "")
+                } catch let jsonErr {
+                    print(jsonErr)
+                    completion("Error")
+                }
+            } else {
+                completion("Error")
+            }
+        })
+        task.resume()
+    }
+    
     func convertImageToBase64String (img: UIImage) -> String {
         return img.jpegData(compressionQuality: 1)?.base64EncodedString() ?? ""
     }
@@ -128,6 +247,3 @@ class NetworkManager: NSObject {
         return image!
     }
 }
-
-
-

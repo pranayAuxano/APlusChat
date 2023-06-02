@@ -8,23 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		11623139309EA74E1639CC91 /* Pods_APlus_APlusTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 695D4D1A7D57C747F2A2EB14 /* Pods_APlus_APlusTests.framework */; };
-		125237DC298D124E0063E538 /* GroupPermission.swift in Sources */ = {isa = PBXBuildFile; fileRef = 125237DB298D124E0063E538 /* GroupPermission.swift */; };
-		125237DE298D13E40063E538 /* Permission.swift in Sources */ = {isa = PBXBuildFile; fileRef = 125237DD298D13E40063E538 /* Permission.swift */; };
 		12632336296D4896001AD625 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12632331296D4896001AD625 /* NetworkManager.swift */; };
 		12632337296D4896001AD625 /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12632332296D4896001AD625 /* Reachability.swift */; };
 		12632339296D4896001AD625 /* SocketChatManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12632334296D4896001AD625 /* SocketChatManager.swift */; };
 		1263233A296D4896001AD625 /* MimeTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12632335296D4896001AD625 /* MimeTypes.swift */; };
-		1263233E296D49FE001AD625 /* TimeMilliSeconds.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1263233B296D49FE001AD625 /* TimeMilliSeconds.swift */; };
-		1263233F296D49FE001AD625 /* ChatModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1263233C296D49FE001AD625 /* ChatModel.swift */; };
-		12632340296D49FE001AD625 /* SentAt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1263233D296D49FE001AD625 /* SentAt.swift */; };
-		12632342296D4A5A001AD625 /* GetPreviousChat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12632341296D4A5A001AD625 /* GetPreviousChat.swift */; };
-		12632358296D4E78001AD625 /* LastUpdatedAt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12632351296D4E78001AD625 /* LastUpdatedAt.swift */; };
-		12632359296D4E78001AD625 /* ReadCount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12632352296D4E78001AD625 /* ReadCount.swift */; };
-		1263235A296D4E78001AD625 /* GetUserList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12632353296D4E78001AD625 /* GetUserList.swift */; };
-		1263235B296D4E78001AD625 /* CreateAt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12632354296D4E78001AD625 /* CreateAt.swift */; };
-		1263235C296D4E78001AD625 /* RecentMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12632355296D4E78001AD625 /* RecentMessage.swift */; };
-		1263235D296D4E78001AD625 /* Users.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12632356296D4E78001AD625 /* Users.swift */; };
-		1263235E296D4E78001AD625 /* ModifiedAt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12632357296D4E78001AD625 /* ModifiedAt.swift */; };
 		12632361296D4EB6001AD625 /* ContactList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1263235F296D4EB6001AD625 /* ContactList.swift */; };
 		12632362296D4EB6001AD625 /* List.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12632360296D4EB6001AD625 /* List.swift */; };
 		12632372296D4F15001AD625 /* Validations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12632363296D4F15001AD625 /* Validations.swift */; };
@@ -110,6 +97,9 @@
 		12B8FADA2976D10A001680DB /* default.png in Resources */ = {isa = PBXBuildFile; fileRef = 12B8FABE2976D10A001680DB /* default.png */; };
 		12B8FADE2976D10A001680DB /* group-placeholder.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 12B8FAC32976D10A001680DB /* group-placeholder.jpg */; };
 		F49E3526B040BC54DC909468 /* Pods_APlus.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DAF7C86D16045ADCC91A415 /* Pods_APlus.framework */; };
+		FA0EC56C2A29DC6100DB5BFE /* ChatModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA0EC5692A29DC6100DB5BFE /* ChatModel.swift */; };
+		FA0EC56D2A29DC6100DB5BFE /* SentAt.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA0EC56A2A29DC6100DB5BFE /* SentAt.swift */; };
+		FA0EC56E2A29DC6100DB5BFE /* TimeMilliSeconds.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA0EC56B2A29DC6100DB5BFE /* TimeMilliSeconds.swift */; };
 		FA35EC40299A1CF700B75EF4 /* video@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = FA35EC2D299A1CF600B75EF4 /* video@1x.png */; };
 		FA35EC41299A1CF700B75EF4 /* video.png in Resources */ = {isa = PBXBuildFile; fileRef = FA35EC2E299A1CF600B75EF4 /* video.png */; };
 		FA35EC42299A1CF700B75EF4 /* video@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FA35EC2F299A1CF600B75EF4 /* video@2x.png */; };
@@ -133,6 +123,17 @@
 		FA9817E429BA19F8007C59AB /* OwnReplyTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA9817E229BA19F8007C59AB /* OwnReplyTVCell.swift */; };
 		FA9817E729BA1A0F007C59AB /* OtherReplyTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA9817E529BA1A0F007C59AB /* OtherReplyTVCell.swift */; };
 		FA9817E829BA1A0F007C59AB /* OtherReplyTVCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA9817E629BA1A0F007C59AB /* OtherReplyTVCell.xib */; };
+		FAC2DB4A2A271AB2008CAD4E /* GetGroupList.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC2DB402A271AB1008CAD4E /* GetGroupList.swift */; };
+		FAC2DB4B2A271AB2008CAD4E /* GroupDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC2DB412A271AB1008CAD4E /* GroupDetail.swift */; };
+		FAC2DB4C2A271AB2008CAD4E /* Users.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC2DB422A271AB1008CAD4E /* Users.swift */; };
+		FAC2DB4D2A271AB2008CAD4E /* GroupPermission.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC2DB432A271AB1008CAD4E /* GroupPermission.swift */; };
+		FAC2DB4E2A271AB2008CAD4E /* RecentMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC2DB442A271AB1008CAD4E /* RecentMessage.swift */; };
+		FAC2DB4F2A271AB2008CAD4E /* LastUpdatedAt.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC2DB452A271AB2008CAD4E /* LastUpdatedAt.swift */; };
+		FAC2DB502A271AB2008CAD4E /* ReadCount.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC2DB462A271AB2008CAD4E /* ReadCount.swift */; };
+		FAC2DB512A271AB2008CAD4E /* Permission.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC2DB472A271AB2008CAD4E /* Permission.swift */; };
+		FAC2DB522A271AB2008CAD4E /* ModifiedAt.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC2DB482A271AB2008CAD4E /* ModifiedAt.swift */; };
+		FAC2DB532A271AB2008CAD4E /* CreateAt.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC2DB492A271AB2008CAD4E /* CreateAt.swift */; };
+		FAC2DB552A271AD5008CAD4E /* GetPreviousChat.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC2DB542A271AD5008CAD4E /* GetPreviousChat.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -146,23 +147,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		125237DB298D124E0063E538 /* GroupPermission.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupPermission.swift; sourceTree = "<group>"; };
-		125237DD298D13E40063E538 /* Permission.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Permission.swift; sourceTree = "<group>"; };
 		12632331296D4896001AD625 /* NetworkManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		12632332296D4896001AD625 /* Reachability.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reachability.swift; sourceTree = "<group>"; };
 		12632334296D4896001AD625 /* SocketChatManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SocketChatManager.swift; sourceTree = "<group>"; };
 		12632335296D4896001AD625 /* MimeTypes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MimeTypes.swift; sourceTree = "<group>"; };
-		1263233B296D49FE001AD625 /* TimeMilliSeconds.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimeMilliSeconds.swift; sourceTree = "<group>"; };
-		1263233C296D49FE001AD625 /* ChatModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatModel.swift; sourceTree = "<group>"; };
-		1263233D296D49FE001AD625 /* SentAt.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SentAt.swift; sourceTree = "<group>"; };
-		12632341296D4A5A001AD625 /* GetPreviousChat.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetPreviousChat.swift; sourceTree = "<group>"; };
-		12632351296D4E78001AD625 /* LastUpdatedAt.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LastUpdatedAt.swift; sourceTree = "<group>"; };
-		12632352296D4E78001AD625 /* ReadCount.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReadCount.swift; sourceTree = "<group>"; };
-		12632353296D4E78001AD625 /* GetUserList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetUserList.swift; sourceTree = "<group>"; };
-		12632354296D4E78001AD625 /* CreateAt.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateAt.swift; sourceTree = "<group>"; };
-		12632355296D4E78001AD625 /* RecentMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecentMessage.swift; sourceTree = "<group>"; };
-		12632356296D4E78001AD625 /* Users.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Users.swift; sourceTree = "<group>"; };
-		12632357296D4E78001AD625 /* ModifiedAt.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModifiedAt.swift; sourceTree = "<group>"; };
 		1263235F296D4EB6001AD625 /* ContactList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactList.swift; sourceTree = "<group>"; };
 		12632360296D4EB6001AD625 /* List.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = List.swift; sourceTree = "<group>"; };
 		12632363296D4F15001AD625 /* Validations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Validations.swift; sourceTree = "<group>"; };
@@ -252,6 +240,9 @@
 		695D4D1A7D57C747F2A2EB14 /* Pods_APlus_APlusTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_APlus_APlusTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8E6D2E1012389AD7798BCE22 /* Pods-APlus.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-APlus.debug.xcconfig"; path = "Target Support Files/Pods-APlus/Pods-APlus.debug.xcconfig"; sourceTree = "<group>"; };
 		970BC37A962F29679241F16E /* Pods-APlus-APlusTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-APlus-APlusTests.debug.xcconfig"; path = "Target Support Files/Pods-APlus-APlusTests/Pods-APlus-APlusTests.debug.xcconfig"; sourceTree = "<group>"; };
+		FA0EC5692A29DC6100DB5BFE /* ChatModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatModel.swift; sourceTree = "<group>"; };
+		FA0EC56A2A29DC6100DB5BFE /* SentAt.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SentAt.swift; sourceTree = "<group>"; };
+		FA0EC56B2A29DC6100DB5BFE /* TimeMilliSeconds.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimeMilliSeconds.swift; sourceTree = "<group>"; };
 		FA35EC2D299A1CF600B75EF4 /* video@1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "video@1x.png"; sourceTree = "<group>"; };
 		FA35EC2E299A1CF600B75EF4 /* video.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = video.png; sourceTree = "<group>"; };
 		FA35EC2F299A1CF600B75EF4 /* video@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "video@2x.png"; sourceTree = "<group>"; };
@@ -275,6 +266,17 @@
 		FA9817E229BA19F8007C59AB /* OwnReplyTVCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OwnReplyTVCell.swift; sourceTree = "<group>"; };
 		FA9817E529BA1A0F007C59AB /* OtherReplyTVCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OtherReplyTVCell.swift; sourceTree = "<group>"; };
 		FA9817E629BA1A0F007C59AB /* OtherReplyTVCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OtherReplyTVCell.xib; sourceTree = "<group>"; };
+		FAC2DB402A271AB1008CAD4E /* GetGroupList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetGroupList.swift; sourceTree = "<group>"; };
+		FAC2DB412A271AB1008CAD4E /* GroupDetail.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupDetail.swift; sourceTree = "<group>"; };
+		FAC2DB422A271AB1008CAD4E /* Users.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Users.swift; sourceTree = "<group>"; };
+		FAC2DB432A271AB1008CAD4E /* GroupPermission.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupPermission.swift; sourceTree = "<group>"; };
+		FAC2DB442A271AB1008CAD4E /* RecentMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecentMessage.swift; sourceTree = "<group>"; };
+		FAC2DB452A271AB2008CAD4E /* LastUpdatedAt.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LastUpdatedAt.swift; sourceTree = "<group>"; };
+		FAC2DB462A271AB2008CAD4E /* ReadCount.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReadCount.swift; sourceTree = "<group>"; };
+		FAC2DB472A271AB2008CAD4E /* Permission.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Permission.swift; sourceTree = "<group>"; };
+		FAC2DB482A271AB2008CAD4E /* ModifiedAt.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModifiedAt.swift; sourceTree = "<group>"; };
+		FAC2DB492A271AB2008CAD4E /* CreateAt.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateAt.swift; sourceTree = "<group>"; };
+		FAC2DB542A271AD5008CAD4E /* GetPreviousChat.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetPreviousChat.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -469,9 +471,9 @@
 				129197B228F6FAAA000AD9D4 /* GetUserList */,
 				129197AA28F6FAAA000AD9D4 /* GetPreviousChat */,
 				129197AD28F6FAAA000AD9D4 /* ContactList */,
-				1263233D296D49FE001AD625 /* SentAt.swift */,
-				1263233B296D49FE001AD625 /* TimeMilliSeconds.swift */,
-				1263233C296D49FE001AD625 /* ChatModel.swift */,
+				FA0EC5692A29DC6100DB5BFE /* ChatModel.swift */,
+				FA0EC56A2A29DC6100DB5BFE /* SentAt.swift */,
+				FA0EC56B2A29DC6100DB5BFE /* TimeMilliSeconds.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -479,7 +481,7 @@
 		129197AA28F6FAAA000AD9D4 /* GetPreviousChat */ = {
 			isa = PBXGroup;
 			children = (
-				12632341296D4A5A001AD625 /* GetPreviousChat.swift */,
+				FAC2DB542A271AD5008CAD4E /* GetPreviousChat.swift */,
 			);
 			path = GetPreviousChat;
 			sourceTree = "<group>";
@@ -496,15 +498,16 @@
 		129197B228F6FAAA000AD9D4 /* GetUserList */ = {
 			isa = PBXGroup;
 			children = (
-				12632354296D4E78001AD625 /* CreateAt.swift */,
-				12632353296D4E78001AD625 /* GetUserList.swift */,
-				12632351296D4E78001AD625 /* LastUpdatedAt.swift */,
-				12632357296D4E78001AD625 /* ModifiedAt.swift */,
-				12632352296D4E78001AD625 /* ReadCount.swift */,
-				12632355296D4E78001AD625 /* RecentMessage.swift */,
-				12632356296D4E78001AD625 /* Users.swift */,
-				125237DB298D124E0063E538 /* GroupPermission.swift */,
-				125237DD298D13E40063E538 /* Permission.swift */,
+				FAC2DB492A271AB2008CAD4E /* CreateAt.swift */,
+				FAC2DB402A271AB1008CAD4E /* GetGroupList.swift */,
+				FAC2DB412A271AB1008CAD4E /* GroupDetail.swift */,
+				FAC2DB432A271AB1008CAD4E /* GroupPermission.swift */,
+				FAC2DB452A271AB2008CAD4E /* LastUpdatedAt.swift */,
+				FAC2DB482A271AB2008CAD4E /* ModifiedAt.swift */,
+				FAC2DB472A271AB2008CAD4E /* Permission.swift */,
+				FAC2DB462A271AB2008CAD4E /* ReadCount.swift */,
+				FAC2DB442A271AB1008CAD4E /* RecentMessage.swift */,
+				FAC2DB422A271AB1008CAD4E /* Users.swift */,
 			);
 			path = GetUserList;
 			sourceTree = "<group>";
@@ -1088,55 +1091,56 @@
 				1291983128F6FAAC000AD9D4 /* ExtensionProfileDetailVC.swift in Sources */,
 				129197F228F6FAAC000AD9D4 /* ChatVC.swift in Sources */,
 				129197FC28F6FAAC000AD9D4 /* ImgViewerVC.swift in Sources */,
-				1263235C296D4E78001AD625 /* RecentMessage.swift in Sources */,
 				1291981928F6FAAC000AD9D4 /* OtherImgChatBubbleCell.swift in Sources */,
 				12632372296D4F15001AD625 /* Validations.swift in Sources */,
 				129196FC28F6F971000AD9D4 /* APlus.docc in Sources */,
-				12632358296D4E78001AD625 /* LastUpdatedAt.swift in Sources */,
+				FAC2DB4D2A271AB2008CAD4E /* GroupPermission.swift in Sources */,
+				FAC2DB4C2A271AB2008CAD4E /* Users.swift in Sources */,
+				FAC2DB4F2A271AB2008CAD4E /* LastUpdatedAt.swift in Sources */,
+				FAC2DB502A271AB2008CAD4E /* ReadCount.swift in Sources */,
 				1291982028F6FAAC000AD9D4 /* ContactTVCell.swift in Sources */,
-				1263235E296D4E78001AD625 /* ModifiedAt.swift in Sources */,
+				FA0EC56D2A29DC6100DB5BFE /* SentAt.swift in Sources */,
+				FA0EC56C2A29DC6100DB5BFE /* ChatModel.swift in Sources */,
 				1263233A296D4896001AD625 /* MimeTypes.swift in Sources */,
 				1291980128F6FAAC000AD9D4 /* FirstVC.swift in Sources */,
-				1263233E296D49FE001AD625 /* TimeMilliSeconds.swift in Sources */,
-				1263233F296D49FE001AD625 /* ChatModel.swift in Sources */,
-				125237DC298D124E0063E538 /* GroupPermission.swift in Sources */,
 				1291982228F6FAAC000AD9D4 /* ParticipantsTVCell.swift in Sources */,
 				1291982F28F6FAAC000AD9D4 /* ExtensionUserChatVC.swift in Sources */,
 				FA9817E429BA19F8007C59AB /* OwnReplyTVCell.swift in Sources */,
 				1291983328F6FAAC000AD9D4 /* Cancellable.swift in Sources */,
+				FAC2DB552A271AD5008CAD4E /* GetPreviousChat.swift in Sources */,
 				1263237F296D4F15001AD625 /* Enum.swift in Sources */,
 				1291981128F6FAAC000AD9D4 /* OwnImgChatBubbleCell.swift in Sources */,
 				129197F928F6FAAC000AD9D4 /* CreateGrpVC.swift in Sources */,
 				1291982C28F6FAAC000AD9D4 /* ExtensionContectInfoVC.swift in Sources */,
+				FAC2DB4E2A271AB2008CAD4E /* RecentMessage.swift in Sources */,
 				12632339296D4896001AD625 /* SocketChatManager.swift in Sources */,
 				12632362296D4EB6001AD625 /* List.swift in Sources */,
 				129197F828F6FAAC000AD9D4 /* ProfDetailVC.swift in Sources */,
 				FA9817E729BA1A0F007C59AB /* OtherReplyTVCell.swift in Sources */,
+				FAC2DB532A271AB2008CAD4E /* CreateAt.swift in Sources */,
 				129197F628F6FAAC000AD9D4 /* GroupContVC.swift in Sources */,
+				FAC2DB4B2A271AB2008CAD4E /* GroupDetail.swift in Sources */,
+				FAC2DB522A271AB2008CAD4E /* ModifiedAt.swift in Sources */,
 				1291981428F6FAAC000AD9D4 /* OwnAudioBubbleCell.swift in Sources */,
-				12632342296D4A5A001AD625 /* GetPreviousChat.swift in Sources */,
+				FAC2DB512A271AB2008CAD4E /* Permission.swift in Sources */,
 				12632336296D4896001AD625 /* NetworkManager.swift in Sources */,
 				1291982D28F6FAAC000AD9D4 /* ExtensionGroupContactVC.swift in Sources */,
 				1291981C28F6FAAC000AD9D4 /* OtherAudioBubbleCell.swift in Sources */,
-				1263235B296D4E78001AD625 /* CreateAt.swift in Sources */,
-				125237DE298D13E40063E538 /* Permission.swift in Sources */,
 				1291982728F6FAAC000AD9D4 /* GrpContactTVCell.swift in Sources */,
+				FAC2DB4A2A271AB2008CAD4E /* GetGroupList.swift in Sources */,
 				1291980028F6FAAC000AD9D4 /* ContListVC.swift in Sources */,
 				1291981728F6FAAC000AD9D4 /* OwnFileBubbleCell.swift in Sources */,
 				1291981A28F6FAAC000AD9D4 /* OtherChatBubbleCell.swift in Sources */,
 				129197F328F6FAAC000AD9D4 /* AudioPlayVC.swift in Sources */,
 				12632361296D4EB6001AD625 /* ContactList.swift in Sources */,
-				12632359296D4E78001AD625 /* ReadCount.swift in Sources */,
 				129197FE28F6FAAC000AD9D4 /* ContactInfoVC.swift in Sources */,
-				1263235A296D4E78001AD625 /* GetUserList.swift in Sources */,
-				1263235D296D4E78001AD625 /* Users.swift in Sources */,
 				1291982828F6FAAC000AD9D4 /* ToastUtility.swift in Sources */,
 				1291982528F6FAAC000AD9D4 /* UserDetailTVCell.swift in Sources */,
 				12632337296D4896001AD625 /* Reachability.swift in Sources */,
 				12632374296D4F15001AD625 /* Extension.swift in Sources */,
+				FA0EC56E2A29DC6100DB5BFE /* TimeMilliSeconds.swift in Sources */,
 				12632373296D4F15001AD625 /* Utility.swift in Sources */,
 				1291981328F6FAAC000AD9D4 /* OwnChatBubbleCell.swift in Sources */,
-				12632340296D49FE001AD625 /* SentAt.swift in Sources */,
 				1291981F28F6FAAC000AD9D4 /* OtherFileBubbleCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -10,7 +10,7 @@ import UIKit
 
 extension ContactInfoVC : UITableViewDelegate, UITableViewDataSource {
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return (recentChatUser?.users?.count)!
+        return self.groupDetail?.users?.count ?? 0
     }
     
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -20,41 +20,34 @@ extension ContactInfoVC : UITableViewDelegate, UITableViewDataSource {
             return self
         }
         cell.btnRemove.tag = indexPath.row
-        cell.strUserId = recentChatUser?.users?[indexPath.row].userId ?? ""
+        cell.strUserId = self.groupDetail?.users?[indexPath.row].userId ?? ""
         cell.lblAdmin.isHidden = true
         cell.btnRemove.isHidden = true
         
-        if (recentChatUser?.users?[indexPath.row].userId)! == SocketChatManager.sharedInstance.myUserId {
-            cell.lblUserName.text = "\((recentChatUser?.users?[indexPath.row].name)!) (You)"
+        if (self.groupDetail?.users?[indexPath.row].userId)! == SocketChatManager.sharedInstance.myUserId {
+            cell.lblUserName.text = "\((self.groupDetail?.users?[indexPath.row].name)!) (You)"
         } else {
-            cell.lblUserName.text = (recentChatUser?.users?[indexPath.row].name)!
+            cell.lblUserName.text = (self.groupDetail?.users?[indexPath.row].name)!
         }
         
-        /*///
-        if isAdmin {
-            if (recentChatUser?.users?[indexPath.row].userId)! == SocketChatManager.sharedInstance.myUserId {
-                cell.lblAdmin.isHidden = false
-                cell.btnRemove.isHidden = true
-            } else {
-                cell.lblAdmin.isHidden = true
-                cell.btnRemove.isHidden = false
-            }
-        }
-        /// */
         cell.lblAdmin.isHidden = true
         cell.btnRemove.isHidden = true
         if isAdmin {
-            if (recentChatUser?.users?[indexPath.row].userId)! == SocketChatManager.sharedInstance.myUserId {
+            if (self.groupDetail?.users?[indexPath.row].userId)! == SocketChatManager.sharedInstance.myUserId {
+                cell.lblAdmin.isHidden = false
+            }
+        } else {
+            if (self.groupDetail?.users?[indexPath.row].userId)! == self.groupDetail?.createdBy ?? "" {
                 cell.lblAdmin.isHidden = false
             }
         }
+        
         if isRemoveMember {
-            if (recentChatUser?.users?[indexPath.row].userId)! != SocketChatManager.sharedInstance.myUserId {
+            if (self.groupDetail?.users?[indexPath.row].userId)! != SocketChatManager.sharedInstance.myUserId {
                 cell.btnRemove.isHidden = false
             }
         }
-        cell.configure(recentChatUser?.users?[indexPath.row].profilePicture ?? "")
-        
+        cell.configure(self.groupDetail?.users?[indexPath.row].profilePicture ?? "")
         return cell
     }
     
@@ -66,25 +59,25 @@ extension ContactInfoVC : UITableViewDelegate, UITableViewDataSource {
     func removeUserTap(_ id: String) {
         arrSelectedUser.removeAll()
         strRemovedUserId = id
-        for i in 0 ..< (recentChatUser?.users!.count)! {
-            if recentChatUser?.users![i].userId ?? "" != id {
-                arrUserIds.append((recentChatUser?.users![i].userId)!)
-                let contectDetail = ["userId" : recentChatUser?.users![i].userId ?? "",
-                                     "serverUserId" : recentChatUser?.users![i].serverUserId ?? "",
-                                     "profilePicture" : recentChatUser?.users![i].profilePicture ?? "",
-                                     "name" : recentChatUser?.users![i].name ?? "",
-                                     "mobile_email" : recentChatUser?.users![i].mobileEmail ?? "",
-                                     "groups" : recentChatUser?.users![i].groups ?? []] as [String : Any]
+        for i in 0 ..< (groupDetail?.users!.count)! {
+            if groupDetail?.users![i].userId ?? "" != id {
+                arrUserIds.append((groupDetail?.users![i].userId)!)
+                let contectDetail = ["userId" : self.groupDetail?.users![i].userId ?? "",
+                                     //"serverUserId" : self.groupDetail?.users![i].serverUserId ?? "",
+                                     //"groups" : self.groupDetail?.users![i].groups ?? [],
+                                     "profilePicture" : self.groupDetail?.users![i].profilePicture ?? "",
+                                     "name" : self.groupDetail?.users![i].name ?? "",
+                                     "mobile_email" : self.groupDetail?.users![i].mobileEmail ?? ""] as [String : Any]
                 arrSelectedUser.append(contectDetail)
             }
-        }   //  */
+        }
         
         let param = [
             "secretKey": SocketChatManager.sharedInstance.secretKey,
-          "groupId": recentChatUser?.groupId ?? "",
-          "members": arrUserIds,
-          "viewBy": arrUserIds,
-          "users": arrSelectedUser] as [String : Any]
+            "groupId": groupDetail?.groupId ?? "",
+            "members": arrUserIds,
+            "viewBy": arrUserIds,
+            "users": arrSelectedUser] as [String : Any]
         
         //["groupDetails": param]
         SocketChatManager.sharedInstance.removeMember(param: param)
@@ -92,25 +85,7 @@ extension ContactInfoVC : UITableViewDelegate, UITableViewDataSource {
     
     func removeMemberRes(_ isUpdate : Bool) {
         if isUpdate {
-            print("Member removed.")
-            
-            for i in 0 ..< (recentChatUser?.users!.count)! {
-                if recentChatUser?.users![i].userId ?? "" == strRemovedUserId {
-                    recentChatUser?.users!.remove(at: i)
-                    break
-                }
-            }
-            tblParticipants.reloadData()
-            
-            lblEmail.text = "\((recentChatUser?.users?.count)!) participants"
-            lblParticipants.text = "\((recentChatUser?.users?.count)!) participants"
-            
-            DispatchQueue.main.async {
-                self.constraintHeighttblParticipants.constant = CGFloat((self.recentChatUser?.users?.count)! * 70)
-                self.updateViewConstraints()
-            }
-            
-            userChatVC!().memberRemoveRes(true, updatedRecentChatUser: recentChatUser!)
+            self.groupDetailSocketCall()
         } else {
             let alertController = UIAlertController(title: "Member not removed.", message: "", preferredStyle: .alert)
             let OKAction = UIAlertAction(title: "OK", style: .default) { action in

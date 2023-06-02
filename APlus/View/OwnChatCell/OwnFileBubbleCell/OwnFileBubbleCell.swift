@@ -23,8 +23,8 @@ class OwnFileBubbleCell: UITableViewCell {
         self.viewMsg.layer.cornerRadius = 5
     }
 
-    func configure(_ msgType : String,_ fileName : String) {
-        if fileName.contains("firebasestorage") {
+    func configure(_ msgType : String,_ fileName : String,_ showLoader: Bool) {
+        if !showLoader {
             activityIndicatorView.stopAnimating()
         } else {
             activityIndicatorView.frame = CGRect(x: 60, y: 1, width: 40, height: 40)
@@ -36,8 +36,8 @@ class OwnFileBubbleCell: UITableViewCell {
     
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
         // Configure the view for the selected state
+        
     }
     
 }

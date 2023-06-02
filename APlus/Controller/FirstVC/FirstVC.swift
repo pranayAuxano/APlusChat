@@ -27,16 +27,17 @@ public class FirstVC: UIViewController {
     @IBOutlet weak var viewProfileImg: UIView!
     @IBOutlet weak var constHeightviewTopChatGrp: NSLayoutConstraint!
 
-    var userName : String = "A"
+    var userName : String = "ABC"
     var isNetworkAvailable : Bool = false
     var isGetUserList : Bool = false
-    var arrAllRecentChatUserList : [GetUserList]? = []
-    var arrRecentChatUserList : [GetUserList]? = []
+    var arrAllRecentChatGroupList : [GetGroupList]? = []
+    var arrRecentChatGroupList : [GetGroupList]? = []
     private var imageRequest: Cancellable?
     var profileDetail : ProfileDetail?
     public var hideTopView : Bool = false   //  for hide top bar from chat.
     
     let activityIndicator = UIActivityIndicatorView()
+    var isGetChatResponse: Bool = false
     var bundle = Bundle()
     
     public init() {
@@ -105,6 +106,9 @@ public class FirstVC: UIViewController {
             self.constHeightviewTopChatGrp.constant = 55
         }
         callSocket()
+        
+        tblChatList.reloadData()
+        self.tblChatList.isScrollEnabled = false
     }
     
     public override func viewWillAppear(_ animated: Bool) {
@@ -117,7 +121,9 @@ public class FirstVC: UIViewController {
         
         if (SocketChatManager.sharedInstance.socket?.status == .connected) {
             //isGetUserList = true
-            SocketChatManager.sharedInstance.reqProfileDetails(param: ["userId" : SocketChatManager.sharedInstance.myUserId], from: false)
+            if SocketChatManager.sharedInstance.userRole?.updateProfile ?? 0 == 1 {
+                SocketChatManager.sharedInstance.reqProfileDetails(param: ["userId" : SocketChatManager.sharedInstance.myUserId], from: false)
+            }
             SocketChatManager.sharedInstance.reqRecentChatList(param: ["secretKey" : SocketChatManager.sharedInstance.secretKey, "_id" : SocketChatManager.sharedInstance.myUserId])
             //self.getUserRole()
         }
@@ -162,12 +168,11 @@ public class FirstVC: UIViewController {
         vc.profileImgDelegate = self
         vc.profileDetail = self.profileDetail
         self.navigationController?.pushViewController(vc, animated: true)
-        
     }
     
     @IBAction func btnNewChatTap(_ sender: UIButton) {
         let vc = ContListVC()
-        vc.arrRecentChatUserList = arrAllRecentChatUserList
+        vc.arrRecentChatGroupList = arrAllRecentChatGroupList
         self.navigationController?.pushViewController(vc, animated: true)
     }
     
@@ -177,8 +182,10 @@ public class FirstVC: UIViewController {
     }
     
     func getProfileDetail(_ profileDetail : ProfileDetail) {
-        ProgressHUD.dismiss()
+        //ProgressHUD.dismiss()
         print("Get response of profile details.")
+        
+        self.btnViewUserProfile.isUserInteractionEnabled = true
         self.profileDetail = profileDetail
         
         SocketChatManager.sharedInstance.myUserName = self.profileDetail?.name ?? ""
@@ -235,12 +242,12 @@ public class FirstVC: UIViewController {
             btnNewGroupChat.isHidden = false
             constTrailNewGrpChat.priority = SocketChatManager.sharedInstance.userRole?.createOneToOneChat ?? 0 == 1 ? .defaultLow : .required
         }
-    }
-    
-    func getNewChatMsg(isNew: Bool) {
-        print("New message arrive == \(isNew)")
-        if isNew {
-            SocketChatManager.sharedInstance.reqRecentChatList(param: ["secretKey" : SocketChatManager.sharedInstance.secretKey, "_id" : SocketChatManager.sharedInstance.myUserId])  //  ["secretKey" : SocketChatManager.sharedInstance.secretKey, "_id" : SocketChatManager.sharedInstance.myUserId]
+        
+        if SocketChatManager.sharedInstance.userRole?.createGroup ?? 0 == 1 {
+            SocketChatManager.sharedInstance.reqProfileDetails(param: ["userId" : SocketChatManager.sharedInstance.myUserId], from: false)
+            self.btnViewUserProfile.isUserInteractionEnabled = true
+        } else {
+            self.btnViewUserProfile.isUserInteractionEnabled = false
         }
     }
 }
@@ -248,52 +255,55 @@ public class FirstVC: UIViewController {
 extension FirstVC : UITableViewDelegate, UITableViewDataSource {
     
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.arrRecentChatUserList?.count ?? 0
+        return (self.isGetChatResponse) ? (self.arrRecentChatGroupList?.count ?? 0) : 10
     }
     
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "UserDetailTVCell", for: indexPath) as! UserDetailTVCell
-        
-        cell.viewMainBG.backgroundColor = .white
-        //cell.viewMainBG.layer.shadowColor
-        cell.viewMainBG.dropShadow()
-        
-        var msgType : String = ""
-        if (self.arrRecentChatUserList?[indexPath.row].recentMessage?.type != nil) {
-            msgType = (self.arrRecentChatUserList?[indexPath.row].recentMessage?.type)!
-        }
-        
-        cell.imgProfile.image = UIImage(named: "placeholder-profile-img", in: bundle, compatibleWith: nil)  //UIImage(named: "placeholder-profile-img")
-        if (self.arrRecentChatUserList?[indexPath.row].isGroup)! {
-            cell.imgProfile.image = UIImage(named: "group-placeholder", in: bundle, compatibleWith: nil)  //UIImage(named: "group-placeholder")
-            cell.configure((self.arrRecentChatUserList?[indexPath.row].name)!, self.arrRecentChatUserList?[indexPath.row].groupImage ?? "", msgType, isGroup: true)
-        } else {
-            for (_, item) in ((self.arrRecentChatUserList?[indexPath.row].users)!).enumerated() {
-                if (item.userId)! != SocketChatManager.sharedInstance.myUserId {
-                    cell.configure(item.name ?? "", item.profilePicture ?? "", msgType, isGroup: false)
-                }
+        if self.isGetChatResponse {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "UserDetailTVCell", for: indexPath) as! UserDetailTVCell
+            
+            cell.viewMainBG.stopAnimation()
+            cell.viewProfileImg.isHidden = false
+            cell.viewMsgDetail.isHidden = false
+            
+            cell.viewMainBG.backgroundColor = .white
+            cell.viewMainBG.dropShadow()
+            
+            //cell.viewMainBG.setBgColor(color: SocketChatManager.sharedInstance.themeColor!)
+            //cell.lblLastMsg.setTextColor(color: SocketChatManager.sharedInstance.themeColor!)
+            //cell.lblUserName.setTextColor(color: SocketChatManager.sharedInstance.themeColor!)
+            //cell.lblMsgDateTime.setTextColor(color: SocketChatManager.sharedInstance.themeColor!)
+            //cell.lblRecentPhotoVideoFile.setTextColor(color: SocketChatManager.sharedInstance.themeColor!)
+            
+            var msgType : String = self.arrRecentChatGroupList![indexPath.row].msgType ?? ""
+            
+            cell.imgProfile.image = UIImage(named: "placeholder-profile-img", in: bundle, compatibleWith: nil)  //UIImage(named: "placeholder-profile-img")
+            cell.configure(self.arrRecentChatGroupList?[indexPath.row].groupName ?? "", self.arrRecentChatGroupList?[indexPath.row].imagePath ?? "", msgType, isGroup: (self.arrRecentChatGroupList?[indexPath.row].isGroup)!)
+            
+            if msgType == "text" {
+                cell.lblLastMsg.text = (self.arrRecentChatGroupList?[indexPath.row].recentMsg)!
+            } else if msgType == "" {
+                cell.lblLastMsg.text = "Start your conversation"
             }
-        }
-        
-        if msgType == "text" {
-            cell.lblLastMsg.text = (self.arrRecentChatUserList?[indexPath.row].recentMessage?.message)!
-        } else if msgType == "" {
-            cell.lblLastMsg.text = "Start your conversation"
-        }
-        
-        //cell.lblMsgDateTime.text = "\((self.arrRecentChatUserList?[indexPath.row].recentMessage?.sentAt?.seconds)!)"
-        if msgType != "" {
-            cell.lblMsgDateTime.text = Utility.convertTimestamptoLastMsgDateTimeString(timestamp: "\((self.arrRecentChatUserList?[indexPath.row].recentMessage?.sentAt?.seconds)!)")
-        }
-        
-        cell.lblUnreadMsgCount.isHidden = true
-        for (_, item) in ((self.arrRecentChatUserList?[indexPath.row].readCount)!).enumerated() {
-            if item.userId == SocketChatManager.sharedInstance.myUserId && item.unreadCount! != 0 {
+            
+            cell.lblMsgDateTime.text = Utility.convertTimestamptoLastMsgDateTimeString(timestamp: "\(self.arrRecentChatGroupList?[indexPath.row].latestTime?.seconds ?? 0)")
+            
+            cell.lblUnreadMsgCount.isHidden = true
+            if (self.arrRecentChatGroupList?[indexPath.row].unreadCount ?? 0) != 0 {
                 cell.lblUnreadMsgCount.isHidden = false
-                cell.lblUnreadMsgCount.text = String(describing: item.unreadCount!)
+                cell.lblUnreadMsgCount.text = "\(self.arrRecentChatGroupList?[indexPath.row].unreadCount ?? 0)"
             }
+            return cell
         }
-        return cell
+        else {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "UserDetailTVCell", for: indexPath) as! UserDetailTVCell
+            //self.tblChatList.startShimmeringAnimation(animationSpeed: 3.0, direction: .leftToRight)
+            cell.viewMainBG.backgroundColor = .white
+            cell.viewMainBG.startShimmeringAnimation(animationSpeed: 3.0, direction: .leftToRight)
+            cell.viewProfileImg.isHidden = true
+            cell.viewMsgDetail.isHidden = true
+            return cell     //  */
+        }
     }
     
     public func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -301,19 +311,17 @@ extension FirstVC : UITableViewDelegate, UITableViewDataSource {
     }
     
     public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        let sb = UIStoryboard(name: "Main", bundle: nil)
-//        let vc =  sb.instantiateViewController(withIdentifier: "UserChatVC") as! UserChatVC
-//        //vc.myUserId = SocketChatManager.sharedInstance.myUserId
-//        vc.recentChatUser = self.arrRecentChatUserList?[indexPath.row]
-//        self.navigationController?.pushViewController(vc, animated: true)
-        
-        let vc = ChatVC()
-        vc.isHideUserDetailView = false
-        vc.isDirectToChat = false
-        vc.recentChatUser = self.arrRecentChatUserList?[indexPath.row]
-        vc.isGroup = self.arrRecentChatUserList?[indexPath.row].isGroup ?? false
-        vc.groupId = self.arrRecentChatUserList?[indexPath.row].groupId ?? ""
-        self.navigationController?.pushViewController(vc, animated: true)
+        if self.isGetChatResponse {
+            let vc = ChatVC()
+            vc.isHideUserDetailView = false
+            //vc.isDirectToChat = false
+            //vc.recentChatUser = self.arrRecentChatUserList?[indexPath.row]
+            vc.isGroup = self.arrRecentChatGroupList?[indexPath.row].isGroup ?? false
+            vc.groupId = self.arrRecentChatGroupList?[indexPath.row].groupId ?? ""
+            vc.strDisName = self.arrRecentChatGroupList?[indexPath.row].groupName ?? ""
+            vc.strProfileImg = self.arrRecentChatGroupList?[indexPath.row].imagePath ?? ""
+            self.navigationController?.pushViewController(vc, animated: true)
+        }
     }
 }
 
@@ -324,23 +332,10 @@ extension FirstVC : UISearchBarDelegate, ProfileImgDelegate {
     }
     
     public func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        self.arrRecentChatUserList = self.arrAllRecentChatUserList
-        if searchText.count > 0 {
-            self.arrRecentChatUserList?.removeAll()
-            for (_, item) in self.arrAllRecentChatUserList!.enumerated() {
-                if item.name ?? "" != "" {
-                    if item.name!.lowercased().contains(searchText.lowercased()) {
-                        self.arrRecentChatUserList?.append(item)
-                    }
-                } else {
-                    for (_, user) in ((item.users)!).enumerated() {
-                        if (user.userId)! != SocketChatManager.sharedInstance.myUserId {
-                            if user.name!.lowercased().contains(searchText.lowercased()) {
-                                self.arrRecentChatUserList?.append(item)
-                            }
-                        }
-                    }
-                }
+        self.arrRecentChatGroupList = self.arrAllRecentChatGroupList
+        if searchText != "" {
+            self.arrRecentChatGroupList = self.arrRecentChatGroupList?.filter{
+                ($0.groupName!.lowercased()).contains(searchText.lowercased())
             }
         }
         self.tblChatList.reloadData()
@@ -348,7 +343,7 @@ extension FirstVC : UISearchBarDelegate, ProfileImgDelegate {
     
     public func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         searchBar.resignFirstResponder()
-        self.arrRecentChatUserList = self.arrAllRecentChatUserList
+        self.arrRecentChatGroupList = self.arrAllRecentChatGroupList
         self.searchBar.text = ""
         self.tblChatList.reloadData()
     }
@@ -363,36 +358,24 @@ extension FirstVC : SocketDelegate {
     func callSocket() {
         if (SocketChatManager.sharedInstance.socket?.status == .connected) && !isGetUserList {
             isGetUserList = true
-            SocketChatManager.sharedInstance.online(param: ["userId": SocketChatManager.sharedInstance.myUserId, "secretKey": SocketChatManager.sharedInstance.secretKey])
-            
             SocketChatManager.sharedInstance.getUserRole(param: ["secretKey": SocketChatManager.sharedInstance.secretKey, "userId": SocketChatManager.sharedInstance.myUserId])
             
-            SocketChatManager.sharedInstance.reqProfileDetails(param: ["userId" : SocketChatManager.sharedInstance.myUserId], from: false)
-            
-            SocketChatManager.sharedInstance.reqRecentChatList(param: ["secretKey" : SocketChatManager.sharedInstance.secretKey, "_id" : SocketChatManager.sharedInstance.myUserId])  //  ["secretKey" : secretKey, "_id" : myUserId]
-            
-            //Update while new message arrive.
-            SocketChatManager.sharedInstance.joinChatRefer(param: SocketChatManager.sharedInstance.myUserId)
-            
-            //Unread chat count
-            SocketChatManager.sharedInstance.getUnreadChat(event: "user-unread-count", param: ["userId": SocketChatManager.sharedInstance.myUserId, "secretKey": SocketChatManager.sharedInstance.secretKey])
+            SocketChatManager.sharedInstance.reqRecentChatList(param: ["secretKey" : SocketChatManager.sharedInstance.secretKey, "userId" : SocketChatManager.sharedInstance.myUserId])  //  ["secretKey" : secretKey, "_id" : myUserId]
         }
     }
     
-    func getUnreadChat(noOfChat: Int) {
-    }
-    
-    func msgReceived(message: ReceiveMessage) {
+    func msgReceived(message: Message) {
     }
     
     func getPreviousChatMsg(message: String) {
     }
     
-    func recentChatUserList(userList: [GetUserList]) {
-        self.arrAllRecentChatUserList = userList
-        self.arrRecentChatUserList = self.arrAllRecentChatUserList
+    func recentChatGroupList(groupList: [GetGroupList]) {
+        self.arrAllRecentChatGroupList = groupList
+        self.arrRecentChatGroupList = self.arrAllRecentChatGroupList
+        tblChatList.isScrollEnabled = true
+        self.isGetChatResponse = true
         tblChatList.reloadData()
-        //ProgressHUD.dismiss()
     }
     
     func getRecentUser(message: String) {

@@ -10,7 +10,7 @@ import UIKit
 
 enum Colors {
     
-    case black, gray, lightGray, shadow, border, theme, themeDisable ,disable, themeBlue, disableButton, themeSSBU, themeRED, lightTheme, themeBlueBtn
+    case black, gray, lightGray, shadow, border, theme, themeDisable ,disable, themeBlue, disableButton, lightTheme, themeBlueBtn
     
     func returnColor() -> UIColor {
         switch self {
@@ -34,14 +34,14 @@ enum Colors {
                 return UIColor(red: 149.0/255.0, green:149.0/255.0, blue:149.0/255.0, alpha:1)
             case .themeBlue:
                 return UIColor(red: 0.0/255.0, green:174/255.0, blue:240/255.0, alpha:1)
-            case .themeSSBU:
-                return UIColor(red: 0.0/255.0, green: 184.0/255.0, blue: 246.0/255.0, alpha:1)
-            case .themeRED:
-                return UIColor(red: 225.0/255.0, green: 4.0/255.0, blue: 0.0/255.0, alpha:1)
             case .lightTheme:
                 return UIColor(red: 255.0/255.0, green: 33.0/255.0, blue: 33.0/255.0, alpha:1.0)
             case .themeBlueBtn:
                 return UIColor(red: 15.0/255.0, green: 101.0/255.0, blue: 158.0/255.0, alpha:1.0)
         }
     }
+}
+
+public enum ThemeColor {
+    case red, blue, yellow
 }

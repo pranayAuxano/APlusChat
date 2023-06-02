@@ -21,8 +21,6 @@ public class GroupContVC: UIViewController {
     
     var contactList : ContactList?
     
-    //var myUserId : String = ""
-    //var secretKey : String = ""
     var myContactDetail : List?
     var arrAllContactList : [List]? = []
     var arrContactList : [List]? = []
@@ -35,7 +33,7 @@ public class GroupContVC: UIViewController {
     var arrUserIds : [String] = []
     var arrSelectedUser : [[String: Any]] = []
     var contectInfoVC : (()->ContactInfoVC)?
-    var recentChatUser : GetUserList?
+    var groupDetail : GroupDetail?
     var bundle = Bundle()
     
     public init() {
@@ -77,7 +75,6 @@ public class GroupContVC: UIViewController {
         bundle = Bundle(for: GroupContVC.self)
         
         ProgressHUD.show()
-        //userId, secretKey
         SocketChatManager.sharedInstance.getUserList(param: ["userId" : SocketChatManager.sharedInstance.myUserId, "secretKey" : SocketChatManager.sharedInstance.secretKey], from: false)
     }
     
@@ -149,14 +146,9 @@ public class GroupContVC: UIViewController {
     func addMemberRes(_ isSuccess : Bool) {
         ProgressHUD.dismiss()
         if isSuccess {
-            //self.navigationController?.popToRootViewController(animated: true)
-            for i in 0 ..< (arrSelectedContactList?.count ?? 0) {
-                let newUser : Users = Users(serverUserId: arrSelectedContactList![i].serverUserId ?? "", profilePicture: arrSelectedContactList![i].profilePicture ?? "", userId: arrSelectedContactList![i].userId ?? "", groups: arrSelectedContactList![i].groups ?? [], name: arrSelectedContactList![i].name ?? "", mobileEmail: arrSelectedContactList![i].mobile_email ?? "")
-                recentChatUser?.users?.append(newUser)
-            }
-            arrSelectedContactList?.removeAll()
-            contectInfoVC!().addMemberRes(userList: recentChatUser!)
             self.navigationController?.popViewController(animated: true)
+        } else {
+            print("Fail to add member.")
         }
     }
 }

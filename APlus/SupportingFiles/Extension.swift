@@ -15,6 +15,16 @@ extension UIView {
         mask.path = path.cgPath
         layer.mask = mask
     }
+    
+    func dropShadow(scale: Bool = true) {
+        layer.masksToBounds = false
+        layer.shadowColor = Colors.shadow.returnColor().cgColor
+        layer.shadowOpacity = 0.7
+        layer.shadowOffset = .zero
+        layer.shadowRadius = 3
+        layer.shouldRasterize = true
+        layer.rasterizationScale = scale ? UIScreen.main.scale : 1
+    }
 }
 
 extension Date {
@@ -27,21 +37,9 @@ extension Date {
    }
 }
 
-extension UIView {
-    func dropShadow(scale: Bool = true) {
-        layer.masksToBounds = false
-        layer.shadowColor = Colors.shadow.returnColor().cgColor
-        layer.shadowOpacity = 0.7
-        layer.shadowOffset = .zero
-        layer.shadowRadius = 3
-        layer.shouldRasterize = true
-        layer.rasterizationScale = scale ? UIScreen.main.scale : 1
-    }
-}
-
 extension Data {
-    var bytes: [UInt8] {
-        return [UInt8](self)
+    var bytes: [UInt8] {
+        return [UInt8](self)
     }
 }
 
@@ -74,3 +72,154 @@ extension UIColor {
         return String(format:"#%06x", rgb)
     }
 }
+
+extension UITableView {
+    
+    // ->1
+    enum Direction: Int {
+        case topToBottom = 0
+        case bottomToTop
+        case leftToRight
+        case rightToLeft
+    }
+    
+    func startShimmeringAnimation(animationSpeed: Float = 1.4,
+                                  direction: Direction = .leftToRight,
+                                  repeatCount: Float = MAXFLOAT) {
+        
+        // Create color  ->2
+        //let lightColor = UIColor(displayP3Red: 1.0, green: 1.0, blue: 1.0, alpha: 0.0005).cgColor
+        //let blackColor = UIColor.black.withAlphaComponent(0.5).cgColor
+        
+        //let lightColor = UIColor(displayP3Red: 1.0, green: 1.0, blue: 1.0, alpha: 0.0005).cgColor
+        //let lightColor = UIColor(red: 1.0, green: 1.0, blue: 1.0, alpha: 0.5).cgColor
+        //let blackColor = UIColor.black.withAlphaComponent(0.5).cgColor
+        
+        //let lightColor = UIColor(white: 0.85, alpha: 1.0).cgColor
+        self.backgroundColor = .black.withAlphaComponent(0.13)
+        let lightColor = UIColor(white: 1, alpha: 0.5).cgColor
+        let blackColor = UIColor(white: 0.95, alpha: 1.0).cgColor
+        
+        // Create a CAGradientLayer  ->3
+        let gradientLayer = CAGradientLayer()
+        gradientLayer.colors = [blackColor, lightColor, blackColor]
+//        gradientLayer.colors = [blackColor, lightColor]
+        gradientLayer.frame = CGRect(x: -self.bounds.size.width, y: -self.bounds.size.height, width: 3 * self.bounds.size.width, height: 3 * self.bounds.size.height)
+        
+        switch direction {
+        case .topToBottom:
+            gradientLayer.startPoint = CGPoint(x: 0.5, y: 0.0)
+            gradientLayer.endPoint = CGPoint(x: 0.5, y: 1.0)
+            
+        case .bottomToTop:
+            gradientLayer.startPoint = CGPoint(x: 0.5, y: 1.0)
+            gradientLayer.endPoint = CGPoint(x: 0.5, y: 0.0)
+            
+        case .leftToRight:
+            gradientLayer.startPoint = CGPoint(x: 0.0, y: 0.5)
+            gradientLayer.endPoint = CGPoint(x: 1.0, y: 0.5)
+            
+        case .rightToLeft:
+            gradientLayer.startPoint = CGPoint(x: 1.0, y: 0.5)
+            gradientLayer.endPoint = CGPoint(x: 0.0, y: 0.5)
+        }
+        
+        gradientLayer.locations =  [0.35, 0.50, 0.65] //[0.4, 0.6]
+        self.layer.mask = gradientLayer
+        
+        // Add animation over gradient Layer  ->4
+        CATransaction.begin()
+        let animation = CABasicAnimation(keyPath: "locations")
+        animation.fromValue = [0.0, 0.1, 0.2]
+        animation.toValue = [0.8, 0.9, 1.0]
+        animation.duration = CFTimeInterval(animationSpeed)
+        animation.repeatCount = repeatCount
+        CATransaction.setCompletionBlock { [weak self] in
+            guard let strongSelf = self else { return }
+            strongSelf.layer.mask = nil
+        }
+        gradientLayer.add(animation, forKey: "shimmerAnimation")
+        CATransaction.commit()
+    }
+    
+    func stopShimmeringAnimation() {
+        self.backgroundColor = .white
+        self.layer.mask = nil
+    }
+}
+
+extension UIView {
+    
+    // ->1
+    enum Direction: Int {
+        case topToBottom = 0
+        case bottomToTop
+        case leftToRight
+        case rightToLeft
+    }
+    
+    func startShimmeringAnimation(animationSpeed: Float = 1.4,
+                                  direction: Direction = .leftToRight,
+                                  repeatCount: Float = MAXFLOAT) {
+        
+        // Create color  ->2
+        //let lightColor = UIColor(displayP3Red: 1.0, green: 1.0, blue: 1.0, alpha: 0.0005).cgColor
+        //let blackColor = UIColor.black.withAlphaComponent(0.5).cgColor
+        
+        //let lightColor = UIColor(displayP3Red: 1.0, green: 1.0, blue: 1.0, alpha: 0.0005).cgColor
+        //let lightColor = UIColor(red: 1.0, green: 1.0, blue: 1.0, alpha: 0.5).cgColor
+        //let blackColor = UIColor.black.withAlphaComponent(0.5).cgColor
+        
+        //let lightColor = UIColor(white: 0.85, alpha: 1.0).cgColor
+        self.backgroundColor = .black.withAlphaComponent(0.13)
+        let lightColor = UIColor(white: 1, alpha: 0.5).cgColor
+        let blackColor = UIColor(white: 0.95, alpha: 1.0).cgColor
+        
+        // Create a CAGradientLayer  ->3
+        let gradientLayer = CAGradientLayer()
+        gradientLayer.colors = [blackColor, lightColor, blackColor]
+//        gradientLayer.colors = [blackColor, lightColor]
+        gradientLayer.frame = CGRect(x: -self.bounds.size.width, y: -self.bounds.size.height, width: 3 * self.bounds.size.width, height: 3 * self.bounds.size.height)
+        
+        switch direction {
+        case .topToBottom:
+            gradientLayer.startPoint = CGPoint(x: 0.5, y: 0.0)
+            gradientLayer.endPoint = CGPoint(x: 0.5, y: 1.0)
+            
+        case .bottomToTop:
+            gradientLayer.startPoint = CGPoint(x: 0.5, y: 1.0)
+            gradientLayer.endPoint = CGPoint(x: 0.5, y: 0.0)
+            
+        case .leftToRight:
+            gradientLayer.startPoint = CGPoint(x: 0.0, y: 0.5)
+            gradientLayer.endPoint = CGPoint(x: 1.0, y: 0.5)
+            
+        case .rightToLeft:
+            gradientLayer.startPoint = CGPoint(x: 1.0, y: 0.5)
+            gradientLayer.endPoint = CGPoint(x: 0.0, y: 0.5)
+        }
+        
+        gradientLayer.locations =  [0.35, 0.50, 0.65] //[0.4, 0.6]
+        self.layer.mask = gradientLayer
+        
+        // Add animation over gradient Layer  ->4
+        CATransaction.begin()
+        let animation = CABasicAnimation(keyPath: "locations")
+        animation.fromValue = [0.0, 0.1, 0.2]
+        animation.toValue = [0.8, 0.9, 1.0]
+        animation.duration = CFTimeInterval(animationSpeed)
+        animation.repeatCount = repeatCount
+        CATransaction.setCompletionBlock { [weak self] in
+            guard let strongSelf = self else { return }
+            strongSelf.layer.mask = nil
+        }
+        gradientLayer.add(animation, forKey: "shimmerAnimation")
+        CATransaction.commit()
+    }
+    
+    func stopAnimation() {
+        self.backgroundColor = .white
+        self.layer.mask = nil
+    }
+}
+

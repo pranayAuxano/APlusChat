@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct TimeMilliSeconds: Codable {
+/*struct TimeMilliSeconds: Codable {
     
     enum CodingKeys: String, CodingKey {
         case seconds
@@ -25,4 +25,10 @@ struct TimeMilliSeconds: Codable {
         nanoseconds = try container.decodeIfPresent(Int.self, forKey: .nanoseconds)
     }
     
+}   //  */
+
+// MARK: - TimeMilliSeconds
+struct TimeMilliSeconds: Codable {
+    var nanoseconds : Int?
+    var seconds: Int?
 }

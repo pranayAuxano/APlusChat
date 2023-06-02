@@ -18,56 +18,65 @@ class OwnImgChatBubbleCell: UITableViewCell {
     
     private var imageRequest: Cancellable?
     let hud = JGProgressHUD()
-    var bundle = Bundle()
     
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
-        bundle = Bundle(for: OwnImgChatBubbleCell.self)
-        
         self.viewImg.layer.cornerRadius = 5
         imgVideo.isHidden = true
     }
 
-    func configure(_ msgType : String,_ image : String,_ data : String) {
+    func configure(_ msgType : String,_ image : String,_ data : String,_ showLoader: Bool) {
         if msgType == "video" {
-            img.image = UIImage(named: "default", in: self.bundle, compatibleWith: nil)    //UIImage(named: "default")
+            if showLoader {
+                hud.show(in: viewImg)
+            } else {
+                hud.dismiss()
+            }
             imgVideo.isHidden = false
-            imgVideo.image = UIImage(named: "Play", in: self.bundle, compatibleWith: nil)    //UIImage(named: "Play")
-            if data != "" {
+            imgVideo.image = UIImage(named: "Play")
+            img.image = UIImage(named: "default")
+            img.image = UIImage(contentsOfFile: image)
+            /*if data != "" {
                 let imageData = try? Data(contentsOf: URL(string: data)!)
                 if let imageData = imageData {
                     img.image = UIImage(data: imageData)
                 }
-            }
+            }   //  */
+            self.loadImg(image)
         }
         else if msgType == "image" {
-            if image.contains("firebasestorage") {
-                hud.dismiss()
-            } else {
+            if showLoader {
                 hud.show(in: viewImg)
+            } else {
+                hud.dismiss()
             }
-            img.image = UIImage(named: "default", in: self.bundle, compatibleWith: nil) //UIImage(named: "default")
+            img.image = UIImage(named: "default")
             img.image = UIImage(contentsOfFile: image)
-            if image != "" {
-                var imageURL: URL?
-                imageURL = URL(string: image)!
-                //self.imgProfile.image = nil
-                // retrieves image if already available in cache
-                if let imageFromCache = imageCache.object(forKey: imageURL as AnyObject) as? UIImage {
-                    self.img.image = imageFromCache
+            self.loadImg(image)
+        }
+    }
+    
+    func loadImg(_ image : String) {
+        if image != "" {
+            var imageURL: URL?
+            imageURL = URL(string: image)!
+            //self.imgProfile.image = nil
+            // retrieves image if already available in cache
+            if let imageFromCache = imageCache.object(forKey: imageURL as AnyObject) as? UIImage {
+                self.img.image = imageFromCache
+                return
+            }
+            imageRequest = NetworkManager.sharedInstance.getData(from: URL(string: image)!) { data, resp, err in
+                guard let data = data, err == nil else {
+                    print("Error in download from url")
                     return
                 }
-                imageRequest = NetworkManager.sharedInstance.getData(from: URL(string: image)!) { data, resp, err in
-                    guard let data = data, err == nil else {
-                        print("Error in download from url")
-                        return
-                    }
-                    DispatchQueue.main.async {
-                        if let imageToCache = UIImage(data: data) {
-                            self.img.image = imageToCache
-                            imageCache.setObject(imageToCache, forKey: imageURL as AnyObject)
-                        }
+                DispatchQueue.main.async {
+                    //let dataImg : UIImage = UIImage(data: data)!
+                    if let imageToCache = UIImage(data: data) {
+                        self.img.image = imageToCache
+                        imageCache.setObject(imageToCache, forKey: imageURL as AnyObject)
                     }
                 }
             }
@@ -77,7 +86,7 @@ class OwnImgChatBubbleCell: UITableViewCell {
     override func prepareForReuse() {
         imgVideo.isHidden = true
         // Reset Thumbnail Image View
-        img.image = UIImage(named: "default", in: self.bundle, compatibleWith: nil) //UIImage(named: "default")
+        img.image = UIImage(named: "default")
         // Cancel Image Request
         imageRequest?.cancel()
     }

@@ -7,6 +7,13 @@
 
 import Foundation
 
+/*struct recentChatList : Codable {
+ //{ secretKey : '' , _id: ''}
+ var secretKey : String?
+ var _id : String?
+ }   //  */
+
+//["msg": videoD!, "rid": self.groupId, "type" : "video", "name" : (videoUrl?.lastPathComponent)!, "thumbnail" : imgData!]
 struct ReceiveMessage: Codable {
     var msg : String?
     var thumbnail : String?
@@ -30,15 +37,11 @@ struct ReceiveMessage: Codable {
 }
 
 struct ProfileDetail: Codable {
-    var mobileEmail: String?
-    var name: String?
-    var profilePicture: String?
-    var userID: String?
+    let mobileEmail, name, profilePicture, userID: String?
     
     enum CodingKeys: String, CodingKey {
         case mobileEmail = "mobile_email"
-        case name
-        case profilePicture
+        case name, profilePicture
         case userID = "userId"
     }
 }

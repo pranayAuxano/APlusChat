@@ -35,3 +35,9 @@ struct ContactList: Codable {
         try container.encodeIfPresent(count, forKey: .count)
     }
 }
+
+// MARK: - CreateGroup
+struct CreateGroupRes: Codable {
+    var groupId: String?
+    var success: Bool?
+}

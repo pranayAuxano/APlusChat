@@ -8,45 +8,62 @@
 import Foundation
 
 struct RecentMessage: Codable {
+    var timeMilliSeconds: CreateAt?         //var timeMilliSeconds: TimeMilliSeconds?
+    var fileName: String?
+    var replyUserId: String?
+    var contentType: String?
+    var file: String?
+    var message: String?
+    var type: String?
+    var replyMsgId: String?
+    var sendNotificationId: [String]?
+    var replyMsg: String?
+    var replyMsgType: String?
+    var filePath: String?
+    var thumbnailPath: String?
+    var replyUser: String?
+    var msgId: String?
+    var sentBy: String?
+    var senderName: String?
     
     enum CodingKeys: String, CodingKey {
-        case msgId
-        case type
-        case isRead
-        case sentBy
-        case message
-        case readBy
         case timeMilliSeconds
-        case viewBy
-        case sentAt
-        case image
+        case fileName
+        case replyUserId
+        case contentType
+        case file
+        case message
+        case type
+        case replyMsgId
+        case sendNotificationId
+        case replyMsg
+        case replyMsgType
+        case filePath
+        case thumbnailPath
+        case replyUser
+        case msgId
+        case sentBy
+        case senderName
     }
-    
-    var msgId: String?
-    var type: String?
-    var isRead: Bool?
-    var sentBy: String?
-    var message: String?
-    var readBy: String?
-    var timeMilliSeconds: TimeMilliSeconds?
-    var viewBy: [String]?
-    var sentAt: SentAt?
-    var image: String?
-    
-    
     
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        msgId = try container.decodeIfPresent(String.self, forKey: .msgId)
-        type = try container.decodeIfPresent(String.self, forKey: .type)
-        isRead = try container.decodeIfPresent(Bool.self, forKey: .isRead)
-        sentBy = try container.decodeIfPresent(String.self, forKey: .sentBy)
+        timeMilliSeconds = try container.decodeIfPresent(CreateAt.self, forKey: .timeMilliSeconds)
+        fileName = try container.decodeIfPresent(String.self, forKey: .fileName)
+        replyUserId = try container.decodeIfPresent(String.self, forKey: .replyUserId)
+        contentType = try container.decodeIfPresent(String.self, forKey: .contentType)
+        file = try container.decodeIfPresent(String.self, forKey: .file)
         message = try container.decodeIfPresent(String.self, forKey: .message)
-        readBy = try container.decodeIfPresent(String.self, forKey: .readBy)
-        timeMilliSeconds = try container.decodeIfPresent(TimeMilliSeconds.self, forKey: .timeMilliSeconds)
-        viewBy = try container.decodeIfPresent([String].self, forKey: .viewBy)
-        sentAt = try container.decodeIfPresent(SentAt.self, forKey: .sentAt)
-        image = try container.decodeIfPresent(String.self, forKey: .image)
+        type = try container.decodeIfPresent(String.self, forKey: .type)
+        replyMsgId = try container.decodeIfPresent(String.self, forKey: .replyMsgId)
+        sendNotificationId = try container.decodeIfPresent([String].self, forKey: .sendNotificationId)
+        replyMsg = try container.decodeIfPresent(String.self, forKey: .replyMsg)
+        replyMsgType = try container.decodeIfPresent(String.self, forKey: .replyMsgType)
+        filePath = try container.decodeIfPresent(String.self, forKey: .filePath)
+        thumbnailPath = try container.decodeIfPresent(String.self, forKey: .thumbnailPath)
+        replyUser = try container.decodeIfPresent(String.self, forKey: .replyUser)
+        msgId = try container.decodeIfPresent(String.self, forKey: .msgId)
+        sentBy = try container.decodeIfPresent(String.self, forKey: .sentBy)
+        senderName = try container.decodeIfPresent(String.self, forKey: .senderName)
     }
-    
 }
