@@ -1,3 +1,3 @@
 # APlusChat
 
-pod 'APlusChat'
+# pod 'APlusChat'
