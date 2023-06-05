@@ -85,7 +85,7 @@ public class FirstVC: UIViewController {
         tblChatList.dataSource = self
         tblChatList.delegate = self
         
-        //let bundle = Bundle(for: FirstVC.self)
+        let bundle = Bundle(for: FirstVC.self)
         self.tblChatList.register(UINib(nibName: "UserDetailTVCell", bundle: bundle), forCellReuseIdentifier: "UserDetailTVCell")
         
         if Network.reachability.isReachable {
@@ -314,7 +314,7 @@ extension FirstVC : UITableViewDelegate, UITableViewDataSource {
         if self.isGetChatResponse {
             let vc = ChatVC()
             vc.isHideUserDetailView = false
-            //vc.isDirectToChat = false
+            vc.isDirectToChat = false
             //vc.recentChatUser = self.arrRecentChatUserList?[indexPath.row]
             vc.isGroup = self.arrRecentChatGroupList?[indexPath.row].isGroup ?? false
             vc.groupId = self.arrRecentChatGroupList?[indexPath.row].groupId ?? ""
