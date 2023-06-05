@@ -88,7 +88,7 @@ class UserDetailTVCell: UITableViewCell {
                         self.imgProfile.image = imageToCache
                         imageCache.setObject(imageToCache, forKey: imageURL as AnyObject)
                     } else {
-                        self.imgProfile.image = isGroup ? UIImage(named: "group-placeholder", in: self.bundle, compatibleWith: nil) : UIImage(named: "placeholder-profile-img", in: self.bundle, compatibleWith: nil)
+                        self.imgProfile.image = UIImage(named: isGroup ? "group-placeholder" : "placeholder-profile-img", in: self.bundle, compatibleWith: nil)
                     }
                 }
             }

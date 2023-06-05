@@ -279,13 +279,13 @@ public class ChatVC: UIViewController {
                             self.imgProfilePic.image = imageToCache
                             imageCache.setObject(imageToCache, forKey: imageURL as AnyObject)
                         } else {
-                            self.imgProfilePic.image = self.isGroup ? UIImage(named: "group-placeholder") : UIImage(named: "placeholder-profile-img")
+                            self.imgProfilePic.image =  UIImage(named: self.isGroup ? "group-placeholder" : "placeholder-profile-img", in: self.bundle, compatibleWith: nil)
                         }
                     }
                 }
             }
         } else {
-            self.imgProfilePic.image = self.isGroup ? UIImage(named: "group-placeholder") : UIImage(named: "placeholder-profile-img")
+            self.imgProfilePic.image =  UIImage(named: self.isGroup ? "group-placeholder" : "placeholder-profile-img", in: bundle, compatibleWith: nil)
         }
     }
     

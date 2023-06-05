@@ -259,6 +259,7 @@
 		FA35EC3D299A1CF700B75EF4 /* document.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = document.png; sourceTree = "<group>"; };
 		FA35EC3E299A1CF700B75EF4 /* document@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "document@3x.png"; sourceTree = "<group>"; };
 		FA35EC3F299A1CF700B75EF4 /* document@1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "document@1x.png"; sourceTree = "<group>"; };
+		FA5BB8012A2DB9B700AA4A1E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		FA72AD2529C2FA80009B9B23 /* reply@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "reply@3x.png"; sourceTree = "<group>"; };
 		FA72AD2629C2FA80009B9B23 /* reply.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = reply.png; sourceTree = "<group>"; };
 		FA72AD2729C2FA80009B9B23 /* reply@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "reply@2x.png"; sourceTree = "<group>"; };
@@ -359,6 +360,7 @@
 		1291970528F6F971000AD9D4 /* APlusTests */ = {
 			isa = PBXGroup;
 			children = (
+				FA5BB8012A2DB9B700AA4A1E /* Info.plist */,
 				1291970628F6F971000AD9D4 /* APlusTests.swift */,
 			);
 			path = APlusTests;
@@ -1359,6 +1361,8 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 27B9XTLYR7;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = APlusTests/Info.plist;
+				INFOPLIST_KEY_NSCameraUsageDescription = "$(PRODUCT_NAME) media library use";
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.age..APlusTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1380,6 +1384,8 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 27B9XTLYR7;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = APlusTests/Info.plist;
+				INFOPLIST_KEY_NSCameraUsageDescription = "$(PRODUCT_NAME) media library use";
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.age..APlusTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";

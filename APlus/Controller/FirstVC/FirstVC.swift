@@ -78,8 +78,6 @@ public class FirstVC: UIViewController {
             return self
         }
         
-        imgProfilePic.image = UIImage(named: "placeholder-profile-img", in: bundle, compatibleWith: nil)    //UIImage(named: "placeholder-profile-img.png")
-        
         self.searchBar.delegate = self
         self.searchBar.showsCancelButton = true
         self.searchBar.enablesReturnKeyAutomatically = true
@@ -115,6 +113,8 @@ public class FirstVC: UIViewController {
         bundle = Bundle(for: FirstVC.self)
         
         self.navigationController?.isNavigationBarHidden = true
+        
+        imgProfilePic.image = UIImage(named: "placeholder-profile-img", in: bundle, compatibleWith: nil)    //UIImage(named: "placeholder-profile-img.png")
         imgProfilePic.layer.cornerRadius = imgProfilePic.frame.height / 2
         SocketChatManager.sharedInstance.socketDelegate = self
         isGetUserList = false
@@ -124,7 +124,7 @@ public class FirstVC: UIViewController {
             if SocketChatManager.sharedInstance.userRole?.updateProfile ?? 0 == 1 {
                 SocketChatManager.sharedInstance.reqProfileDetails(param: ["userId" : SocketChatManager.sharedInstance.myUserId], from: false)
             }
-            SocketChatManager.sharedInstance.reqRecentChatList(param: ["secretKey" : SocketChatManager.sharedInstance.secretKey, "_id" : SocketChatManager.sharedInstance.myUserId])
+            SocketChatManager.sharedInstance.reqRecentChatList(param: ["secretKey" : SocketChatManager.sharedInstance.secretKey, "userId" : SocketChatManager.sharedInstance.myUserId])
             //self.getUserRole()
         }
     }
@@ -243,7 +243,7 @@ public class FirstVC: UIViewController {
             constTrailNewGrpChat.priority = SocketChatManager.sharedInstance.userRole?.createOneToOneChat ?? 0 == 1 ? .defaultLow : .required
         }
         
-        if SocketChatManager.sharedInstance.userRole?.createGroup ?? 0 == 1 {
+        if SocketChatManager.sharedInstance.userRole?.updateProfile ?? 0 == 1 {
             SocketChatManager.sharedInstance.reqProfileDetails(param: ["userId" : SocketChatManager.sharedInstance.myUserId], from: false)
             self.btnViewUserProfile.isUserInteractionEnabled = true
         } else {
