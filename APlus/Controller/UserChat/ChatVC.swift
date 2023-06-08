@@ -123,6 +123,7 @@ public class ChatVC: UIViewController {
         
         self.btnUserInfo.isEnabled = false
         
+        bundle = Bundle(for: ChatVC.self)
         lblUserName.text = strDisName
         self.loadProfileImg()
         lblOnline.text = ""

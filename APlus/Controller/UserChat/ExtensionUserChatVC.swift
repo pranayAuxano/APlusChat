@@ -715,6 +715,15 @@ extension ChatVC : UITableViewDelegate, UITableViewDataSource {
     }
     
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        if (indexPath.section == 0) && (indexPath.row == 0) && isHasMore && !self.isCallPreChatPage {
+            self.startAt = (self.arrSectionMsg![0][0].time ?? 0) - 1
+            self.intScroll = 1
+            SocketChatManager.sharedInstance.reqPreviousChatMsg(param: ["secretKey" : SocketChatManager.sharedInstance.secretKey, "groupId" : groupId, "userId" : SocketChatManager.sharedInstance.myUserId, "startAt": (self.arrSectionMsg![0][0].time ?? 0) - 1] as [String : Any])
+            //print("Call api to get previous chat data.")
+            
+            self.isCallPreChatPage = true
+        }
+        
         let msgType : String = (self.arrSectionMsg![indexPath.section][indexPath.row].type)!
         if (self.arrSectionMsg![indexPath.section][indexPath.row].sentBy)! == SocketChatManager.sharedInstance.myUserId
         {
@@ -839,6 +848,11 @@ extension ChatVC : UITableViewDelegate, UITableViewDataSource {
                 cell.viewImg.backgroundColor = .white
                 cell.configure(msgType, self.arrSectionMsg![indexPath.section][indexPath.row].thumbnailPath ?? "", "")
                 cell.lblTime.text = Utility.convertTimestamptoTimeString(timestamp: "\((self.arrSectionMsg![indexPath.section][indexPath.row].timeMilliSeconds?.seconds)!)")
+                if isGroup {
+                    cell.lblUserName.isHidden = false
+                    cell.lblUserName.text = self.arrSectionMsg![indexPath.section][indexPath.row].senderName ?? ""
+                    cell.constTopImg.priority = .defaultLow
+                }
                 return cell
             }
             else if msgType == "audio"
@@ -850,8 +864,13 @@ extension ChatVC : UITableViewDelegate, UITableViewDataSource {
                 //cell.imgDocument.image = UIImage(named: "audio", in: bundle, compatibleWith: nil)
                 //cell.imgAudio.image = UIImage(named: "audio")
                 
-                cell.lblFileName.text = "Audio File"
+                cell.lblFileName.text = self.arrSectionMsg![indexPath.section][indexPath.row].fileName ?? ""//"Audio File"
                 cell.lblTime.text = Utility.convertTimestamptoTimeString(timestamp: "\((self.arrSectionMsg![indexPath.section][indexPath.row].timeMilliSeconds?.seconds)!)")
+                if isGroup {
+                    cell.lblUserName.isHidden = false
+                    cell.lblUserName.text = self.arrSectionMsg![indexPath.section][indexPath.row].senderName ?? ""
+                    cell.constTopMsg.priority = .defaultLow
+                }
                 return cell
             }
             else
