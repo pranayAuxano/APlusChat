@@ -241,9 +241,9 @@ public class ChatVC: UIViewController {
             }
         }
         
-        //self.imgProfilePic.image = UIImage(named: "group-placeholder", in: self.bundle, compatibleWith: nil)
-        //self.imgProfilePic.image = UIImage(named: "placeholder-profile-img", in: self.bundle, compatibleWith: nil)
-        self.imgProfilePic.image = UIImage(named: self.isGroup ? "group-placeholder" : "placeholder-profile-img", in: self.bundle, compatibleWith: nil)
+        //self.imgProfilePic.image = UIImage(named: "group-placeholder.jpg", in: self.bundle, compatibleWith: nil)
+        //self.imgProfilePic.image = UIImage(named: "placeholder-profile-img.png", in: self.bundle, compatibleWith: nil)
+        self.imgProfilePic.image = UIImage(named: self.isGroup ? "group-placeholder.jpg" : "placeholder-profile-img.png", in: self.bundle, compatibleWith: nil)
         
         self.lblUserName.text = self.groupDetail?.groupName ?? ""
         self.strProfileImg = self.groupDetail?.imagePath ?? ""
@@ -279,13 +279,13 @@ public class ChatVC: UIViewController {
                             self.imgProfilePic.image = imageToCache
                             imageCache.setObject(imageToCache, forKey: imageURL as AnyObject)
                         } else {
-                            self.imgProfilePic.image =  UIImage(named: self.isGroup ? "group-placeholder" : "placeholder-profile-img", in: self.bundle, compatibleWith: nil)
+                            self.imgProfilePic.image =  UIImage(named: self.isGroup ? "group-placeholder.jpg" : "placeholder-profile-img.png", in: self.bundle, compatibleWith: nil)
                         }
                     }
                 }
             }
         } else {
-            self.imgProfilePic.image =  UIImage(named: self.isGroup ? "group-placeholder" : "placeholder-profile-img", in: bundle, compatibleWith: nil)
+            self.imgProfilePic.image =  UIImage(named: self.isGroup ? "group-placeholder.jpg" : "placeholder-profile-img.png", in: bundle, compatibleWith: nil)
         }
     }
     

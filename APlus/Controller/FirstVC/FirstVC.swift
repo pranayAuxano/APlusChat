@@ -114,7 +114,7 @@ public class FirstVC: UIViewController {
         
         self.navigationController?.isNavigationBarHidden = true
         
-        imgProfilePic.image = UIImage(named: "placeholder-profile-img", in: bundle, compatibleWith: nil)    //UIImage(named: "placeholder-profile-img.png")
+        imgProfilePic.image = UIImage(named: "placeholder-profile-img.png", in: bundle, compatibleWith: nil)
         imgProfilePic.layer.cornerRadius = imgProfilePic.frame.height / 2
         SocketChatManager.sharedInstance.socketDelegate = self
         isGetUserList = false
@@ -190,7 +190,7 @@ public class FirstVC: UIViewController {
         
         SocketChatManager.sharedInstance.myUserName = self.profileDetail?.name ?? ""
         
-        imgProfilePic.image = UIImage(named: "placeholder-profile-img", in: bundle, compatibleWith: nil)    //UIImage(named: "placeholder-profile-img.png")
+        imgProfilePic.image = UIImage(named: "placeholder-profile-img.png", in: bundle, compatibleWith: nil)
         if profileDetail.profilePicture! != "" {
             // setup activityIndicator...
             activityIndicator.color = .darkGray
@@ -277,7 +277,7 @@ extension FirstVC : UITableViewDelegate, UITableViewDataSource {
             
             var msgType : String = self.arrRecentChatGroupList![indexPath.row].msgType ?? ""
             
-            cell.imgProfile.image = UIImage(named: "placeholder-profile-img", in: bundle, compatibleWith: nil)  //UIImage(named: "placeholder-profile-img")
+            cell.imgProfile.image = UIImage(named: (self.arrRecentChatGroupList?[indexPath.row].isGroup)! ? "group-placeholder.jpg" : "placeholder-profile-img.png", in: bundle, compatibleWith: nil)
             cell.configure(self.arrRecentChatGroupList?[indexPath.row].groupName ?? "", self.arrRecentChatGroupList?[indexPath.row].imagePath ?? "", msgType, isGroup: (self.arrRecentChatGroupList?[indexPath.row].isGroup)!)
             
             if msgType == "text" {

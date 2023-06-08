@@ -100,7 +100,7 @@ extension ContListVC : UITableViewDelegate, UITableViewDataSource {
         cell.imgContactImg.layer.cornerRadius = cell.imgContactImg.frame.height / 2
         cell.lblSeparator.backgroundColor = .gray.withAlphaComponent(0.5)
         
-        cell.imgContactImg.image = UIImage(named: "placeholder-profile-img", in: self.bundle, compatibleWith: nil)  //UIImage(named: "placeholder-profile-img.png")
+        cell.imgContactImg.image = UIImage(named: "placeholder-profile-img.png", in: self.bundle, compatibleWith: nil)  //UIImage(named: "placeholder-profile-img.png")
         cell.configure(self.arrContactList![indexPath.row].profilePicture ?? "")
         //cell.lblName.text = contactList?.list![indexPath.row].name ?? ""
         cell.lblName.text = self.arrContactList![indexPath.row].name ?? ""

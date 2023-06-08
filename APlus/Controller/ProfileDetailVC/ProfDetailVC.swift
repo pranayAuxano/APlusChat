@@ -157,7 +157,7 @@ public class ProfDetailVC: UIViewController {
         print("Get response of profile details.")
         txtUserName.text = profileDetail.name ?? ""
         
-        imgProfile.image = UIImage(named: "placeholder-profile-img", in: self.bundle, compatibleWith: nil)  //UIImage(named: "placeholder-profile-img.png")
+        imgProfile.image = UIImage(named: "placeholder-profile-img.png", in: self.bundle, compatibleWith: nil)  //UIImage(named: "placeholder-profile-img.png")
         if profileDetail.profilePicture! != "" {
             var imageURL: URL?
             imageURL = URL(string: profileDetail.profilePicture!)!
@@ -175,7 +175,7 @@ public class ProfDetailVC: UIViewController {
                         self.imgProfile.image = imageToCache
                         imageCache.setObject(imageToCache, forKey: imageURL as AnyObject)
                     } else {
-                        self.imgProfile.image = UIImage(named: "placeholder-profile-img", in: self.bundle, compatibleWith: nil) //UIImage(named: "placeholder-profile-img.png")
+                        self.imgProfile.image = UIImage(named: "placeholder-profile-img.png", in: self.bundle, compatibleWith: nil) //UIImage(named: "placeholder-profile-img.png")
                     }
                 }
             }

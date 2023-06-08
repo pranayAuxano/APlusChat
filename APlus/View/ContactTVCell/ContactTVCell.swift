@@ -30,7 +30,7 @@ class ContactTVCell: UITableViewCell {
     }
     
     func configure(_ image : String) {
-        imgContactImg.image = UIImage(named: "placeholder-profile-img", in: self.bundle, compatibleWith: nil)   //UIImage(named: "placeholder-profile-img.png")
+        imgContactImg.image = UIImage(named: "placeholder-profile-img.png", in: self.bundle, compatibleWith: nil)   //UIImage(named: "placeholder-profile-img.png")
         if image != "" {
             var imageURL: URL?
             imageURL = URL(string: image)!
@@ -48,7 +48,7 @@ class ContactTVCell: UITableViewCell {
                         self.imgContactImg.image = imageToCache
                         imageCache.setObject(imageToCache, forKey: imageURL as AnyObject)
                     } else {
-                        self.imgContactImg.image = UIImage(named: "placeholder-profile-img", in: self.bundle, compatibleWith: nil)  //UIImage(named: "placeholder-profile-img.png")
+                        self.imgContactImg.image = UIImage(named: "placeholder-profile-img.png", in: self.bundle, compatibleWith: nil)  //UIImage(named: "placeholder-profile-img.png")
                     }
                 }
             }

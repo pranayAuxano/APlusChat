@@ -71,7 +71,7 @@ class UserDetailTVCell: UITableViewCell {
             lblRecentPhotoVideoFile.text = "File"
         }
         
-        imgProfile.image = UIImage(named: "placeholder-profile-img", in: self.bundle, compatibleWith: nil) //UIImage(named: "placeholder-profile-img.png")
+        //imgProfile.image = UIImage(named: isGroup ? "group-placeholder.jpg" : "placeholder-profile-img.png", in: self.bundle, compatibleWith: nil)
         if groupImage != "" {
             var imageURL: URL?
             imageURL = URL(string: groupImage)!
@@ -88,7 +88,7 @@ class UserDetailTVCell: UITableViewCell {
                         self.imgProfile.image = imageToCache
                         imageCache.setObject(imageToCache, forKey: imageURL as AnyObject)
                     } else {
-                        self.imgProfile.image = UIImage(named: isGroup ? "group-placeholder" : "placeholder-profile-img", in: self.bundle, compatibleWith: nil)
+                        self.imgProfile.image = UIImage(named: isGroup ? "group-placeholder.jpg" : "placeholder-profile-img.png", in: self.bundle, compatibleWith: nil)
                     }
                 }
             }

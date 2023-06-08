@@ -22,7 +22,7 @@ extension GroupContVC : UITableViewDelegate, UITableViewDataSource, SelectContac
         cell.selectContactDelegate = self
         cell.btnSelectContact.tag = indexPath.row
         
-        cell.imgContact.image = UIImage(named: "placeholder-profile-img", in: self.bundle, compatibleWith: nil)    //UIImage(named: "placeholder-profile-img.png")
+        cell.imgContact.image = UIImage(named: "placeholder-profile-img.png", in: self.bundle, compatibleWith: nil)    //UIImage(named: "placeholder-profile-img.png")
         cell.lblName.text = arrContactList?[indexPath.row].name ?? ""
         cell.configure(arrContactList?[indexPath.row].profilePicture ?? "")
         

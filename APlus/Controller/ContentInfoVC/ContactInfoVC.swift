@@ -130,7 +130,7 @@ public class ContactInfoVC: UIViewController {
         isGroup = self.groupDetail?.isGroup ?? false
         
         if isGroup {
-            self.imgProfile.image = UIImage(named: "group-placeholder", in: bundle, compatibleWith: nil)
+            self.imgProfile.image = UIImage(named: "group-placeholder.jpg", in: bundle, compatibleWith: nil)
             viewExit.isHidden = false
             viewTblAddParticiExitGrp.isHidden = false
             strProfileImg = self.groupDetail?.groupImage ?? ""
@@ -157,7 +157,7 @@ public class ContactInfoVC: UIViewController {
             self.constraintHeighttblParticipants.constant = CGFloat((self.groupDetail?.users?.count)! * 70)
             self.setPermissions()
         } else {
-            self.imgProfile.image = UIImage(named: "placeholder-profile-img", in: bundle, compatibleWith: nil)
+            self.imgProfile.image = UIImage(named: "placeholder-profile-img.png", in: bundle, compatibleWith: nil)
             
             viewTblAddParticiExitGrp.isHidden = true
             
