@@ -119,8 +119,8 @@ extension ChatVC : UIImagePickerControllerDelegate, UINavigationControllerDelega
             imagePicker.delegate = self
             imagePicker.allowsEditing = false
             imagePicker.sourceType = .photoLibrary
-            //imagePicker.mediaTypes = ["public.image", "public.movie"]
-            imagePicker.mediaTypes = ["public.image"]
+            imagePicker.mediaTypes = ["public.image", "public.movie"]
+            //imagePicker.mediaTypes = ["public.image"]
             isCameraClick = false
             present(imagePicker, animated: true, completion: nil)
         }

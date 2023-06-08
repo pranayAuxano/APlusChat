@@ -562,7 +562,9 @@ public class ChatVC: UIViewController {
     @IBAction func btnAttachTap(_ sender: UIButton) {
         self.view.endEditing(true)
         
-        let alert = UIAlertController(title: "", message: "Please select an option", preferredStyle: .actionSheet)
+        self.fromLibrary()
+        
+        /*let alert = UIAlertController(title: "", message: "Please select an option", preferredStyle: .actionSheet)
         alert.addAction(UIAlertAction(title: "Camera", style: .default, handler: { alert in
             self.isDocumentPickerOpen = true
             self.openCamera()
@@ -583,7 +585,7 @@ public class ChatVC: UIViewController {
             self.isDocumentPickerOpen = false
         }))
         self.present(alert, animated: true) {
-        }
+        }   //  */
     }
     
     @IBAction func btnSendTap(_ sender: UIButton) {
