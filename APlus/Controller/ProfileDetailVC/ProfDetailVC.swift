@@ -48,11 +48,11 @@ public class ProfDetailVC: UIViewController {
     public override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        if self.profileDetail != nil {
+        /*if self.profileDetail != nil {
             self.getProfileDetail(self.profileDetail!)
         } else {
             
-        }
+        }   //  */
         
         txtUserName.isEnabled = false
         btnProfileImg.isEnabled = false
@@ -71,6 +71,12 @@ public class ProfDetailVC: UIViewController {
         bundle = Bundle(for: ProfDetailVC.self)
         
         self.navigationController?.isNavigationBarHidden = true
+        
+        if self.profileDetail != nil {
+            self.getProfileDetail(self.profileDetail!)
+        } else {
+            SocketChatManager.sharedInstance.reqProfileDetails(param: ["secretKey" : SocketChatManager.sharedInstance.secretKey, "userId" : SocketChatManager.sharedInstance.myUserId], from: true)
+        }
         
         txtUserName.delegate = self
         btnSave.layer.cornerRadius = 5 //btnSave.frame.height / 4
@@ -117,41 +123,6 @@ public class ProfDetailVC: UIViewController {
             self.present(alertWarning, animated: true)
         }
     }
-    
-   /*@IBAction func btnSaveTap(_ sender: UIButton) {
-        if !Validations.isValidUserName(userName: txtUserName.text!) {
-            // Save data
-            //["userId" : "" , "name": "" , "profilePicture" : "" ]
-            //let imgData = imgProfile.image?.pngData()
-            let imgData = imgProfile.image?.pngData()?.bytes
-            
-            //let imgData = UIImage.jpegData(imgProfile.image!)
-            
-            ProgressHUD.show()
-            DispatchQueue.main.async {
-                NetworkManager.sharedInstance.uploadMedia(fileName: self.imgFileName, image: imgData!, contentType: self.imgFileName.mimeType()) { url in
-                    print(url)
-                    if url != "" {
-                        SocketChatManager.sharedInstance.updateProfile(param: ["userId" : SocketChatManager.sharedInstance.myUserId, "secretKey" : SocketChatManager.sharedInstance.secretKey, "name": self.txtUserName.text! , "profilePicture" : self.isPictureSelect ? url : "", "fileName" : self.imgFileName, "contentType" : self.mimeType])
-                        self.isPictureSelect = false
-                    }
-                    else {
-                        ProgressHUD.dismiss()
-                    }
-                }
-            }
-            
-            //SocketChatManager.sharedInstance.updateProfile(param: ["userId" : SocketChatManager.sharedInstance.myUserId, "secretKey" : SocketChatManager.sharedInstance.secretKey, "name": txtUserName.text! , "profilePicture" : isPictureSelect ? imgData : "", "fileName" : imgFileName, "contentType" : mimeType])
-            //isPictureSelect = false
-            
-        } else {
-            let alertWarning = UIAlertController(title: "", message: "Enter username.", preferredStyle: .alert)
-            alertWarning.addAction(UIAlertAction(title: "OK", style: .cancel, handler: { alert in
-            }))
-            self.present(alertWarning, animated: true)
-        }
-    }
-    /// */
     
     func getProfileDetail(_ profileDetail : ProfileDetail) {
         print("Get response of profile details.")

@@ -218,7 +218,7 @@ public class SocketChatManager {
             self.socket?.off("get-profile")
             self.socket?.off("profile-res")
             if isProfile {
-                //self.profileDetailVC!().getProfileDetail(receiveMessage)
+                self.profileDetailVC!().getProfileDetail(receiveMessage)
             } else {
                 self.viewController!().getProfileDetail(receiveMessage)
             }
