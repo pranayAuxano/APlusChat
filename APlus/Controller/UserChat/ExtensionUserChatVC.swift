@@ -199,6 +199,9 @@ extension ChatVC : UIImagePickerControllerDelegate, UINavigationControllerDelega
                             let toastMsg = ToastUtility.Builder(message: errMsg, controller: self, keyboardActive: false)
                             toastMsg.setColor(background: .red, text: .black)
                             toastMsg.show()
+                            
+                            self.arrSectionMsg![self.arrSectionMsg!.count - 1].removeLast()
+                            self.tblUserChat.reloadData()
                         }
                     }
                 }
@@ -263,6 +266,9 @@ extension ChatVC : UIImagePickerControllerDelegate, UINavigationControllerDelega
                         let toastMsg = ToastUtility.Builder(message: errMsg, controller: self, keyboardActive: false)
                         toastMsg.setColor(background: .red, text: .black)
                         toastMsg.show()
+                        
+                        self.arrSectionMsg![self.arrSectionMsg!.count - 1].removeLast()
+                        self.tblUserChat.reloadData()
                     }
                 }
             }
@@ -343,6 +349,9 @@ extension ChatVC : UIImagePickerControllerDelegate, UINavigationControllerDelega
                             let toastMsg = ToastUtility.Builder(message: errMsg, controller: self, keyboardActive: false)
                             toastMsg.setColor(background: .red, text: .black)
                             toastMsg.show()
+                            
+                            self.arrSectionMsg![self.arrSectionMsg!.count - 1].removeLast()
+                            self.tblUserChat.reloadData()
                         }   //  */
                     }
                 } catch {
@@ -432,6 +441,9 @@ extension ChatVC : UIDocumentPickerDelegate, UIDocumentMenuDelegate {
                     let toastMsg = ToastUtility.Builder(message: errMsg, controller: self, keyboardActive: false)
                     toastMsg.setColor(background: .red, text: .black)
                     toastMsg.show()
+                    
+                    self.arrSectionMsg![self.arrSectionMsg!.count - 1].removeLast()
+                    self.tblUserChat.reloadData()
                 }
             }
         } else if arrDocExtension.contains((url.pathExtension).lowercased()) {
@@ -487,6 +499,9 @@ extension ChatVC : UIDocumentPickerDelegate, UIDocumentMenuDelegate {
                         let toastMsg = ToastUtility.Builder(message: errMsg, controller: self, keyboardActive: false)
                         toastMsg.setColor(background: .red, text: .black)
                         toastMsg.show()
+                        
+                        self.arrSectionMsg![self.arrSectionMsg!.count - 1].removeLast()
+                        self.tblUserChat.reloadData()
                     }
                 }
             } catch let error {
@@ -590,6 +605,9 @@ extension ChatVC : UIDocumentPickerDelegate, UIDocumentMenuDelegate {
                         let toastMsg = ToastUtility.Builder(message: errMsg, controller: self, keyboardActive: false)
                         toastMsg.setColor(background: .red, text: .black)
                         toastMsg.show()
+                        
+                        self.arrSectionMsg![self.arrSectionMsg!.count - 1].removeLast()
+                        self.tblUserChat.reloadData()
                     }   //  */
                 }
             } catch let error {
