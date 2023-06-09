@@ -387,8 +387,8 @@ public class ContactInfoVC: UIViewController {
     @IBAction func btnProfilePicTap(_ sender: UIButton) {
         imagePicker.delegate = self
         imagePicker.allowsEditing = true
-        
-        let alert = UIAlertController(title: "", message: "Please select an option", preferredStyle: .actionSheet)
+        self.openGallary()
+        /*let alert = UIAlertController(title: "", message: "Please select an option", preferredStyle: .actionSheet)
         alert.addAction(UIAlertAction(title: "Camera", style: .default, handler: { alert in
             self.openCamera()
         }))
@@ -398,7 +398,7 @@ public class ContactInfoVC: UIViewController {
         alert.addAction(UIAlertAction(title: "Dismiss", style: .cancel, handler: { alert in
         }))
         self.present(alert, animated: true) {
-        }
+        }   //  */
     }
 }
 
@@ -423,6 +423,7 @@ extension ContactInfoVC : UIImagePickerControllerDelegate, UINavigationControlle
             imagePicker.delegate = self
             imagePicker.allowsEditing = false
             imagePicker.sourceType = .photoLibrary
+            imagePicker.mediaTypes = ["public.image"]
             present(imagePicker, animated: true, completion: nil)
         }
     }

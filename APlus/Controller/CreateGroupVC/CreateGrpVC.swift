@@ -83,8 +83,8 @@ public class CreateGrpVC: UIViewController {
     @IBAction func btnGroupImgTap(_ sender: UIButton) {
         imagePicker.delegate = self
         imagePicker.allowsEditing = true
-        
-        let alert = UIAlertController(title: "", message: "Please select an option", preferredStyle: .actionSheet)
+        self.openGallary()
+        /*let alert = UIAlertController(title: "", message: "Please select an option", preferredStyle: .actionSheet)
         alert.addAction(UIAlertAction(title: "Camera", style: .default, handler: { alert in
             self.openCamera()
         }))
@@ -94,7 +94,7 @@ public class CreateGrpVC: UIViewController {
         alert.addAction(UIAlertAction(title: "Dismiss", style: .cancel, handler: { alert in
         }))
         self.present(alert, animated: true) {
-        }
+        }   //  */
     }
     
     @IBAction func btnCreateGroupTap(_ sender: UIButton) {
@@ -120,7 +120,7 @@ public class CreateGrpVC: UIViewController {
             
             ProgressHUD.show()
             if isPictureSelect {
-                NetworkManager.sharedInstance.uploadImage(dictiParam: dictiParam, image: imgGroup.image!, type: "video", contentType: "")
+                NetworkManager.sharedInstance.uploadImage(dictiParam: dictiParam, image: imgGroup.image!, type: "image", contentType: "")
                 { strDisPic in
                     self.createGroup(param: param, strDisPic: strDisPic)
                 } errorCompletion: { errMsg in
@@ -146,16 +146,15 @@ public class CreateGrpVC: UIViewController {
         NetworkManager.sharedInstance.createGroup(param: param1) { strId in
             ProgressHUD.dismiss()
             DispatchQueue.main.async {
-                self.navigationController?.popToViewController(FirstVC(), animated: true)
                 // Assuming you have a reference to the navigation controller
-                /*if let viewControllers = self.navigationController?.viewControllers {
+                if let viewControllers = self.navigationController?.viewControllers {
                     for viewController in viewControllers {
-                        if viewController is ViewController {
+                        if viewController is FirstVC {
                             self.navigationController?.popToViewController(viewController, animated: true)
                             break
                         }
                     }
-                }   //  */
+                }
             }
         } errorCompletion: { errMsg in
             ProgressHUD.dismiss()
@@ -195,6 +194,7 @@ extension CreateGrpVC : UIImagePickerControllerDelegate, UINavigationControllerD
             imagePicker.delegate = self
             imagePicker.allowsEditing = false
             imagePicker.sourceType = .photoLibrary
+            imagePicker.mediaTypes = ["public.image"]
             present(imagePicker, animated: true, completion: nil)
         }
     }

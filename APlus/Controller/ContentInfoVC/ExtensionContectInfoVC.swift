@@ -58,6 +58,7 @@ extension ContactInfoVC : UITableViewDelegate, UITableViewDataSource {
     
     func removeUserTap(_ id: String) {
         arrSelectedUser.removeAll()
+        arrUserIds.removeAll()
         strRemovedUserId = id
         for i in 0 ..< (groupDetail?.users!.count)! {
             if groupDetail?.users![i].userId ?? "" != id {
@@ -79,7 +80,6 @@ extension ContactInfoVC : UITableViewDelegate, UITableViewDataSource {
             "viewBy": arrUserIds,
             "users": arrSelectedUser] as [String : Any]
         
-        //["groupDetails": param]
         SocketChatManager.sharedInstance.removeMember(param: param)
     }
     

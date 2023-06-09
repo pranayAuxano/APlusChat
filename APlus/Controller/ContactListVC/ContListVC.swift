@@ -167,13 +167,13 @@ extension ContListVC : UITableViewDelegate, UITableViewDataSource {
                 print("API call response. --> \(str)")
                 DispatchQueue.main.async {
                     self.navigationController?.popViewController(animated: true)
-                    let vc = ChatVC()
+                    /*let vc = ChatVC()
                     vc.isHideUserDetailView = false
                     vc.isGroup = false
                     vc.groupId = str
                     vc.strDisName = self.arrSelectedContact![0].name ?? ""
                     vc.strProfileImg = self.arrSelectedContact![0].profilePicture ?? ""
-                    self.navigationController?.pushViewController(vc, animated: true)
+                    self.navigationController?.pushViewController(vc, animated: true)   //  */
                 }
             } errorCompletion: { errMsg in
                 ProgressHUD.dismiss()
