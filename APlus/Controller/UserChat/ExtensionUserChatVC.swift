@@ -761,11 +761,7 @@ extension ChatVC : UITableViewDelegate, UITableViewDataSource {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "OwnAudioBubbleCell", for: indexPath) as! OwnAudioBubbleCell
                 cell.viewMsg.backgroundColor = Colors.lightTheme.returnColor()
                 
-                //let bundle = Bundle(for: ChatVC.self)
-                //cell.imgDocument.image = UIImage(named: "audio", in: bundle, compatibleWith: nil)
-                //cell.imgAudio.image = UIImage(named: "audio")
-                
-                cell.lblFileName.text = "Audio File"
+                cell.lblFileName.text = self.arrSectionMsg![indexPath.section][indexPath.row].fileName ?? ""//"Audio File"
                 cell.lblTime.text = Utility.convertTimestamptoTimeString(timestamp: "\((self.arrSectionMsg![indexPath.section][indexPath.row].timeMilliSeconds?.seconds)!)")
                 return cell
             }
@@ -815,10 +811,6 @@ extension ChatVC : UITableViewDelegate, UITableViewDataSource {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "OtherFileBubbleCell", for: indexPath) as! OtherFileBubbleCell
                 cell.viewMsg.backgroundColor = .white
                 
-                //let bundle = Bundle(for: ChatVC.self)
-                //cell.imgDocument.image = UIImage(named: "document", in: bundle, compatibleWith: nil)
-                //cell.imgDocument.image = UIImage(named: "document")
-                
                 let fileName : String = self.arrSectionMsg![indexPath.section][indexPath.row].fileName ?? "Document File"
                 cell.lblFileName.text = fileName == "" ? "Document File" : fileName
                 cell.lblTime.text = Utility.convertTimestamptoTimeString(timestamp: "\((self.arrSectionMsg![indexPath.section][indexPath.row].timeMilliSeconds?.seconds)!)")
@@ -860,10 +852,6 @@ extension ChatVC : UITableViewDelegate, UITableViewDataSource {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "OtherAudioBubbleCell", for: indexPath) as! OtherAudioBubbleCell
                 cell.viewMsg.backgroundColor = .white
                 
-                //let bundle = Bundle(for: ChatVC.self)
-                //cell.imgDocument.image = UIImage(named: "audio", in: bundle, compatibleWith: nil)
-                //cell.imgAudio.image = UIImage(named: "audio")
-                
                 cell.lblFileName.text = self.arrSectionMsg![indexPath.section][indexPath.row].fileName ?? ""//"Audio File"
                 cell.lblTime.text = Utility.convertTimestamptoTimeString(timestamp: "\((self.arrSectionMsg![indexPath.section][indexPath.row].timeMilliSeconds?.seconds)!)")
                 if isGroup {
@@ -890,7 +878,7 @@ extension ChatVC : UITableViewDelegate, UITableViewDataSource {
                     let cell = tableView.dequeueReusableCell(withIdentifier: "OtherReplyTVCell", for: indexPath) as! OtherReplyTVCell
                     
                     var userName : String = self.arrSectionMsg![indexPath.section][indexPath.row].replyUser ?? "" //""
-                    var type: String = self.arrSectionMsg![indexPath.section][indexPath.row].replyMsgType ?? "" //""
+                    var type: String = self.arrSectionMsg![indexPath.section][indexPath.row].replyMsgType ?? ""
                     if self.arrSectionMsg![indexPath.section][indexPath.row].replyUserId ?? "" == SocketChatManager.sharedInstance.myUserId {
                         userName = "You"
                     }
@@ -912,7 +900,6 @@ extension ChatVC : UITableViewDelegate, UITableViewDataSource {
                     
                     if isGroup {
                         cell.lblUserName.isHidden = false
-                        //cell.lblUserName.text = getUserName(userId: self.arrSectionMsg![indexPath.section][indexPath.row].sentBy!)
                         cell.lblUserName.text = self.arrSectionMsg![indexPath.section][indexPath.row].senderName ?? ""
                         cell.constTopMsg.priority = .defaultLow
                     }
