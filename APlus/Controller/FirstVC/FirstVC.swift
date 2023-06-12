@@ -122,9 +122,15 @@ public class FirstVC: UIViewController {
         if (SocketChatManager.sharedInstance.socket?.status == .connected) {
             //isGetUserList = true
             if SocketChatManager.sharedInstance.userRole?.updateProfile ?? 0 == 1 {
-                SocketChatManager.sharedInstance.reqProfileDetails(param: ["userId" : SocketChatManager.sharedInstance.myUserId], from: false)
+                SocketChatManager.sharedInstance.reqProfileDetails(param: [
+                    "secretKey" : SocketChatManager.sharedInstance.secretKey,
+                    "userId" : SocketChatManager.sharedInstance.myUserId
+                ], from: false)
             }
-            SocketChatManager.sharedInstance.reqRecentChatList(param: ["secretKey" : SocketChatManager.sharedInstance.secretKey, "userId" : SocketChatManager.sharedInstance.myUserId])
+            SocketChatManager.sharedInstance.reqRecentChatList(param: [
+                "secretKey" : SocketChatManager.sharedInstance.secretKey,
+                "userId" : SocketChatManager.sharedInstance.myUserId
+            ])
             //self.getUserRole()
         }
     }
@@ -244,7 +250,10 @@ public class FirstVC: UIViewController {
         }
         
         if SocketChatManager.sharedInstance.userRole?.updateProfile ?? 0 == 1 {
-            SocketChatManager.sharedInstance.reqProfileDetails(param: ["userId" : SocketChatManager.sharedInstance.myUserId], from: false)
+            SocketChatManager.sharedInstance.reqProfileDetails(param: [
+                "secretKey" : SocketChatManager.sharedInstance.secretKey,
+                "userId" : SocketChatManager.sharedInstance.myUserId
+            ], from: false)
             self.btnViewUserProfile.isUserInteractionEnabled = true
         } else {
             self.btnViewUserProfile.isUserInteractionEnabled = false
@@ -358,9 +367,15 @@ extension FirstVC : SocketDelegate {
     func callSocket() {
         if (SocketChatManager.sharedInstance.socket?.status == .connected) && !isGetUserList {
             isGetUserList = true
-            SocketChatManager.sharedInstance.getUserRole(param: ["secretKey": SocketChatManager.sharedInstance.secretKey, "userId": SocketChatManager.sharedInstance.myUserId])
+            SocketChatManager.sharedInstance.getUserRole(param: [
+                "secretKey": SocketChatManager.sharedInstance.secretKey,
+                "userId": SocketChatManager.sharedInstance.myUserId
+            ])
             
-            SocketChatManager.sharedInstance.reqRecentChatList(param: ["secretKey" : SocketChatManager.sharedInstance.secretKey, "userId" : SocketChatManager.sharedInstance.myUserId])  //  ["secretKey" : secretKey, "_id" : myUserId]
+            SocketChatManager.sharedInstance.reqRecentChatList(param: [
+                "secretKey" : SocketChatManager.sharedInstance.secretKey,
+                "userId" : SocketChatManager.sharedInstance.myUserId
+            ])  //  ["secretKey" : secretKey, "_id" : myUserId]
         }
     }
     

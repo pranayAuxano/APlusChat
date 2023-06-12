@@ -75,7 +75,10 @@ public class ProfDetailVC: UIViewController {
         if self.profileDetail != nil {
             self.getProfileDetail(self.profileDetail!)
         } else {
-            SocketChatManager.sharedInstance.reqProfileDetails(param: ["secretKey" : SocketChatManager.sharedInstance.secretKey, "userId" : SocketChatManager.sharedInstance.myUserId], from: true)
+            SocketChatManager.sharedInstance.reqProfileDetails(param: [
+                "secretKey" : SocketChatManager.sharedInstance.secretKey,
+                "userId" : SocketChatManager.sharedInstance.myUserId
+            ], from: true)
         }
         
         txtUserName.delegate = self
@@ -116,7 +119,14 @@ public class ProfDetailVC: UIViewController {
     @IBAction func btnSaveTap(_ sender: UIButton) {
         if !Validations.isValidUserName(userName: txtUserName.text!) {
             let imgData = imgProfile.image?.pngData()
-            SocketChatManager.sharedInstance.updateProfile(param: ["userId" : SocketChatManager.sharedInstance.myUserId, "secretKey" : SocketChatManager.sharedInstance.secretKey, "name": txtUserName.text! , "profilePicture" : isPictureSelect ? imgData as Any : "", "fileName" : imgFileName, "contentType" : mimeType])
+            SocketChatManager.sharedInstance.updateProfile(param: [
+                "userId" : SocketChatManager.sharedInstance.myUserId,
+                "secretKey" : SocketChatManager.sharedInstance.secretKey,
+                "name": txtUserName.text! ,
+                "profilePicture" : isPictureSelect ? imgData as Any : "",
+                "fileName" : imgFileName,
+                "contentType" : mimeType
+            ])
             isPictureSelect = false
         } else {
             let alertWarning = UIAlertController(title: "", message: "Enter username.", preferredStyle: .alert)

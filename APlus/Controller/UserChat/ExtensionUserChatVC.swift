@@ -54,11 +54,13 @@ extension ChatVC : UITextFieldDelegate {
             timeSeconds = 2
             //Call typing on socket.
             if !isTyping {
-                SocketChatManager.sharedInstance.userTyping(message: ["secretKey": SocketChatManager.sharedInstance.secretKey,
-                                                                      "groupId": groupId,
-                                                                      "userId": SocketChatManager.sharedInstance.myUserId,
-                                                                      "name": self.groupDetail?.userName ?? "",
-                                                                      "isTyping": "true"])
+                SocketChatManager.sharedInstance.userTyping(message: [
+                    "secretKey": SocketChatManager.sharedInstance.secretKey,
+                    "groupId": groupId,
+                    "userId": SocketChatManager.sharedInstance.myUserId,
+                    "name": self.groupDetail?.userName ?? "",
+                    "isTyping": "true"
+                ])
                 //Name for group, isTyping = true
                 //typing-res for receive only
                 self.isTyping = true
@@ -67,11 +69,13 @@ extension ChatVC : UITextFieldDelegate {
         } else {
             //Call typing off socket.
             self.timer.invalidate()
-            SocketChatManager.sharedInstance.userTyping(message: ["secretKey": SocketChatManager.sharedInstance.secretKey,
-                                                                  "groupId": groupId,
-                                                                  "userId": SocketChatManager.sharedInstance.myUserId,
-                                                                  "name": self.groupDetail?.userName ?? "",
-                                                                  "isTyping": "false"])
+            SocketChatManager.sharedInstance.userTyping(message: [
+                "secretKey": SocketChatManager.sharedInstance.secretKey,
+                "groupId": groupId,
+                "userId": SocketChatManager.sharedInstance.myUserId,
+                "name": self.groupDetail?.userName ?? "",
+                "isTyping": "false"
+            ])
             self.isTyping = false
         }
         return true
@@ -82,11 +86,13 @@ extension ChatVC : UITextFieldDelegate {
         timeSeconds -= 1
         if timeSeconds <= 0 {
             self.timer.invalidate()
-            SocketChatManager.sharedInstance.userTyping(message: ["secretKey": SocketChatManager.sharedInstance.secretKey,
-                                                                  "groupId": groupId,
-                                                                  "userId": SocketChatManager.sharedInstance.myUserId,
-                                                                  "name": self.groupDetail?.userName ?? "",
-                                                                  "isTyping": "false"])
+            SocketChatManager.sharedInstance.userTyping(message: [
+                "secretKey": SocketChatManager.sharedInstance.secretKey,
+                "groupId": groupId,
+                "userId": SocketChatManager.sharedInstance.myUserId,
+                "name": self.groupDetail?.userName ?? "",
+                "isTyping": "false"
+            ])
             self.isTyping = false
             lblOnline.text = onlineUser
         } else {
@@ -718,7 +724,12 @@ extension ChatVC : UITableViewDelegate, UITableViewDataSource {
         if (indexPath.section == 0) && (indexPath.row == 0) && isHasMore && !self.isCallPreChatPage {
             self.startAt = (self.arrSectionMsg![0][0].time ?? 0) - 1
             self.intScroll = 1
-            SocketChatManager.sharedInstance.reqPreviousChatMsg(param: ["secretKey" : SocketChatManager.sharedInstance.secretKey, "groupId" : groupId, "userId" : SocketChatManager.sharedInstance.myUserId, "startAt": (self.arrSectionMsg![0][0].time ?? 0) - 1] as [String : Any])
+            SocketChatManager.sharedInstance.reqPreviousChatMsg(param: [
+                "secretKey" : SocketChatManager.sharedInstance.secretKey,
+                "groupId" : groupId,
+                "userId" : SocketChatManager.sharedInstance.myUserId,
+                "startAt": (self.arrSectionMsg![0][0].time ?? 0) - 1
+            ] as [String : Any])
             //print("Call api to get previous chat data.")
             
             self.isCallPreChatPage = true

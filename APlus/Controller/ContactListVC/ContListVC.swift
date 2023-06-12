@@ -63,7 +63,10 @@ public class ContListVC: UIViewController {
         
         ProgressHUD.show()
         //userId, secretKey
-        SocketChatManager.sharedInstance.getUserList(param: ["userId" : SocketChatManager.sharedInstance.myUserId, "secretKey" : SocketChatManager.sharedInstance.secretKey], from: true)
+        SocketChatManager.sharedInstance.getUserList(param: [
+            "userId" : SocketChatManager.sharedInstance.myUserId,
+            "secretKey" : SocketChatManager.sharedInstance.secretKey
+        ], from: true)
     }
     
     @IBAction func btnBackTap(_ sender: UIButton) {

@@ -121,7 +121,11 @@ public class ContactInfoVC: UIViewController {
     }
     
     func groupDetailSocketCall() {
-        SocketChatManager.sharedInstance.reqGroupDetail(param: ["userId": SocketChatManager.sharedInstance.myUserId, "secretKey": SocketChatManager.sharedInstance.secretKey, "groupId": groupId])    // Need for detail screen
+        SocketChatManager.sharedInstance.reqGroupDetail(param: [
+            "userId": SocketChatManager.sharedInstance.myUserId,
+            "secretKey": SocketChatManager.sharedInstance.secretKey,
+            "groupId": groupId
+        ])    // Need for detail screen
     }
     
     func getGroupDetail(groupDetail : GroupDetail) {

@@ -192,8 +192,12 @@ public class ChatVC: UIViewController {
                 return self
             }
             
-            //SocketChatManager.sharedInstance.reqGroupDetail(param: ["userId": SocketChatManager.sharedInstance.myUserId, "secretKey": SocketChatManager.sharedInstance.secretKey, "groupId": groupId])    // Need for detail screen
-            SocketChatManager.sharedInstance.reqPreviousChatMsg(param: ["secretKey" : SocketChatManager.sharedInstance.secretKey, "groupId" : groupId, "userId" : SocketChatManager.sharedInstance.myUserId, "startAt": 0] as [String : Any])
+            SocketChatManager.sharedInstance.reqPreviousChatMsg(param: [
+                "secretKey" : SocketChatManager.sharedInstance.secretKey,
+                "groupId" : groupId,
+                "userId" : SocketChatManager.sharedInstance.myUserId,
+                "startAt": 0
+            ] as [String : Any])
             
             if !isGroup {
                 SocketChatManager.sharedInstance.getOnlineRes(event: "online-status")
@@ -216,7 +220,12 @@ public class ChatVC: UIViewController {
             SocketChatManager.sharedInstance.socket?.off("typing-res")
             SocketChatManager.sharedInstance.socket?.off("online-status")
             //SocketChatManager.sharedInstance.leaveChat(roomid: groupId)
-            SocketChatManager.sharedInstance.leaveChat(param: ["secretKey": SocketChatManager.sharedInstance.secretKey, "userId": SocketChatManager.sharedInstance.myUserId, "groupId": groupId])
+            
+            SocketChatManager.sharedInstance.leaveChat(param: [
+                "secretKey": SocketChatManager.sharedInstance.secretKey,
+                "userId": SocketChatManager.sharedInstance.myUserId,
+                "groupId": groupId
+            ])
         }
     }
     
@@ -444,7 +453,12 @@ public class ChatVC: UIViewController {
     }
     
     @IBAction func btnBackTap(_ sender: UIButton) {
-        SocketChatManager.sharedInstance.leaveChat(param: ["secretKey": SocketChatManager.sharedInstance.secretKey, "userId": SocketChatManager.sharedInstance.myUserId, "groupId": groupId])
+        SocketChatManager.sharedInstance.leaveChat(param: [
+            "secretKey": SocketChatManager.sharedInstance.secretKey,
+            "userId": SocketChatManager.sharedInstance.myUserId,
+            "groupId": groupId
+        ])
+        
         SocketChatManager.sharedInstance.socket?.off("typing-res")
         SocketChatManager.sharedInstance.socket?.off("online-status")
         
@@ -507,7 +521,11 @@ public class ChatVC: UIViewController {
         let OKAction = UIAlertAction(title: "OK", style: .default) { action in
             //Delete chat
             self.isClear = true
-            SocketChatManager.sharedInstance.clearChat(param: ["userId" : SocketChatManager.sharedInstance.myUserId, "groupId" : self.groupId])
+            SocketChatManager.sharedInstance.clearChat(param: [
+                "secretKey" : SocketChatManager.sharedInstance.secretKey,
+                "userId" : SocketChatManager.sharedInstance.myUserId,
+                "groupId" : self.groupId
+            ])
         }
         let cancelAction = UIAlertAction(title: "Cancel", style: .default) { action in
         }
@@ -522,9 +540,17 @@ public class ChatVC: UIViewController {
             //Delete chat
             self.isClear = false
             if !self.isGroup {
-                SocketChatManager.sharedInstance.deleteChat(param: ["userId" : SocketChatManager.sharedInstance.myUserId, "groupId" : self.groupId], from: true)
+                SocketChatManager.sharedInstance.deleteChat(param: [
+                    "secretKey" : SocketChatManager.sharedInstance.secretKey,
+                    "userId" : SocketChatManager.sharedInstance.myUserId,
+                    "groupId" : self.groupId
+                ], from: true)
             } else {
-                SocketChatManager.sharedInstance.deleteGroup(param: ["userId" : SocketChatManager.sharedInstance.myUserId, "groupId" : self.groupId], from: true)
+                SocketChatManager.sharedInstance.deleteGroup(param: [
+                    "secretKey" : SocketChatManager.sharedInstance.secretKey,
+                    "userId" : SocketChatManager.sharedInstance.myUserId,
+                    "groupId" : self.groupId
+                ], from: true)
             }
         }
         let cancelAction = UIAlertAction(title: "Cancel", style: .default) { action in

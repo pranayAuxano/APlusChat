@@ -75,7 +75,10 @@ public class GroupContVC: UIViewController {
         bundle = Bundle(for: GroupContVC.self)
         
         ProgressHUD.show()
-        SocketChatManager.sharedInstance.getUserList(param: ["userId" : SocketChatManager.sharedInstance.myUserId, "secretKey" : SocketChatManager.sharedInstance.secretKey], from: false)
+        SocketChatManager.sharedInstance.getUserList(param: [
+            "userId" : SocketChatManager.sharedInstance.myUserId,
+            "secretKey" : SocketChatManager.sharedInstance.secretKey
+        ], from: false)
     }
     
     func getUserListRes(_ contactList : ContactList) {
