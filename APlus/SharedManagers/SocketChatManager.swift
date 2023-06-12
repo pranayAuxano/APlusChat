@@ -28,7 +28,7 @@ public class SocketChatManager {
     // MARK: - Properties
     public var secretKey : String = "U2FsdGVkX19wmVtaa5bOlZVjpazEyB3tEX/0BAmWufQjL2AscUo+sZ72L19onNWL"
     
-    public var myUserId : String = "7"         // Pranay
+//    public var myUserId : String = "7"         // Pranay
 //    var myUserId : String = "8"         //  Pranay1
 //    var myUserId : String = "9"         //  Pranay2
 //    var myUserId : String = "10"        //  Pranay3
@@ -36,6 +36,7 @@ public class SocketChatManager {
 //    var myUserId : String = "12"        //  Pranay12
 //    var myUserId : String = "13"        //  Pranay13
 //    var myUserId : String = "14"        //  Pranay14
+    var myUserId : String = "15"        //  Pranay14
     
     public var myUserName : String = ""
     public var themeColor: ThemeColor? = .red

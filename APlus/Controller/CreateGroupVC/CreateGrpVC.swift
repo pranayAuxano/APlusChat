@@ -208,6 +208,7 @@ extension CreateGrpVC : UIImagePickerControllerDelegate, UINavigationControllerD
             if !isCameraOpen {
                 let photo = info[.phAsset] as? PHAsset
                 imgFileName = photo?.value(forKey: "filename") as? String ?? ""
+                imgFileName = imgFileName == "" ? (URL(string: "\(info[.imageURL]!)")?.lastPathComponent)! : imgFileName
                 print(imgFileName)
                 mimeType = imgFileName.mimeType()
                 isImgLoad = true
