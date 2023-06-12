@@ -98,7 +98,9 @@ public class ProfDetailVC: UIViewController {
         imagePicker.delegate = self
         imagePicker.allowsEditing = true
         
-        let alert = UIAlertController(title: "", message: "Please select an option", preferredStyle: .actionSheet)
+        self.openGallary()
+        
+        /*let alert = UIAlertController(title: "", message: "Please select an option", preferredStyle: .actionSheet)
         alert.addAction(UIAlertAction(title: "Camera", style: .default, handler: { alert in
             self.openCamera()
         }))
@@ -108,7 +110,7 @@ public class ProfDetailVC: UIViewController {
         alert.addAction(UIAlertAction(title: "Dismiss", style: .cancel, handler: { alert in
         }))
         self.present(alert, animated: true) {
-        }
+        }   //  */
     }
     
     @IBAction func btnSaveTap(_ sender: UIButton) {
