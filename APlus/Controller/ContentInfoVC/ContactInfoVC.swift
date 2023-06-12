@@ -437,6 +437,7 @@ extension ContactInfoVC : UIImagePickerControllerDelegate, UINavigationControlle
             if !isCameraOpen {
                 let photo = info[.phAsset] as? PHAsset
                 imgFileName = photo?.value(forKey: "filename") as? String ?? ""
+                imgFileName = imgFileName == "" ? (URL(string: "\(info[.imageURL]!)")?.lastPathComponent)! : imgFileName
                 print(imgFileName)
                 mimeType = imgFileName.mimeType()
                 isImgLoad = true
@@ -447,7 +448,7 @@ extension ContactInfoVC : UIImagePickerControllerDelegate, UINavigationControlle
                 }
                 guard let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first else { return }
                 //let imageName = "\(Utility.fileName()).JPEG"
-                imgFileName = "\(Utility.fileName()).JPEG"
+                imgFileName = "\(Utility.fileName()).png"
                 let fileUrl = documentsDirectory.appendingPathComponent(imgFileName)
                 mimeType = fileUrl.mimeType()
                 //guard let data = image.jpegData(compressionQuality: 1) else { return }

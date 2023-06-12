@@ -29,14 +29,14 @@ public class SocketChatManager {
     public var secretKey : String = "U2FsdGVkX19wmVtaa5bOlZVjpazEyB3tEX/0BAmWufQjL2AscUo+sZ72L19onNWL"
     
 //    public var myUserId : String = "7"         // Pranay
-//    var myUserId : String = "8"         //  Pranay1
-//    var myUserId : String = "9"         //  Pranay2
-//    var myUserId : String = "10"        //  Pranay3
-//    var myUserId : String = "11"        //  Pranay11
-//    var myUserId : String = "12"        //  Pranay12
-//    var myUserId : String = "13"        //  Pranay13
-//    var myUserId : String = "14"        //  Pranay14
-    var myUserId : String = "15"        //  Pranay14
+//    public var myUserId : String = "8"         //  Pranay1
+//    public var myUserId : String = "9"         //  Pranay2
+//    public var myUserId : String = "10"        //  Pranay3
+//    public var myUserId : String = "11"        //  Pranay11
+//    public var myUserId : String = "12"        //  Pranay12
+//    public var myUserId : String = "13"        //  Pranay13
+//    public var myUserId : String = "14"        //  Pranay14
+    public var myUserId : String = "15"        //  Pranay14
     
     public var myUserName : String = ""
     public var themeColor: ThemeColor? = .red
