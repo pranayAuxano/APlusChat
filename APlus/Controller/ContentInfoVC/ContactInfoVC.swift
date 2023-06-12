@@ -292,7 +292,10 @@ public class ContactInfoVC: UIViewController {
                 let alertController = UIAlertController(title: "Are you sure you want to exit group ?", message: "", preferredStyle: .alert)
                 let OKAction = UIAlertAction(title: "OK", style: .default) { action in
                     ProgressHUD.show()
-                    SocketChatManager.sharedInstance.exitGroup(param: ["userId" : SocketChatManager.sharedInstance.myUserId, "groupId" : self.groupId])
+                    SocketChatManager.sharedInstance.exitGroup(param: [
+                        "userId" : SocketChatManager.sharedInstance.myUserId,
+                        "secretKey": SocketChatManager.sharedInstance.secretKey,
+                        "groupId" : self.groupId])
                 }
                 let cancelAction = UIAlertAction(title: "Cancel", style: .default) { action in
                 }
@@ -307,7 +310,11 @@ public class ContactInfoVC: UIViewController {
                 let OKAction = UIAlertAction(title: "OK", style: .default) { action in
                     //Delete group
                     ProgressHUD.show()
-                    SocketChatManager.sharedInstance.deleteGroup(param: ["userId" : SocketChatManager.sharedInstance.myUserId, "groupId" : self.groupId], from: false)
+                    SocketChatManager.sharedInstance.deleteGroup(param: [
+                        "userId" : SocketChatManager.sharedInstance.myUserId,
+                        "secretKey": SocketChatManager.sharedInstance.secretKey,
+                        "groupId" : self.groupId
+                    ], from: false)
                 }
                 let cancelAction = UIAlertAction(title: "Cancel", style: .default) { action in
                 }
@@ -319,7 +326,11 @@ public class ContactInfoVC: UIViewController {
                 let OKAction = UIAlertAction(title: "OK", style: .default) { action in
                     //Delete chat
                     ProgressHUD.show()
-                    SocketChatManager.sharedInstance.deleteChat(param: ["userId" : SocketChatManager.sharedInstance.myUserId, "groupId" : self.groupId], from: false)
+                    SocketChatManager.sharedInstance.deleteChat(param: [
+                        "userId" : SocketChatManager.sharedInstance.myUserId,
+                        "secretKey": SocketChatManager.sharedInstance.secretKey,
+                        "groupId" : self.groupId
+                    ], from: false)
                 }
                 let cancelAction = UIAlertAction(title: "Cancel", style: .default) { action in
                 }
