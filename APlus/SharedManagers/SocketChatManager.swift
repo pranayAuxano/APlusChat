@@ -116,7 +116,7 @@ public class SocketChatManager {
         }
     }
     
-    func closeConnection() {
+    public func closeConnection() {
         socket?.disconnect()
     }
     

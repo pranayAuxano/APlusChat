@@ -55,19 +55,19 @@ class UserDetailTVCell: UITableViewCell {
             lblLastMsg.isHidden = false
         } else if msgType == "image" {
             viewRecentPhoto.isHidden = false
-            imgRecentPhoto.image = UIImage(named: "image", in: self.bundle, compatibleWith: nil) //UIImage(named: "image")
+            imgRecentPhoto.image = UIImage(named: "image", in: self.bundle, compatibleWith: nil)
             lblRecentPhotoVideoFile.text = "Photo"
         } else if msgType == "audio" {
             viewRecentPhoto.isHidden = false
-            imgRecentPhoto.image = UIImage(named: "audio", in: self.bundle, compatibleWith: nil) //UIImage(named: "audio")
+            imgRecentPhoto.image = UIImage(named: "audio", in: self.bundle, compatibleWith: nil)
             lblRecentPhotoVideoFile.text = "Audio"
         } else if msgType == "video" {
             viewRecentPhoto.isHidden = false
-            imgRecentPhoto.image = UIImage(named: "video", in: self.bundle, compatibleWith: nil) //UIImage(named: "video")
+            imgRecentPhoto.image = UIImage(named: "video", in: self.bundle, compatibleWith: nil)
             lblRecentPhotoVideoFile.text = "Video"
         } else if msgType == "document" {
             viewRecentPhoto.isHidden = false
-            imgRecentPhoto.image = UIImage(named: "document", in: self.bundle, compatibleWith: nil) //UIImage(named: "document")
+            imgRecentPhoto.image = UIImage(named: "document", in: self.bundle, compatibleWith: nil)
             lblRecentPhotoVideoFile.text = "File"
         }
         
