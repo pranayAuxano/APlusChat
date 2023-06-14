@@ -745,9 +745,7 @@ extension ChatVC : UITableViewDelegate, UITableViewDataSource {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "OwnFileBubbleCell", for: indexPath) as! OwnFileBubbleCell
                 cell.viewMsg.backgroundColor = Colors.lightTheme.returnColor()
                 
-                //let fileName : String = self.arrSectionMsg![indexPath.section][indexPath.row].fileName ?? "Document File"
                 cell.lblFileName.text = self.arrSectionMsg![indexPath.section][indexPath.row].fileName ?? "Document File"
-                //fileName == "" ? "Document File" : fileName
                 cell.configure(msgType, self.arrSectionMsg![indexPath.section][indexPath.row].fileName ?? "", self.arrSectionMsg![indexPath.section][indexPath.row].showLoader ?? false)
                 cell.lblTime.text = Utility.convertTimestamptoTimeString(timestamp: "\((self.arrSectionMsg![indexPath.section][indexPath.row].timeMilliSeconds?.seconds)!)")
                 return cell
@@ -823,9 +821,7 @@ extension ChatVC : UITableViewDelegate, UITableViewDataSource {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "OtherFileBubbleCell", for: indexPath) as! OtherFileBubbleCell
                 cell.viewMsg.backgroundColor = .white
                 
-                //let fileName : String = self.arrSectionMsg![indexPath.section][indexPath.row].fileName ?? "Document File"
                 cell.lblFileName.text = self.arrSectionMsg![indexPath.section][indexPath.row].fileName ?? "Document File"
-                //fileName == "" ? "Document File" : fileName
                 cell.lblTime.text = Utility.convertTimestamptoTimeString(timestamp: "\((self.arrSectionMsg![indexPath.section][indexPath.row].timeMilliSeconds?.seconds)!)")
                 if isGroup {
                     cell.lblUserName.isHidden = false
@@ -921,7 +917,7 @@ extension ChatVC : UITableViewDelegate, UITableViewDataSource {
                 
             }
         }
-    }   ///  */
+    }
     
     public func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return UITableView.automaticDimension
