@@ -515,7 +515,7 @@ public class SocketChatManager {
         }
     }
     
-    func deleteGroup(param : [String : Any], from userChat : Bool) {
+    func deleteGroup(param : [String : Any], fromChat userChat : Bool) {
         //request body (groupId, userId)
         if Network.reachability.isReachable {
             socket?.emit("delete-group", param)
@@ -523,7 +523,7 @@ public class SocketChatManager {
         }
     }
     
-    func deleteChat(param : [String : Any], from userChat : Bool) {
+    func deleteChat(param : [String : Any], fromChat userChat : Bool) {
         //request body (groupId, userId)
         if Network.reachability.isReachable {
             socket?.emit("delete-chat", param)

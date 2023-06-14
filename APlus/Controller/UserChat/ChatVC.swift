@@ -544,13 +544,13 @@ public class ChatVC: UIViewController {
                     "secretKey" : SocketChatManager.sharedInstance.secretKey,
                     "userId" : SocketChatManager.sharedInstance.myUserId,
                     "groupId" : self.groupId
-                ], from: true)
+                ], fromChat: true)
             } else {
                 SocketChatManager.sharedInstance.deleteGroup(param: [
                     "secretKey" : SocketChatManager.sharedInstance.secretKey,
                     "userId" : SocketChatManager.sharedInstance.myUserId,
                     "groupId" : self.groupId
-                ], from: true)
+                ], fromChat: true)
             }
         }
         let cancelAction = UIAlertAction(title: "Cancel", style: .default) { action in

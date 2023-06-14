@@ -64,6 +64,7 @@ public class ContactInfoVC: UIViewController {
     var mimeType : String = ""
     var isPictureSelect : Bool = false
     var isImagePickerOpen: Bool = false
+    var isDeleteChatGroup: Bool = false
     var bundle = Bundle()
     
     public init() {
@@ -296,6 +297,7 @@ public class ContactInfoVC: UIViewController {
                 let alertController = UIAlertController(title: "Are you sure you want to exit group ?", message: "", preferredStyle: .alert)
                 let OKAction = UIAlertAction(title: "OK", style: .default) { action in
                     ProgressHUD.show()
+                    self.isDeleteChatGroup = true
                     SocketChatManager.sharedInstance.exitGroup(param: [
                         "userId" : SocketChatManager.sharedInstance.myUserId,
                         "secretKey": SocketChatManager.sharedInstance.secretKey,
@@ -314,11 +316,12 @@ public class ContactInfoVC: UIViewController {
                 let OKAction = UIAlertAction(title: "OK", style: .default) { action in
                     //Delete group
                     ProgressHUD.show()
+                    self.isDeleteChatGroup = true
                     SocketChatManager.sharedInstance.deleteGroup(param: [
                         "userId" : SocketChatManager.sharedInstance.myUserId,
                         "secretKey": SocketChatManager.sharedInstance.secretKey,
                         "groupId" : self.groupId
-                    ], from: false)
+                    ], fromChat: false)
                 }
                 let cancelAction = UIAlertAction(title: "Cancel", style: .default) { action in
                 }
@@ -330,11 +333,12 @@ public class ContactInfoVC: UIViewController {
                 let OKAction = UIAlertAction(title: "OK", style: .default) { action in
                     //Delete chat
                     ProgressHUD.show()
+                    self.isDeleteChatGroup = true
                     SocketChatManager.sharedInstance.deleteChat(param: [
                         "userId" : SocketChatManager.sharedInstance.myUserId,
                         "secretKey": SocketChatManager.sharedInstance.secretKey,
                         "groupId" : self.groupId
-                    ], from: false)
+                    ], fromChat: false)
                 }
                 let cancelAction = UIAlertAction(title: "Cancel", style: .default) { action in
                 }
@@ -348,14 +352,32 @@ public class ContactInfoVC: UIViewController {
     func responseBack(_ isUpdate : Bool) {
         ProgressHUD.dismiss()
         if isUpdate {
-            let toastMsg = ToastUtility.Builder(message: "Group details updated.", controller: self, keyboardActive: false)
-            toastMsg.setColor(background: .green, text: .black)
-            toastMsg.show()
+            if self.isDeleteChatGroup {
+                if let viewControllers = self.navigationController?.viewControllers {
+                    for viewController in viewControllers {
+                        if viewController is FirstVC {
+                            self.navigationController?.popToViewController(viewController, animated: true)
+                            break
+                        }
+                    }
+                }
+            } else {
+                let toastMsg = ToastUtility.Builder(message: "Group details updated.", controller: self, keyboardActive: false)
+                toastMsg.setColor(background: .green, text: .black)
+                toastMsg.show()
+            }
         } else {
             ProgressHUD.dismiss()
-            let toastMsg = ToastUtility.Builder(message: "Group details not updated.", controller: self, keyboardActive: false)
-            toastMsg.setColor(background: .red, text: .black)
-            toastMsg.show()
+            if self.isDeleteChatGroup {
+                /*let toastMsg = ToastUtility.Builder(message: "Fail to Exit/Delete.", controller: self, keyboardActive: false)
+                toastMsg.setColor(background: .red, text: .black)
+                toastMsg.show() //  */
+            } else {
+                let toastMsg = ToastUtility.Builder(message: "Group details not updated.", controller: self, keyboardActive: false)
+                toastMsg.setColor(background: .red, text: .black)
+                toastMsg.show()
+            }
+            self.isDeleteChatGroup = false
         }
     }
     
@@ -377,6 +399,7 @@ public class ContactInfoVC: UIViewController {
             "isChat": 0,
         ] as [String : Any]
         
+        self.isDeleteChatGroup = false
         if isPictureSelect {
             ProgressHUD.show()
             DispatchQueue.main.async {
