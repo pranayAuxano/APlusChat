@@ -23,6 +23,9 @@ protocol SocketDelegate {
     func getUnreadChat(noOfChat: Int) {}
 }   /// */
 
+let HTTP_SERVER_URL = "http://3.139.188.226:5000/"
+let BASE_URL = HTTP_SERVER_URL + "user/public/"
+
 public class SocketChatManager {
     
     // MARK: - Properties
@@ -46,7 +49,10 @@ public class SocketChatManager {
     public var socket : SocketIOClient?
     var socketDelegate : SocketDelegate?
     //var serverURL : String = "http://14.99.147.156:5000"  //  Live Test server
-    var serverURL : String = "http://3.139.188.226:5000"  //  Live Production server
+    //var serverURL : String = "http://3.139.188.226:5000"  //  Live Production server
+    
+    let UPLOAD_FILE             = BASE_URL + "upload-file-new"
+    let CREATE_GROUP            = BASE_URL + "create-group"
     
     //closer
     var viewController: (()->FirstVC)?
@@ -77,7 +83,7 @@ public class SocketChatManager {
     
     // MARK: - Socket Setup
     func initializeSocket() {
-        manager = SocketManager(socketURL: URL(string: serverURL)!, config: [.log(true), .compress, .reconnects(true), .reconnectWait(10)])
+        manager = SocketManager(socketURL: URL(string: HTTP_SERVER_URL)!, config: [.log(true), .compress, .reconnects(true), .reconnectWait(10)])
         self.socket = manager?.defaultSocket
     }
     

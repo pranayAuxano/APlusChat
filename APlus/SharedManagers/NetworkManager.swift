@@ -42,14 +42,6 @@ class NetworkManager: NSObject {
     }
     
     func getData(from url: URL, completion: @escaping (Data?, URLResponse?, Error?) -> Void) -> Cancellable {
-        
-//        if let cachedImage = image(url: URL(string: grupImage)) {
-//            DispatchQueue.main.async {
-//                completion(item, cachedImage)
-//            }
-//            return
-//        }
-        
         let dataTask = URLSession.shared.dataTask(with: url) { data, response, err in
             if err == nil {
                 completion(data, response, err)
@@ -82,41 +74,14 @@ class NetworkManager: NSObject {
         downloadTask.resume()
     }
     
-    /*func uploadMedia(url: String = "http://3.139.188.226:5000/user/public/upload-file", fileName: String,image file: [UInt8], contentType: String, COMPLETION completion: @escaping ((String) -> Void)) {
-        //let data = file.pngData()!.bytes
-        let params = ["file": file, "fileName": fileName, "contentType" : contentType] as Dictionary<String, Any>
-
-        var request = URLRequest(url: URL(string: url)!)
-        request.httpMethod = "POST"
-        request.httpBody = try? JSONSerialization.data(withJSONObject: params, options: [])
-        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-
-        let session = URLSession.shared
-        let task = session.dataTask(with: request, completionHandler: { data, response, error -> Void in
-            do {
-                let json = try JSONSerialization.jsonObject(with: data!) as! Dictionary<String, AnyObject>
-                print(json)
-                let status = json["success"] as! Int
-                if status == 1 {
-                    completion(json["file"] as! String)
-                }
-                completion("")
-            } catch let error {
-                print(error.localizedDescription)
-                completion("")
-            }
-        })
-
-        task.resume()
-    }   //  */
-    
-    func uploadImage(url: String = "http://3.139.188.226:5000/user/public/upload-file-new",
+    func uploadImage(url: String = SocketChatManager.sharedInstance.UPLOAD_FILE,
                      dictiParam: [String: Any],
                      image: Any,
                      type: String,
                      contentType: String,
                      COMPLETION completion: @escaping ((String) -> Void),
                      errorCompletion: @escaping ((String) -> Void)) {
+        
         let boundary = UUID().uuidString
         let session = URLSession.shared
         var urlRequest = URLRequest(url: URL(string: url)!)
@@ -190,7 +155,7 @@ class NetworkManager: NSObject {
         }).resume()
     }
     
-    func createGroup(url: String = "http://3.139.188.226:5000/user/public/create-group", param: [String : Any], COMPLETION completion: @escaping ((String) -> Void), errorCompletion: @escaping ((String) -> Void)) {
+    func createGroup(url: String = SocketChatManager.sharedInstance.CREATE_GROUP, param: [String : Any], COMPLETION completion: @escaping ((String) -> Void), errorCompletion: @escaping ((String) -> Void)) {
         //let data = file.pngData()!.bytes
         //let params = ["file": file, "fileName": fileName, "contentType" : contentType] as Dictionary<String, Any>
         
