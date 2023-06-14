@@ -364,7 +364,7 @@ extension FirstVC : SocketDelegate {
             SocketChatManager.sharedInstance.reqRecentChatList(param: [
                 "secretKey" : SocketChatManager.sharedInstance.secretKey,
                 "userId" : SocketChatManager.sharedInstance.myUserId
-            ])  //  ["secretKey" : secretKey, "_id" : myUserId]
+            ])
         }
     }
     
