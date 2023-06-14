@@ -111,16 +111,13 @@ public class FirstVC: UIViewController {
     
     public override func viewWillAppear(_ animated: Bool) {
         bundle = Bundle(for: FirstVC.self)
-        
         self.navigationController?.isNavigationBarHidden = true
         
-        imgProfilePic.image = UIImage(named: "placeholder-profile-img.png", in: bundle, compatibleWith: nil)
         imgProfilePic.layer.cornerRadius = imgProfilePic.frame.height / 2
         SocketChatManager.sharedInstance.socketDelegate = self
         isGetUserList = false
         
         if (SocketChatManager.sharedInstance.socket?.status == .connected) {
-            //isGetUserList = true
             if SocketChatManager.sharedInstance.userRole?.updateProfile ?? 0 == 1 {
                 SocketChatManager.sharedInstance.reqProfileDetails(param: [
                     "secretKey" : SocketChatManager.sharedInstance.secretKey,
@@ -131,7 +128,6 @@ public class FirstVC: UIViewController {
                 "secretKey" : SocketChatManager.sharedInstance.secretKey,
                 "userId" : SocketChatManager.sharedInstance.myUserId
             ])
-            //self.getUserRole()
         }
     }
     
@@ -188,36 +184,29 @@ public class FirstVC: UIViewController {
     }
     
     func getProfileDetail(_ profileDetail : ProfileDetail) {
-        //ProgressHUD.dismiss()
         print("Get response of profile details.")
-        
         self.btnViewUserProfile.isUserInteractionEnabled = true
         self.profileDetail = profileDetail
         
         SocketChatManager.sharedInstance.myUserName = self.profileDetail?.name ?? ""
         
-        imgProfilePic.image = UIImage(named: "placeholder-profile-img.png", in: bundle, compatibleWith: nil)
         if profileDetail.profilePicture! != "" {
-            // setup activityIndicator...
-            activityIndicator.color = .darkGray
-            
-            activityIndicator.center = self.viewProfileImg.center
-            self.imgProfilePic.addSubview(activityIndicator)
-            
-            activityIndicator.frame = CGRect(x: 0, y: 0, width: 41, height: 41)
-            
             var imageURL: URL?
             imageURL = URL(string: profileDetail.profilePicture!)!
-            
             self.imgProfilePic.image = nil
-            activityIndicator.startAnimating()
             
             // retrieves image if already available in cache
             if let imageFromCache = imageCache.object(forKey: imageURL as AnyObject) as? UIImage {
                 self.imgProfilePic.image = imageFromCache
-                activityIndicator.stopAnimating()
                 return
             }
+            
+            // setup activityIndicator...
+            activityIndicator.frame = CGRect(x: 0, y: 0, width: 41, height: 41)
+            activityIndicator.color = .darkGray
+            activityIndicator.center = self.viewProfileImg.center
+            self.imgProfilePic.addSubview(activityIndicator)
+            activityIndicator.startAnimating()
             
             imageRequest = NetworkManager.sharedInstance.getData(from: URL(string: profileDetail.profilePicture!)!) { data, resp, err in
                 guard let data = data, err == nil else {
