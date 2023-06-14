@@ -348,10 +348,9 @@ public class ContactInfoVC: UIViewController {
     func responseBack(_ isUpdate : Bool) {
         ProgressHUD.dismiss()
         if isUpdate {
-            /*let sb = UIStoryboard(name: "Main", bundle: nil)
-            let vc =  sb.instantiateViewController(withIdentifier: "ViewController") as! ViewController
-            self.navigationController?.popToViewController(vc, animated: true)  //  */
-            //self.navigationController?.popViewController(animated: true)
+            let toastMsg = ToastUtility.Builder(message: "Group details updated.", controller: self, keyboardActive: false)
+            toastMsg.setColor(background: .green, text: .black)
+            toastMsg.show()
         } else {
             ProgressHUD.dismiss()
             let toastMsg = ToastUtility.Builder(message: "Group details not updated.", controller: self, keyboardActive: false)

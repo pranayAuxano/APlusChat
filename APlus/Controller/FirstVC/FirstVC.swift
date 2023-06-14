@@ -118,7 +118,7 @@ public class FirstVC: UIViewController {
         isGetUserList = false
         
         if (SocketChatManager.sharedInstance.socket?.status == .connected) {
-            if SocketChatManager.sharedInstance.userRole?.updateProfile ?? 0 == 1 {
+            if !hideTopView && (SocketChatManager.sharedInstance.userRole?.updateProfile ?? 0 == 1) {
                 SocketChatManager.sharedInstance.reqProfileDetails(param: [
                     "secretKey" : SocketChatManager.sharedInstance.secretKey,
                     "userId" : SocketChatManager.sharedInstance.myUserId
@@ -238,7 +238,7 @@ public class FirstVC: UIViewController {
             constTrailNewGrpChat.priority = SocketChatManager.sharedInstance.userRole?.createOneToOneChat ?? 0 == 1 ? .defaultLow : .required
         }
         
-        if SocketChatManager.sharedInstance.userRole?.updateProfile ?? 0 == 1 {
+        if !hideTopView && (SocketChatManager.sharedInstance.userRole?.updateProfile ?? 0 == 1) {
             SocketChatManager.sharedInstance.reqProfileDetails(param: [
                 "secretKey" : SocketChatManager.sharedInstance.secretKey,
                 "userId" : SocketChatManager.sharedInstance.myUserId
