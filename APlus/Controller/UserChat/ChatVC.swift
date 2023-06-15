@@ -568,10 +568,10 @@ public class ChatVC: UIViewController {
                 self.arrSectionMsg?.removeAll()
                 self.tblUserChat.reloadData()
             } else {
-                self.navigationController?.popToRootViewController(animated: true)
-                /*if let viewControllers = navigationController?.viewControllers {
+                //self.navigationController?.popToRootViewController(animated: true)
+                if let viewControllers = navigationController?.viewControllers {
                     for viewController in viewControllers {
-                        if viewController is ViewController {
+                        if viewController is FirstVC {
                             navigationController?.popToViewController(viewController, animated: true)
                             break
                         }
