@@ -78,7 +78,9 @@ extension ContactInfoVC : UITableViewDelegate, UITableViewDataSource {
             "groupId": groupDetail?.groupId ?? "",
             "members": arrUserIds,
             "viewBy": arrUserIds,
-            "users": arrSelectedUser] as [String : Any]
+            "users": arrSelectedUser,
+            "removeMember": "\(id)"
+        ] as [String : Any]
         
         SocketChatManager.sharedInstance.removeMember(param: param)
     }

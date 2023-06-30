@@ -52,10 +52,18 @@ extension GroupContVC : UITableViewDelegate, UITableViewDataSource, SelectContac
                     break
                 }
             }
+            
+            for i in 0 ..< self.addMembersArr.count {
+                if self.addMembersArr[i] == (arrContactList?[indexPath.row].userId ?? "") {
+                    self.addMembersArr.remove(at: i)
+                    break
+                }
+            }
         } else {
             arrContactList?[indexPath.row].isSelected = true
             arrSelectedContactList?.append((arrContactList?[indexPath.row])!)
             cell.btnSelectContact.isSelected = true
+            self.addMembersArr.append("\(arrContactList?[indexPath.row].userId ?? "")")
         }
         
         if (arrSelectedContactList?.count)! > 0 {
@@ -79,9 +87,17 @@ extension GroupContVC : UITableViewDelegate, UITableViewDataSource, SelectContac
                     break
                 }
             }
+            
+            for i in 0 ..< self.addMembersArr.count {
+                if self.addMembersArr[i] == (arrContactList?[indexPath.row].userId ?? "") {
+                    self.addMembersArr.remove(at: i)
+                    break
+                }
+            }
         } else {
             arrSelectedContactList?.append((arrContactList?[indexPath.row])!)
             cell.btnSelectContact.isSelected = true
+            self.addMembersArr.append("\(arrContactList?[indexPath.row].userId ?? "")")
         }
         
         if (arrSelectedContactList?.count)! > 0 {

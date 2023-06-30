@@ -24,22 +24,16 @@ protocol SocketDelegate {
 }   /// */
 
 let HTTP_SERVER_URL = "http://3.139.188.226:5000/"
+//let HTTP_SERVER_URL = "http://3.139.188.226:5001/"
 let BASE_URL = HTTP_SERVER_URL + "user/public/"
 
 public class SocketChatManager {
     
     // MARK: - Properties
-    public var secretKey : String = "U2FsdGVkX19wmVtaa5bOlZVjpazEyB3tEX/0BAmWufQjL2AscUo+sZ72L19onNWL"
+    public var secretKey : String = "U2FsdGVkX19wmVtaa5bOlZVjpazEyB3tEX/0BAmWufQjL2AscUo+sZ72L19onNWL"  //Old
+//    public var secretKey : String = "U2FsdGVkX19qU0mGWo0WdPbKxMfKE7gf743fNm8mkkekc6FDN/Jhg/vxoWU0QUUW"  //New
     
-//    public var myUserId : String = "7"         // Pranay
-//    public var myUserId : String = "8"         //  Pranay1
-//    public var myUserId : String = "9"         //  Pranay2
-//    public var myUserId : String = "10"        //  Pranay3
-//    public var myUserId : String = "11"        //  Pranay11
-//    public var myUserId : String = "12"        //  Pranay12
-//    public var myUserId : String = "13"        //  Pranay13
-//    public var myUserId : String = "14"        //  Pranay14
-    public var myUserId : String = "15"        //  Pranay14
+    public var myUserId : String = "7"         // Pranay
     
     public var myUserName : String = ""
     public var themeColor: ThemeColor? = .red

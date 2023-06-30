@@ -190,7 +190,7 @@ public class FirstVC: UIViewController {
         
         SocketChatManager.sharedInstance.myUserName = self.profileDetail?.name ?? ""
         
-        if profileDetail.profilePicture! != "" {
+        if profileDetail.profilePicture != nil && profileDetail.profilePicture! != "" {
             var imageURL: URL?
             imageURL = URL(string: profileDetail.profilePicture!)!
             self.imgProfilePic.image = nil
