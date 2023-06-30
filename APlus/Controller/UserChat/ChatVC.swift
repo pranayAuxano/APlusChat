@@ -114,8 +114,6 @@ public class ChatVC: UIViewController {
         btnClose.backgroundColor = .clear
         viewMainReply.isHidden = true
         //lblReplySidebar.clipsToBounds = true
-        //lblReplySidebar.layer.cornerRadius = lblReplySidebar.frame.height / 2
-        //lblReplySidebar.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
         constTblBottom.priority = .required
         
         btnOption.tintColor = UIColor.black
@@ -251,10 +249,6 @@ public class ChatVC: UIViewController {
             }
         }
         
-        //self.imgProfilePic.image = UIImage(named: "group-placeholder.jpg", in: self.bundle, compatibleWith: nil)
-        //self.imgProfilePic.image = UIImage(named: "placeholder-profile-img.png", in: self.bundle, compatibleWith: nil)
-        //self.imgProfilePic.image = UIImage(named: self.isGroup ? "group-placeholder.jpg" : "placeholder-profile-img.png", in: self.bundle, compatibleWith: nil)
-        
         self.lblUserName.text = self.groupDetail?.groupName ?? ""
         self.strProfileImg = self.groupDetail?.imagePath ?? ""
         self.loadProfileImg()
@@ -275,7 +269,7 @@ public class ChatVC: UIViewController {
         if strProfileImg != "" {
             var imageURL: URL?
             imageURL = URL(string: strProfileImg!)!
-            //self.imgProfilePic.image = nil
+            
             // retrieves image if already available in cache
             if let imageFromCache = imageCache.object(forKey: imageURL as AnyObject) as? UIImage {
                 self.imgProfilePic.image = imageFromCache
@@ -313,7 +307,6 @@ public class ChatVC: UIViewController {
             self.setData()
         }
         if !isCallPreChatPage {
-            //self.arrGetPreviousChat = chat.messages!
             //Call func for get section.
             self.arrGetPreviousChat = chat.messages!
             self.arrDtForSection?.removeAll()
@@ -360,7 +353,6 @@ public class ChatVC: UIViewController {
     
     func getDateMsgforSection() {
         for i in 0 ..< arrGetPreviousChat!.count {
-            //let msgDate : String = Utility.convertTimestamptoDateString(timestamp: (self.arrGetPreviousChat?[i].sentAt?.seconds)!)
             let msgDate : String = Utility.convertTimestamptoDateString(timestamp: (self.arrGetPreviousChat?[i].timeMilliSeconds?.seconds)!)
             if (arrDtForSection?.contains(msgDate))! {
                 for j in 0 ..< arrDtForSection!.count {
@@ -370,7 +362,6 @@ public class ChatVC: UIViewController {
                 }
             } else {
                 arrDtForSection?.append(msgDate)
-                //var tempMsg : [GetPreviousChat] = []
                 var tempMsg : [Message] = []
                 tempMsg.append((self.arrGetPreviousChat?[i])!)
                 arrSectionMsg?.append(tempMsg)
@@ -386,16 +377,13 @@ public class ChatVC: UIViewController {
             if (arrDtForSection?.contains(msgDate))! {
                 for j in 0 ..< arrDtForSection!.count {
                     if arrDtForSection![j] == msgDate {
-                        //tempArrSectionMsg?[j].append((self.arrGetPreChatMsg?[i])!)
                         arrSectionMsg?[j].insert((self.arrGetPreChatMsg?[i])!, at: 0)
                     }
                 }
             } else {
-                //tempArrDtForSection?.append(msgDate)
                 arrDtForSection?.insert(msgDate, at: 0)
                 var tempMsg : [Message] = []
                 tempMsg.append((self.arrGetPreChatMsg?[i])!)
-                //tempArrSectionMsg?.append(tempMsg)
                 arrSectionMsg?.insert(tempMsg, at: 0)
             }
         }
@@ -405,10 +393,8 @@ public class ChatVC: UIViewController {
         if (typingResponse.groupId == groupId)  {
             if typingResponse.isTyping == "true" {
                 onlineUser = self.isGroup ? "\(typingResponse.name ?? "") typing" : "typing..."
-                //lblOnline.text = onlineUser
             } else if typingResponse.isTyping == "false" {
                 onlineUser = self.isGroup ? "" : "Online"
-                //lblOnline.text = onlineUser
             }
             lblOnline.text = onlineUser
         }
@@ -462,7 +448,6 @@ public class ChatVC: UIViewController {
         SocketChatManager.sharedInstance.socket?.off("typing-res")
         SocketChatManager.sharedInstance.socket?.off("online-status")
         
-        //self.navigationController?.popToRootViewController(animated: true)
         self.navigationController?.popViewController(animated: true)
     }
     
@@ -488,8 +473,6 @@ public class ChatVC: UIViewController {
         
         var menuAction : [UIAction] = []
         menuAction.append(contectInfo)
-        //menuAction.append(deleteChat)
-        //menuAction.append(clearChat)
         
         if isGroup {
             if SocketChatManager.sharedInstance.userGroupRole?.deleteChat ?? 0 == 1 {
@@ -505,7 +488,7 @@ public class ChatVC: UIViewController {
             if SocketChatManager.sharedInstance.userRole?.clearChat ?? 0 == 1 {
                 menuAction.append(clearChat)
             }
-        }   ///  */
+        }
         btnOption.menu = UIMenu(title: "", options: .displayInline, children: menuAction)
     }
     
@@ -568,7 +551,6 @@ public class ChatVC: UIViewController {
                 self.arrSectionMsg?.removeAll()
                 self.tblUserChat.reloadData()
             } else {
-                //self.navigationController?.popToRootViewController(animated: true)
                 if let viewControllers = navigationController?.viewControllers {
                     for viewController in viewControllers {
                         if viewController is FirstVC {
@@ -576,7 +558,7 @@ public class ChatVC: UIViewController {
                             break
                         }
                     }
-                }   //  */
+                }
             }
         }
     }
@@ -693,6 +675,6 @@ public class ChatVC: UIViewController {
             toastMsg.setColor(background: .red, text: .black)
             toastMsg.show()
             return false
-        }   //  */
+        }
     }
 }

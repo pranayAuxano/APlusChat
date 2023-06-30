@@ -36,9 +36,6 @@ public class ImgViewerVC: UIViewController {
             imgDisplayImg.image = UIImage(named: strImageName!)
         } else {
             imgDisplayImg.image = imgSelectedImage
-        }
-        
+        }   
     }
-
-
 }

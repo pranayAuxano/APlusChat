@@ -11,7 +11,6 @@ import CoreAudio
 
 extension GroupContVC : UITableViewDelegate, UITableViewDataSource, SelectContactDelegate {
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        //return contactList?.list?.count ?? 0
         return arrContactList?.count ?? 0
     }
     
@@ -118,7 +117,6 @@ extension GroupContVC : UISearchBarDelegate {
     
     public func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         self.arrContactList = self.arrAllContactList?.filter{ ($0.name?.lowercased().prefix(searchText.count))! == searchText.lowercased() }
-        //print(searchText)
         self.tblContact.reloadData()
     }
     

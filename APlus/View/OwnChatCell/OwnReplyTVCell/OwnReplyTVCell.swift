@@ -38,7 +38,7 @@ class OwnReplyTVCell: UITableViewCell {
 
     func configure(_ msgType : String,_ image : String,_ data : String) {
         if msgType == "video" {
-            ImgReplyImg.image = UIImage(named: "default", in: self.bundle, compatibleWith: nil) //UIImage(named: "default")
+            ImgReplyImg.image = UIImage(named: "default", in: self.bundle, compatibleWith: nil)
             if data != "" {
                 let imageData = try? Data(contentsOf: URL(string: data)!)
                 if let imageData = imageData {
@@ -47,12 +47,12 @@ class OwnReplyTVCell: UITableViewCell {
             }
         }
         else if msgType == "image" {
-            ImgReplyImg.image = UIImage(named: "default", in: self.bundle, compatibleWith: nil) //UIImage(named: "default")
+            ImgReplyImg.image = UIImage(named: "default", in: self.bundle, compatibleWith: nil)
             ImgReplyImg.image = UIImage(contentsOfFile: image)
             if image != "" {
                 var imageURL: URL?
                 imageURL = URL(string: image)!
-                //self.imgProfile.image = nil
+                
                 // retrieves image if already available in cache
                 if let imageFromCache = imageCache.object(forKey: imageURL as AnyObject) as? UIImage {
                     self.ImgReplyImg.image = imageFromCache
@@ -64,11 +64,8 @@ class OwnReplyTVCell: UITableViewCell {
                         return
                     }
                     DispatchQueue.main.async {
-                        //let dataImg : UIImage = UIImage(data: data)!
                         if let imageToCache = UIImage(data: data) {
-                            //if self.imageURL == url {
-                                self.ImgReplyImg.image = imageToCache
-                            //}
+                            self.ImgReplyImg.image = imageToCache
                             imageCache.setObject(imageToCache, forKey: imageURL as AnyObject)
                         }
                     }
@@ -86,8 +83,6 @@ class OwnReplyTVCell: UITableViewCell {
     
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
         // Configure the view for the selected state
     }
-    
 }

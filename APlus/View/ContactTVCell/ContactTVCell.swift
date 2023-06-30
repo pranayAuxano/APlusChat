@@ -25,12 +25,11 @@ class ContactTVCell: UITableViewCell {
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
         // Configure the view for the selected state
     }
     
     func configure(_ image : String) {
-        imgContactImg.image = UIImage(named: "placeholder-profile-img.png", in: self.bundle, compatibleWith: nil)   //UIImage(named: "placeholder-profile-img.png")
+        imgContactImg.image = UIImage(named: "placeholder-profile-img.png", in: self.bundle, compatibleWith: nil)
         if image != "" {
             var imageURL: URL?
             imageURL = URL(string: image)!
@@ -48,11 +47,11 @@ class ContactTVCell: UITableViewCell {
                         self.imgContactImg.image = imageToCache
                         imageCache.setObject(imageToCache, forKey: imageURL as AnyObject)
                     } else {
-                        self.imgContactImg.image = UIImage(named: "placeholder-profile-img.png", in: self.bundle, compatibleWith: nil)  //UIImage(named: "placeholder-profile-img.png")
+                        self.imgContactImg.image = UIImage(named: "placeholder-profile-img.png", in: self.bundle, compatibleWith: nil)
                     }
                 }
             }
-        }   //  */
+        }
     }
     
     override func prepareForReuse() {

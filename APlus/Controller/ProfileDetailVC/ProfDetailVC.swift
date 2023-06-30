@@ -34,7 +34,6 @@ public class ProfDetailVC: UIViewController {
     var isPictureSelect : Bool = false
     var bundle = Bundle()
     
-    //var myUserId : String = "0"
     private var imageRequest: Cancellable?
     
     public init() {
@@ -48,11 +47,6 @@ public class ProfDetailVC: UIViewController {
     public override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        /*if self.profileDetail != nil {
-            self.getProfileDetail(self.profileDetail!)
-        } else {
-            
-        }   //  */
         
         txtUserName.isEnabled = false
         btnProfileImg.isEnabled = false
@@ -140,7 +134,7 @@ public class ProfDetailVC: UIViewController {
         print("Get response of profile details.")
         txtUserName.text = profileDetail.name ?? ""
         
-        imgProfile.image = UIImage(named: "placeholder-profile-img.png", in: self.bundle, compatibleWith: nil)  //UIImage(named: "placeholder-profile-img.png")
+        imgProfile.image = UIImage(named: "placeholder-profile-img.png", in: self.bundle, compatibleWith: nil)
         if profileDetail.profilePicture! != "" {
             var imageURL: URL?
             imageURL = URL(string: profileDetail.profilePicture!)!
@@ -158,7 +152,7 @@ public class ProfDetailVC: UIViewController {
                         self.imgProfile.image = imageToCache
                         imageCache.setObject(imageToCache, forKey: imageURL as AnyObject)
                     } else {
-                        self.imgProfile.image = UIImage(named: "placeholder-profile-img.png", in: self.bundle, compatibleWith: nil) //UIImage(named: "placeholder-profile-img.png")
+                        self.imgProfile.image = UIImage(named: "placeholder-profile-img.png", in: self.bundle, compatibleWith: nil)
                     }
                 }
             }

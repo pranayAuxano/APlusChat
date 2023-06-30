@@ -69,7 +69,6 @@ public class GroupContVC: UIViewController {
         
         let bundle = Bundle(for: GroupContVC.self)
         tblContact.register(UINib(nibName: "GrpContactTVCell", bundle: bundle), forCellReuseIdentifier: "GrpContactTVCell")
-
     }
     
     public override func viewWillAppear(_ animated: Bool) {
@@ -139,7 +138,6 @@ public class GroupContVC: UIViewController {
                 "addMembersArr": addMembersArr
             ] as [String : Any]
             
-            //["groupDetails": param]
             ProgressHUD.show()
             SocketChatManager.sharedInstance.addMember(param: param)
         } else {

@@ -26,7 +26,6 @@ struct List: Codable {
     var groups: [String]?
     var isSelected: Bool? = false
     
-    
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         userId = try container.decodeIfPresent(String.self, forKey: .userId)
@@ -35,7 +34,6 @@ struct List: Codable {
         name = try container.decodeIfPresent(String.self, forKey: .name)
         mobile_email = try container.decodeIfPresent(String.self, forKey: .mobile_email)
         groups = try container.decodeIfPresent([String].self, forKey: .groups)
-        
     }
     
     func encode(to encoder: Encoder) throws {
@@ -47,6 +45,5 @@ struct List: Codable {
         try container.encodeIfPresent(name, forKey: .name)
         try container.encodeIfPresent(mobile_email, forKey: .mobile_email)
         try container.encodeIfPresent(groups, forKey: .groups)
-        
     }
 }

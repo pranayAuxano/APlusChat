@@ -62,10 +62,8 @@ public class CreateGrpVC: UIViewController {
         
         for i in 0 ..< (arrSelectedContactList?.count ?? 0) {
             arrUserIds.append(arrSelectedContactList![i].userId ?? "")
-            //var readCount = UnreadCount(unreadCount: 0, userId: arrSelectedContactList![i].userId ?? "")
             let readCount = ["unreadCount": 0, "userId": arrSelectedContactList![i].userId ?? ""] as [String : Any]
             arrReadCount.append(readCount)
-            //var : [String]?
             let contectDetail = ["userId" : arrSelectedContactList![i].userId ?? "",
                                  "serverUserId" : arrSelectedContactList![i].serverUserId ?? "",
                                  "profilePicture" : arrSelectedContactList![i].profilePicture ?? "",
@@ -218,7 +216,7 @@ extension CreateGrpVC : UIImagePickerControllerDelegate, UINavigationControllerD
                     return
                 }
                 guard let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first else { return }
-                //let imageName = "\(Utility.fileName()).JPEG"
+                //let imageName = "\(Utility.fileName()).jpg"
                 imgFileName = "\(Utility.fileName()).png"
                 let fileUrl = documentsDirectory.appendingPathComponent(imgFileName)
                 mimeType = fileUrl.mimeType()

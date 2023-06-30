@@ -149,14 +149,11 @@ public class ContactInfoVC: UIViewController {
                 
                 txtUserName.isEnabled = true
                 viewDelete.isHidden = false
-                //btnUpdate.isHidden = false
                 btnProfilePic.isHidden = false
                 viewParticipants.isHidden = false
                 lblParticipants.text = "\((self.groupDetail?.users?.count)!) participants"
                 constraintHeightParticipants.constant = 40
                 btnDelete.setTitle("Delete Group", for: .normal)
-                //constraintTopViewDelete.priority = .defaultHigh
-                //self.constraintHeighttblParticipants.constant = CGFloat((self.groupDetail?.users?.count)! * 70)
                 self.viewScrollView.layoutIfNeeded()
             }
             self.constraintHeighttblParticipants.constant = CGFloat((self.groupDetail?.users?.count)! * 70)
@@ -177,7 +174,6 @@ public class ContactInfoVC: UIViewController {
             
             for i in 0 ..< (self.groupDetail?.users?.count)! {
                 if (self.groupDetail?.users?[i].userId)! != SocketChatManager.sharedInstance.myUserId {
-                    //lblUserName.text = (self.groupDetail?.users?[i].name)!
                     txtUserName.text = (self.groupDetail?.users?[i].name)!
                     lblEmail.text = (self.groupDetail?.users?[i].mobileEmail)!
                     strProfileImg = self.groupDetail?.users?[i].profilePicture ?? ""
@@ -194,7 +190,7 @@ public class ContactInfoVC: UIViewController {
             var imageURL: URL?
             var isFromCatch : Bool = false
             imageURL = URL(string: strProfileImg!)!
-            //self.imgProfile.image = nil
+            
             // retrieves image if already available in cache
             if let imageFromCache = imageCache.object(forKey: imageURL as AnyObject) as? UIImage {
                 self.imgProfile.image = imageFromCache
@@ -204,7 +200,6 @@ public class ContactInfoVC: UIViewController {
                 NetworkManager.sharedInstance.getData(from: imageURL!) { data, response, err in
                     if err == nil {
                         DispatchQueue.main.async {
-                            //self.imgProfile.image = UIImage(data: data!)
                             if let imageToCache = UIImage(data: data!) {
                                 self.imgProfile.image = imageToCache
                                 imageCache.setObject(imageToCache, forKey: imageURL as AnyObject)
@@ -248,7 +243,6 @@ public class ContactInfoVC: UIViewController {
         if self.groupDetail?.groupPermission?[0].permission?.exitGroup ?? 0 == 0 {
             viewExit.isHidden = true
             constraintHeightExitGroup.constant = 0
-            //constraintHeightExitGroup.constant = 60
         }
         
         if self.groupDetail?.groupPermission?[0].permission?.deleteChat ?? 0 == 0 {
@@ -263,7 +257,6 @@ public class ContactInfoVC: UIViewController {
     }
     
     @IBAction func btnBackTap(_ sender: UIButton) {
-        //userChatVC!().memberRemoveRes(true, updatedRecentChatUser: recentChatUser!)
         self.navigationController?.popViewController(animated: true)
     }
     
@@ -272,10 +265,11 @@ public class ContactInfoVC: UIViewController {
         arrUserIds.removeAll()
         for i in 0 ..< (groupDetail?.users!.count)! {
             arrUserIds.append((groupDetail?.users![i].userId)!)
-            let contectDetail = ["userId" : self.groupDetail?.users![i].userId ?? "",//self.groupDetail?.users![i].userId ?? "",
+            let contectDetail = ["userId" : self.groupDetail?.users![i].userId ?? "",
                                  "profilePicture" : self.groupDetail?.users![i].profilePicture ?? "",
                                  "name" : self.groupDetail?.users![i].name ?? "",
-                                 "mobile_email" : self.groupDetail?.users![i].mobileEmail ?? ""] as [String : Any]
+                                 "mobile_email" : self.groupDetail?.users![i].mobileEmail ?? ""
+            ] as [String : Any]
             arrSelectedUser.append(contectDetail)
         }
         
@@ -484,7 +478,7 @@ extension ContactInfoVC : UIImagePickerControllerDelegate, UINavigationControlle
                     return
                 }
                 guard let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first else { return }
-                //let imageName = "\(Utility.fileName()).JPEG"
+                //let imageName = "\(Utility.fileName()).jpg"
                 imgFileName = "\(Utility.fileName()).png"
                 let fileUrl = documentsDirectory.appendingPathComponent(imgFileName)
                 mimeType = fileUrl.mimeType()

@@ -71,11 +71,10 @@ class UserDetailTVCell: UITableViewCell {
             lblRecentPhotoVideoFile.text = "File"
         }
         
-        //imgProfile.image = UIImage(named: isGroup ? "group-placeholder.jpg" : "placeholder-profile-img.png", in: self.bundle, compatibleWith: nil)
         if groupImage != "" {
             var imageURL: URL?
             imageURL = URL(string: groupImage)!
-            //self.imgProfile.image = nil
+            
             // retrieves image if already available in cache
             if let imageFromCache = imageCache.object(forKey: imageURL as AnyObject) as? UIImage {
                 self.imgProfile.image = imageFromCache
@@ -92,7 +91,7 @@ class UserDetailTVCell: UITableViewCell {
                     }
                 }
             }
-        }   //  */
+        }
     }
     
     override func prepareForReuse() {
@@ -108,7 +107,6 @@ class UserDetailTVCell: UITableViewCell {
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
         // Configure the view for the selected state
     }
     

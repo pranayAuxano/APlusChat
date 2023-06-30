@@ -17,12 +17,9 @@ struct ReadCount: Codable {
     var unreadCount: Int?
     var userId: String?
     
-    
-    
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         unreadCount = try container.decodeIfPresent(Int.self, forKey: .unreadCount)
         userId = try container.decodeIfPresent(String.self, forKey: .userId)
     }
-    
 }

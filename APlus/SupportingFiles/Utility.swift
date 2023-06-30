@@ -78,18 +78,13 @@ class Utility {
         
     }
     
-    class func convertTimeFormater(_ time: String) -> String{
-        
+    class func convertTimeFormater(_ time: String) -> String
+    {
         let dateFormatter = DateFormatter()
-        
         dateFormatter.dateFormat = "HH:mm:ss"
-        
         let fullDate = dateFormatter.date(from: time)
-        
         dateFormatter.dateFormat = "HH:mm"
-        
         return dateFormatter.string(from: fullDate!)
-        
     }
     
     class func currentDate() -> String

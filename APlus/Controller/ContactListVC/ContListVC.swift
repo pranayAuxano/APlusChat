@@ -62,7 +62,6 @@ public class ContListVC: UIViewController {
         bundle = Bundle(for: ContListVC.self)
         
         ProgressHUD.show()
-        //userId, secretKey
         SocketChatManager.sharedInstance.getUserList(param: [
             "userId" : SocketChatManager.sharedInstance.myUserId,
             "secretKey" : SocketChatManager.sharedInstance.secretKey
@@ -94,7 +93,6 @@ public class ContListVC: UIViewController {
 
 extension ContListVC : UITableViewDelegate, UITableViewDataSource {
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        //return contactList?.list?.count ?? 0
         return arrContactList?.count ?? 0
     }
     
@@ -105,7 +103,6 @@ extension ContListVC : UITableViewDelegate, UITableViewDataSource {
         
         cell.imgContactImg.image = UIImage(named: "placeholder-profile-img.png", in: self.bundle, compatibleWith: nil)  //UIImage(named: "placeholder-profile-img.png")
         cell.configure(self.arrContactList![indexPath.row].profilePicture ?? "")
-        //cell.lblName.text = contactList?.list![indexPath.row].name ?? ""
         cell.lblName.text = self.arrContactList![indexPath.row].name ?? ""
         
         return cell
@@ -144,10 +141,8 @@ extension ContListVC : UITableViewDelegate, UITableViewDataSource {
             arrSelectedContact?.append(myContactDetail!)
             for i in 0 ..< (arrSelectedContact?.count ?? 0) {
                 arrUserIds.append(arrSelectedContact![i].userId ?? "")
-                //var readCount = UnreadCount(unreadCount: 0, userId: arrSelectedContact![i].userId ?? "")
                 let readCount = ["unreadCount": 0, "userId": arrSelectedContact![i].userId ?? ""] as [String : Any]
                 arrReadCount.append(readCount)
-                //var : [String]?
                 let contectDetail = ["userId" : arrSelectedContact![i].userId ?? "",
                                      "serverUserId" : arrSelectedContact![i].serverUserId ?? "",
                                      "profilePicture" : arrSelectedContact![i].profilePicture ?? "",
@@ -162,7 +157,6 @@ extension ContListVC : UITableViewDelegate, UITableViewDataSource {
                 "userId": SocketChatManager.sharedInstance.myUserId,
                 "groupImage": "",
                 "members": arrUserIds,
-                //"groupPermission": [],
                 "name": ""
                 ] as [String : Any]
             
@@ -170,13 +164,6 @@ extension ContListVC : UITableViewDelegate, UITableViewDataSource {
                 print("API call response. --> \(str)")
                 DispatchQueue.main.async {
                     self.navigationController?.popViewController(animated: true)
-                    /*let vc = ChatVC()
-                    vc.isHideUserDetailView = false
-                    vc.isGroup = false
-                    vc.groupId = str
-                    vc.strDisName = self.arrSelectedContact![0].name ?? ""
-                    vc.strProfileImg = self.arrSelectedContact![0].profilePicture ?? ""
-                    self.navigationController?.pushViewController(vc, animated: true)   //  */
                 }
             } errorCompletion: { errMsg in
                 ProgressHUD.dismiss()

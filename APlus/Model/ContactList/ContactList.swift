@@ -19,7 +19,6 @@ struct ContactList: Codable {
     var list: [List]?
     var count: Int?
     
-    
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         isSuccess = try container.decodeIfPresent(Bool.self, forKey: .isSuccess)

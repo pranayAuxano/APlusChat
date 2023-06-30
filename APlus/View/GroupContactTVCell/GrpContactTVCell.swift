@@ -35,7 +35,7 @@ class GrpContactTVCell: UITableViewCell {
     }
     
     func configure(_ image : String) {
-        imgContact.image = UIImage(named: "placeholder-profile-img.png", in: self.bundle, compatibleWith: nil)  //UIImage(named: "placeholder-profile-img.png")
+        imgContact.image = UIImage(named: "placeholder-profile-img.png", in: self.bundle, compatibleWith: nil)
         if image != "" {
             var imageURL: URL?
             imageURL = URL(string: image)!
@@ -54,11 +54,11 @@ class GrpContactTVCell: UITableViewCell {
                         self.imgContact.image = imageToCache
                         imageCache.setObject(imageToCache, forKey: imageURL as AnyObject)
                     } else {
-                        self.imgContact.image = UIImage(named: "placeholder-profile-img.png", in: self.bundle, compatibleWith: nil) //UIImage(named: "placeholder-profile-img.png")
+                        self.imgContact.image = UIImage(named: "placeholder-profile-img.png", in: self.bundle, compatibleWith: nil)
                     }
                 }
             }
-        }   //  */
+        }
     }
     
     @IBAction func btnSelectContactTap(_ sender: UIButton) {

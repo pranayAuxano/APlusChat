@@ -40,11 +40,6 @@ extension ProfDetailVC : UIImagePickerControllerDelegate, UINavigationController
             self.dismiss(animated: true) {
             }
             
-            /*var imgName : String = ""
-             if let imgUrl = info[UIImagePickerController.InfoKey.imageURL] as? URL {
-             imgName = imgUrl.lastPathComponent
-             print(imgName)
-             }   //  */
             var isImgLoad : Bool = false
             if !isCameraOpen {
                 let photo = info[.phAsset] as? PHAsset
@@ -59,7 +54,7 @@ extension ProfDetailVC : UIImagePickerControllerDelegate, UINavigationController
                     return
                 }
                 guard let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first else { return }
-                //let imageName = "\(Utility.fileName()).JPEG"
+                //let imageName = "\(Utility.fileName()).jpg"
                 imgFileName = "\(Utility.fileName()).png"
                 let fileUrl = documentsDirectory.appendingPathComponent(imgFileName)
                 mimeType = fileUrl.mimeType()

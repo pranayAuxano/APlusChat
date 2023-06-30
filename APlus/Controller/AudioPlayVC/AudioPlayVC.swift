@@ -50,7 +50,6 @@ public class AudioPlayVC: UIViewController {
 
         viewPlay.layer.cornerRadius = 5
         player?.delegate = self
-        
     }
 
     public override func viewWillAppear(_ animated: Bool) {
@@ -143,7 +142,5 @@ public class AudioPlayVC: UIViewController {
 
 }
 
-
 extension AudioPlayVC : AVAudioPlayerDelegate {
-    
 }

@@ -36,11 +36,11 @@ class ParticipantsTVCell: UITableViewCell {
     }
     
     func configure(_ image : String) {
-        imgProfile.image = UIImage(named: "placeholder-profile-img.png", in: self.bundle, compatibleWith: nil)  //UIImage(named: "placeholder-profile-img.png")
+        imgProfile.image = UIImage(named: "placeholder-profile-img.png", in: self.bundle, compatibleWith: nil)
         if image != "" {
             var imageURL: URL?
             imageURL = URL(string: image)!
-            //self.imgProfilePic.image = nil
+            
             // retrieves image if already available in cache
             if let imageFromCache = imageCache.object(forKey: imageURL as AnyObject) as? UIImage {
                 self.imgProfile.image = imageFromCache
@@ -56,11 +56,11 @@ class ParticipantsTVCell: UITableViewCell {
                         self.imgProfile.image = imageToCache
                         imageCache.setObject(imageToCache, forKey: imageURL as AnyObject)
                     } else {
-                        self.imgProfile.image = UIImage(named: "placeholder-profile-img.png", in: self.bundle, compatibleWith: nil) //UIImage(named: "placeholder-profile-img.png")
+                        self.imgProfile.image = UIImage(named: "placeholder-profile-img.png", in: self.bundle, compatibleWith: nil)
                     }
                 }
             }
-        }   //  */
+        }
     }
     
     @IBAction func btnRemoveTap(_ sender: UIButton) {

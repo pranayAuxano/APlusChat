@@ -358,7 +358,7 @@ extension ChatVC : UIImagePickerControllerDelegate, UINavigationControllerDelega
                             
                             self.arrSectionMsg![self.arrSectionMsg!.count - 1].removeLast()
                             self.tblUserChat.reloadData()
-                        }   //  */
+                        }
                     }
                 } catch {
                     print("error")
@@ -614,7 +614,7 @@ extension ChatVC : UIDocumentPickerDelegate, UIDocumentMenuDelegate {
                         
                         self.arrSectionMsg![self.arrSectionMsg!.count - 1].removeLast()
                         self.tblUserChat.reloadData()
-                    }   //  */
+                    }
                 }
             } catch let error {
                 print(error.localizedDescription)
@@ -738,8 +738,6 @@ extension ChatVC : UITableViewDelegate, UITableViewDataSource {
         let msgType : String = (self.arrSectionMsg![indexPath.section][indexPath.row].type)!
         if (self.arrSectionMsg![indexPath.section][indexPath.row].sentBy)! == SocketChatManager.sharedInstance.myUserId
         {
-            //let msgType : String = (arrGetPreviousChat![indexPath.row].type)!
-            //let msgType : String = (self.arrSectionMsg![indexPath.section][indexPath.row].type)!
             if msgType == "document"
             {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "OwnFileBubbleCell", for: indexPath) as! OwnFileBubbleCell
@@ -785,12 +783,11 @@ extension ChatVC : UITableViewDelegate, UITableViewDataSource {
                     return cell
                 } else {
                     let cell = tableView.dequeueReusableCell(withIdentifier: "OwnReplyTVCell", for: indexPath) as! OwnReplyTVCell
-                    //cell.viewMsg.backgroundColor = .clear
                     cell.viewMsg.backgroundColor = Colors.lightTheme.returnColor()
                     //cell.viewMsg.setBgColor(color: SocketChatManager.sharedInstance.themeColor!)
                     
                     var userName : String = self.arrSectionMsg![indexPath.section][indexPath.row].replyUser ?? "" //""
-                    var type: String = self.arrSectionMsg![indexPath.section][indexPath.row].replyMsgType ?? "" //""
+                    var type: String = self.arrSectionMsg![indexPath.section][indexPath.row].replyMsgType ?? ""
                     if self.arrSectionMsg![indexPath.section][indexPath.row].replyUserId ?? "" == SocketChatManager.sharedInstance.myUserId {
                         userName = "You"
                     }
@@ -886,7 +883,7 @@ extension ChatVC : UITableViewDelegate, UITableViewDataSource {
                 } else {
                     let cell = tableView.dequeueReusableCell(withIdentifier: "OtherReplyTVCell", for: indexPath) as! OtherReplyTVCell
                     
-                    var userName : String = self.arrSectionMsg![indexPath.section][indexPath.row].replyUser ?? "" //""
+                    var userName : String = self.arrSectionMsg![indexPath.section][indexPath.row].replyUser ?? ""
                     let type: String = self.arrSectionMsg![indexPath.section][indexPath.row].replyMsgType ?? ""
                     if self.arrSectionMsg![indexPath.section][indexPath.row].replyUserId ?? "" == SocketChatManager.sharedInstance.myUserId {
                         userName = "You"
@@ -1017,7 +1014,7 @@ extension ChatVC : UITableViewDelegate, UITableViewDataSource {
         action.image = UIImage(named: "reply", in: self.bundle, compatibleWith: nil) //UIImage(named: "reply")
         action.backgroundColor = .systemBlue.withAlphaComponent(0.01)
         return UISwipeActionsConfiguration(actions: [action])
-    }   //  */
+    }
     
     /*func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
         let velocity : CGPoint = gestureRecognizer.location(in: self.tblUserChat)
@@ -1065,12 +1062,10 @@ extension ChatVC : UITableViewDelegate, UITableViewDataSource {
     }
     
     private func replyMsg() {
-        //self.lblReplyUser.isHidden = self.isGroup ? false : true
         if self.isGroup {
             if (self.swipeReplyMsg?.sentBy ?? "") == SocketChatManager.sharedInstance.myUserId {
                 self.lblReplyUser.text = "You"
             } else {
-                //self.lblReplyUser.text = getUserName(userId: self.swipeReplyMsg?.sentBy ?? "")
                 self.lblReplyUser.text = self.swipeReplyMsg?.senderName ?? ""
             }
         } else {
@@ -1135,17 +1130,16 @@ extension ChatVC {
     }
     
     func loadImage(_ image: String) {
-        imgReplyImage.image = UIImage(named: "default", in: self.bundle, compatibleWith: nil)  //UIImage(named: "default")
+        imgReplyImage.image = UIImage(named: "default", in: self.bundle, compatibleWith: nil)
         imgReplyImage.image = UIImage(contentsOfFile: image)
         if image != "" {
             var imageURL: URL?
             imageURL = URL(string: image)!
-            //self.imgProfile.image = nil
+            
             // retrieves image if already available in cache
             if let imageFromCache = imageCache.object(forKey: imageURL as AnyObject) as? UIImage {
                 self.imgReplyImage.image = imageFromCache
                 return
-                //return imageFromCache
             }
             imageRequest = NetworkManager.sharedInstance.getData(from: URL(string: image)!) { data, resp, err in
                 guard let data = data, err == nil else {
@@ -1153,11 +1147,8 @@ extension ChatVC {
                     return
                 }
                 DispatchQueue.main.async {
-                    //let dataImg : UIImage = UIImage(data: data)!
                     if let imageToCache = UIImage(data: data) {
-                        //if self.imageURL == url {
-                            self.imgReplyImage.image = imageToCache
-                        //}
+                        self.imgReplyImage.image = imageToCache
                         imageCache.setObject(imageToCache, forKey: imageURL as AnyObject)
                     }
                 }
@@ -1166,15 +1157,14 @@ extension ChatVC {
     }
     
     func loadImage1(_ image: String) -> UIImage {
-        imgReplyImage.image = UIImage(named: "default", in: self.bundle, compatibleWith: nil)   //UIImage(named: "default")
+        imgReplyImage.image = UIImage(named: "default", in: self.bundle, compatibleWith: nil)
         imgReplyImage.image = UIImage(contentsOfFile: image)
         if image != "" {
             var imageURL: URL?
             imageURL = URL(string: image)!
-            //self.imgProfile.image = nil
+            
             // retrieves image if already available in cache
             if let imageFromCache = imageCache.object(forKey: imageURL as AnyObject) as? UIImage {
-                //self.imgReplyImage.image = imageFromCache
                 //return
                 return imageFromCache
             }
@@ -1184,15 +1174,12 @@ extension ChatVC {
                     return
                 }
                 DispatchQueue.main.async {
-                    //let dataImg : UIImage = UIImage(data: data)!
                     if let imageToCache = UIImage(data: data) {
                         self.imgReplyImage.image = imageToCache
                         imageCache.setObject(imageToCache, forKey: imageURL as AnyObject)
-                        //return UIImage(named: "")
                     }
                 }
             }
-            //return UIImage(named: "default") ?? UIImage()
         }
         return UIImage(named: "default", in: self.bundle, compatibleWith: nil) ?? UIImage()
     }

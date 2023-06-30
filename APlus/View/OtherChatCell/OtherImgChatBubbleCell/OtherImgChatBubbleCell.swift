@@ -30,7 +30,6 @@ class OtherImgChatBubbleCell: UITableViewCell {
         
         lblUserName.isHidden = true
         constTopImg.priority = .required
-        //constTopImgToUser.priority = .defaultLow
     }
     
     func configure(_ msgType : String,_ image : String,_ data : String) {
@@ -52,7 +51,7 @@ class OtherImgChatBubbleCell: UITableViewCell {
         if image != "" {
             var imageURL: URL?
             imageURL = URL(string: image)!
-            //self.imgProfile.image = nil
+            
             // retrieves image if already available in cache
             if let imageFromCache = imageCache.object(forKey: imageURL as AnyObject) as? UIImage {
                 self.img.image = imageFromCache
@@ -64,7 +63,6 @@ class OtherImgChatBubbleCell: UITableViewCell {
                     return
                 }
                 DispatchQueue.main.async {
-                    //let dataImg : UIImage = UIImage(data: data)!
                     if let imageToCache = UIImage(data: data) {
                         self.img.image = imageToCache
                         imageCache.setObject(imageToCache, forKey: imageURL as AnyObject)
@@ -85,8 +83,6 @@ class OtherImgChatBubbleCell: UITableViewCell {
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
         // Configure the view for the selected state
     }
-    
 }

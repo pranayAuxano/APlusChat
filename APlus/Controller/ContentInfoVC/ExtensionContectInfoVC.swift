@@ -52,7 +52,6 @@ extension ContactInfoVC : UITableViewDelegate, UITableViewDataSource {
     }
     
     public func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        //return UITableView.automaticDimension
         return 70
     }
     
@@ -64,11 +63,10 @@ extension ContactInfoVC : UITableViewDelegate, UITableViewDataSource {
             if groupDetail?.users![i].userId ?? "" != id {
                 arrUserIds.append((groupDetail?.users![i].userId)!)
                 let contectDetail = ["userId" : self.groupDetail?.users![i].userId ?? "",
-                                     //"serverUserId" : self.groupDetail?.users![i].serverUserId ?? "",
-                                     //"groups" : self.groupDetail?.users![i].groups ?? [],
                                      "profilePicture" : self.groupDetail?.users![i].profilePicture ?? "",
                                      "name" : self.groupDetail?.users![i].name ?? "",
-                                     "mobile_email" : self.groupDetail?.users![i].mobileEmail ?? ""] as [String : Any]
+                                     "mobile_email" : self.groupDetail?.users![i].mobileEmail ?? ""
+                ] as [String : Any]
                 arrSelectedUser.append(contectDetail)
             }
         }

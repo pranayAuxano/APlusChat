@@ -10,17 +10,14 @@ import Foundation
 // MARK: - GroupDetail
 struct GroupDetail: Codable {
     var readCount: [ReadCount]?
-    ///var online: [JSONAny]?
     var online: [String]?
     var name: String?
     var isDeactivateUser: Bool?
     var groupPermission: [GroupPermission]?
     var groupId: String?
     var lastUpdatedAt: CreateAt?
-    ///var pinnedGroup: [JSONAny]?
     var pinnedGroup: [String]?
     var users: [User]?
-    ///var typing: [JSONAny]?
     var typing: [String]?
     var createdBy: String?
     var createAt: CreateAt?
@@ -29,13 +26,11 @@ struct GroupDetail: Codable {
     var modifiedAt: CreateAt?
     var members: [String]?
     var pinGroupForAll: Int?
-    ///var blockUsers: [JSONAny]?
     var blockUsers: [String]?
     var isGroup: Bool?
     var groupImage: String?
     var viewBy: [String]?
     var secretKey: String?
-    ///var joinGroup: [JSONAny]?
     var joinGroup: [String]?
 }
 

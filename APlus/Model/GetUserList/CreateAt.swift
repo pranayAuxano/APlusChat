@@ -17,8 +17,6 @@ struct CreateAt: Codable {
     var nanoseconds: Int?
     var seconds: Int?
     
-    
-    
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         nanoseconds = try container.decodeIfPresent(Int.self, forKey: .nanoseconds)

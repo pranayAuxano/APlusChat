@@ -54,7 +54,6 @@ public class FirstVC: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         
-        
         do {
             try Network.reachability = Reachability(hostname: "www.google.com")
         }
@@ -159,13 +158,6 @@ public class FirstVC: UIViewController {
     }
     
     @IBAction func btnViewUserProfileTap(_ sender: UIButton) {
-//        let sb = UIStoryboard(name: "Main", bundle: nil)
-//        let vc =  sb.instantiateViewController(withIdentifier: "ProfileDetailVC") as! ProfileDetailVC
-//        vc.profileImgDelegate = self
-//        vc.profileDetail = self.profileDetail
-//        self.navigationController?.pushViewController(vc, animated: true)
-        
-//        let vc = ProfDetailVC()
         let vc = ProfDetailVC()
         vc.profileImgDelegate = self
         vc.profileDetail = self.profileDetail
@@ -300,7 +292,7 @@ extension FirstVC : UITableViewDelegate, UITableViewDataSource {
             cell.viewMainBG.startShimmeringAnimation(animationSpeed: 3.0, direction: .leftToRight)
             cell.viewProfileImg.isHidden = true
             cell.viewMsgDetail.isHidden = true
-            return cell     //  */
+            return cell
         }
     }
     
