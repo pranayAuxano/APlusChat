@@ -603,24 +603,15 @@ public class ChatVC: UIViewController {
         if txtTypeMsg.text! != "" {
             var replyMsg: String = ""
             if self.isSwipe {
-                if self.swipeReplyMsg?.type == "text"
-                {
+                if self.swipeReplyMsg?.type == "text" {
                     replyMsg = swipeReplyMsg?.message ?? ""
-                }
-                else if self.swipeReplyMsg?.type == "image"
-                {
+                } else if self.swipeReplyMsg?.type == "image" {
                     replyMsg = swipeReplyMsg?.filePath ?? ""
-                }
-                else if self.swipeReplyMsg?.type == "video"
-                {
+                } else if self.swipeReplyMsg?.type == "video" {
                     replyMsg = swipeReplyMsg?.thumbnailPath ?? ""
-                }
-                else if self.swipeReplyMsg?.type == "document"
-                {
+                } else if self.swipeReplyMsg?.type == "document" {
                     replyMsg = swipeReplyMsg?.fileName ?? ""
-                }
-                else if self.swipeReplyMsg?.type == "audio"
-                {
+                } else if self.swipeReplyMsg?.type == "audio" {
                     replyMsg = swipeReplyMsg?.fileName ?? ""
                 }
             }
