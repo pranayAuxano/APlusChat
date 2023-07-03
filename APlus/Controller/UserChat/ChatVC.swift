@@ -601,13 +601,37 @@ public class ChatVC: UIViewController {
     
     @IBAction func btnSendTap(_ sender: UIButton) {
         if txtTypeMsg.text! != "" {
+            var replyMsg: String = ""
+            if self.isSwipe {
+                if self.swipeReplyMsg?.type == "text"
+                {
+                    replyMsg = swipeReplyMsg?.message ?? ""
+                }
+                else if self.swipeReplyMsg?.type == "image"
+                {
+                    replyMsg = swipeReplyMsg?.filePath ?? ""
+                }
+                else if self.swipeReplyMsg?.type == "video"
+                {
+                    replyMsg = swipeReplyMsg?.thumbnailPath ?? ""
+                }
+                else if self.swipeReplyMsg?.type == "document"
+                {
+                    replyMsg = swipeReplyMsg?.fileName ?? ""
+                }
+                else if self.swipeReplyMsg?.type == "audio"
+                {
+                    replyMsg = swipeReplyMsg?.fileName ?? ""
+                }
+            }
             let param : [String : Any] = ["message": txtTypeMsg.text!,
                                           "type" : "text",
                                           "sentBy" : SocketChatManager.sharedInstance.myUserId,
                                           "senderName": self.groupDetail?.userName ?? "",
                                           "replyUser": self.isSwipe ? self.swipeReplyMsg?.senderName ?? "" : "",
                                           "replyUserId" : self.isSwipe ? self.swipeReplyMsg?.sentBy : "",
-                                          "replyMsg": self.isSwipe ? (self.isImg ? swipeReplyMsg?.filePath ?? "" : lblReplyMsg.text) : "",
+                                          ///"replyMsg": self.isSwipe ? (self.isImg ? swipeReplyMsg?.filePath ?? "" : lblReplyMsg.text) : "",
+                                          "replyMsg": replyMsg,
                                           "replyMsgType": self.isSwipe ? self.swipeReplyMsg?.type : "",
                                           "replyMsgId": self.isSwipe ? self.swipeReplyMsg?.msgId : ""] as [String : Any]
             let param1 : [String : Any] = ["messageObj" : param, "groupId" : self.groupId, "secretKey" : SocketChatManager.sharedInstance.secretKey, "userId": SocketChatManager.sharedInstance.myUserId, "userName": SocketChatManager.sharedInstance.myUserName]
@@ -629,7 +653,8 @@ public class ChatVC: UIViewController {
                                            "timeMilliSeconds" : timeMilliSeconds,
                                            "replyUser": self.isSwipe ? self.swipeReplyMsg?.senderName ?? "" : "",
                                            "replyUserId": self.isSwipe ? self.swipeReplyMsg?.sentBy : "",
-                                           "replyMsg": self.isSwipe ? (self.isImg ? swipeReplyMsg?.filePath ?? "" : lblReplyMsg.text) : "",
+                                           ///"replyMsg": self.isSwipe ? (self.isImg ? swipeReplyMsg?.filePath ?? "" : lblReplyMsg.text) : "",
+                                           "replyMsg": replyMsg,
                                            "replyMsgType": self.isSwipe ? self.swipeReplyMsg?.type : "",
                                            "replyMsgId": self.isSwipe ? self.swipeReplyMsg?.msgId : ""]
                 if self.isSwipe {

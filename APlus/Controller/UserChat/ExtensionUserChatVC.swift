@@ -795,11 +795,26 @@ extension ChatVC : UITableViewDelegate, UITableViewDataSource {
                     
                     cell.lblReplyMsg.isHidden = true
                     cell.ImgReplyImg.isHidden = true
+                    cell.imgVideo.isHidden = true
                     if type == "image" {
                         cell.ImgReplyImg.isHidden = false
                         cell.configure("image", self.arrSectionMsg![indexPath.section][indexPath.row].replyMsg ?? "", "")
                         cell.constraintImgBottom.priority = .required
+                    } else if type == "video" {
+                        cell.ImgReplyImg.isHidden = false
+                        cell.imgVideo.isHidden = false
+                        cell.configure("image", self.arrSectionMsg![indexPath.section][indexPath.row].replyMsg ?? "", "")
+                        cell.constraintImgBottom.priority = .required
+                    } else if type == "audio" {
+                        cell.lblReplyMsg.isHidden = false
+                        cell.lblReplyMsg.text = (self.arrSectionMsg![indexPath.section][indexPath.row].replyMsg)!
+                        cell.constraintImgBottom.priority = .defaultLow
+                    } else if type == "document" {
+                        cell.lblReplyMsg.isHidden = false
+                        cell.lblReplyMsg.text = (self.arrSectionMsg![indexPath.section][indexPath.row].replyMsg)!
+                        cell.constraintImgBottom.priority = .defaultLow
                     } else {
+                        /// type == "text"
                         cell.lblReplyMsg.isHidden = false
                         cell.lblReplyMsg.text = (self.arrSectionMsg![indexPath.section][indexPath.row].replyMsg)!
                         cell.constraintImgBottom.priority = .defaultLow
@@ -892,11 +907,26 @@ extension ChatVC : UITableViewDelegate, UITableViewDataSource {
                     
                     cell.lblReplyMsg.isHidden = true
                     cell.ImgReplyImg.isHidden = true
+                    cell.imgVideo.isHidden = true
                     if type == "image" {
                         cell.ImgReplyImg.isHidden = false
                         cell.configure("image", self.arrSectionMsg![indexPath.section][indexPath.row].replyMsg ?? "", "")
                         cell.constraintImgBottom.priority = .required
+                    }else if type == "video" {
+                        cell.ImgReplyImg.isHidden = false
+                        cell.imgVideo.isHidden = false
+                        cell.configure("image", self.arrSectionMsg![indexPath.section][indexPath.row].replyMsg ?? "", "")
+                        cell.constraintImgBottom.priority = .required
+                    } else if type == "audio" {
+                        cell.lblReplyMsg.isHidden = false
+                        cell.lblReplyMsg.text = (self.arrSectionMsg![indexPath.section][indexPath.row].replyMsg)!
+                        cell.constraintImgBottom.priority = .defaultLow
+                    } else if type == "document" {
+                        cell.lblReplyMsg.isHidden = false
+                        cell.lblReplyMsg.text = (self.arrSectionMsg![indexPath.section][indexPath.row].replyMsg)!
+                        cell.constraintImgBottom.priority = .defaultLow
                     } else {
+                        /// type == "text"
                         cell.lblReplyMsg.isHidden = false
                         cell.lblReplyMsg.text = (self.arrSectionMsg![indexPath.section][indexPath.row].replyMsg)!
                         cell.constraintImgBottom.priority = .defaultLow
