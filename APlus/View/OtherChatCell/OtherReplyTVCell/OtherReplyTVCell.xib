@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -18,7 +18,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="OtherReplyTVCell" rowHeight="156" id="KGk-i7-Jjw" customClass="OtherReplyTVCell" customModule="agsChat" customModuleProvider="target">
+        <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="OtherReplyTVCell" rowHeight="156" id="KGk-i7-Jjw" customClass="OtherReplyTVCell" customModule="APlus" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="414" height="156"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
@@ -75,11 +75,20 @@
                                                     <constraint firstAttribute="height" constant="45" id="tZv-C6-3EN"/>
                                                 </constraints>
                                             </imageView>
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="video" translatesAutoresizingMaskIntoConstraints="NO" id="kxI-Ov-cA7">
+                                                <rect key="frame" x="35" y="41" width="15" height="15"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="15" id="08G-XG-FKI"/>
+                                                    <constraint firstAttribute="width" secondItem="kxI-Ov-cA7" secondAttribute="height" id="slf-k7-tF0"/>
+                                                </constraints>
+                                            </imageView>
                                         </subviews>
                                         <color key="backgroundColor" red="0.96862745098039216" green="0.96862745098039216" blue="0.96862745098039216" alpha="0.9881123928044806" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
+                                            <constraint firstItem="kxI-Ov-cA7" firstAttribute="width" secondItem="kxI-Ov-cA7" secondAttribute="height" id="B6F-LH-23f"/>
                                             <constraint firstItem="PiX-3L-hEG" firstAttribute="top" secondItem="4mf-Uq-ndC" secondAttribute="bottom" constant="3" id="Gwt-rd-egL"/>
                                             <constraint firstAttribute="bottom" secondItem="anF-Ta-fV3" secondAttribute="bottom" constant="3" id="IT6-b0-w4A"/>
+                                            <constraint firstItem="kxI-Ov-cA7" firstAttribute="centerX" secondItem="anF-Ta-fV3" secondAttribute="centerX" id="JfB-kc-3fQ"/>
                                             <constraint firstItem="4mf-Uq-ndC" firstAttribute="leading" secondItem="FCT-Xp-9U5" secondAttribute="trailing" constant="8" id="KWe-aF-twI"/>
                                             <constraint firstItem="anF-Ta-fV3" firstAttribute="leading" secondItem="FCT-Xp-9U5" secondAttribute="trailing" constant="18" id="KXl-sX-1gm"/>
                                             <constraint firstAttribute="bottom" secondItem="FCT-Xp-9U5" secondAttribute="bottom" id="RgH-Qn-HQ7"/>
@@ -87,11 +96,13 @@
                                             <constraint firstItem="4mf-Uq-ndC" firstAttribute="top" secondItem="EUf-L3-Z4Y" secondAttribute="top" constant="3" id="fmg-aI-Zxe"/>
                                             <constraint firstItem="FCT-Xp-9U5" firstAttribute="leading" secondItem="EUf-L3-Z4Y" secondAttribute="leading" id="g9o-WC-EHX"/>
                                             <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="anF-Ta-fV3" secondAttribute="trailing" constant="15" id="kSL-8b-cg3"/>
+                                            <constraint firstItem="kxI-Ov-cA7" firstAttribute="width" secondItem="kxI-Ov-cA7" secondAttribute="height" id="n2F-3t-etV"/>
                                             <constraint firstAttribute="bottom" secondItem="PiX-3L-hEG" secondAttribute="bottom" priority="750" constant="3" id="nJK-dN-B86"/>
                                             <constraint firstItem="FCT-Xp-9U5" firstAttribute="top" secondItem="EUf-L3-Z4Y" secondAttribute="top" id="rgn-Qt-Nel"/>
                                             <constraint firstAttribute="trailing" secondItem="4mf-Uq-ndC" secondAttribute="trailing" constant="8" id="rik-tX-c5B"/>
                                             <constraint firstItem="anF-Ta-fV3" firstAttribute="top" secondItem="PiX-3L-hEG" secondAttribute="top" id="v29-Y2-Q6u"/>
                                             <constraint firstItem="PiX-3L-hEG" firstAttribute="leading" secondItem="FCT-Xp-9U5" secondAttribute="trailing" constant="18" id="v5Q-oh-ZFS"/>
+                                            <constraint firstItem="kxI-Ov-cA7" firstAttribute="centerY" secondItem="anF-Ta-fV3" secondAttribute="centerY" id="yeQ-WH-Nxl"/>
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9K7-jF-kNB">
@@ -168,6 +179,7 @@
                 <outlet property="constTopMsg" destination="e1E-Wv-Whe" id="04h-vb-g0m"/>
                 <outlet property="constTopMsgToUser" destination="JP3-mp-JWE" id="ABo-c4-PIH"/>
                 <outlet property="constraintImgBottom" destination="IT6-b0-w4A" id="9n0-Zt-Afh"/>
+                <outlet property="imgVideo" destination="kxI-Ov-cA7" id="JeK-Zk-T1k"/>
                 <outlet property="lblMsg" destination="OzT-3y-FbR" id="cW4-mc-KWB"/>
                 <outlet property="lblReplyMsg" destination="PiX-3L-hEG" id="GMY-St-B7k"/>
                 <outlet property="lblReplySideBar" destination="FCT-Xp-9U5" id="CDk-bu-I5s"/>
@@ -181,4 +193,7 @@
             <point key="canvasLocation" x="178.2608695652174" y="24.776785714285712"/>
         </tableViewCell>
     </objects>
+    <resources>
+        <image name="video" width="83.5" height="83.5"/>
+    </resources>
 </document>

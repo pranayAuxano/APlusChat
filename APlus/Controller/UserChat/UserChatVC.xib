@@ -28,12 +28,13 @@
                 <outlet property="btnUserInfo" destination="oZe-2T-KAS" id="LmZ-Mi-4j8"/>
                 <outlet property="constMainChatViewBottom" destination="aps-CY-2hc" id="mKE-Li-UcG"/>
                 <outlet property="constTblBottom" destination="cRa-Yw-7mk" id="tQQ-1R-Fbv"/>
+                <outlet property="constViewMainReplyHeight" destination="gfq-7H-DMK" id="Gke-c6-yUd"/>
                 <outlet property="constViewTypeMsgHeight" destination="k8H-Ln-ndY" id="cCe-i9-zsg"/>
-                <outlet property="constViewUserDetailHeight" destination="vlF-ue-GEP" id="anG-Id-FSG"/>
                 <outlet property="imgBack" destination="r1I-ub-zbd" id="YLG-ci-6EU"/>
                 <outlet property="imgChatBackground" destination="cRV-uj-Y4B" id="ei5-qD-4eL"/>
                 <outlet property="imgProfilePic" destination="H4e-VS-XiG" id="ucT-R8-1BU"/>
                 <outlet property="imgReplyImage" destination="i9b-FN-8ee" id="AdG-2a-63s"/>
+                <outlet property="imgVideo" destination="pOT-f8-lGN" id="oAQ-O6-Ksa"/>
                 <outlet property="lblOnline" destination="ZlG-ay-t4I" id="UsT-2U-1Fq"/>
                 <outlet property="lblReplyMsg" destination="TiS-DS-chd" id="UKZ-VX-afR"/>
                 <outlet property="lblReplySidebar" destination="onk-UX-zRI" id="mhE-ty-6R7"/>
@@ -291,21 +292,33 @@
                                                 <constraint firstAttribute="height" constant="27.5" id="R7q-H6-BHa"/>
                                             </constraints>
                                         </imageView>
+                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="video.png" translatesAutoresizingMaskIntoConstraints="NO" id="pOT-f8-lGN">
+                                            <rect key="frame" x="27.333333333333336" y="26.666666666666629" width="13" height="13"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" secondItem="pOT-f8-lGN" secondAttribute="height" id="huQ-or-wf7"/>
+                                                <constraint firstAttribute="width" constant="13" id="mt2-ed-cmf"/>
+                                            </constraints>
+                                        </imageView>
                                     </subviews>
                                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                     <constraints>
+                                        <constraint firstItem="pOT-f8-lGN" firstAttribute="width" secondItem="pOT-f8-lGN" secondAttribute="height" id="2bv-uG-q68"/>
                                         <constraint firstAttribute="trailing" secondItem="TiS-DS-chd" secondAttribute="trailing" constant="8" id="3Qe-bs-6WB"/>
+                                        <constraint firstItem="pOT-f8-lGN" firstAttribute="width" secondItem="pOT-f8-lGN" secondAttribute="height" id="9b8-g5-OHE"/>
                                         <constraint firstItem="onk-UX-zRI" firstAttribute="top" secondItem="Lw7-Nq-pDM" secondAttribute="top" id="Auk-fP-ii0"/>
                                         <constraint firstAttribute="bottom" secondItem="TiS-DS-chd" secondAttribute="bottom" constant="4" id="IJr-yh-2UF"/>
                                         <constraint firstAttribute="bottom" secondItem="onk-UX-zRI" secondAttribute="bottom" id="KuO-K2-J6Y"/>
                                         <constraint firstItem="TiS-DS-chd" firstAttribute="top" secondItem="BX2-Es-c72" secondAttribute="bottom" id="NwM-yE-aft"/>
                                         <constraint firstItem="TiS-DS-chd" firstAttribute="leading" secondItem="BX2-Es-c72" secondAttribute="leading" constant="10" id="Q08-0O-odK"/>
                                         <constraint firstItem="BX2-Es-c72" firstAttribute="top" secondItem="Lw7-Nq-pDM" secondAttribute="top" constant="3" id="UFV-JJ-l2S"/>
+                                        <constraint firstItem="pOT-f8-lGN" firstAttribute="centerX" secondItem="i9b-FN-8ee" secondAttribute="centerX" id="Wqn-Vs-pzn"/>
                                         <constraint firstItem="i9b-FN-8ee" firstAttribute="bottom" secondItem="TiS-DS-chd" secondAttribute="bottom" id="dwH-ir-f1T"/>
                                         <constraint firstItem="onk-UX-zRI" firstAttribute="leading" secondItem="Lw7-Nq-pDM" secondAttribute="leading" id="eeK-gh-MdA"/>
                                         <constraint firstItem="BX2-Es-c72" firstAttribute="leading" secondItem="onk-UX-zRI" secondAttribute="trailing" constant="8" id="fjK-RL-YUu"/>
                                         <constraint firstItem="i9b-FN-8ee" firstAttribute="leading" secondItem="TiS-DS-chd" secondAttribute="leading" id="iGk-Ob-0gn"/>
                                         <constraint firstItem="i9b-FN-8ee" firstAttribute="top" secondItem="BX2-Es-c72" secondAttribute="bottom" id="jWZ-nL-t4L"/>
+                                        <constraint firstItem="pOT-f8-lGN" firstAttribute="width" secondItem="pOT-f8-lGN" secondAttribute="height" id="jqk-wv-Rxh"/>
+                                        <constraint firstItem="pOT-f8-lGN" firstAttribute="centerY" secondItem="i9b-FN-8ee" secondAttribute="centerY" id="pP5-Hs-Apv"/>
                                     </constraints>
                                 </view>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YHQ-2p-7Ri">
@@ -331,6 +344,7 @@
                                 <constraint firstAttribute="trailing" secondItem="Lw7-Nq-pDM" secondAttribute="trailing" constant="8" id="Zxm-YY-GYt"/>
                                 <constraint firstItem="Lw7-Nq-pDM" firstAttribute="leading" secondItem="O4i-A4-mwi" secondAttribute="leading" constant="8" id="caE-Js-PHA"/>
                                 <constraint firstItem="Lw7-Nq-pDM" firstAttribute="top" secondItem="O4i-A4-mwi" secondAttribute="top" constant="8" id="ewA-hE-09w"/>
+                                <constraint firstAttribute="height" priority="250" id="gfq-7H-DMK"/>
                                 <constraint firstItem="YHQ-2p-7Ri" firstAttribute="top" secondItem="O4i-A4-mwi" secondAttribute="top" id="r10-Yx-reJ"/>
                                 <constraint firstAttribute="bottom" secondItem="Lw7-Nq-pDM" secondAttribute="bottom" constant="8" id="uyD-xE-YLa"/>
                             </constraints>
@@ -374,6 +388,7 @@
         <image name="paperclip" catalog="system" width="121" height="128"/>
         <image name="placeholder-profile-img.png" width="600" height="600"/>
         <image name="play.fill" catalog="system" width="117" height="128"/>
+        <image name="video.png" width="83.333335876464844" height="83.333335876464844"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

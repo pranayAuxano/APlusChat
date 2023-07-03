@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -18,7 +18,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="OwnReplyTVCell" id="KGk-i7-Jjw" customClass="OwnReplyTVCell" customModule="agsChat" customModuleProvider="target">
+        <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="OwnReplyTVCell" id="KGk-i7-Jjw" customClass="OwnReplyTVCell" customModule="APlus" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="414" height="121"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
@@ -66,11 +66,20 @@
                                                     <constraint firstAttribute="height" constant="45" id="mYZ-xW-CFU"/>
                                                 </constraints>
                                             </imageView>
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="video" translatesAutoresizingMaskIntoConstraints="NO" id="pd7-fJ-j7s">
+                                                <rect key="frame" x="35" y="41" width="15" height="15"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="15" id="Sus-aN-YWh"/>
+                                                    <constraint firstAttribute="width" secondItem="pd7-fJ-j7s" secondAttribute="height" id="kIU-Qk-RIY"/>
+                                                </constraints>
+                                            </imageView>
                                         </subviews>
                                         <color key="backgroundColor" red="0.058823529411764705" green="0.396078431372549" blue="0.61960784313725492" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstItem="Bue-eN-ipB" firstAttribute="leading" secondItem="bbi-na-aNu" secondAttribute="trailing" constant="18" id="5bL-qM-zrO"/>
                                             <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="Bue-eN-ipB" secondAttribute="trailing" constant="15" id="7C6-Vg-Env"/>
+                                            <constraint firstItem="pd7-fJ-j7s" firstAttribute="centerY" secondItem="Bue-eN-ipB" secondAttribute="centerY" id="9Ch-Ss-TEU"/>
+                                            <constraint firstItem="pd7-fJ-j7s" firstAttribute="width" secondItem="pd7-fJ-j7s" secondAttribute="height" id="9d3-t4-mFh"/>
                                             <constraint firstAttribute="trailing" secondItem="XnH-Sz-gu9" secondAttribute="trailing" constant="8" id="A10-rY-faF"/>
                                             <constraint firstAttribute="bottom" secondItem="Bue-eN-ipB" secondAttribute="bottom" priority="750" constant="3" id="Aow-Jz-LTE"/>
                                             <constraint firstItem="bbi-na-aNu" firstAttribute="leading" secondItem="p1I-bK-mYH" secondAttribute="leading" id="IMe-kL-wry"/>
@@ -80,9 +89,11 @@
                                             <constraint firstItem="c7b-fR-nB4" firstAttribute="top" secondItem="p1I-bK-mYH" secondAttribute="top" constant="3" id="Z5n-vY-msL"/>
                                             <constraint firstAttribute="trailing" secondItem="c7b-fR-nB4" secondAttribute="trailing" constant="8" id="bLe-iT-un0"/>
                                             <constraint firstAttribute="bottom" secondItem="XnH-Sz-gu9" secondAttribute="bottom" priority="750" constant="3" id="g0K-yK-9JX"/>
+                                            <constraint firstItem="pd7-fJ-j7s" firstAttribute="centerX" secondItem="Bue-eN-ipB" secondAttribute="centerX" id="gIy-BF-AwK"/>
                                             <constraint firstItem="XnH-Sz-gu9" firstAttribute="top" secondItem="c7b-fR-nB4" secondAttribute="bottom" constant="3" id="gpr-iE-kW5"/>
                                             <constraint firstItem="c7b-fR-nB4" firstAttribute="leading" secondItem="bbi-na-aNu" secondAttribute="trailing" constant="8" id="h0O-7v-DpC"/>
                                             <constraint firstItem="bbi-na-aNu" firstAttribute="top" secondItem="p1I-bK-mYH" secondAttribute="top" id="hlS-Ru-xwy"/>
+                                            <constraint firstItem="pd7-fJ-j7s" firstAttribute="width" secondItem="pd7-fJ-j7s" secondAttribute="height" id="nBR-9W-fG8"/>
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="P2O-Dt-aWz">
@@ -154,6 +165,7 @@
             <connections>
                 <outlet property="ImgReplyImg" destination="Bue-eN-ipB" id="kYH-UE-XsP"/>
                 <outlet property="constraintImgBottom" destination="Aow-Jz-LTE" id="zfy-rX-ElN"/>
+                <outlet property="imgVideo" destination="pd7-fJ-j7s" id="bJu-KA-ZOL"/>
                 <outlet property="lblMsg" destination="Gu3-xB-lv0" id="gKT-gL-aNi"/>
                 <outlet property="lblReplyMsg" destination="XnH-Sz-gu9" id="VKD-MG-ncO"/>
                 <outlet property="lblReplySideBar" destination="bbi-na-aNu" id="BSh-IZ-Cja"/>
@@ -166,4 +178,7 @@
             <point key="canvasLocation" x="207.24637681159422" y="91.40625"/>
         </tableViewCell>
     </objects>
+    <resources>
+        <image name="video" width="83.5" height="83.5"/>
+    </resources>
 </document>

@@ -20,6 +20,7 @@ class OtherReplyTVCell: UITableViewCell {
     @IBOutlet weak var lblMsg: UILabel!
     @IBOutlet weak var lblTime: UILabel!
     @IBOutlet weak var lblUserName: UILabel!
+    @IBOutlet weak var imgVideo: UIImageView!
     
     @IBOutlet weak var constTopMsg: NSLayoutConstraint!
     @IBOutlet weak var constTopMsgToUser: NSLayoutConstraint!
@@ -42,36 +43,38 @@ class OtherReplyTVCell: UITableViewCell {
 
     func configure(_ msgType : String,_ image : String,_ data : String) {
         if msgType == "video" {
-            ImgReplyImg.image = UIImage(named: "default", in: self.bundle, compatibleWith: nil)
-            if data != "" {
-                let imageData = try? Data(contentsOf: URL(string: data)!)
-                if let imageData = imageData {
-                    ImgReplyImg.image = UIImage(data: imageData)
-                }
-            }
+            ImgReplyImg.image = UIImage(named: "default")
+            imgVideo.isHidden = false
+            //imgVideo.image = UIImage(named: "Play")
+            //ImgReplyImg.image = UIImage(contentsOfFile: image)
+            self.loadImg(image)
         }
         else if msgType == "image" {
-            ImgReplyImg.image = UIImage(named: "default", in: self.bundle, compatibleWith: nil)
+            ImgReplyImg.image = UIImage(named: "default")
             ImgReplyImg.image = UIImage(contentsOfFile: image)
-            if image != "" {
-                var imageURL: URL?
-                imageURL = URL(string: image)!
-                
-                // retrieves image if already available in cache
-                if let imageFromCache = imageCache.object(forKey: imageURL as AnyObject) as? UIImage {
-                    self.ImgReplyImg.image = imageFromCache
+            self.loadImg(image)
+        }
+    }
+    
+    func loadImg(_ image : String) {
+        if image != "" {
+            var imageURL: URL?
+            imageURL = URL(string: image)!
+            
+            // retrieves image if already available in cache
+            if let imageFromCache = imageCache.object(forKey: imageURL as AnyObject) as? UIImage {
+                self.ImgReplyImg.image = imageFromCache
+                return
+            }
+            imageRequest = NetworkManager.sharedInstance.getData(from: URL(string: image)!) { data, resp, err in
+                guard let data = data, err == nil else {
+                    print("Error in download from url")
                     return
                 }
-                imageRequest = NetworkManager.sharedInstance.getData(from: URL(string: image)!) { data, resp, err in
-                    guard let data = data, err == nil else {
-                        print("Error in download from url")
-                        return
-                    }
-                    DispatchQueue.main.async {
-                        if let imageToCache = UIImage(data: data) {
-                            self.ImgReplyImg.image = imageToCache
-                            imageCache.setObject(imageToCache, forKey: imageURL as AnyObject)
-                        }
+                DispatchQueue.main.async {
+                    if let imageToCache = UIImage(data: data) {
+                        self.ImgReplyImg.image = imageToCache
+                        imageCache.setObject(imageToCache, forKey: imageURL as AnyObject)
                     }
                 }
             }

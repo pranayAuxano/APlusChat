@@ -41,6 +41,8 @@ public class ChatVC: UIViewController {
     @IBOutlet weak var lblReplyMsg: UILabel!
     @IBOutlet weak var imgReplyImage: UIImageView!
     @IBOutlet weak var constTblBottom: NSLayoutConstraint!
+    @IBOutlet weak var imgVideo: UIImageView!
+    @IBOutlet weak var constViewMainReplyHeight: NSLayoutConstraint!
     
     var strDisName : String?
     var strProfileImg : String? = ""
