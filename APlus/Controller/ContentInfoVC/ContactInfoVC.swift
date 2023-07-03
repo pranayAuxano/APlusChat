@@ -100,6 +100,9 @@ public class ContactInfoVC: UIViewController {
         self.txtUserName.layer.borderColor = UIColor.black.cgColor
         self.txtUserName.layer.borderWidth = 0
         
+        self.txtUserName.text = ""
+        self.lblEmail.text = ""
+        
         tblParticipants.dataSource = self
         tblParticipants.delegate = self
         

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21225" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_0" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21207"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
         <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -82,7 +82,12 @@
                                     <rect key="frame" x="0.0" y="0.0" width="240" height="240"/>
                                 </imageView>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lB0-a6-pK8">
-                                    <rect key="frame" x="0.0" y="0.0" width="240" height="240"/>
+                                    <rect key="frame" x="183" y="183" width="40" height="40"/>
+                                    <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="40" id="PwC-jm-IQi"/>
+                                        <constraint firstAttribute="width" constant="40" id="UrN-oh-f9J"/>
+                                    </constraints>
                                     <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <state key="normal" title="Button"/>
                                     <buttonConfiguration key="configuration" style="plain" title="">
@@ -96,11 +101,9 @@
                             <color key="backgroundColor" systemColor="systemGray4Color"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="240" id="0bH-Ha-Im9"/>
-                                <constraint firstAttribute="bottom" secondItem="lB0-a6-pK8" secondAttribute="bottom" id="1dJ-sA-Ko4"/>
+                                <constraint firstAttribute="bottom" secondItem="lB0-a6-pK8" secondAttribute="bottom" constant="17" id="1dJ-sA-Ko4"/>
                                 <constraint firstItem="ZOY-e5-zIX" firstAttribute="leading" secondItem="0qo-Nk-s5G" secondAttribute="leading" id="3Js-oA-CyH"/>
-                                <constraint firstItem="lB0-a6-pK8" firstAttribute="leading" secondItem="0qo-Nk-s5G" secondAttribute="leading" id="57l-dd-bJe"/>
-                                <constraint firstAttribute="trailing" secondItem="lB0-a6-pK8" secondAttribute="trailing" id="CzO-Zb-w8h"/>
-                                <constraint firstItem="lB0-a6-pK8" firstAttribute="top" secondItem="0qo-Nk-s5G" secondAttribute="top" id="FbD-WP-isF"/>
+                                <constraint firstAttribute="trailing" secondItem="lB0-a6-pK8" secondAttribute="trailing" constant="17" id="CzO-Zb-w8h"/>
                                 <constraint firstAttribute="bottom" secondItem="ZOY-e5-zIX" secondAttribute="bottom" id="NEz-8q-nxz"/>
                                 <constraint firstItem="ZOY-e5-zIX" firstAttribute="top" secondItem="0qo-Nk-s5G" secondAttribute="top" id="fvP-Zv-Bah"/>
                                 <constraint firstAttribute="trailing" secondItem="ZOY-e5-zIX" secondAttribute="trailing" id="h0Y-eA-zQE"/>
