@@ -1111,7 +1111,6 @@ extension ChatVC : UITableViewDelegate, UITableViewDataSource {
         } else if self.swipeReplyMsg?.type == "image" {
             self.imgReplyImage.isHidden = false
             self.isImg = true
-            //self.imgReplyImage.image = UIImage(named: self.swipeReplyMsg?.image ?? "")
             self.loadImage(self.swipeReplyMsg?.filePath ?? "")
         } else if self.swipeReplyMsg?.type == "document" {
             self.lblReplyMsg.isHidden = false
