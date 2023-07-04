@@ -1117,7 +1117,13 @@ extension ChatVC : UITableViewDelegate, UITableViewDataSource {
             self.lblReplyMsg.isHidden = false
             self.lblReplyMsg.text = self.swipeReplyMsg?.fileName ?? ""
         } else if self.swipeReplyMsg?.type == "video" {
+            self.imgVideo.isHidden = false
+            self.imgReplyImage.isHidden = false
+            self.isImg = true
+            self.loadImage(self.swipeReplyMsg?.thumbnailPath ?? "")
         } else if self.swipeReplyMsg?.type == "audio" {
+            self.lblReplyMsg.isHidden = false
+            self.lblReplyMsg.text = self.swipeReplyMsg?.fileName ?? ""
         }
         
         viewMainReply.isHidden = false
