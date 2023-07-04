@@ -1122,6 +1122,7 @@ extension ChatVC : UITableViewDelegate, UITableViewDataSource {
         
         viewMainReply.isHidden = false
         constTblBottom.priority = .defaultLow
+        self.constViewMainReplyHeight.priority = .defaultLow
         self.isSwipe = true
         
     }

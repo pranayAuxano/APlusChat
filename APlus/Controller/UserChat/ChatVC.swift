@@ -111,6 +111,8 @@ public class ChatVC: UIViewController {
         btnSend.layer.cornerRadius = btnSend.frame.width / 2
         
         viewMainReply.backgroundColor = .clear
+        self.constViewMainReplyHeight.priority = .required
+        
         viewReply.clipsToBounds = true
         viewReply.layer.cornerRadius = 7
         btnClose.backgroundColor = .clear
@@ -673,6 +675,7 @@ public class ChatVC: UIViewController {
     @IBAction func btnCloseTap(_ sender: UIButton) {
         viewMainReply.isHidden = true
         constTblBottom.priority = .required
+        self.constViewMainReplyHeight.priority = .required
         self.isSwipe = false
         self.isImg = false
     }
