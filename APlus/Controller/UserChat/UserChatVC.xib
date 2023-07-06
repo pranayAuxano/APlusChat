@@ -26,7 +26,6 @@
                 <outlet property="btnOption" destination="s75-f1-89z" id="liT-m6-oNA"/>
                 <outlet property="btnSend" destination="l79-Vx-RRj" id="St1-eF-TNF"/>
                 <outlet property="btnUserInfo" destination="oZe-2T-KAS" id="LmZ-Mi-4j8"/>
-                <outlet property="constMainChatViewBottom" destination="aps-CY-2hc" id="mKE-Li-UcG"/>
                 <outlet property="constTblBottom" destination="cRa-Yw-7mk" id="tQQ-1R-Fbv"/>
                 <outlet property="constViewMainReplyHeight" destination="gfq-7H-DMK" id="Gke-c6-yUd"/>
                 <outlet property="constViewTypeMsgHeight" destination="k8H-Ln-ndY" id="cCe-i9-zsg"/>
@@ -59,7 +58,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DJQ-1q-C44">
-                    <rect key="frame" x="0.0" y="47" width="390" height="763"/>
+                    <rect key="frame" x="0.0" y="47" width="390" height="753"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="naK-bO-BXd">
                             <rect key="frame" x="0.0" y="0.0" width="390" height="55"/>
@@ -172,14 +171,14 @@
                             </constraints>
                         </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="B4P-7D-bGP">
-                            <rect key="frame" x="0.0" y="55" width="390" height="648"/>
+                            <rect key="frame" x="0.0" y="55" width="390" height="638"/>
                             <subviews>
                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="chat-bg" translatesAutoresizingMaskIntoConstraints="NO" id="cRV-uj-Y4B">
-                                    <rect key="frame" x="0.0" y="0.0" width="390" height="708"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="390" height="698"/>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </imageView>
                                 <tableView clipsSubviews="YES" contentMode="scaleToFill" bounces="NO" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="6C1-r0-AUs">
-                                    <rect key="frame" x="0.0" y="0.0" width="390" height="581"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="390" height="571"/>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <connections>
                                         <outlet property="dataSource" destination="-1" id="xo6-hJ-lpi"/>
@@ -200,7 +199,7 @@
                             </constraints>
                         </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qKS-K1-Nvs">
-                            <rect key="frame" x="0.0" y="703" width="390" height="60"/>
+                            <rect key="frame" x="0.0" y="693" width="390" height="60"/>
                             <subviews>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GBU-zI-Lqc">
                                     <rect key="frame" x="8" y="8" width="44" height="44"/>
@@ -258,7 +257,7 @@
                             </constraints>
                         </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="O4i-A4-mwi">
-                            <rect key="frame" x="0.0" y="636" width="390" height="67"/>
+                            <rect key="frame" x="0.0" y="626" width="390" height="67"/>
                             <subviews>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Lw7-Nq-pDM">
                                     <rect key="frame" x="8" y="8" width="374" height="51"/>
@@ -372,7 +371,7 @@
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
-                <constraint firstItem="DJQ-1q-C44" firstAttribute="bottom" secondItem="fnl-2z-Ty3" secondAttribute="bottom" id="aps-CY-2hc"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="DJQ-1q-C44" secondAttribute="bottom" constant="10" id="QXa-Ow-s6F"/>
                 <constraint firstItem="DJQ-1q-C44" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="gVG-Cp-SLV"/>
                 <constraint firstAttribute="trailing" secondItem="DJQ-1q-C44" secondAttribute="trailing" id="q68-aZ-IZc"/>
                 <constraint firstItem="DJQ-1q-C44" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="yqn-mf-RKY"/>

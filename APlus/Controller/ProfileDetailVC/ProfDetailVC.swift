@@ -113,21 +113,53 @@ public class ProfDetailVC: UIViewController {
     @IBAction func btnSaveTap(_ sender: UIButton) {
         if !Validations.isValidUserName(userName: txtUserName.text!) {
             let imgData = imgProfile.image?.pngData()
-            SocketChatManager.sharedInstance.updateProfile(param: [
+            
+            let param = [
                 "userId" : SocketChatManager.sharedInstance.myUserId,
                 "secretKey" : SocketChatManager.sharedInstance.secretKey,
                 "name": txtUserName.text! ,
-                "profilePicture" : isPictureSelect ? imgData as Any : "",
+                "profilePicture" : "",
                 "fileName" : imgFileName,
                 "contentType" : mimeType
-            ])
-            isPictureSelect = false
+            ] as [String : Any]
+            
+            let dictiParam = [
+                "secretKey": SocketChatManager.sharedInstance.secretKey,
+                "userId": SocketChatManager.sharedInstance.myUserId,
+                "groupId": "",
+                "senderName": "",
+                "type": "image",
+                "image": imgFileName,
+                "isChat": 0
+            ] as [String : Any]
+            
+            ProgressHUD.show()
+            if isPictureSelect {
+                NetworkManager.sharedInstance.uploadImage(dictiParam: dictiParam, image: self.imgProfile.image!, type: "image", contentType: "")
+                { strDisPic in
+                    self.updateProfile(param: param, strDisPic: strDisPic)
+                } errorCompletion: { errMsg in
+                    ProgressHUD.dismiss()
+                    let toastMsg = ToastUtility.Builder(message: errMsg, controller: self, keyboardActive: false)
+                    toastMsg.setColor(background: .red, text: .black)
+                    toastMsg.show()
+                }
+            } else {
+                self.updateProfile(param: param, strDisPic: "")
+            }
         } else {
             let alertWarning = UIAlertController(title: "", message: "Enter username.", preferredStyle: .alert)
             alertWarning.addAction(UIAlertAction(title: "OK", style: .cancel, handler: { alert in
             }))
             self.present(alertWarning, animated: true)
         }
+    }
+    
+    func updateProfile(param: [String : Any], strDisPic: String) {
+        var param1 = param
+        param1["groupImage"] = strDisPic
+        SocketChatManager.sharedInstance.updateProfile(param: param1)
+        isPictureSelect = false
     }
     
     func getProfileDetail(_ profileDetail : ProfileDetail) {

@@ -184,7 +184,7 @@ public class FirstVC: UIViewController {
         
         if profileDetail.profilePicture != nil && profileDetail.profilePicture! != "" {
             var imageURL: URL?
-            imageURL = URL(string: profileDetail.profilePicture!)!
+            imageURL = URL(string: profileDetail.profilePicture ?? "")!
             self.imgProfilePic.image = nil
             
             // retrieves image if already available in cache
