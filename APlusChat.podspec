@@ -17,7 +17,7 @@ Pod::Spec.new do |spec|
 
 
   spec.ios.deployment_target = "13.0"
-  spec.platform     = :ios, "13.0"
+  #spec.platform     = :ios, "13.0"
   spec.swift_versions = "5.0"
   
   spec.source       = { :git => "https://github.com/pranayprajapati/APlusChat.git", :tag => spec.version.to_s }
