@@ -142,7 +142,7 @@ extension UIView {
         CATransaction.commit()
     }
     
-    func stopAnimation() {
+    func stopShimmeringAnimation() {
         self.backgroundColor = .white
         self.layer.mask = nil
     }

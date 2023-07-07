@@ -252,7 +252,7 @@ extension FirstVC : UITableViewDelegate, UITableViewDataSource {
         if self.isGetChatResponse {
             let cell = tableView.dequeueReusableCell(withIdentifier: "UserDetailTVCell", for: indexPath) as! UserDetailTVCell
             
-            cell.viewMainBG.stopAnimation()
+            cell.viewMainBG.stopShimmeringAnimation()
             cell.viewProfileImg.isHidden = false
             cell.viewMsgDetail.isHidden = false
             

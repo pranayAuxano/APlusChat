@@ -18,6 +18,7 @@ struct GetGroupList: Codable {
     var isGroup: Bool?
     var groupId: String?
     var opponentUserId: String?
+    var isSelected: Bool? = false
 }
 
 // MARK: - LatestTime

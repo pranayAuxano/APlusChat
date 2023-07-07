@@ -44,6 +44,12 @@ public class ChatVC: UIViewController {
     @IBOutlet weak var imgVideo: UIImageView!
     @IBOutlet weak var constViewMainReplyHeight: NSLayoutConstraint!
     
+    /// Declairation for forward msg.
+    @IBOutlet weak var viewForwardMsg: UIView!
+    @IBOutlet weak var lblForwardUserN: UILabel!
+    @IBOutlet weak var lblForwardCount: UILabel!
+    @IBOutlet weak var btnForward: UIButton!
+    
     var strDisName : String?
     var strProfileImg : String? = ""
     var isNetworkAvailable : Bool = false
@@ -76,6 +82,7 @@ public class ChatVC: UIViewController {
     var isSwipe: Bool = false
     var imageRequest: Cancellable?
     var isImg: Bool = false
+    var isUserSendMsg: Bool = false
     
     struct AllUser: Codable {
         var userId: String?
@@ -90,6 +97,8 @@ public class ChatVC: UIViewController {
     var groupDetail: GroupData?
     var intScroll: Int? = 0
     var isScroll: Bool = false
+    var selectedCount: Int = 0
+    var isLongPressEnable: Bool = false
     
     var bundle = Bundle()
     
@@ -130,6 +139,11 @@ public class ChatVC: UIViewController {
         self.loadProfileImg()
         lblOnline.text = ""
         
+        /// Hide forward msg view.
+        self.viewForwardMsg.isHidden = true
+        self.lblForwardCount.textColor = .black
+        self.btnForward.tintColor = .black
+        
         do {
             try Network.reachability = Reachability(hostname: "www.google.com")
         }
@@ -158,7 +172,7 @@ public class ChatVC: UIViewController {
             // Fallback on earlier versions
         }
     
-        let bundle = Bundle(for: ChatVC.self)
+        bundle = Bundle(for: ChatVC.self)
         NotificationCenter.default.addObserver(self, selector: #selector(checkConnection), name: .flagsChanged, object: nil)
         
         tblUserChat.register(UINib(nibName: "OwnChatBubbleCell", bundle: bundle), forCellReuseIdentifier: "OwnChatBubbleCell")
@@ -241,15 +255,15 @@ public class ChatVC: UIViewController {
         viewTypeMsg.isHidden = true
         constViewTypeMsgHeight.constant = 0
         isGroup = self.groupDetail?.isGroup ?? false
-        var isSendMsg: Bool = false
+        self.isUserSendMsg = false
         
         if self.isGroup {
             if SocketChatManager.sharedInstance.userGroupRole?.sendMessage ?? 0 == 1 {
-                isSendMsg = true
+                self.isUserSendMsg = true
             }
         } else {
             if SocketChatManager.sharedInstance.userRole?.sendMessage ?? 0 == 1 {
-                isSendMsg = true
+                self.isUserSendMsg = true
             }
         }
         
@@ -257,7 +271,7 @@ public class ChatVC: UIViewController {
         self.strProfileImg = self.groupDetail?.imagePath ?? ""
         self.loadProfileImg()
         
-        if isSendMsg {
+        if self.isUserSendMsg {
             viewTypeMsg.isHidden = false
             constViewTypeMsgHeight.constant = 55
         }
@@ -678,6 +692,25 @@ public class ChatVC: UIViewController {
         self.constViewMainReplyHeight.priority = .required
         self.isSwipe = false
         self.isImg = false
+    }
+    
+    @IBAction func btnForwardTap(_ sender: UIButton) {
+        //(self.arrSectionMsg![indexPath.section][indexPath.row].timeMilliSeconds?.seconds)!
+        if selectedCount > 0 {
+            var arrSelectedMsg: [Message] = []
+            for i in 0 ..< (self.arrSectionMsg?.count ?? 0) {
+                for j in 0 ..< (self.arrSectionMsg?[i].count ?? 0) {
+                    if (self.arrSectionMsg?[i][j].isSelected ?? false) == true {
+                        arrSelectedMsg.append((self.arrSectionMsg?[i][j])!)
+                    }
+                }
+            }
+            
+            let vc = ForwardMsgGrpListVC()
+            vc.arrSelectedMsg = arrSelectedMsg
+            vc.strUserName = self.groupDetail?.userName ?? ""
+            self.navigationController?.pushViewController(vc, animated: true)
+        }
     }
     
     func sendMessage(param : [String : Any]) -> Bool {

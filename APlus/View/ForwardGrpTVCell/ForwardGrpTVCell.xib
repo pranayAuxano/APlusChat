@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="OpenSans-Regular.ttf">
+            <string>OpenSans</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="ForwardGrpTVCell" id="KGk-i7-Jjw" customClass="ForwardGrpTVCell" customModule="agsChat" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="445" height="70"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="445" height="70"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pAM-uH-VJl">
+                        <rect key="frame" x="0.0" y="5" width="445" height="60"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="7YV-Q0-ZQD">
+                                <rect key="frame" x="39" y="5" width="50" height="50"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="7YV-Q0-ZQD" secondAttribute="height" id="kmX-19-1ID"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Grp Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tf3-ub-cxn">
+                                <rect key="frame" x="99" y="15.666666666666666" width="338" height="28.666666666666671"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="21"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gKJ-Vf-TmP">
+                                <rect key="frame" x="0.0" y="59" width="445" height="1"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="1" id="yu1-bL-f3U"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yaT-NQ-ae9">
+                                <rect key="frame" x="3" y="14.666666666666668" width="31" height="31.000000000000004"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="31" id="gMF-7h-p14"/>
+                                    <constraint firstAttribute="width" constant="31" id="h1r-ax-2bb"/>
+                                </constraints>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                <state key="normal" image="Unchecked"/>
+                                <state key="selected" image="Checked"/>
+                                <connections>
+                                    <action selector="btnSelectGrpTap:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="Y4I-BI-9Ml"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="gKJ-Vf-TmP" firstAttribute="leading" secondItem="pAM-uH-VJl" secondAttribute="leading" id="0hP-x2-pxy"/>
+                            <constraint firstAttribute="trailing" secondItem="tf3-ub-cxn" secondAttribute="trailing" constant="8" id="3c9-W4-B9G"/>
+                            <constraint firstItem="tf3-ub-cxn" firstAttribute="centerY" secondItem="pAM-uH-VJl" secondAttribute="centerY" id="EFZ-10-ABq"/>
+                            <constraint firstItem="tf3-ub-cxn" firstAttribute="leading" secondItem="7YV-Q0-ZQD" secondAttribute="trailing" constant="10" id="ID4-ej-D39"/>
+                            <constraint firstAttribute="bottom" secondItem="gKJ-Vf-TmP" secondAttribute="bottom" id="JPu-ab-7W1"/>
+                            <constraint firstAttribute="bottom" secondItem="7YV-Q0-ZQD" secondAttribute="bottom" constant="5" id="JpS-fF-2n6"/>
+                            <constraint firstItem="7YV-Q0-ZQD" firstAttribute="leading" secondItem="yaT-NQ-ae9" secondAttribute="trailing" constant="5" id="R4b-w7-bsW"/>
+                            <constraint firstItem="7YV-Q0-ZQD" firstAttribute="top" secondItem="pAM-uH-VJl" secondAttribute="top" constant="5" id="Rrm-SI-SLV"/>
+                            <constraint firstAttribute="trailing" secondItem="gKJ-Vf-TmP" secondAttribute="trailing" id="TwH-aK-QgB"/>
+                            <constraint firstItem="yaT-NQ-ae9" firstAttribute="leading" secondItem="pAM-uH-VJl" secondAttribute="leading" constant="3" id="WhN-M8-l5d"/>
+                            <constraint firstItem="yaT-NQ-ae9" firstAttribute="centerY" secondItem="pAM-uH-VJl" secondAttribute="centerY" id="uIx-eV-Oul"/>
+                        </constraints>
+                    </view>
+                </subviews>
+                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                <constraints>
+                    <constraint firstItem="pAM-uH-VJl" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="M47-z8-SKR"/>
+                    <constraint firstItem="pAM-uH-VJl" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="5" id="aI3-MC-EgD"/>
+                    <constraint firstAttribute="bottom" secondItem="pAM-uH-VJl" secondAttribute="bottom" constant="5" id="iez-8p-sBe"/>
+                    <constraint firstAttribute="trailing" secondItem="pAM-uH-VJl" secondAttribute="trailing" id="qza-BO-4CC"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="btnSelectGrp" destination="yaT-NQ-ae9" id="Qav-od-ZzO"/>
+                <outlet property="imgGrpIcon" destination="7YV-Q0-ZQD" id="bS7-Ir-h49"/>
+                <outlet property="lblGrpName" destination="tf3-ub-cxn" id="qwc-ks-Zls"/>
+                <outlet property="lblSeparator" destination="gKJ-Vf-TmP" id="DCD-fS-Nuv"/>
+                <outlet property="mainView" destination="pAM-uH-VJl" id="Wkx-SP-Rza"/>
+            </connections>
+            <point key="canvasLocation" x="-547" y="67"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="Checked" width="75" height="75"/>
+        <image name="Unchecked" width="75" height="75"/>
+    </resources>
+</document>

@@ -741,6 +741,7 @@ extension ChatVC : UITableViewDelegate, UITableViewDataSource {
             if msgType == "document"
             {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "OwnFileBubbleCell", for: indexPath) as! OwnFileBubbleCell
+                cell.backgroundColor = (self.arrSectionMsg![indexPath.section][indexPath.row].isSelected ?? false) ? .lightGray.withAlphaComponent(0.2) : .clear
                 cell.viewMsg.backgroundColor = Colors.lightTheme.returnColor()
                 
                 cell.lblFileName.text = self.arrSectionMsg![indexPath.section][indexPath.row].fileName ?? "Document File"
@@ -751,6 +752,7 @@ extension ChatVC : UITableViewDelegate, UITableViewDataSource {
             else if msgType == "image"
             {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "OwnImgChatBubbleCell", for: indexPath) as! OwnImgChatBubbleCell
+                cell.backgroundColor = (self.arrSectionMsg![indexPath.section][indexPath.row].isSelected ?? false) ? .lightGray.withAlphaComponent(0.2) : .clear
                 cell.viewImg.backgroundColor = Colors.lightTheme.returnColor()
                 cell.configure(msgType, self.arrSectionMsg![indexPath.section][indexPath.row].filePath!, "", self.arrSectionMsg![indexPath.section][indexPath.row].showLoader ?? false)
                 cell.lblTime.text = Utility.convertTimestamptoTimeString(timestamp: "\((self.arrSectionMsg![indexPath.section][indexPath.row].timeMilliSeconds?.seconds)!)")
@@ -759,6 +761,7 @@ extension ChatVC : UITableViewDelegate, UITableViewDataSource {
             else if msgType == "video"
             {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "OwnImgChatBubbleCell", for: indexPath) as! OwnImgChatBubbleCell
+                cell.backgroundColor = (self.arrSectionMsg![indexPath.section][indexPath.row].isSelected ?? false) ? .lightGray.withAlphaComponent(0.2) : .clear
                 cell.viewImg.backgroundColor = Colors.lightTheme.returnColor()
                 cell.configure(msgType, self.arrSectionMsg![indexPath.section][indexPath.row].thumbnailPath ?? "", "", self.arrSectionMsg![indexPath.section][indexPath.row].showLoader ?? false)
                 cell.lblTime.text = Utility.convertTimestamptoTimeString(timestamp: "\((self.arrSectionMsg![indexPath.section][indexPath.row].timeMilliSeconds?.seconds)!)")
@@ -767,6 +770,7 @@ extension ChatVC : UITableViewDelegate, UITableViewDataSource {
             else if msgType == "audio"
             {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "OwnAudioBubbleCell", for: indexPath) as! OwnAudioBubbleCell
+                cell.backgroundColor = (self.arrSectionMsg![indexPath.section][indexPath.row].isSelected ?? false) ? .lightGray.withAlphaComponent(0.2) : .clear
                 cell.viewMsg.backgroundColor = Colors.lightTheme.returnColor()
                 
                 cell.lblFileName.text = self.arrSectionMsg![indexPath.section][indexPath.row].fileName ?? "Audio File"
@@ -831,8 +835,8 @@ extension ChatVC : UITableViewDelegate, UITableViewDataSource {
             if msgType == "document"
             {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "OtherFileBubbleCell", for: indexPath) as! OtherFileBubbleCell
+                cell.backgroundColor = (self.arrSectionMsg![indexPath.section][indexPath.row].isSelected ?? false) ? .lightGray.withAlphaComponent(0.2) : .clear
                 cell.viewMsg.backgroundColor = .white
-                
                 cell.lblFileName.text = self.arrSectionMsg![indexPath.section][indexPath.row].fileName ?? "Document File"
                 cell.lblTime.text = Utility.convertTimestamptoTimeString(timestamp: "\((self.arrSectionMsg![indexPath.section][indexPath.row].timeMilliSeconds?.seconds)!)")
                 if isGroup {
@@ -845,6 +849,7 @@ extension ChatVC : UITableViewDelegate, UITableViewDataSource {
             else if msgType == "image"
             {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "OtherImgChatBubbleCell", for: indexPath) as! OtherImgChatBubbleCell
+                cell.backgroundColor = (self.arrSectionMsg![indexPath.section][indexPath.row].isSelected ?? false) ? .lightGray.withAlphaComponent(0.2) : .clear
                 cell.viewImg.backgroundColor = .white
                 cell.configure(msgType, self.arrSectionMsg![indexPath.section][indexPath.row].filePath!, "")
                 cell.lblTime.text = Utility.convertTimestamptoTimeString(timestamp: "\((self.arrSectionMsg![indexPath.section][indexPath.row].timeMilliSeconds?.seconds)!)")
@@ -858,6 +863,7 @@ extension ChatVC : UITableViewDelegate, UITableViewDataSource {
             else if msgType == "video"
             {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "OtherImgChatBubbleCell", for: indexPath) as! OtherImgChatBubbleCell
+                cell.backgroundColor = (self.arrSectionMsg![indexPath.section][indexPath.row].isSelected ?? false) ? .lightGray.withAlphaComponent(0.2) : .clear
                 cell.viewImg.backgroundColor = .white
                 cell.configure(msgType, self.arrSectionMsg![indexPath.section][indexPath.row].thumbnailPath ?? "", "")
                 cell.lblTime.text = Utility.convertTimestamptoTimeString(timestamp: "\((self.arrSectionMsg![indexPath.section][indexPath.row].timeMilliSeconds?.seconds)!)")
@@ -871,8 +877,8 @@ extension ChatVC : UITableViewDelegate, UITableViewDataSource {
             else if msgType == "audio"
             {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "OtherAudioBubbleCell", for: indexPath) as! OtherAudioBubbleCell
+                cell.backgroundColor = (self.arrSectionMsg![indexPath.section][indexPath.row].isSelected ?? false) ? .lightGray.withAlphaComponent(0.2) : .clear
                 cell.viewMsg.backgroundColor = .white
-                
                 cell.lblFileName.text = self.arrSectionMsg![indexPath.section][indexPath.row].fileName ?? "Audio File"
                 cell.lblTime.text = Utility.convertTimestamptoTimeString(timestamp: "\((self.arrSectionMsg![indexPath.section][indexPath.row].timeMilliSeconds?.seconds)!)")
                 if isGroup {
@@ -952,83 +958,106 @@ extension ChatVC : UITableViewDelegate, UITableViewDataSource {
     
     public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let msgType : String = (self.arrSectionMsg![indexPath.section][indexPath.row].type)!
-        if msgType == "document" {
-            
-            guard let url = URL(string: (self.arrSectionMsg![indexPath.section][indexPath.row].filePath)!) else { return }
-            UIApplication.shared.open(url)
-            
-            /*///
-            let fileName = "123.doc"    //  get file name from chat array
-            do {
-            let documentUrl = try FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false)
-                let fileUrl = documentUrl.appendingPathComponent(fileName)
-                if FileManager.default.fileExists(atPath: fileUrl.path) {
-                    print("Open already downloaded file...")
+        if isLongPressEnable {
+            if msgType != "text" {
+                if arrSectionMsg![indexPath.section][indexPath.row].isSelected ?? false {
+                    selectedCount -= 1
+                    self.lblForwardCount.text = "\(selectedCount)"
+                    arrSectionMsg![indexPath.section][indexPath.row].isSelected = false
                 } else {
-                    NetworkManager.sharedInstance.download(url: URL(string: (self.arrSectionMsg![indexPath.section][indexPath.row].document)!)!, fileLocation: fileUrl, obj: self) { result in
-                        print(result)
-                    }
+                    selectedCount += 1
+                    self.lblForwardCount.text = "\(selectedCount)"
+                    arrSectionMsg![indexPath.section][indexPath.row].isSelected = true
                 }
-                print(fileUrl.path)
-            } catch let error {
-                print(error.localizedDescription)
+                if self.selectedCount == 0 {
+                    self.isLongPressEnable = false
+                    self.viewUserInfo.isHidden = false
+                    self.viewForwardMsg.isHidden = true
+                    self.selectedCount = 0
+                    self.lblForwardCount.text = "0"
+                }
+                self.tblUserChat.reloadData()
+                //arrSectionMsg![indexPath.section][indexPath.row].isSelected = (arrSectionMsg![indexPath.section][indexPath.row].isSelected ?? false) ? false : true
             }
-            ///     */
-        } else if msgType == "video" {
-            //let player = AVPlayer(url: URL(fileURLWithPath: "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"))
-            //let player = AVPlayer(url: URL(string: "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4")!)
-            
-            let player = AVPlayer(url: URL(string: self.arrSectionMsg![indexPath.section][indexPath.row].filePath ?? "")!)
-            let vcPlayer = AVPlayerViewController()
-            vcPlayer.player = player
-            //self.present(vcPlayer, animated: true, completion: nil)
-            self.present(vcPlayer, animated: true) {
-                vcPlayer.player?.play()
+        } else {
+            if msgType == "document" {
+                
+                guard let url = URL(string: (self.arrSectionMsg![indexPath.section][indexPath.row].filePath)!) else { return }
+                UIApplication.shared.open(url)
+                
+                /*///
+                 let fileName = "123.doc"    //  get file name from chat array
+                 do {
+                 let documentUrl = try FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false)
+                 let fileUrl = documentUrl.appendingPathComponent(fileName)
+                 if FileManager.default.fileExists(atPath: fileUrl.path) {
+                 print("Open already downloaded file...")
+                 } else {
+                 NetworkManager.sharedInstance.download(url: URL(string: (self.arrSectionMsg![indexPath.section][indexPath.row].document)!)!, fileLocation: fileUrl, obj: self) { result in
+                 print(result)
+                 }
+                 }
+                 print(fileUrl.path)
+                 } catch let error {
+                 print(error.localizedDescription)
+                 }
+                 ///     */
+            } else if msgType == "video" {
+                //let player = AVPlayer(url: URL(fileURLWithPath: "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"))
+                //let player = AVPlayer(url: URL(string: "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4")!)
+                
+                let player = AVPlayer(url: URL(string: self.arrSectionMsg![indexPath.section][indexPath.row].filePath ?? "")!)
+                let vcPlayer = AVPlayerViewController()
+                vcPlayer.player = player
+                //self.present(vcPlayer, animated: true, completion: nil)
+                self.present(vcPlayer, animated: true) {
+                    vcPlayer.player?.play()
+                }
+            } else if msgType == "image" {
+                let vc =  ImgViewerVC()
+                vc.strImageName = (self.arrSectionMsg![indexPath.section][indexPath.row].filePath)!
+                //self.navigationController?.pushViewController(vc, animated: true)
+                self.present(vc, animated: true)
+            } else if msgType == "audio" {
+                //http://freetone.org/ring/stan/iPhone_5-Alarm.mp3
+                //https://s3.amazonaws.com/kargopolov/kukushka.mp3
+                let url = URL(string: "https://s3.amazonaws.com/kargopolov/kukushka.mp3")
+                
+                guard let url = URL(string: "https://s3.amazonaws.com/kargopolov/kukushka.mp3") else { return }
+                UIApplication.shared.open(url)
+                
+                /*///
+                 guard let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first else { return }
+                 
+                 //var fileName : String = (url!.deletingPathExtension()).lastPathComponent
+                 let fileName : String = url!.lastPathComponent
+                 //var fileExt : String = url!.pathExtension
+                 print(fileName)
+                 
+                 //let audioName = "\(Utility.fileName()).mp3"
+                 let fileUrl = documentsDirectory.appendingPathComponent(fileName)
+                 var isFileExist : Bool = false
+                 if FileManager.default.fileExists(atPath: fileUrl.path) {
+                 isFileExist = true
+                 } else {
+                 URLSession.shared.downloadTask(with: url!, completionHandler: {
+                 location, response, error in
+                 do {
+                 //try data.write(to: fileUrl)
+                 //location.write(to: fileUrl)
+                 // after downloading your file you need to move it to your destination url
+                 try FileManager.default.moveItem(at: location!, to: fileUrl)
+                 print("File moved to documents folder")
+                 isFileExist = true
+                 self.playAudio(isFileExist: isFileExist, filePath: fileUrl)
+                 } catch let error as NSError {
+                 print(error.localizedDescription)
+                 }
+                 }).resume()
+                 }
+                 playAudio(isFileExist: isFileExist, filePath: fileUrl)
+                 ///     */
             }
-        } else if msgType == "image" {
-            let vc =  ImgViewerVC()
-            vc.strImageName = (self.arrSectionMsg![indexPath.section][indexPath.row].filePath)!
-            //self.navigationController?.pushViewController(vc, animated: true)
-            self.present(vc, animated: true)
-        } else if msgType == "audio" {
-            //http://freetone.org/ring/stan/iPhone_5-Alarm.mp3
-            //https://s3.amazonaws.com/kargopolov/kukushka.mp3
-            let url = URL(string: "https://s3.amazonaws.com/kargopolov/kukushka.mp3")
-            
-            guard let url = URL(string: "https://s3.amazonaws.com/kargopolov/kukushka.mp3") else { return }
-            UIApplication.shared.open(url)
-            
-            /*///
-            guard let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first else { return }
-            
-            //var fileName : String = (url!.deletingPathExtension()).lastPathComponent
-            let fileName : String = url!.lastPathComponent
-            //var fileExt : String = url!.pathExtension
-            print(fileName)
-            
-            //let audioName = "\(Utility.fileName()).mp3"
-            let fileUrl = documentsDirectory.appendingPathComponent(fileName)
-            var isFileExist : Bool = false
-            if FileManager.default.fileExists(atPath: fileUrl.path) {
-                isFileExist = true
-            } else {
-                URLSession.shared.downloadTask(with: url!, completionHandler: {
-                    location, response, error in
-                    do {
-                        //try data.write(to: fileUrl)
-                        //location.write(to: fileUrl)
-                        // after downloading your file you need to move it to your destination url
-                        try FileManager.default.moveItem(at: location!, to: fileUrl)
-                        print("File moved to documents folder")
-                        isFileExist = true
-                        self.playAudio(isFileExist: isFileExist, filePath: fileUrl)
-                    } catch let error as NSError {
-                        print(error.localizedDescription)
-                    }
-                }).resume()
-            }
-            playAudio(isFileExist: isFileExist, filePath: fileUrl)
-            ///     */
         }
     }
     
@@ -1043,43 +1072,13 @@ extension ChatVC : UITableViewDelegate, UITableViewDataSource {
         
         action.image = UIImage(named: "reply", in: self.bundle, compatibleWith: nil) //UIImage(named: "reply")
         action.backgroundColor = .systemBlue.withAlphaComponent(0.01)
-        return UISwipeActionsConfiguration(actions: [action])
+        
+        if !self.isUserSendMsg || self.isLongPressEnable || (self.arrSectionMsg![indexPath.section][indexPath.row].type ?? "") == "text" {
+            return nil
+        } else {
+            return UISwipeActionsConfiguration(actions: [action])
+        }
     }
-    
-    /*func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
-        let velocity : CGPoint = gestureRecognizer.location(in: self.tblUserChat)
-        if velocity.x < 0 {
-            return false
-        }
-        return abs(Float(velocity.x)) > abs(Float(velocity.y))
-    }
-
-    @objc func panGestureCellAction(recognizer: UIPanGestureRecognizer)  {
-        let translation = recognizer.translation(in: self.tblUserChat)
-        if recognizer.view?.frame.origin.x ?? 0 < 0 {
-            return
-        }
-        recognizer.view?.center = CGPoint(
-            x: (recognizer.view?.center.x ?? 0) + translation.x,
-            y: (recognizer.view?.center.y ?? 0))
-        recognizer.setTranslation(CGPoint(x: 0, y: 0), in: view)
-        if (recognizer.view?.frame.origin.x ?? 0) > UIScreen.main.bounds.size.width * 0.9 {
-            UIView.animate(withDuration: 0.25, delay: 0, options: .curveEaseOut, animations: {
-                recognizer.view?.frame = CGRect(x: 0, y: recognizer.view?.frame.origin.y ?? 0, width: recognizer.view?.frame.size.width ?? 0, height: recognizer.view?.frame.size.height ?? 0)
-            })
-        }
-        if recognizer.state == .ended {
-            let x = recognizer.view?.frame.origin.x ?? 0
-            UIView.animate(withDuration: 0.25, delay: 0, options: .curveEaseOut) {
-                recognizer.view?.frame = CGRect(x: 0, y: recognizer.view?.frame.origin.y ?? 0, width: recognizer.view?.frame.size.width ?? 0, height: recognizer.view?.frame.size.height ?? 0)
-            } completion: { (finished) in
-                if x > ((recognizer.view?.frame.size.width ?? 0) / 2) {
-                    self.tblUserChat.becomeFirstResponder()
-                    print("Swipe to reply...")
-                }
-            }
-        }
-    }   //  */
     
     func playAudio(isFileExist : Bool, filePath : URL) {
         if isFileExist {
@@ -1129,7 +1128,6 @@ extension ChatVC : UITableViewDelegate, UITableViewDataSource {
         constTblBottom.priority = .defaultLow
         self.constViewMainReplyHeight.priority = .defaultLow
         self.isSwipe = true
-        
     }
 
     private func handleMarkAsUnread() {
@@ -1219,4 +1217,27 @@ extension ChatVC {
         }
         return UIImage(named: "default", in: self.bundle, compatibleWith: nil) ?? UIImage()
     }
+}
+
+// MARK: - UI Gesture Recognizer Delegate
+extension ChatVC: UIGestureRecognizerDelegate {
+    func setupLongPressGesture() {
+        let longPressGesture:UILongPressGestureRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(ChatVC.handleLongPress(_:)))
+        longPressGesture.minimumPressDuration = 1.1 // 1 second press
+        longPressGesture.delegate = self
+        self.tblUserChat.addGestureRecognizer(longPressGesture)
+    }
+    
+    @objc func handleLongPress(_ gestureRecognizer: UILongPressGestureRecognizer){
+        if gestureRecognizer.state == .began {
+            self.isLongPressEnable = true
+            self.viewUserInfo.isHidden = true
+            self.viewForwardMsg.isHidden = false
+            let touchPoint = gestureRecognizer.location(in: self.tblUserChat)
+            if let indexPath = self.tblUserChat.indexPathForRow(at: touchPoint) {
+                print("Long press touch point --> \(indexPath.section) -- \(indexPath.row)")
+            }
+        }
+    }
+    
 }

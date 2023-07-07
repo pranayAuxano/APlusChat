@@ -62,4 +62,7 @@ struct Message: Codable {
     
     /// flag for documents
     var showLoader: Bool? = false
+    
+    /// flag for cell selected or not
+    var isSelected: Bool? = false
 }

@@ -155,7 +155,7 @@ public class SocketChatManager {
     
     // MARK: - Get previous, current chat message and leave chat
     
-    func getGroupList(event : String) {
+    func getGroupList(event : String, fromForward: Bool) {
         socket?.on("get-group-list-res", callback: { (data, ack) in
             print("get-group-list-res - \(data)")
             guard let responseData = try? JSONSerialization.data(withJSONObject: data[0], options: []) else { return }
@@ -401,6 +401,35 @@ public class SocketChatManager {
         })
     }
     
+    func forwardMsgRes(event : String) {
+        socket?.on(event, callback: { (data, ack) in
+            print("forward-file-res - \((data.first)!)")
+            guard let responseData = try? JSONSerialization.data(withJSONObject: data[0], options: []) else { return }
+            
+            let receiveMessage : reqResponse = try! JSONDecoder().decode(reqResponse.self, from: responseData)
+            self.socket?.off("forward-file")
+            self.socket?.off("forward-file-res")
+            self.contectInfoVC!().removeMemberRes(receiveMessage.isSuccess!)
+        })
+    }
+    
+    func getSomeErr(event : String) {
+        socket?.on("error-message-res", callback: { (data, ack) in
+            print("error-message-res - \((data.first)!)")
+            /*{
+                "error": {
+                    "msg": "Secret key invalid."
+                }
+            }   //  */
+            //guard let responseData = try? JSONSerialization.data(withJSONObject: data[0], options: []) else { return }
+            //self.userRole = try! JSONDecoder().decode(UserRole.self, from: responseData)
+            //self.socket?.off("user-role")
+            //self.socket?.off("user-role-res")
+            //self.viewController!().getUserRole(userRole: self.userRole!)
+            //self.viewController!().getUserRole()
+        })
+    }
+    
     /*public func getUnreadChatRes(event : String) {
         socket?.on(event, callback: { (data, ack) in
             print("get-groups-call - \((data.first)!)")
@@ -439,11 +468,11 @@ public class SocketChatManager {
 //        socket?.emit("join", param)
 //    }
     
-    func reqRecentChatList(param: [String : String]) {
+    func reqRecentChatList(param: [String : Any], fromForward: Bool = false) {
         socket?.emit("get-group-list", param)
         socket?.off("get-group-list")
         self.socket?.off("get-group-list-res")
-        self.getGroupList(event: "get-group-list-res")
+        self.getGroupList(event: "get-group-list-res", fromForward: fromForward)
     }
     
     func reqPreviousChatMsg(param: [String : Any]) {
@@ -584,6 +613,15 @@ public class SocketChatManager {
             socket?.emit("user-role", param)
             socket?.off("user-role")
             self.getUserRoleRes(event: "user-role-res")
+        }
+    }
+    
+    func forwardMsg(event: String, param: [String : Any]) {
+        if Network.reachability.isReachable {
+            //socket -> "forward-file"
+            socket?.emit(event, param)
+            socket?.off(event)
+            ///self.forwardMsgRes(event: "forward-file-res") ///-> Not available forward-file-res
         }
     }
     

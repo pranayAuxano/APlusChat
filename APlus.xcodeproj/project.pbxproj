@@ -116,6 +116,8 @@
 		FA35EC4D299A1CF700B75EF4 /* document.png in Resources */ = {isa = PBXBuildFile; fileRef = FA35EC3D299A1CF700B75EF4 /* document.png */; };
 		FA35EC4E299A1CF700B75EF4 /* document@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = FA35EC3E299A1CF700B75EF4 /* document@3x.png */; };
 		FA35EC4F299A1CF700B75EF4 /* document@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = FA35EC3F299A1CF700B75EF4 /* document@1x.png */; };
+		FA61E3762A5817F7005D963B /* ForwardMsgGrpListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA61E3742A5817F7005D963B /* ForwardMsgGrpListVC.swift */; };
+		FA61E3772A5817F7005D963B /* ForwardMsgGrpListVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA61E3752A5817F7005D963B /* ForwardMsgGrpListVC.xib */; };
 		FA72AD2829C2FA80009B9B23 /* reply@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = FA72AD2529C2FA80009B9B23 /* reply@3x.png */; };
 		FA72AD2929C2FA80009B9B23 /* reply.png in Resources */ = {isa = PBXBuildFile; fileRef = FA72AD2629C2FA80009B9B23 /* reply.png */; };
 		FA72AD2A29C2FA80009B9B23 /* reply@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FA72AD2729C2FA80009B9B23 /* reply@2x.png */; };
@@ -134,6 +136,8 @@
 		FAC2DB522A271AB2008CAD4E /* ModifiedAt.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC2DB482A271AB2008CAD4E /* ModifiedAt.swift */; };
 		FAC2DB532A271AB2008CAD4E /* CreateAt.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC2DB492A271AB2008CAD4E /* CreateAt.swift */; };
 		FAC2DB552A271AD5008CAD4E /* GetPreviousChat.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC2DB542A271AD5008CAD4E /* GetPreviousChat.swift */; };
+		FAFAA8262A581944002B7808 /* ForwardGrpTVCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FAFAA8242A581944002B7808 /* ForwardGrpTVCell.xib */; };
+		FAFAA8272A581944002B7808 /* ForwardGrpTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAFAA8252A581944002B7808 /* ForwardGrpTVCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -260,6 +264,8 @@
 		FA35EC3E299A1CF700B75EF4 /* document@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "document@3x.png"; sourceTree = "<group>"; };
 		FA35EC3F299A1CF700B75EF4 /* document@1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "document@1x.png"; sourceTree = "<group>"; };
 		FA5BB8012A2DB9B700AA4A1E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		FA61E3742A5817F7005D963B /* ForwardMsgGrpListVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForwardMsgGrpListVC.swift; sourceTree = "<group>"; };
+		FA61E3752A5817F7005D963B /* ForwardMsgGrpListVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ForwardMsgGrpListVC.xib; sourceTree = "<group>"; };
 		FA72AD2529C2FA80009B9B23 /* reply@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "reply@3x.png"; sourceTree = "<group>"; };
 		FA72AD2629C2FA80009B9B23 /* reply.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = reply.png; sourceTree = "<group>"; };
 		FA72AD2729C2FA80009B9B23 /* reply@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "reply@2x.png"; sourceTree = "<group>"; };
@@ -278,6 +284,8 @@
 		FAC2DB482A271AB2008CAD4E /* ModifiedAt.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModifiedAt.swift; sourceTree = "<group>"; };
 		FAC2DB492A271AB2008CAD4E /* CreateAt.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateAt.swift; sourceTree = "<group>"; };
 		FAC2DB542A271AD5008CAD4E /* GetPreviousChat.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetPreviousChat.swift; sourceTree = "<group>"; };
+		FAFAA8242A581944002B7808 /* ForwardGrpTVCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ForwardGrpTVCell.xib; sourceTree = "<group>"; };
+		FAFAA8252A581944002B7808 /* ForwardGrpTVCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ForwardGrpTVCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -378,6 +386,7 @@
 				1291979A28F6FAAA000AD9D4 /* CreateGroupVC */,
 				1291979D28F6FAAA000AD9D4 /* ImageViewerVC */,
 				1291979128F6FAAA000AD9D4 /* AudioPlayVC */,
+				FA61E3782A581801005D963B /* ForwardMsgGrpListVC */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -522,6 +531,7 @@
 				129197DE28F6FAAB000AD9D4 /* GroupContactTVCell */,
 				129197BB28F6FAAB000AD9D4 /* OwnChatCell */,
 				129197C828F6FAAB000AD9D4 /* OtherChatCell */,
+				FAFAA8282A58195F002B7808 /* ForwardGrpTVCell */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -812,6 +822,15 @@
 			path = Document;
 			sourceTree = "<group>";
 		};
+		FA61E3782A581801005D963B /* ForwardMsgGrpListVC */ = {
+			isa = PBXGroup;
+			children = (
+				FA61E3742A5817F7005D963B /* ForwardMsgGrpListVC.swift */,
+				FA61E3752A5817F7005D963B /* ForwardMsgGrpListVC.xib */,
+			);
+			path = ForwardMsgGrpListVC;
+			sourceTree = "<group>";
+		};
 		FA9817E029BA0CF0007C59AB /* reply */ = {
 			isa = PBXGroup;
 			children = (
@@ -838,6 +857,15 @@
 				FA9817E629BA1A0F007C59AB /* OtherReplyTVCell.xib */,
 			);
 			path = OtherReplyTVCell;
+			sourceTree = "<group>";
+		};
+		FAFAA8282A58195F002B7808 /* ForwardGrpTVCell */ = {
+			isa = PBXGroup;
+			children = (
+				FAFAA8252A581944002B7808 /* ForwardGrpTVCell.swift */,
+				FAFAA8242A581944002B7808 /* ForwardGrpTVCell.xib */,
+			);
+			path = ForwardGrpTVCell;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -980,6 +1008,7 @@
 				1291982628F6FAAC000AD9D4 /* GrpContactTVCell.xib in Resources */,
 				FA9817E829BA1A0F007C59AB /* OtherReplyTVCell.xib in Resources */,
 				1291981D28F6FAAC000AD9D4 /* OtherAudioBubbleCell.xib in Resources */,
+				FAFAA8262A581944002B7808 /* ForwardGrpTVCell.xib in Resources */,
 				12B8FAD52976D10A001680DB /* placeholder-profile-img.png in Resources */,
 				FA35EC40299A1CF700B75EF4 /* video@1x.png in Resources */,
 				12B8FADE2976D10A001680DB /* group-placeholder.jpg in Resources */,
@@ -991,6 +1020,7 @@
 				FA35EC42299A1CF700B75EF4 /* video@2x.png in Resources */,
 				12898DB428F7D8BB00DA4F75 /* Media.xcassets in Resources */,
 				12B8FAD62976D10A001680DB /* Play@3x.png in Resources */,
+				FA61E3772A5817F7005D963B /* ForwardMsgGrpListVC.xib in Resources */,
 				129197F528F6FAAC000AD9D4 /* GroupContVC.xib in Resources */,
 				12632378296D4F15001AD625 /* OpenSans-ExtraBold.ttf in Resources */,
 				12B8FADA2976D10A001680DB /* default.png in Resources */,
@@ -1131,9 +1161,11 @@
 				1291982728F6FAAC000AD9D4 /* GrpContactTVCell.swift in Sources */,
 				FAC2DB4A2A271AB2008CAD4E /* GetGroupList.swift in Sources */,
 				1291980028F6FAAC000AD9D4 /* ContListVC.swift in Sources */,
+				FAFAA8272A581944002B7808 /* ForwardGrpTVCell.swift in Sources */,
 				1291981728F6FAAC000AD9D4 /* OwnFileBubbleCell.swift in Sources */,
 				1291981A28F6FAAC000AD9D4 /* OtherChatBubbleCell.swift in Sources */,
 				129197F328F6FAAC000AD9D4 /* AudioPlayVC.swift in Sources */,
+				FA61E3762A5817F7005D963B /* ForwardMsgGrpListVC.swift in Sources */,
 				12632361296D4EB6001AD625 /* ContactList.swift in Sources */,
 				129197FE28F6FAAC000AD9D4 /* ContactInfoVC.swift in Sources */,
 				1291982828F6FAAC000AD9D4 /* ToastUtility.swift in Sources */,

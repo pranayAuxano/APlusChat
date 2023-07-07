@@ -23,6 +23,7 @@
                 <outlet property="btnAttach" destination="GBU-zI-Lqc" id="dur-hu-nDz"/>
                 <outlet property="btnBack" destination="Tqn-kM-M7b" id="oos-JU-eW6"/>
                 <outlet property="btnClose" destination="YHQ-2p-7Ri" id="AKK-M2-3OK"/>
+                <outlet property="btnForward" destination="mQv-OO-MR7" id="uPz-Q2-TWL"/>
                 <outlet property="btnOption" destination="s75-f1-89z" id="liT-m6-oNA"/>
                 <outlet property="btnSend" destination="l79-Vx-RRj" id="St1-eF-TNF"/>
                 <outlet property="btnUserInfo" destination="oZe-2T-KAS" id="LmZ-Mi-4j8"/>
@@ -34,6 +35,8 @@
                 <outlet property="imgProfilePic" destination="H4e-VS-XiG" id="ucT-R8-1BU"/>
                 <outlet property="imgReplyImage" destination="i9b-FN-8ee" id="AdG-2a-63s"/>
                 <outlet property="imgVideo" destination="pOT-f8-lGN" id="oAQ-O6-Ksa"/>
+                <outlet property="lblForwardCount" destination="UK6-RP-2FA" id="d1n-zR-69x"/>
+                <outlet property="lblForwardUserN" destination="xfJ-Zq-oNi" id="Rve-nE-FqU"/>
                 <outlet property="lblOnline" destination="ZlG-ay-t4I" id="UsT-2U-1Fq"/>
                 <outlet property="lblReplyMsg" destination="TiS-DS-chd" id="UKZ-VX-afR"/>
                 <outlet property="lblReplySidebar" destination="onk-UX-zRI" id="mhE-ty-6R7"/>
@@ -45,6 +48,7 @@
                 <outlet property="viewBack" destination="VFl-oZ-pLk" id="G45-hr-9Sk"/>
                 <outlet property="viewBackUserName" destination="naK-bO-BXd" id="w7s-ny-S16"/>
                 <outlet property="viewChat" destination="B4P-7D-bGP" id="nl2-20-1nR"/>
+                <outlet property="viewForwardMsg" destination="Xuo-pk-huE" id="KCF-yf-fcG"/>
                 <outlet property="viewMainChat" destination="DJQ-1q-C44" id="veY-o9-tm2"/>
                 <outlet property="viewMainReply" destination="O4i-A4-mwi" id="3Lw-ot-O3R"/>
                 <outlet property="viewReply" destination="Lw7-Nq-pDM" id="NuX-hH-BvU"/>
@@ -157,9 +161,59 @@
                                         <constraint firstItem="ZlG-ay-t4I" firstAttribute="leading" secondItem="okl-MG-G72" secondAttribute="leading" constant="3" id="yoD-gx-DIr"/>
                                     </constraints>
                                 </view>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Xuo-pk-huE">
+                                    <rect key="frame" x="82.666666666666657" y="0.0" width="307.33333333333337" height="55"/>
+                                    <subviews>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mQv-OO-MR7">
+                                            <rect key="frame" x="264.33333333333331" y="12" width="31" height="31"/>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" secondItem="mQv-OO-MR7" secondAttribute="height" id="G6r-8l-yhd"/>
+                                            </constraints>
+                                            <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                            <state key="normal" image="arrowshape.turn.up.right.fill" catalog="system"/>
+                                            <connections>
+                                                <action selector="btnForwardTap:" destination="-1" eventType="touchUpInside" id="NU4-GH-UFz"/>
+                                            </connections>
+                                        </button>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="9" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UK6-RP-2FA">
+                                            <rect key="frame" x="221.33333333333331" y="17" width="35" height="21"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="35" id="Xrk-Oa-dan"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="User" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xfJ-Zq-oNi">
+                                            <rect key="frame" x="3" y="3" width="215.33333333333334" height="49"/>
+                                            <color key="backgroundColor" systemColor="systemGray5Color"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <color key="backgroundColor" systemColor="systemGray5Color"/>
+                                    <constraints>
+                                        <constraint firstAttribute="trailing" secondItem="mQv-OO-MR7" secondAttribute="trailing" constant="12" id="5ys-JT-vAR"/>
+                                        <constraint firstItem="mQv-OO-MR7" firstAttribute="top" secondItem="Xuo-pk-huE" secondAttribute="top" constant="12" id="6o0-x4-xf9"/>
+                                        <constraint firstAttribute="bottom" secondItem="xfJ-Zq-oNi" secondAttribute="bottom" constant="3" id="ASY-yZ-ViQ"/>
+                                        <constraint firstAttribute="bottom" secondItem="mQv-OO-MR7" secondAttribute="bottom" constant="12" id="Bl5-AK-vNB"/>
+                                        <constraint firstItem="UK6-RP-2FA" firstAttribute="centerY" secondItem="mQv-OO-MR7" secondAttribute="centerY" id="M6g-0j-QEr"/>
+                                        <constraint firstItem="xfJ-Zq-oNi" firstAttribute="leading" secondItem="Xuo-pk-huE" secondAttribute="leading" constant="3" id="OLE-YE-vKl"/>
+                                        <constraint firstItem="xfJ-Zq-oNi" firstAttribute="centerY" secondItem="UK6-RP-2FA" secondAttribute="centerY" id="SLY-D0-HSd"/>
+                                        <constraint firstItem="xfJ-Zq-oNi" firstAttribute="top" secondItem="Xuo-pk-huE" secondAttribute="top" constant="3" id="X7n-cH-ecy"/>
+                                        <constraint firstItem="UK6-RP-2FA" firstAttribute="leading" secondItem="xfJ-Zq-oNi" secondAttribute="trailing" constant="3" id="YPP-WO-gLf"/>
+                                        <constraint firstItem="mQv-OO-MR7" firstAttribute="leading" secondItem="UK6-RP-2FA" secondAttribute="trailing" constant="8" id="ocT-Rs-2I4"/>
+                                    </constraints>
+                                </view>
                             </subviews>
                             <color key="backgroundColor" systemColor="systemGray5Color"/>
                             <constraints>
+                                <constraint firstItem="Xuo-pk-huE" firstAttribute="top" secondItem="okl-MG-G72" secondAttribute="top" id="2DK-eY-yQf"/>
+                                <constraint firstItem="Xuo-pk-huE" firstAttribute="bottom" secondItem="okl-MG-G72" secondAttribute="bottom" id="664-yC-JW1"/>
+                                <constraint firstItem="Xuo-pk-huE" firstAttribute="leading" secondItem="okl-MG-G72" secondAttribute="leading" id="7HO-eI-FUQ"/>
                                 <constraint firstItem="VFl-oZ-pLk" firstAttribute="leading" secondItem="naK-bO-BXd" secondAttribute="leading" id="QJH-9F-MmZ"/>
                                 <constraint firstAttribute="bottom" secondItem="VFl-oZ-pLk" secondAttribute="bottom" id="VXu-Jd-dkB"/>
                                 <constraint firstAttribute="trailing" secondItem="okl-MG-G72" secondAttribute="trailing" id="elk-N8-kfy"/>
@@ -168,6 +222,7 @@
                                 <constraint firstItem="okl-MG-G72" firstAttribute="top" secondItem="naK-bO-BXd" secondAttribute="top" id="pdU-Ys-YgM"/>
                                 <constraint firstItem="okl-MG-G72" firstAttribute="leading" secondItem="VFl-oZ-pLk" secondAttribute="trailing" id="uO1-Gk-Cwr"/>
                                 <constraint firstAttribute="height" constant="55" id="vlF-ue-GEP"/>
+                                <constraint firstAttribute="trailing" secondItem="Xuo-pk-huE" secondAttribute="trailing" id="yLY-4F-c58"/>
                             </constraints>
                         </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="B4P-7D-bGP">
@@ -381,6 +436,7 @@
     </objects>
     <resources>
         <image name="arrow.backward" catalog="system" width="128" height="95"/>
+        <image name="arrowshape.turn.up.right.fill" catalog="system" width="128" height="104"/>
         <image name="chat-bg" width="1920" height="1080"/>
         <image name="ellipsis" catalog="system" width="128" height="37"/>
         <image name="multiply" catalog="system" width="128" height="111"/>
