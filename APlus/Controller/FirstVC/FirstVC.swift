@@ -84,7 +84,7 @@ public class FirstVC: UIViewController {
         tblChatList.dataSource = self
         tblChatList.delegate = self
         
-        let bundle = Bundle(for: FirstVC.self)
+        bundle = Bundle(for: FirstVC.self)
         self.tblChatList.register(UINib(nibName: "UserDetailTVCell", bundle: bundle), forCellReuseIdentifier: "UserDetailTVCell")
         
         if Network.reachability.isReachable {

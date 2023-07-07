@@ -106,7 +106,7 @@ public class ContactInfoVC: UIViewController {
         tblParticipants.dataSource = self
         tblParticipants.delegate = self
         
-        let bundle = Bundle(for: ContactInfoVC.self)
+        bundle = Bundle(for: ContactInfoVC.self)
         tblParticipants.register(UINib(nibName: "ParticipantsTVCell", bundle: bundle), forCellReuseIdentifier: "ParticipantsTVCell")
     }
     

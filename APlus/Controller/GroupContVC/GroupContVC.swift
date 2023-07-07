@@ -67,7 +67,7 @@ public class GroupContVC: UIViewController {
         tblContact.dataSource = self
         tblContact.delegate = self
         
-        let bundle = Bundle(for: GroupContVC.self)
+        bundle = Bundle(for: GroupContVC.self)
         tblContact.register(UINib(nibName: "GrpContactTVCell", bundle: bundle), forCellReuseIdentifier: "GrpContactTVCell")
     }
     

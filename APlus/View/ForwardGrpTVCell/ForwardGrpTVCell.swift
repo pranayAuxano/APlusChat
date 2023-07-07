@@ -23,9 +23,13 @@ class ForwardGrpTVCell: UITableViewCell {
     var selectGrpToForwardDelegate : SelectGrpToForwardDelegate?
     var isGroup: Bool = false
     
+    var bundle = Bundle()
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        bundle = Bundle(for: ForwardGrpTVCell.self)
+        
         self.imgGrpIcon.clipsToBounds = true
         self.imgGrpIcon.layer.cornerRadius = self.imgGrpIcon.frame.height / 2
     }

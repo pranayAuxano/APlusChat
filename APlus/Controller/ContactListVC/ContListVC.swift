@@ -53,7 +53,7 @@ public class ContListVC: UIViewController {
         tblContact.delegate = self
         tblContact.dataSource = self
         
-        let bundle = Bundle(for: ContListVC.self)
+        bundle = Bundle(for: ContListVC.self)
         tblContact.register(UINib(nibName: "ContactTVCell", bundle: bundle), forCellReuseIdentifier: "ContactTVCell")
         
     }
