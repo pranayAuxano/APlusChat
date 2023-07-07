@@ -249,8 +249,8 @@ extension FirstVC : UITableViewDelegate, UITableViewDataSource {
     }
     
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "UserDetailTVCell", for: indexPath) as! UserDetailTVCell
         if self.isGetChatResponse {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "UserDetailTVCell", for: indexPath) as! UserDetailTVCell
             
             cell.viewMainBG.stopShimmeringAnimation()
             cell.viewProfileImg.isHidden = false
@@ -283,17 +283,15 @@ extension FirstVC : UITableViewDelegate, UITableViewDataSource {
                 cell.lblUnreadMsgCount.isHidden = false
                 cell.lblUnreadMsgCount.text = "\(self.arrRecentChatGroupList?[indexPath.row].unreadCount ?? 0)"
             }
-            return cell
         }
         else {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "UserDetailTVCell", for: indexPath) as! UserDetailTVCell
             //self.tblChatList.startShimmeringAnimation(animationSpeed: 3.0, direction: .leftToRight)
             cell.viewMainBG.backgroundColor = .white
             cell.viewMainBG.startShimmeringAnimation(animationSpeed: 3.0, direction: .leftToRight)
             cell.viewProfileImg.isHidden = true
             cell.viewMsgDetail.isHidden = true
-            return cell
         }
+        return cell
     }
     
     public func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -305,7 +303,6 @@ extension FirstVC : UITableViewDelegate, UITableViewDataSource {
             let vc = ChatVC()
             vc.isHideUserDetailView = false
             vc.isDirectToChat = false
-            //vc.recentChatUser = self.arrRecentChatUserList?[indexPath.row]
             vc.isGroup = self.arrRecentChatGroupList?[indexPath.row].isGroup ?? false
             vc.groupId = self.arrRecentChatGroupList?[indexPath.row].groupId ?? ""
             vc.strDisName = self.arrRecentChatGroupList?[indexPath.row].groupName ?? ""
