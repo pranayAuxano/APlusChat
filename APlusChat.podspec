@@ -23,7 +23,7 @@ Pod::Spec.new do |s|
 
   s.swift_versions = "5.0"
   
-  s.source       = { :git => "https://github.com/pranayprajapati/APlusChat.git", :tag => spec.version.to_s }
+  s.source       = { :git => "https://github.com/pranayprajapati/APlusChat.git", :tag => s.version.to_s }
 
 
   s.source_files  = "APlus", "APlus/**/*.{h, m, swift}"
