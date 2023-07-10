@@ -3,7 +3,7 @@
 Pod::Spec.new do |spec|
 
   spec.name         = "APlusChat"
-  spec.version      = "0.0.2.0.1"
+  spec.version      = "0.0.2.0.2"
 
   spec.summary      = "APlusChat Chat is light weight SDK use for Chat."
   spec.description  = "Plus Chat is light weight SDK use Socket.io for Real Time Communication."
@@ -27,7 +27,7 @@ Pod::Spec.new do |spec|
 
 
   spec.source_files  = "APlus", "APlus/**/*.{h, m, swift}"
-  spec.resources = "APlus/**/*.{png, jpeg, jpg, storyboard, xib, xcasset}"
+  spec.resources = "APlus/**/*.{png, jpeg, jpg, storyboard, xib, xcasset, xcassets}"
 
 
   #spec.resource_bundle = "APlus/*/Media.xcassets"
