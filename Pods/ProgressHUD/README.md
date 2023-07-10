@@ -1,6 +1,31 @@
+<a href="https://learngpt.art"><img src="https://related.chat/github/header33.png" width="880"></a>
+
+---
+
 <img src="https://related.chat/hud/001.gif" width="80"> <img src="https://related.chat/hud/002.gif" width="80"> <img src="https://related.chat/hud/003.gif" width="80"> <img src="https://related.chat/hud/004.gif" width="80"> <img src="https://related.chat/hud/005.gif" width="80"> <img src="https://related.chat/hud/006.gif" width="80"> <img src="https://related.chat/hud/007.gif" width="80"> <img src="https://related.chat/hud/008.gif" width="80"> <img src="https://related.chat/hud/009.gif" width="80"> <img src="https://related.chat/hud/010.gif" width="80"> <img src="https://related.chat/hud/011.gif" width="80"> <img src="https://related.chat/hud/011.png" width="80"> <img src="https://related.chat/hud/012.gif" width="80"> <img src="https://related.chat/hud/012.png" width="80"> <img src="https://related.chat/hud/013.gif" width="80"> <img src="https://related.chat/hud/013.png" width="80"> <img src="https://related.chat/hud/014.gif" width="80"> <img src="https://related.chat/hud/014.png" width="80"> <img src="https://related.chat/hud/015.gif" width="80"> <img src="https://related.chat/hud/015.png" width="80">
 
-## WHAT'S NEW IN 13.5 and 13.6
+## WHAT'S NEW
+
+### Version: 13.7.2
+
+- The `showFailed` and `showError` methods can now handle `Error?` parameters as well.
+- SF Symbols can be displayed by defining it's name `ProgressHUD.show(symbol: "car.fill")`
+- Fix the `setupDelayTimer` method. Now `[weak self]` is used within the timer's closure to prevent potential retain cycles and avoid memory leaks.
+
+### Version: 13.7.1
+
+- The `mediaSize` and `marginSize` options are now available to adjust the HUD dimensions.
+
+### Version: 13.7.0
+
+- New `AnimationType.none` has been implemented. So you can display some text without animation.
+
+### Version: 13.6.2
+
+- We have the optional `delay:` parameter to set the timeout.
+- We have the `.remove()` function to dismiss the HUD immediately.
+
+### Version: 13.5 and 13.6
 
 - Bugfix related to iPad split screen.
 - Bugfix related to showProgress.
@@ -11,7 +36,7 @@ ProgressHUD is a lightweight and easy-to-use HUD for iOS.
 
 ## INSTALLATION
 
-### CocoaPods:
+### CocoaPods
 
 [CocoaPods](https://cocoapods.org) is a dependency manager for Cocoa projects. For usage and installation instructions, visit their website. To integrate the `ProgressHUD` into your Xcode project using CocoaPods, specify it in your `Podfile`:
 
@@ -30,7 +55,15 @@ ProgressHUD.show("Some text...")
 ```
 
 ```swift
+ProgressHUD.show("Some text...", interaction: false)
+```
+
+```swift
 ProgressHUD.showSucceed()
+```
+
+```swift
+ProgressHUD.showSucceed("Some text...", delay: 1.5)
 ```
 
 ```swift
@@ -38,7 +71,15 @@ ProgressHUD.showFailed()
 ```
 
 ```swift
-ProgressHUD.showProgress(0.42)
+ProgressHUD.showFailed("Some text...")
+```
+
+```swift
+ProgressHUD.showProgress(0.15)
+```
+
+```swift
+ProgressHUD.showProgress("Loading...", 0.42)
 ```
 
 ```swift
@@ -46,7 +87,23 @@ ProgressHUD.show(icon: .heart)
 ```
 
 ```swift
+ProgressHUD.show("Some text...", icon: .privacy, delay: 2.0)
+```
+
+```swift
+ProgressHUD.show(symbol: "box.truck")
+```
+
+```swift
+ProgressHUD.show("Some text...", symbol: "figure.2.arms.open")
+```
+
+```swift
 ProgressHUD.dismiss()
+```
+
+```swift
+ProgressHUD.remove()
 ```
 
 ## REQUIREMENTS
@@ -55,7 +112,7 @@ ProgressHUD.dismiss()
 
 ## CUSTOMIZATION
 
-You can customize the color, font, image, animation type, and other some options using the following methods:
+You can customize attributes like color, font, image, animation type, size, and more by using these methods:
 
 ```swift
 ProgressHUD.animationType = .circleStrokeSpin
@@ -82,6 +139,11 @@ ProgressHUD.colorStatus = .label
 ```
 
 ```swift
+ProgressHUD.mediaSize = 100
+ProgressHUD.marginSize = 50
+```
+
+```swift
 ProgressHUD.fontStatus = .boldSystemFont(ofSize: 24)
 ```
 
@@ -93,10 +155,11 @@ ProgressHUD.imageSuccess = UIImage(named: "success.png")
 ProgressHUD.imageError = UIImage(named: "error.png")
 ```
 
-The list of predefined animation and icon types are as follows:
+A comprehensive list of the predefined animation and icon types:
 
 ```swift
 public enum AnimationType {
+	case none
 	case systemActivityIndicator
 	case horizontalCirclesPulse
 	case lineScaling
@@ -147,7 +210,7 @@ public enum AlertIcon {
 
 MIT License
 
-Copyright (c) 2022 Related Code
+Copyright (c) 2023 Related Code
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
