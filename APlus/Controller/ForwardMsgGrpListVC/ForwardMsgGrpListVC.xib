@@ -165,7 +165,7 @@
                 <constraint firstItem="2Vb-40-QhL" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="doa-RX-FbV"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="2Vb-40-QhL" secondAttribute="bottom" id="doz-kR-yDm"/>
             </constraints>
-            <point key="canvasLocation" x="-62" y="-7"/>
+            <point key="canvasLocation" x="-173" y="-48"/>
         </view>
     </objects>
     <resources>

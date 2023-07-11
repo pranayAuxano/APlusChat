@@ -35,7 +35,7 @@ class ForwardMsgGrpListVC: UIViewController {
     }
     
     required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented FirstViewController")
+        fatalError("init(coder:) has not been implemented ForwardMsgGrpListVC")
     }
     
     override func viewDidLoad() {
@@ -59,6 +59,7 @@ class ForwardMsgGrpListVC: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        bundle = Bundle(for: ForwardMsgGrpListVC.self)
         SocketChatManager.sharedInstance.socketDelegate = self
         
         SocketChatManager.sharedInstance.reqRecentChatList(param: [
@@ -220,8 +221,6 @@ extension ForwardMsgGrpListVC : UISearchBarDelegate {
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        //self.arrRecentChatUserList = self.arrAllRecentChatUserList?.filter{ ($0.name?.lowercased().prefix(searchText.count))! == searchText.lowercased() }
-        
         self.arrRecentChatGroupList = self.arrAllRecentChatGroupList
         if searchText != "" {
             self.arrRecentChatGroupList = self.arrRecentChatGroupList?.filter{
