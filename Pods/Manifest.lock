@@ -1,6 +1,6 @@
 PODS:
   - JGProgressHUD (2.2)
-  - ProgressHUD (13.7.2)
+  - ProgressHUD (2.70)
   - Socket.IO-Client-Swift (16.0.1):
     - Starscream (~> 4.0)
   - Starscream (4.0.4)
@@ -19,10 +19,10 @@ SPEC REPOS:
 
 SPEC CHECKSUMS:
   JGProgressHUD: d83d7a981b85d11205e19ff8ad5bb9c40571c847
-  ProgressHUD: 093d24ca970f191744017bee2649e37d0cd1c5b9
+  ProgressHUD: e603e8b8622c47d8818b9fb38b3cfe9d3e7ca421
   Socket.IO-Client-Swift: c116d6dc9fd6be9c259bacfe143f8725bce7d79e
   Starscream: 5178aed56b316f13fa3bc55694e583d35dd414d9
 
-PODFILE CHECKSUM: e85f54e10562c6f012a1efd5f1bd45c7315c6c60
+PODFILE CHECKSUM: 9815eb0e60dea7c74de11956145619403bea10e6
 
 COCOAPODS: 1.12.1
