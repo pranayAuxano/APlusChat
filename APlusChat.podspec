@@ -37,8 +37,6 @@ Pod::Spec.new do |spec|
   #spec.resource_bundle = "APlus/*/Media.xcassets"
   #spec.public_header_files = "Classes/**/*.h"
 
-  spec.ios.vendored_frameworks = 'Frameworks/APlus.frameworks'
-
 
   spec.framework  = "UIKit"
 
