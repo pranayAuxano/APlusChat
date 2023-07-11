@@ -27,7 +27,7 @@ Pod::Spec.new do |spec|
 
 #  spec.source_files  = "APlus", "APlus/**/*.{h, m, swift}"
   spec.source_files  = "APlus/Classes/**/*"
-  Spec.public_header_files = 'APlus/Classes/**/*.h'
+  spec.public_header_files = 'APlus/Classes/**/*.h'
 
 
   spec.resources = "APlus/**/*.{png, jpeg, jpg, storyboard, xib, xcasset}"
