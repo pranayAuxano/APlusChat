@@ -25,8 +25,8 @@ Pod::Spec.new do |spec|
   spec.source       = { :git => "https://github.com/pranayprajapati/APlusChat.git", :tag => spec.version.to_s }
 
 
-#  spec.source_files  = "APlus", "APlus/**/*.{h, m, swift}"
-  spec.source_files  = "APlus", "APlus/Classes/**/*"
+  spec.source_files  = "APlus", "APlus/**/*.{h, m, swift}"
+#  spec.source_files  = "APlus", "APlus/Classes/**/*"
 #  spec.public_header_files = 'APlus/Classes/**/*.h'
 
 
