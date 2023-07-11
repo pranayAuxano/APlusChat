@@ -26,7 +26,7 @@ Pod::Spec.new do |spec|
 
 
 #  spec.source_files  = "APlus", "APlus/**/*.{h, m, swift}"
-  spec.source_files  = "APlus/Classes/**/*"
+  spec.source_files  = "APlus", "APlus/Classes/**/*"
 #  spec.public_header_files = 'APlus/Classes/**/*.h'
 
 
