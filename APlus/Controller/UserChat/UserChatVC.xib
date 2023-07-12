@@ -30,6 +30,7 @@
                 <outlet property="constTblBottom" destination="cRa-Yw-7mk" id="tQQ-1R-Fbv"/>
                 <outlet property="constViewMainReplyHeight" destination="gfq-7H-DMK" id="Gke-c6-yUd"/>
                 <outlet property="constViewTypeMsgHeight" destination="k8H-Ln-ndY" id="cCe-i9-zsg"/>
+                <outlet property="constViewUserDetailHeight" destination="vlF-ue-GEP" id="eS3-Ts-u81"/>
                 <outlet property="imgBack" destination="r1I-ub-zbd" id="YLG-ci-6EU"/>
                 <outlet property="imgChatBackground" destination="cRV-uj-Y4B" id="ei5-qD-4eL"/>
                 <outlet property="imgProfilePic" destination="H4e-VS-XiG" id="ucT-R8-1BU"/>

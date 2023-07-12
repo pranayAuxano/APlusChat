@@ -136,6 +136,8 @@ public class ChatVC: UIViewController {
         
         bundle = Bundle(for: ChatVC.self)
         lblUserName.text = strDisName
+        self.lblForwardUserN.text = strDisName
+        self.lblForwardCount.text = "0"
         self.loadProfileImg()
         lblOnline.text = ""
         
@@ -203,6 +205,12 @@ public class ChatVC: UIViewController {
         txtTypeMsg.delegate = self
         imgProfilePic.layer.cornerRadius = imgProfilePic.frame.width / 2
         
+        self.isLongPressEnable = false
+        self.viewUserInfo.isHidden = false
+        self.viewForwardMsg.isHidden = true
+        self.selectedCount = 0
+        self.lblForwardCount.text = "0"
+        
         if !isDocumentPickerOpen {
             SocketChatManager.sharedInstance.userChatVC = {
                 return self
@@ -229,6 +237,9 @@ public class ChatVC: UIViewController {
         }
         //Delegate for receive other user message.
         SocketChatManager.sharedInstance.socketDelegate = self
+        
+        /// For activate long press on chat table.
+        self.setupLongPressGesture()
     }
     
     public override func viewWillDisappear(_ animated: Bool) {
@@ -457,16 +468,24 @@ public class ChatVC: UIViewController {
     }
     
     @IBAction func btnBackTap(_ sender: UIButton) {
-        SocketChatManager.sharedInstance.leaveChat(param: [
-            "secretKey": SocketChatManager.sharedInstance.secretKey,
-            "userId": SocketChatManager.sharedInstance.myUserId,
-            "groupId": groupId
-        ])
-        
-        SocketChatManager.sharedInstance.socket?.off("typing-res")
-        SocketChatManager.sharedInstance.socket?.off("online-status")
-        
-        self.navigationController?.popViewController(animated: true)
+        if self.isLongPressEnable {
+            self.isLongPressEnable = false
+            self.viewUserInfo.isHidden = false
+            self.viewForwardMsg.isHidden = true
+            self.selectedCount = 0
+            self.lblForwardCount.text = "0"
+        } else {
+            SocketChatManager.sharedInstance.leaveChat(param: [
+                "secretKey": SocketChatManager.sharedInstance.secretKey,
+                "userId": SocketChatManager.sharedInstance.myUserId,
+                "groupId": groupId
+            ])
+            SocketChatManager.sharedInstance.socket?.off("typing-res")
+            SocketChatManager.sharedInstance.socket?.off("online-status")
+            
+            //self.navigationController?.popToRootViewController(animated: true)
+            self.navigationController?.popViewController(animated: true)
+        }
     }
     
     @IBAction func btnUserInfoTap(_ sender: UIButton) {
