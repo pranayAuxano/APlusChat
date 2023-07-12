@@ -130,6 +130,8 @@ extension ForwardMsgGrpListVC: UITableViewDelegate, UITableViewDataSource, Selec
             cell.btnSelectContact.isHidden = false
             cell.imgContact.isHidden = false
             cell.lblName.isHidden = false
+            //cell.lblSeparator.backgroundColor = UIColor(red: 255/255.0, green: 255/255.0, blue: 255/255.0, alpha: 0.5)
+            cell.lblSeparator.backgroundColor = .clear
             
             cell.selectContactDelegate = self
             cell.btnSelectContact.tag = indexPath.row

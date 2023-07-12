@@ -28,6 +28,8 @@ class GrpContactTVCell: UITableViewCell {
         super.awakeFromNib()
         // Initialization code
         bundle = Bundle(for: GrpContactTVCell.self)
+        self.imgContact.clipsToBounds = true
+        self.imgContact.layer.cornerRadius = self.imgContact.frame.height / 2
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

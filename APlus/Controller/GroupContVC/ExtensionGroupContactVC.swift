@@ -16,7 +16,6 @@ extension GroupContVC : UITableViewDelegate, UITableViewDataSource, SelectContac
     
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "GrpContactTVCell", for: indexPath) as! GrpContactTVCell
-        cell.imgContact.layer.cornerRadius = cell.imgContact.frame.height / 2
         cell.lblSeparator.backgroundColor = UIColor(red: 255/255.0, green: 255/255.0, blue: 255/255.0, alpha: 0.5)
         cell.selectContactDelegate = self
         cell.btnSelectContact.tag = indexPath.row
