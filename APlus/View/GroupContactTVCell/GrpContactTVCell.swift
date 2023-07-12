@@ -21,6 +21,7 @@ class GrpContactTVCell: UITableViewCell {
     private var imageRequest: Cancellable?
     
     var selectContactDelegate : SelectContactDelegate?
+    var isGroup: Bool = false
     var bundle = Bundle()
     
     override func awakeFromNib() {
@@ -35,7 +36,8 @@ class GrpContactTVCell: UITableViewCell {
     }
     
     func configure(_ image : String, isGroup: Bool = false) {
-        imgContact.image = UIImage(named: "placeholder-profile-img.png", in: self.bundle, compatibleWith: nil)
+        self.isGroup = isGroup
+        imgContact.image = UIImage(named: isGroup ? "group-placeholder.jpg" : "placeholder-profile-img.png", in: self.bundle, compatibleWith: nil)
         if image != "" {
             var imageURL: URL?
             imageURL = URL(string: image)!
@@ -54,7 +56,7 @@ class GrpContactTVCell: UITableViewCell {
                         self.imgContact.image = imageToCache
                         imageCache.setObject(imageToCache, forKey: imageURL as AnyObject)
                     } else {
-                        self.imgContact.image = UIImage(named: "placeholder-profile-img.png", in: self.bundle, compatibleWith: nil)
+                        self.imgContact.image = UIImage(named: isGroup ? "group-placeholder.jpg" : "placeholder-profile-img.png", in: self.bundle, compatibleWith: nil)
                     }
                 }
             }
@@ -67,7 +69,7 @@ class GrpContactTVCell: UITableViewCell {
     
     override func prepareForReuse() {
         // Reset Thumbnail Image View
-        //imgProfile.image = UIImage(named: "default", in: self.bundle, compatibleWith: nil)    //UIImage(named: "default")
+        self.imgContact.image = UIImage(named: self.isGroup ? "group-placeholder.jpg" : "placeholder-profile-img.png", in: self.bundle, compatibleWith: nil)    //UIImage(named: "default")
         // Cancel Image Request
         imageRequest?.cancel()
     }
