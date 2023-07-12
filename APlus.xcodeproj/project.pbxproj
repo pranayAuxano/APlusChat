@@ -136,8 +136,6 @@
 		FAC2DB522A271AB2008CAD4E /* ModifiedAt.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC2DB482A271AB2008CAD4E /* ModifiedAt.swift */; };
 		FAC2DB532A271AB2008CAD4E /* CreateAt.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC2DB492A271AB2008CAD4E /* CreateAt.swift */; };
 		FAC2DB552A271AD5008CAD4E /* GetPreviousChat.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC2DB542A271AD5008CAD4E /* GetPreviousChat.swift */; };
-		FAFAA8262A581944002B7808 /* ForwardGrpTVCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FAFAA8242A581944002B7808 /* ForwardGrpTVCell.xib */; };
-		FAFAA8272A581944002B7808 /* ForwardGrpTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAFAA8252A581944002B7808 /* ForwardGrpTVCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -284,8 +282,6 @@
 		FAC2DB482A271AB2008CAD4E /* ModifiedAt.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModifiedAt.swift; sourceTree = "<group>"; };
 		FAC2DB492A271AB2008CAD4E /* CreateAt.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateAt.swift; sourceTree = "<group>"; };
 		FAC2DB542A271AD5008CAD4E /* GetPreviousChat.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetPreviousChat.swift; sourceTree = "<group>"; };
-		FAFAA8242A581944002B7808 /* ForwardGrpTVCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ForwardGrpTVCell.xib; sourceTree = "<group>"; };
-		FAFAA8252A581944002B7808 /* ForwardGrpTVCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ForwardGrpTVCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -531,7 +527,6 @@
 				129197DE28F6FAAB000AD9D4 /* GroupContactTVCell */,
 				129197BB28F6FAAB000AD9D4 /* OwnChatCell */,
 				129197C828F6FAAB000AD9D4 /* OtherChatCell */,
-				FAFAA8282A58195F002B7808 /* ForwardGrpTVCell */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -859,15 +854,6 @@
 			path = OtherReplyTVCell;
 			sourceTree = "<group>";
 		};
-		FAFAA8282A58195F002B7808 /* ForwardGrpTVCell */ = {
-			isa = PBXGroup;
-			children = (
-				FAFAA8252A581944002B7808 /* ForwardGrpTVCell.swift */,
-				FAFAA8242A581944002B7808 /* ForwardGrpTVCell.xib */,
-			);
-			path = ForwardGrpTVCell;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -953,7 +939,7 @@
 			);
 			mainGroup = 129196ED28F6F971000AD9D4;
 			packageReferences = (
-				1269DA5B297558DB003DA764 /* XCRemoteSwiftPackageReference "socket.io-client-swift" */,
+				1269DA5B297558DB003DA764 /* XCRemoteSwiftPackageReference "socket" */,
 				1269DA5E297573F1003DA764 /* XCRemoteSwiftPackageReference "ProgressHUD" */,
 			);
 			productRefGroup = 129196F828F6F971000AD9D4 /* Products */;
@@ -1008,7 +994,6 @@
 				1291982628F6FAAC000AD9D4 /* GrpContactTVCell.xib in Resources */,
 				FA9817E829BA1A0F007C59AB /* OtherReplyTVCell.xib in Resources */,
 				1291981D28F6FAAC000AD9D4 /* OtherAudioBubbleCell.xib in Resources */,
-				FAFAA8262A581944002B7808 /* ForwardGrpTVCell.xib in Resources */,
 				12B8FAD52976D10A001680DB /* placeholder-profile-img.png in Resources */,
 				FA35EC40299A1CF700B75EF4 /* video@1x.png in Resources */,
 				12B8FADE2976D10A001680DB /* group-placeholder.jpg in Resources */,
@@ -1161,7 +1146,6 @@
 				1291982728F6FAAC000AD9D4 /* GrpContactTVCell.swift in Sources */,
 				FAC2DB4A2A271AB2008CAD4E /* GetGroupList.swift in Sources */,
 				1291980028F6FAAC000AD9D4 /* ContListVC.swift in Sources */,
-				FAFAA8272A581944002B7808 /* ForwardGrpTVCell.swift in Sources */,
 				1291981728F6FAAC000AD9D4 /* OwnFileBubbleCell.swift in Sources */,
 				1291981A28F6FAAC000AD9D4 /* OtherChatBubbleCell.swift in Sources */,
 				129197F328F6FAAC000AD9D4 /* AudioPlayVC.swift in Sources */,
@@ -1463,7 +1447,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		1269DA5B297558DB003DA764 /* XCRemoteSwiftPackageReference "socket.io-client-swift" */ = {
+		1269DA5B297558DB003DA764 /* XCRemoteSwiftPackageReference "socket" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/socketio/socket.io-client-swift";
 			requirement = {
@@ -1484,7 +1468,7 @@
 /* Begin XCSwiftPackageProductDependency section */
 		1269DA5C297558DB003DA764 /* SocketIO */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 1269DA5B297558DB003DA764 /* XCRemoteSwiftPackageReference "socket.io-client-swift" */;
+			package = 1269DA5B297558DB003DA764 /* XCRemoteSwiftPackageReference "socket" */;
 			productName = SocketIO;
 		};
 		1269DA5F297573F1003DA764 /* ProgressHUD */ = {

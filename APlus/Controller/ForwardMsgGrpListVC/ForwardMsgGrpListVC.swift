@@ -55,7 +55,7 @@ class ForwardMsgGrpListVC: UIViewController {
         tblForwardToGrp.isScrollEnabled = false
         
         bundle = Bundle(for: ForwardMsgGrpListVC.self)
-        tblForwardToGrp.register(UINib(nibName: "ForwardGrpTVCell", bundle: bundle), forCellReuseIdentifier: "ForwardGrpTVCell")
+        tblForwardToGrp.register(UINib(nibName: "GrpContactTVCell", bundle: bundle), forCellReuseIdentifier: "GrpContactTVCell")
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -117,32 +117,32 @@ class ForwardMsgGrpListVC: UIViewController {
     }
 }
 
-extension ForwardMsgGrpListVC: UITableViewDelegate, UITableViewDataSource, SelectGrpToForwardDelegate {
+extension ForwardMsgGrpListVC: UITableViewDelegate, UITableViewDataSource, SelectContactDelegate {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return (self.isGetChatResponse) ? (self.arrRecentChatGroupList?.count ?? 0) : 10
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        var cell = tableView.dequeueReusableCell(withIdentifier: "ForwardGrpTVCell", for: indexPath) as! ForwardGrpTVCell
+        var cell = tableView.dequeueReusableCell(withIdentifier: "GrpContactTVCell", for: indexPath) as! GrpContactTVCell
         if self.isGetChatResponse {
-            cell.mainView.stopShimmeringAnimation()
-            cell.btnSelectGrp.isHidden = false
-            cell.imgGrpIcon.isHidden = false
-            cell.lblGrpName.isHidden = false
+            cell.view.stopShimmeringAnimation()
+            cell.btnSelectContact.isHidden = false
+            cell.imgContact.isHidden = false
+            cell.lblName.isHidden = false
             
-            cell.selectGrpToForwardDelegate = self
-            cell.btnSelectGrp.tag = indexPath.row
+            cell.selectContactDelegate = self
+            cell.btnSelectContact.tag = indexPath.row
             
-            cell.lblGrpName.text = self.arrRecentChatGroupList![indexPath.row].groupName ?? ""
+            cell.lblName.text = self.arrRecentChatGroupList![indexPath.row].groupName ?? ""
             cell.configure(self.arrRecentChatGroupList![indexPath.row].imagePath ?? "", isGroup: self.arrRecentChatGroupList?[indexPath.row].isGroup ?? false)
-            cell.btnSelectGrp.isSelected = arrRecentChatGroupList?[indexPath.row].isSelected ?? false
+            cell.btnSelectContact.isSelected = arrRecentChatGroupList?[indexPath.row].isSelected ?? false
         } else {
-            cell.mainView.backgroundColor = .white
-            cell.mainView.startShimmeringAnimation(animationSpeed: 3.0, direction: .leftToRight)
-            cell.btnSelectGrp.isHidden = true
-            cell.imgGrpIcon.isHidden = true
-            cell.lblGrpName.isHidden = true
+            cell.view.backgroundColor = .white
+            cell.view.startShimmeringAnimation(animationSpeed: 3.0, direction: .leftToRight)
+            cell.btnSelectContact.isHidden = true
+            cell.imgContact.isHidden = true
+            cell.lblName.isHidden = true
         }
         return cell
     }
@@ -152,41 +152,41 @@ extension ForwardMsgGrpListVC: UITableViewDelegate, UITableViewDataSource, Selec
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard let cell = tableView.cellForRow(at: indexPath) as? ForwardGrpTVCell else { return }
+        guard let cell = tableView.cellForRow(at: indexPath) as? GrpContactTVCell else { return }
         
-        if cell.btnSelectGrp.isSelected {
+        if cell.btnSelectContact.isSelected {
             for i in 0 ..< arrSelectedGrpList.count {
                 if arrSelectedGrpList[i] == (arrRecentChatGroupList?[indexPath.row].groupId ?? "") {
                     arrRecentChatGroupList?[indexPath.row].isSelected = false
                     arrSelectedGrpList.remove(at: i)
-                    cell.btnSelectGrp.isSelected = false
+                    cell.btnSelectContact.isSelected = false
                     break
                 }
             }
         } else {
             arrRecentChatGroupList?[indexPath.row].isSelected = true
             arrSelectedGrpList.append(arrRecentChatGroupList?[indexPath.row].groupId ?? "")
-            cell.btnSelectGrp.isSelected = true
+            cell.btnSelectContact.isSelected = true
         }
     }
     
-    func selectGrpToForward(sender: UIButton) {
+    func selectContact(sender: UIButton) {
         let indexPath = IndexPath(row: sender.tag, section: 0)
-        guard let cell = self.tblForwardToGrp.cellForRow(at: indexPath) as? ForwardGrpTVCell else { return }
+        guard let cell = self.tblForwardToGrp.cellForRow(at: indexPath) as? GrpContactTVCell else { return }
 
-        if cell.btnSelectGrp.isSelected {
+        if cell.btnSelectContact.isSelected {
             for i in 0 ..< arrSelectedGrpList.count {
                 if arrSelectedGrpList[i] == (arrRecentChatGroupList?[indexPath.row].groupId ?? "") {
                     arrRecentChatGroupList?[indexPath.row].isSelected = false
                     arrSelectedGrpList.remove(at: i)
-                    cell.btnSelectGrp.isSelected = false
+                    cell.btnSelectContact.isSelected = false
                     break
                 }
             }
         } else {
             arrRecentChatGroupList?[indexPath.row].isSelected = true
             arrSelectedGrpList.append(arrRecentChatGroupList?[indexPath.row].groupId ?? "")
-            cell.btnSelectGrp.isSelected = true
+            cell.btnSelectContact.isSelected = true
         }
 
         /*if arrSelectedGrpList.count > 0 {
@@ -197,6 +197,34 @@ extension ForwardMsgGrpListVC: UITableViewDelegate, UITableViewDataSource, Selec
             btnSend.isEnabled = false
         }   //  */
     }
+    
+    /*func selectGrpToForward(sender: UIButton) {
+        let indexPath = IndexPath(row: sender.tag, section: 0)
+        guard let cell = self.tblForwardToGrp.cellForRow(at: indexPath) as? GrpContactTVCell else { return }
+
+        if cell.btnSelectContact.isSelected {
+            for i in 0 ..< arrSelectedGrpList.count {
+                if arrSelectedGrpList[i] == (arrRecentChatGroupList?[indexPath.row].groupId ?? "") {
+                    arrRecentChatGroupList?[indexPath.row].isSelected = false
+                    arrSelectedGrpList.remove(at: i)
+                    cell.btnSelectContact.isSelected = false
+                    break
+                }
+            }
+        } else {
+            arrRecentChatGroupList?[indexPath.row].isSelected = true
+            arrSelectedGrpList.append(arrRecentChatGroupList?[indexPath.row].groupId ?? "")
+            cell.btnSelectContact.isSelected = true
+        }
+
+        /*if arrSelectedGrpList.count > 0 {
+            btnSend.backgroundColor = UIColor(red: 15/255.0, green: 101/255.0, blue: 158/255.0, alpha: 1)
+            btnSend.isEnabled = true
+        } else {
+            btnSend.backgroundColor = UIColor(red: 104/255.0, green: 162/255.0, blue: 254/255.0, alpha: 1)
+            btnSend.isEnabled = false
+        }   //  */
+    }   /// */
 }
 
 extension ForwardMsgGrpListVC: SocketDelegate {

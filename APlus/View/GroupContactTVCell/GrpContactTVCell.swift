@@ -34,7 +34,7 @@ class GrpContactTVCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
-    func configure(_ image : String) {
+    func configure(_ image : String, isGroup: Bool = false) {
         imgContact.image = UIImage(named: "placeholder-profile-img.png", in: self.bundle, compatibleWith: nil)
         if image != "" {
             var imageURL: URL?
