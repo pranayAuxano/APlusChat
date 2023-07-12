@@ -196,6 +196,8 @@ public class ChatVC: UIViewController {
             self.viewBackUserName.isHidden = false
             self.constViewUserDetailHeight.constant = 55
         }
+        
+        self.constMainChatViewBottom.constant = 0
     }
     
     public override func viewWillAppear(_ animated: Bool) {
@@ -205,6 +207,7 @@ public class ChatVC: UIViewController {
         txtTypeMsg.delegate = self
         imgProfilePic.layer.cornerRadius = imgProfilePic.frame.width / 2
         
+        self.tblUserChat.backgroundColor = .clear
         self.isLongPressEnable = false
         self.viewUserInfo.isHidden = false
         self.viewForwardMsg.isHidden = true
@@ -469,11 +472,26 @@ public class ChatVC: UIViewController {
     
     @IBAction func btnBackTap(_ sender: UIButton) {
         if self.isLongPressEnable {
+            if selectedCount == 0 {
+                selectedCount = 0
+                for i in 0 ..< (self.arrSectionMsg?.count ?? 0) {
+                    for j in 0 ..< (self.arrSectionMsg?[i].count ?? 0) {
+                        if (self.arrSectionMsg?[i][j].isSelected ?? false) == true {
+                            arrSectionMsg![i][j].isSelected = false
+                        }
+                    }
+                }
+            }
             self.isLongPressEnable = false
             self.viewUserInfo.isHidden = false
             self.viewForwardMsg.isHidden = true
             self.selectedCount = 0
             self.lblForwardCount.text = "0"
+            
+            DispatchQueue.main.async {
+                self.tblUserChat.backgroundColor = .clear
+                self.tblUserChat.reloadData()
+            }
         } else {
             SocketChatManager.sharedInstance.leaveChat(param: [
                 "secretKey": SocketChatManager.sharedInstance.secretKey,

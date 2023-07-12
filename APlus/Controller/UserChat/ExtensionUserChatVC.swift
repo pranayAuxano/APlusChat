@@ -33,6 +33,27 @@ extension ChatVC : UITextFieldDelegate {
     @objc func keyboardWillShow(notification: NSNotification) {
         self.isKeyboardActive = true
         if let keyboardSize = (notification.userInfo![UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
+            if isLongPressEnable {
+                if selectedCount == 0 {
+                    selectedCount = 0
+                    for i in 0 ..< (self.arrSectionMsg?.count ?? 0) {
+                        for j in 0 ..< (self.arrSectionMsg?[i].count ?? 0) {
+                            if (self.arrSectionMsg?[i][j].isSelected ?? false) == true {
+                                arrSectionMsg![i][j].isSelected = false
+                            }
+                        }
+                    }
+                }
+                self.isLongPressEnable = false
+                self.viewUserInfo.isHidden = false
+                self.viewForwardMsg.isHidden = true
+                self.selectedCount = 0
+                self.lblForwardCount.text = "0"
+                DispatchQueue.main.async {
+                    self.tblUserChat.backgroundColor = .clear
+                    self.tblUserChat.reloadData()
+                }
+            }
             constMainChatViewBottom.constant = keyboardSize.height - 35
         }
     }
@@ -741,7 +762,12 @@ extension ChatVC : UITableViewDelegate, UITableViewDataSource {
             if msgType == "document"
             {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "OwnFileBubbleCell", for: indexPath) as! OwnFileBubbleCell
-                cell.backgroundColor = (self.arrSectionMsg![indexPath.section][indexPath.row].isSelected ?? false) ? .lightGray.withAlphaComponent(0.2) : .clear
+                if isLongPressEnable {
+                    //cell.backgroundColor = (self.arrSectionMsg![indexPath.section][indexPath.row].isSelected ?? false) ? .lightGray.withAlphaComponent(0.2) : .clear
+                    cell.backgroundColor = (self.arrSectionMsg![indexPath.section][indexPath.row].isSelected ?? false) ? Colors.longPressColor.returnColor().withAlphaComponent(0.2) : .clear
+                } else {
+                    cell.backgroundColor = .clear
+                }
                 cell.viewMsg.backgroundColor = Colors.lightTheme.returnColor()
                 
                 cell.lblFileName.text = self.arrSectionMsg![indexPath.section][indexPath.row].fileName ?? "Document File"
@@ -752,7 +778,11 @@ extension ChatVC : UITableViewDelegate, UITableViewDataSource {
             else if msgType == "image"
             {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "OwnImgChatBubbleCell", for: indexPath) as! OwnImgChatBubbleCell
-                cell.backgroundColor = (self.arrSectionMsg![indexPath.section][indexPath.row].isSelected ?? false) ? .lightGray.withAlphaComponent(0.2) : .clear
+                if isLongPressEnable {
+                    cell.backgroundColor = (self.arrSectionMsg![indexPath.section][indexPath.row].isSelected ?? false) ? Colors.longPressColor.returnColor().withAlphaComponent(0.2) : .clear
+                } else {
+                    cell.backgroundColor = .clear
+                }
                 cell.viewImg.backgroundColor = Colors.lightTheme.returnColor()
                 cell.configure(msgType, self.arrSectionMsg![indexPath.section][indexPath.row].filePath!, "", self.arrSectionMsg![indexPath.section][indexPath.row].showLoader ?? false)
                 cell.lblTime.text = Utility.convertTimestamptoTimeString(timestamp: "\((self.arrSectionMsg![indexPath.section][indexPath.row].timeMilliSeconds?.seconds)!)")
@@ -761,7 +791,11 @@ extension ChatVC : UITableViewDelegate, UITableViewDataSource {
             else if msgType == "video"
             {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "OwnImgChatBubbleCell", for: indexPath) as! OwnImgChatBubbleCell
-                cell.backgroundColor = (self.arrSectionMsg![indexPath.section][indexPath.row].isSelected ?? false) ? .lightGray.withAlphaComponent(0.2) : .clear
+                if isLongPressEnable {
+                    cell.backgroundColor = (self.arrSectionMsg![indexPath.section][indexPath.row].isSelected ?? false) ? Colors.longPressColor.returnColor().withAlphaComponent(0.2) : .clear
+                } else {
+                    cell.backgroundColor = .clear
+                }
                 cell.viewImg.backgroundColor = Colors.lightTheme.returnColor()
                 cell.configure(msgType, self.arrSectionMsg![indexPath.section][indexPath.row].thumbnailPath ?? "", "", self.arrSectionMsg![indexPath.section][indexPath.row].showLoader ?? false)
                 cell.lblTime.text = Utility.convertTimestamptoTimeString(timestamp: "\((self.arrSectionMsg![indexPath.section][indexPath.row].timeMilliSeconds?.seconds)!)")
@@ -770,7 +804,11 @@ extension ChatVC : UITableViewDelegate, UITableViewDataSource {
             else if msgType == "audio"
             {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "OwnAudioBubbleCell", for: indexPath) as! OwnAudioBubbleCell
-                cell.backgroundColor = (self.arrSectionMsg![indexPath.section][indexPath.row].isSelected ?? false) ? .lightGray.withAlphaComponent(0.2) : .clear
+                if isLongPressEnable {
+                    cell.backgroundColor = (self.arrSectionMsg![indexPath.section][indexPath.row].isSelected ?? false) ? Colors.longPressColor.returnColor().withAlphaComponent(0.2) : .clear
+                } else {
+                    cell.backgroundColor = .clear
+                }
                 cell.viewMsg.backgroundColor = Colors.lightTheme.returnColor()
                 
                 cell.lblFileName.text = self.arrSectionMsg![indexPath.section][indexPath.row].fileName ?? "Audio File"
@@ -835,7 +873,11 @@ extension ChatVC : UITableViewDelegate, UITableViewDataSource {
             if msgType == "document"
             {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "OtherFileBubbleCell", for: indexPath) as! OtherFileBubbleCell
-                cell.backgroundColor = (self.arrSectionMsg![indexPath.section][indexPath.row].isSelected ?? false) ? .lightGray.withAlphaComponent(0.2) : .clear
+                if isLongPressEnable {
+                    cell.backgroundColor = (self.arrSectionMsg![indexPath.section][indexPath.row].isSelected ?? false) ? Colors.longPressColor.returnColor().withAlphaComponent(0.2) : .clear
+                } else {
+                    cell.backgroundColor = .clear
+                }
                 cell.viewMsg.backgroundColor = .white
                 cell.lblFileName.text = self.arrSectionMsg![indexPath.section][indexPath.row].fileName ?? "Document File"
                 cell.lblTime.text = Utility.convertTimestamptoTimeString(timestamp: "\((self.arrSectionMsg![indexPath.section][indexPath.row].timeMilliSeconds?.seconds)!)")
@@ -849,7 +891,11 @@ extension ChatVC : UITableViewDelegate, UITableViewDataSource {
             else if msgType == "image"
             {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "OtherImgChatBubbleCell", for: indexPath) as! OtherImgChatBubbleCell
-                cell.backgroundColor = (self.arrSectionMsg![indexPath.section][indexPath.row].isSelected ?? false) ? .lightGray.withAlphaComponent(0.2) : .clear
+                if isLongPressEnable {
+                    cell.backgroundColor = (self.arrSectionMsg![indexPath.section][indexPath.row].isSelected ?? false) ? Colors.longPressColor.returnColor().withAlphaComponent(0.2) : .clear
+                } else {
+                    cell.backgroundColor = .clear
+                }
                 cell.viewImg.backgroundColor = .white
                 cell.configure(msgType, self.arrSectionMsg![indexPath.section][indexPath.row].filePath!, "")
                 cell.lblTime.text = Utility.convertTimestamptoTimeString(timestamp: "\((self.arrSectionMsg![indexPath.section][indexPath.row].timeMilliSeconds?.seconds)!)")
@@ -863,7 +909,11 @@ extension ChatVC : UITableViewDelegate, UITableViewDataSource {
             else if msgType == "video"
             {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "OtherImgChatBubbleCell", for: indexPath) as! OtherImgChatBubbleCell
-                cell.backgroundColor = (self.arrSectionMsg![indexPath.section][indexPath.row].isSelected ?? false) ? .lightGray.withAlphaComponent(0.2) : .clear
+                if isLongPressEnable {
+                    cell.backgroundColor = (self.arrSectionMsg![indexPath.section][indexPath.row].isSelected ?? false) ? Colors.longPressColor.returnColor().withAlphaComponent(0.2) : .clear
+                } else {
+                    cell.backgroundColor = .clear
+                }
                 cell.viewImg.backgroundColor = .white
                 cell.configure(msgType, self.arrSectionMsg![indexPath.section][indexPath.row].thumbnailPath ?? "", "")
                 cell.lblTime.text = Utility.convertTimestamptoTimeString(timestamp: "\((self.arrSectionMsg![indexPath.section][indexPath.row].timeMilliSeconds?.seconds)!)")
@@ -877,7 +927,11 @@ extension ChatVC : UITableViewDelegate, UITableViewDataSource {
             else if msgType == "audio"
             {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "OtherAudioBubbleCell", for: indexPath) as! OtherAudioBubbleCell
-                cell.backgroundColor = (self.arrSectionMsg![indexPath.section][indexPath.row].isSelected ?? false) ? .lightGray.withAlphaComponent(0.2) : .clear
+                if isLongPressEnable {
+                    cell.backgroundColor = (self.arrSectionMsg![indexPath.section][indexPath.row].isSelected ?? false) ? Colors.longPressColor.returnColor().withAlphaComponent(0.2) : .clear
+                } else {
+                    cell.backgroundColor = .clear
+                }
                 cell.viewMsg.backgroundColor = .white
                 cell.lblFileName.text = self.arrSectionMsg![indexPath.section][indexPath.row].fileName ?? "Audio File"
                 cell.lblTime.text = Utility.convertTimestamptoTimeString(timestamp: "\((self.arrSectionMsg![indexPath.section][indexPath.row].timeMilliSeconds?.seconds)!)")
@@ -975,6 +1029,7 @@ extension ChatVC : UITableViewDelegate, UITableViewDataSource {
                     self.viewForwardMsg.isHidden = true
                     self.selectedCount = 0
                     self.lblForwardCount.text = "0"
+                    self.tblUserChat.backgroundColor = .clear
                 }
                 self.tblUserChat.reloadData()
                 //arrSectionMsg![indexPath.section][indexPath.row].isSelected = (arrSectionMsg![indexPath.section][indexPath.row].isSelected ?? false) ? false : true
@@ -1230,9 +1285,15 @@ extension ChatVC: UIGestureRecognizerDelegate {
     
     @objc func handleLongPress(_ gestureRecognizer: UILongPressGestureRecognizer){
         if gestureRecognizer.state == .began {
+            self.view.endEditing(true)
             self.isLongPressEnable = true
             self.viewUserInfo.isHidden = true
             self.viewForwardMsg.isHidden = false
+            
+            DispatchQueue.main.async {
+                self.tblUserChat.backgroundColor = .lightGray.withAlphaComponent(0.15)
+            }
+            
             let touchPoint = gestureRecognizer.location(in: self.tblUserChat)
             if let indexPath = self.tblUserChat.indexPathForRow(at: touchPoint) {
                 print("Long press touch point --> \(indexPath.section) -- \(indexPath.row)")

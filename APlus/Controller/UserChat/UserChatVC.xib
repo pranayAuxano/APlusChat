@@ -27,6 +27,7 @@
                 <outlet property="btnOption" destination="s75-f1-89z" id="liT-m6-oNA"/>
                 <outlet property="btnSend" destination="l79-Vx-RRj" id="St1-eF-TNF"/>
                 <outlet property="btnUserInfo" destination="oZe-2T-KAS" id="LmZ-Mi-4j8"/>
+                <outlet property="constMainChatViewBottom" destination="QXa-Ow-s6F" id="tHZ-28-RfX"/>
                 <outlet property="constTblBottom" destination="cRa-Yw-7mk" id="tQQ-1R-Fbv"/>
                 <outlet property="constViewMainReplyHeight" destination="gfq-7H-DMK" id="Gke-c6-yUd"/>
                 <outlet property="constViewTypeMsgHeight" destination="k8H-Ln-ndY" id="cCe-i9-zsg"/>
