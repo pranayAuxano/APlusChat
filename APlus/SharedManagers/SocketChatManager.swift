@@ -23,17 +23,17 @@ protocol SocketDelegate {
     func getUnreadChat(noOfChat: Int) {}
 }   /// */
 
-let HTTP_SERVER_URL = "http://3.139.188.226:5000/"
-//let HTTP_SERVER_URL = "http://3.139.188.226:5001/"
+//let HTTP_SERVER_URL = "http://3.139.188.226:5000/"
+let HTTP_SERVER_URL = "http://3.139.188.226:5001/"
 let BASE_URL = HTTP_SERVER_URL + "user/public/"
 
 public class SocketChatManager {
     
     // MARK: - Properties
-    public var secretKey : String = "U2FsdGVkX19wmVtaa5bOlZVjpazEyB3tEX/0BAmWufQjL2AscUo+sZ72L19onNWL"  //Old
-//    public var secretKey : String = "U2FsdGVkX19qU0mGWo0WdPbKxMfKE7gf743fNm8mkkekc6FDN/Jhg/vxoWU0QUUW"  //New
+//    public var secretKey : String = "U2FsdGVkX19wmVtaa5bOlZVjpazEyB3tEX/0BAmWufQjL2AscUo+sZ72L19onNWL"  //Old
+    public var secretKey : String = "U2FsdGVkX19qU0mGWo0WdPbKxMfKE7gf743fNm8mkkekc6FDN/Jhg/vxoWU0QUUW"  //New
     
-    public var myUserId : String = "7"         // Pranay
+    public var myUserId : String = "1"         // Pranay
     
     public var myUserName : String = ""
     public var themeColor: ThemeColor? = .red
@@ -42,8 +42,6 @@ public class SocketChatManager {
     public var manager : SocketManager?
     public var socket : SocketIOClient?
     var socketDelegate : SocketDelegate?
-    //var serverURL : String = "http://14.99.147.156:5000"  //  Live Test server
-    //var serverURL : String = "http://3.139.188.226:5000"  //  Live Production server
     
     let UPLOAD_FILE             = BASE_URL + "upload-file-new"
     let CREATE_GROUP            = BASE_URL + "create-group"
