@@ -114,8 +114,8 @@ extension ContListVC : UITableViewDelegate, UITableViewDataSource {
     
     public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         // Same as create group.
-        arrSelectedContact?.append((contactList?.list![indexPath.row])!)
-        self.createOneToOneChat(selectUserId: contactList?.list![indexPath.row].userId ?? "")
+        arrSelectedContact?.append(self.arrContactList![indexPath.row])
+        self.createOneToOneChat(selectUserId: self.arrContactList![indexPath.row].userId ?? "")
     }
     
     func createOneToOneChat(selectUserId : String) {
