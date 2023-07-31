@@ -448,25 +448,27 @@ public class ChatVC: UIViewController {
     }
     
     func updateUserInterface() {
-        switch Network.reachability.isReachable {
-        case true:
-            if !self.isNetworkAvailable {
-                self.isNetworkAvailable = true
-                let toastMsg = ToastUtility.Builder(message: "Internet available.", controller: self, keyboardActive: isKeyboardActive)
-                toastMsg.setColor(background: .green, text: .black)
-                toastMsg.show()
+        DispatchQueue.main.async {
+            switch Network.reachability.isReachable {
+            case true:
+                if !self.isNetworkAvailable {
+                    self.isNetworkAvailable = true
+                    let toastMsg = ToastUtility.Builder(message: "Internet available.", controller: self, keyboardActive: self.isKeyboardActive)
+                    toastMsg.setColor(background: .green, text: .black)
+                    toastMsg.show()
+                }
+                print("Network connection available.")
+                break
+            case false:
+                if self.isNetworkAvailable {
+                    self.isNetworkAvailable = false
+                    let toastMsg = ToastUtility.Builder(message: "No Internet connection.", controller: self, keyboardActive: self.isKeyboardActive)
+                    toastMsg.setColor(background: .red, text: .black)
+                    toastMsg.show()
+                }
+                SocketChatManager.sharedInstance.establishConnection()
+                break
             }
-            print("Network connection available.")
-            break
-        case false:
-            if isNetworkAvailable {
-                self.isNetworkAvailable = false
-                let toastMsg = ToastUtility.Builder(message: "No Internet connection.", controller: self, keyboardActive: isKeyboardActive)
-                toastMsg.setColor(background: .red, text: .black)
-                toastMsg.show()
-            }
-            SocketChatManager.sharedInstance.establishConnection()
-            break
         }
     }
     

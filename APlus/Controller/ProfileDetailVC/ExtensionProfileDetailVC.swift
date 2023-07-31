@@ -36,7 +36,7 @@ extension ProfDetailVC : UIImagePickerControllerDelegate, UINavigationController
     }
     
     public func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        if let pickedImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
+        if let pickedImage = info[UIImagePickerController.InfoKey.editedImage] as? UIImage {
             self.dismiss(animated: true) {
             }
             

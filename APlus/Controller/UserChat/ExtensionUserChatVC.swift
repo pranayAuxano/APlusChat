@@ -155,9 +155,9 @@ extension ChatVC : UIImagePickerControllerDelegate, UINavigationControllerDelega
     
     //also use for camera capture image
     public func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        if isCameraClick && (info[.editedImage] is UIImage) {
+        if isCameraClick && (info[.originalImage] is UIImage) {
             self.dismiss(animated: true) {
-                guard let image = info[.editedImage] as? UIImage else {
+                guard let image = info[.originalImage] as? UIImage else {
                     print("No image found")
                     return
                 }

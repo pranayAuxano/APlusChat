@@ -455,7 +455,7 @@ extension ContactInfoVC : UIImagePickerControllerDelegate, UINavigationControlle
     func openGallary() {
         if UIImagePickerController.isSourceTypeAvailable(.photoLibrary){
             imagePicker.delegate = self
-            imagePicker.allowsEditing = false
+            imagePicker.allowsEditing = true
             imagePicker.sourceType = .photoLibrary
             imagePicker.mediaTypes = ["public.image"]
             present(imagePicker, animated: true, completion: nil)
@@ -463,7 +463,7 @@ extension ContactInfoVC : UIImagePickerControllerDelegate, UINavigationControlle
     }
     
     public func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        if let pickedImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
+        if let pickedImage = info[UIImagePickerController.InfoKey.editedImage] as? UIImage {
             self.dismiss(animated: true) {
             }
             
