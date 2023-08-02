@@ -130,27 +130,24 @@ class NetworkManager: NSObject {
         print(data)
         
         session.uploadTask(with: urlRequest, from: data, completionHandler: { responseData, response, error in
-            if error == nil {
-                DispatchQueue.main.async {
-                    if (error != nil) {
-                        return
-                    }
-                    do {
-                        let dictData = try JSONSerialization.jsonObject(with: responseData!, options: .allowFragments) as? NSDictionary
-                        let status = dictData!["success"] as! Int
-                        if status == 1 {
-                            print(dictData)
-                            completion(dictData!["file"] as! String)
-                        } else {
-                            let errors = dictData!["errors"] as? [[String: Any]]
-                            errorCompletion(errors![0]["msg"] as! String)
-                        }
-                    } catch {
-                        errorCompletion(error.localizedDescription)
-                    }
+            DispatchQueue.main.async {
+                if (error != nil) {
+                    print("Get error whiile send data -> \(error?.localizedDescription)")
+                    return
                 }
-            } else {
-                errorCompletion(error!.localizedDescription)
+                do {
+                    let dictData = try JSONSerialization.jsonObject(with: responseData!, options: .allowFragments) as? NSDictionary
+                    let status = dictData!["success"] as! Int
+                    if status == 1 {
+                        print(dictData)
+                        completion(dictData!["file"] as! String)
+                    } else {
+                        let errors = dictData!["errors"] as? [[String: Any]]
+                        errorCompletion(errors![0]["msg"] as! String)
+                    }
+                } catch {
+                    errorCompletion(error.localizedDescription)
+                }
             }
         }).resume()
     }
