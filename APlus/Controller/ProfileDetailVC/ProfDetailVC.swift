@@ -157,7 +157,7 @@ public class ProfDetailVC: UIViewController {
     
     func updateProfile(param: [String : Any], strDisPic: String) {
         var param1 = param
-        param1["groupImage"] = strDisPic
+        param1["profilePicture"] = strDisPic
         SocketChatManager.sharedInstance.updateProfile(param: param1)
         isPictureSelect = false
     }
