@@ -29,7 +29,7 @@ extension ProfDetailVC : UIImagePickerControllerDelegate, UINavigationController
     func openGallary() {
         if UIImagePickerController.isSourceTypeAvailable(.photoLibrary){
             imagePicker.delegate = self
-            imagePicker.allowsEditing = false
+            imagePicker.allowsEditing = true
             imagePicker.sourceType = .photoLibrary
             present(imagePicker, animated: true, completion: nil)
         }
