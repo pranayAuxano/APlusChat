@@ -467,10 +467,10 @@ public class SocketChatManager {
 //    }
     
     func reqRecentChatList(param: [String : Any], fromForward: Bool = false) {
-        socket?.emit("get-group-list", param)
-        socket?.off("get-group-list")
         self.socket?.off("get-group-list-res")
+        socket?.emit("get-group-list", param)
         self.getGroupList(event: "get-group-list-res", fromForward: fromForward)
+        socket?.off("get-group-list")
     }
     
     func reqPreviousChatMsg(param: [String : Any]) {
