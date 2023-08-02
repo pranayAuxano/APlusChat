@@ -65,8 +65,8 @@ class ToastUtility {
         }
         
         // MARK: Builder Set Methods
-        func setColor(background: UIColor, text: UIColor) -> ToastUtility.Builder {
-            toast.backgroundColor   = background.withAlphaComponent(0.5)
+        func setColor(background: UIColor, text: UIColor, alpha: CGFloat = 0.5) -> ToastUtility.Builder {
+            toast.backgroundColor   = background.withAlphaComponent(alpha)
             toast.textColor         = text
             return self
         }
