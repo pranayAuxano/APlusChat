@@ -300,14 +300,22 @@ extension FirstVC : UITableViewDelegate, UITableViewDataSource {
     
     public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if self.isGetChatResponse {
-            let vc = ChatVC()
-            vc.isHideUserDetailView = false
-            vc.isDirectToChat = false
-            vc.isGroup = self.arrRecentChatGroupList?[indexPath.row].isGroup ?? false
-            vc.groupId = self.arrRecentChatGroupList?[indexPath.row].groupId ?? ""
-            vc.strDisName = self.arrRecentChatGroupList?[indexPath.row].groupName ?? ""
-            vc.strProfileImg = self.arrRecentChatGroupList?[indexPath.row].imagePath ?? ""
-            self.navigationController?.pushViewController(vc, animated: true)
+            if self.arrRecentChatGroupList?[indexPath.row].groupId ?? "" != "" {
+                SocketChatManager.sharedInstance.socket?.off("get-group-list-res")
+                let vc = ChatVC()
+                vc.isHideUserDetailView = false
+                vc.isDirectToChat = false
+                vc.isGroup = self.arrRecentChatGroupList?[indexPath.row].isGroup ?? false
+                vc.groupId = self.arrRecentChatGroupList?[indexPath.row].groupId ?? ""
+                vc.strDisName = self.arrRecentChatGroupList?[indexPath.row].groupName ?? ""
+                vc.strProfileImg = self.arrRecentChatGroupList?[indexPath.row].imagePath ?? ""
+                self.navigationController?.pushViewController(vc, animated: true)
+            } else {
+                let toastMsg = ToastUtility.Builder(message: "Something wrong. Please try later.", controller: self, keyboardActive: true)
+                toastMsg.setColor(background: .red, text: .black, alpha: 0.9)
+                toastMsg.setScreenTime(duration: 2.0)
+                toastMsg.show()
+            }
         }
     }
 }
