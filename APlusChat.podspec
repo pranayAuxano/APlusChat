@@ -8,19 +8,15 @@ Pod::Spec.new do |spec|
   spec.description  = "Plus Chat is light weight SDK use Socket.io for Real Time Communication."
 
   spec.homepage     = "https://github.com/pranayprajapati/APlusChat"
-
   spec.license      = "MIT"
 
-
   spec.author       = { "pranayprajapati" => "pranay.prajapati@auxanoglobalservices.com" }
-
 
   spec.ios.deployment_target = "13"
   spec.platform     = :ios, "13"
   spec.swift_versions = "5.0"
   
   spec.source       = { :git => "https://github.com/pranayprajapati/APlusChat.git", :tag => spec.version.to_s }
-
 
   spec.source_files  = "APlus", "APlus/**/*.{h,m,swift}"
   spec.resources = "APlus/**/*.{png,jpeg,jpg,storyboard,xib,xcasset}"
