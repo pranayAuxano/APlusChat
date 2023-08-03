@@ -1,33 +1,33 @@
 
-Pod::Spec.new do |spec|
+Pod::Spec.new do |s|
 
-  spec.name         = "APlusChat"
-  spec.version      = "0.0.2.2.0"
-  spec.summary      = "APlusChat Chat is light weight SDK use for ChatSocket."
+  s.name         = "APlusChat"
+  s.version      = "0.0.2.2.0"
+  s.summary      = "APlusChat Chat is light weight SDK use for ChatSocket."
 
-  spec.description  = "Plus Chat is light weight SDK use Socket.io for Real Time Communication."
+  s.description  = "Plus Chat is light weight SDK use Socket.io for Real Time Communication."
 
-  spec.homepage     = "https://github.com/pranayprajapati/APlusChat"
-  spec.license      = "MIT"
+  s.homepage     = "https://github.com/pranayprajapati/APlusChat"
+  s.license      = "MIT"
 
-  spec.author       = { "pranayprajapati" => "pranay.prajapati@auxanoglobalservices.com" }
+  s.author       = { "pranayprajapati" => "pranay.prajapati@auxanoglobalservices.com" }
 
-  spec.ios.deployment_target = "13"
-  spec.platform     = :ios, "13"
-  spec.swift_versions = "5.0"
+  s.ios.deployment_target = "13"
+  s.platform     = :ios, "13"
+  s.swift_versions = "5.0"
   
-  spec.source       = { :git => "https://github.com/pranayprajapati/APlusChat.git", :tag => spec.version.to_s }
+  s.source       = { :git => "https://github.com/pranayprajapati/APlusChat.git", :tag => s.version.to_s }
 
-  spec.source_files  = "APlus", "APlus/**/*.{h,m,swift}"
-  spec.resources = "APlus/**/*.{png,jpeg,jpg,storyboard,xib,xcasset}"
+  s.source_files  = "APlus", "APlus/**/*.{h,m,swift}"
+  s.resources = "APlus/**/*.{png,jpeg,jpg,storyboard,xib,xcasset}"
 
-  #spec.resource_bundle = "APlus/*/Media.xcassets"
-  #spec.public_header_files = "Classes/**/*.h"
+  #s.resource_bundle = "APlus/*/Media.xcassets"
+  #s.public_header_files = "Classes/**/*.h"
 
-  spec.framework  = "UIKit"
+  s.framework  = "UIKit"
 
-  spec.dependency "Socket.IO-Client-Swift"
-  spec.dependency "ProgressHUD" 
-  spec.dependency "JGProgressHUD" 
+  s.dependency "Socket.IO-Client-Swift"
+  s.dependency "ProgressHUD" 
+  s.dependency "JGProgressHUD" 
 
 end
