@@ -13,8 +13,8 @@ Pod::Spec.new do |spec|
 
 
   # ―――  Spec License  ――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
-  # spec.license      = "MIT"
-  spec.license      = { :type => "MIT", :file => "LICENSE" }
+  spec.license      = "MIT"
+  # spec.license      = { :type => "MIT", :file => "LICENSE" }
 
   # spec.license      = { :type => "MIT", :file => "FILE_LICENSE" }
 
@@ -28,8 +28,8 @@ Pod::Spec.new do |spec|
 
   # ――― Platform Specifics ――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
   spec.platform     = :ios, "13"
-  # spec.ios.deployment_target = "13"
-  #spec.swift_versions = "5.0"
+  spec.ios.deployment_target = "13"
+  # spec.swift_versions = "5.0"
 
   # spec.platform     = :ios, "5.0"
 
