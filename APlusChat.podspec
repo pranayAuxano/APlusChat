@@ -2,7 +2,7 @@
 Pod::Spec.new do |spec|
 
   spec.name         = "APlusChat"
-  spec.version      = "0.0.2.2.0"
+  spec.version      = "0.0.2.2.1"
   spec.summary      = "APlusChat Chat is light weight SDK use for ChatSocket."
 
   spec.description  = "Plus Chat is light weight SDK use Socket.io for Real Time Communication."
@@ -23,6 +23,9 @@ Pod::Spec.new do |spec|
 
   #spec.resource_bundle = "APlus/*/Media.xcassets"
   #spec.public_header_files = "Classes/**/*.h"
+
+  spec.pod_target_xcconfig = { 'EXCLUDED_ARCHS[sdk=iphonesimulator*]' => 'arm64' }
+  spec.user_target_xcconfig = { 'EXCLUDED_ARCHS[sdk=iphonesimulator*]' => 'arm64' }
 
   spec.framework  = "UIKit"
 
