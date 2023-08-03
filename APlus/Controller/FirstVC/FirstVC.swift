@@ -8,7 +8,6 @@
 import UIKit
 import SocketIO
 import ProgressHUD
-import JGProgressHUD
 
 let imageCache = NSCache<AnyObject, AnyObject>()
 

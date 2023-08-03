@@ -13,7 +13,6 @@ import AVFoundation
 import AVFAudio
 import Photos
 
-import JGProgressHUD
 import UniformTypeIdentifiers
 
 // MARK: - Textfiled Delegate
