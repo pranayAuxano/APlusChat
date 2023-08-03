@@ -12,21 +12,20 @@ Pod::Spec.new do |spec|
 
   spec.author       = { "pranayprajapati" => "pranay.prajapati@auxanoglobalservices.com" }
 
-  #spec.ios.deployment_target = "13"
+  spec.ios.deployment_target = "13"
   spec.platform     = :ios, "13"
   spec.swift_versions = "5.0"
   
   spec.source       = { :git => "https://github.com/pranayprajapati/APlusChat.git", :tag => spec.version.to_s }
 
   spec.source_files  = "APlus", "APlus/**/*.{h,m,swift}"
-  #spec.source_files  = "APlus", "APlus/*.{h,m,swift}"
   spec.resources     = "APlus/**/*.{png,jpeg,jpg,storyboard,xib,xcasset}"
 
   #spec.resource_bundle = "APlus/*/Media.xcassets"
   #spec.public_header_files = "Classes/**/*.h"
 
-  spec.pod_target_xcconfig = { 'EXCLUDED_ARCHS[sdk=iphonesimulator*]' => 'arm64' }
-  spec.user_target_xcconfig = { 'EXCLUDED_ARCHS[sdk=iphonesimulator*]' => 'arm64' }
+  #spec.pod_target_xcconfig = { 'EXCLUDED_ARCHS[sdk=iphonesimulator*]' => 'arm64' }
+  #spec.user_target_xcconfig = { 'EXCLUDED_ARCHS[sdk=iphonesimulator*]' => 'arm64' }
 
   spec.framework  = "UIKit"
 
