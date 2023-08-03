@@ -13,7 +13,8 @@ Pod::Spec.new do |spec|
 
 
   # ―――  Spec License  ――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
-  spec.license      = "MIT"
+  # spec.license      = "MIT"
+  spec.license      = { :type => "MIT", :file => "LICENSE" }
 
   # spec.license      = { :type => "MIT", :file => "FILE_LICENSE" }
 
@@ -21,14 +22,13 @@ Pod::Spec.new do |spec|
   # ――― Author Metadata  ――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
   spec.author             = { "pranayprajapati" => "pranay.prajapati@auxanoglobalservices.com" }
 
-  # Or just: spec.author    = "pranay-L53"
+  # Or just: spec.author    = "pranayprajapati"
   # spec.authors            = { "pranay-L53" => "pranay.prajapati@auxanoglobalservices.com" }
   # spec.social_media_url   = "https://twitter.com/pranay-L53"
 
   # ――― Platform Specifics ――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
-  spec.platform     = :ios
+  spec.platform     = :ios, "13"
   # spec.ios.deployment_target = "13"
-  #spec.platform     = :ios, "13"
   #spec.swift_versions = "5.0"
 
   # spec.platform     = :ios, "5.0"
@@ -48,7 +48,6 @@ Pod::Spec.new do |spec|
   spec.source_files  = "APlus", "APlus/**/*.{h,m,swift}"
 
   # spec.exclude_files = "APlus/Exclude"
-
   # spec.public_header_files = "Classes/**/*.h"
 
 
