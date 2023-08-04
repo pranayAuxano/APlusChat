@@ -29,10 +29,12 @@ Pod::Spec.new do |spec|
   # ――― Platform Specifics ――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
   spec.platform     = :ios, "13.0"
   spec.ios.deployment_target = "13.0"
+  spec.swift_versions = "5.0"
 
   # spec.swift_versions = "5.0"
 
   # spec.platform     = :ios, "5.0"
+
   #  When using multiple platforms
   # spec.ios.deployment_target = "5.0"
   # spec.osx.deployment_target = "10.7"
@@ -46,6 +48,8 @@ Pod::Spec.new do |spec|
 
   # ――― Source Code ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
   spec.source_files  = "APlus", "APlus/**/*.{h,m,swift}"
+  
+  # spec.source_files  = "APlus/**/*.{h,m,swift}"
 
   # spec.exclude_files = "APlus/Exclude"
   # spec.public_header_files = "Classes/**/*.h"
