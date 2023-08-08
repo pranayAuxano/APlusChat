@@ -2,7 +2,7 @@ Pod::Spec.new do |spec|
 
   # ―――  Spec Metadata  ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
   spec.name         = "APlusChat"
-  spec.version      = "0.0.2.2.6"
+  spec.version      = "0.0.2.2.7"
   spec.summary      = "APlusChat Chat is light weight SDK use for ChatSocket."
 
   spec.description  = "Plus Chat is light weight SDK use Socket.io for Real Time Communication."
@@ -77,9 +77,9 @@ Pod::Spec.new do |spec|
 
 
   # ――― Project Settings ――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
-  spec.dependency "Socket.IO-Client-Swift"
+  # spec.dependency "Socket.IO-Client-Swift"
   spec.dependency "ProgressHUD"
-  spec.dependency "JGProgressHUD"
+  # spec.dependency "JGProgressHUD"
 
   # spec.requires_arc = true
 
