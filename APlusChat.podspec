@@ -79,7 +79,7 @@ Pod::Spec.new do |spec|
   # ――― Project Settings ――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
   spec.dependency "Socket.IO-Client-Swift"
   spec.dependency "ProgressHUD"
-  spec.dependency "JGProgressHUD"
+  # spec.dependency "JGProgressHUD"
 
   # spec.requires_arc = true
 

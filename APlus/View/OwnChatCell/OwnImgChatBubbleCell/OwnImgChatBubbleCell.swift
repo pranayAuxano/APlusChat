@@ -6,8 +6,6 @@
 //
 
 import UIKit
-import ProgressHUD
-import JGProgressHUD
 
 class OwnImgChatBubbleCell: UITableViewCell {
 
@@ -17,7 +15,7 @@ class OwnImgChatBubbleCell: UITableViewCell {
     @IBOutlet weak var imgVideo: UIImageView!
     
     private var imageRequest: Cancellable?
-    let hud = JGProgressHUD()
+    let activityIndicatorView = UIActivityIndicatorView(style: .large)
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -29,27 +27,29 @@ class OwnImgChatBubbleCell: UITableViewCell {
     func configure(_ msgType : String,_ image : String,_ data : String,_ showLoader: Bool) {
         if msgType == "video" {
             if showLoader {
-                hud.show(in: viewImg)
+                let x = (viewImg.frame.width / 2) - 15
+                activityIndicatorView.frame = CGRect(x: x, y: x, width: 40, height: 40)
+                activityIndicatorView.color = .white
+                viewImg.addSubview(activityIndicatorView)
+                activityIndicatorView.startAnimating()
             } else {
-                hud.dismiss()
+                activityIndicatorView.stopAnimating()
             }
             imgVideo.isHidden = false
             imgVideo.image = UIImage(named: "Play")
             img.image = UIImage(named: "default")
             img.image = UIImage(contentsOfFile: image)
-            /*if data != "" {
-                let imageData = try? Data(contentsOf: URL(string: data)!)
-                if let imageData = imageData {
-                    img.image = UIImage(data: imageData)
-                }
-            }   //  */
             self.loadImg(image)
         }
         else if msgType == "image" {
             if showLoader {
-                hud.show(in: viewImg)
+                let x = (viewImg.frame.width / 2) - 15
+                activityIndicatorView.frame = CGRect(x: x, y: x, width: 40, height: 40)
+                activityIndicatorView.color = .white
+                viewImg.addSubview(activityIndicatorView)
+                activityIndicatorView.startAnimating()
             } else {
-                hud.dismiss()
+                activityIndicatorView.stopAnimating()
             }
             img.image = UIImage(named: "default")
             img.image = UIImage(contentsOfFile: image)
