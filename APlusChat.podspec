@@ -28,7 +28,7 @@ Pod::Spec.new do |spec|
 
   # ――― Platform Specifics ――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
   spec.platform     = :ios, "13.0"
-  # spec.ios.deployment_target = "13.0"
+  spec.ios.deployment_target = "13.0"
   spec.swift_versions = "5.0"
 
   # spec.swift_versions = "5.0"
