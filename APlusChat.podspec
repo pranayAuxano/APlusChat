@@ -27,8 +27,8 @@ Pod::Spec.new do |spec|
   # spec.social_media_url   = ""
 
   # ――― Platform Specifics ――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
-  spec.platform     = :ios, "13.0"
   spec.ios.deployment_target = "13.0"
+  spec.platform     = :ios, "13.0"
   spec.swift_versions = "5.0"
 
   # spec.swift_versions = "5.0"
@@ -79,6 +79,7 @@ Pod::Spec.new do |spec|
   # ――― Project Settings ――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
   spec.dependency "Socket.IO-Client-Swift"
   spec.dependency "ProgressHUD"
+
   # spec.dependency "JGProgressHUD"
 
   # spec.requires_arc = true
