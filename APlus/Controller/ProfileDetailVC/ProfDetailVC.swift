@@ -157,7 +157,11 @@ public class ProfDetailVC: UIViewController {
     
     func updateProfile(param: [String : Any], strDisPic: String) {
         var param1 = param
-        param1["profilePicture"] = strDisPic
+        if strDisPic != "" {
+            param1["profilePicture"] = strDisPic
+        } else {
+            param1["profilePicture"] = profileDetail?.profilePicture ?? ""
+        }
         SocketChatManager.sharedInstance.updateProfile(param: param1)
         isPictureSelect = false
     }

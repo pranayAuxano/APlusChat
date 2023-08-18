@@ -993,6 +993,7 @@ extension ChatVC : UITableViewDelegate, UITableViewDataSource {
                     cell.lblMsg.text = (self.arrSectionMsg![indexPath.section][indexPath.row].message)!
                     cell.lblTime.text = Utility.convertTimestamptoTimeString(timestamp: "\((self.arrSectionMsg![indexPath.section][indexPath.row].timeMilliSeconds?.seconds)!)")
                     
+                    cell.constTopMsg.priority = .required
                     if isGroup {
                         cell.lblUserName.isHidden = false
                         cell.lblUserName.text = self.arrSectionMsg![indexPath.section][indexPath.row].senderName ?? ""

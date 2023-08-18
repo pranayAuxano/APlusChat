@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21678"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -32,16 +32,16 @@
                                 <rect key="frame" x="10" y="8" width="89.5" height="132"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="U" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5pd-m7-8Fd">
-                                        <rect key="frame" x="8" y="3" width="76.5" height="21"/>
+                                        <rect key="frame" x="8" y="3" width="76.5" height="23.5"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="21" id="eko-F9-V88"/>
+                                            <constraint firstAttribute="height" priority="750" constant="21" id="eko-F9-V88"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" name="OpenSans-Semibold" family="Open Sans" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EUf-L3-Z4Y">
-                                        <rect key="frame" x="1" y="27" width="87.5" height="74"/>
+                                        <rect key="frame" x="1" y="29.5" width="87.5" height="74"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FCT-Xp-9U5">
                                                 <rect key="frame" x="0.0" y="0.0" width="2" height="74"/>
@@ -106,10 +106,10 @@
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9K7-jF-kNB">
-                                        <rect key="frame" x="1" y="101" width="83.5" height="30"/>
+                                        <rect key="frame" x="1" y="103.5" width="83.5" height="27.5"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OzT-3y-FbR">
-                                                <rect key="frame" x="0.0" y="3" width="83.5" height="26"/>
+                                                <rect key="frame" x="0.0" y="3" width="83.5" height="23.5"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="16" id="WMJ-iB-kjS"/>
@@ -137,7 +137,7 @@
                                     <constraint firstItem="5pd-m7-8Fd" firstAttribute="leading" secondItem="uzs-59-WrN" secondAttribute="leading" constant="8" id="N2C-z7-Uvm"/>
                                     <constraint firstItem="9K7-jF-kNB" firstAttribute="top" secondItem="EUf-L3-Z4Y" secondAttribute="bottom" id="YSd-0h-edN"/>
                                     <constraint firstAttribute="trailing" secondItem="5pd-m7-8Fd" secondAttribute="trailing" constant="5" id="alG-CV-BG9"/>
-                                    <constraint firstItem="EUf-L3-Z4Y" firstAttribute="top" secondItem="uzs-59-WrN" secondAttribute="top" priority="250" constant="27" id="e1E-Wv-Whe"/>
+                                    <constraint firstItem="EUf-L3-Z4Y" firstAttribute="top" secondItem="uzs-59-WrN" secondAttribute="top" priority="250" id="e1E-Wv-Whe"/>
                                     <constraint firstItem="EUf-L3-Z4Y" firstAttribute="leading" secondItem="uzs-59-WrN" secondAttribute="leading" constant="1" id="fQf-Ng-x0O"/>
                                     <constraint firstAttribute="trailing" secondItem="9K7-jF-kNB" secondAttribute="trailing" constant="5" id="zyh-Yx-uw0"/>
                                 </constraints>
