@@ -118,6 +118,13 @@ class NetworkManager: NSObject {
                         return
                     }
                 } else if type == "audio" {
+                    let audio = image as! Data
+                    data.append("\r\n--\(boundary)\r\n".data(using: .utf8)!)
+                    data.append("Content-Disposition: form-data; name=\"\("selectFile")\"; filename=\"\(value as! String)\"\r\n".data(using: .utf8)!)
+                    data.append("Content-Type: \(contentType)\r\n\r\n".data(using: .utf8)!)
+                    //data.append(img.pngData()!)
+                    //data.append(audio)
+                    data.append(image as! Data)
                 }
             } else {
                 data.append("\r\n--\(boundary)\r\n".data(using: .utf8)!)

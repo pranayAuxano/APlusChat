@@ -400,7 +400,18 @@ extension ChatVC : UIDocumentPickerDelegate, UIDocumentMenuDelegate {
     
     @available(iOS 14.0, *)
     func selectFiles() {
-        let supportedTypes: [String] = ["public.rtf", "public.jpeg", "public.png", "com.adobe.pdf", "com.microsoft.excel.xls", "com.microsoft.word.doc", "org.openxmlformats.spreadsheetml.sheet", "org.openxmlformats.wordprocessingml.document"]
+        //let supportedTypes: [String] = ["public.rtf", "public.jpeg", "public.png", "com.adobe.pdf", "com.microsoft.excel.xls", "com.microsoft.word.doc", "org.openxmlformats.spreadsheetml.sheet", "org.openxmlformats.wordprocessingml.document"]
+        let supportedTypes: [String] = ["public.rtf",
+                                        "com.adobe.pdf",
+                                        "com.microsoft.excel.xls",
+                                        "com.microsoft.word.doc",
+                                        "org.openxmlformats.spreadsheetml.sheet",
+                                        "org.openxmlformats.wordprocessingml.document",
+                                        //"public.audio",
+                                        "public.mp3",
+                                        //"public.mpeg-4-audio",
+                                        //"com.microsoft.waveform-​audio"
+        ]
         let documentsPicker = UIDocumentPickerViewController(documentTypes: supportedTypes, in: .import)
         documentsPicker.delegate = self
         documentsPicker.allowsMultipleSelection = false
@@ -538,26 +549,60 @@ extension ChatVC : UIDocumentPickerDelegate, UIDocumentMenuDelegate {
                 //var myData = NSData(contentsOfURL: url)
                 let myData = try Data(contentsOf: url)
                 print(myData)
-                //SocketChatManager.sharedInstance.sendMsg(message: ["audio": myData, "sentBy" : SocketChatManager.sharedInstance.myUserId, "rid": self.groupId, "type" : "audio", "name" : url.lastPathComponent])
                 
-                // load msg to chat table
+                /// load msg to chat table
+                let timestamp : Int = Int(NSDate().timeIntervalSince1970)
+                let timeMilliSeconds: [String: Any] = ["nanoseconds": 0,
+                                                       "seconds": timestamp]
+                let param: [String : Any] = ["sentBy" : SocketChatManager.sharedInstance.myUserId,
+                                             "senderName" : self.groupDetail?.userName ?? "",
+                                             "timeMilliSeconds" : timeMilliSeconds,
+                                             "type" : "audio",
+                                             "msgId" : "",
+                                             "message" : "",
+                                             "contentType" : self.imgFileName.mimeType(),
+                                             "fileName" : url.lastPathComponent,
+                                             "filePath" : "",
+                                             "thumbnailPath" : "",
+                                             "time" : 0,
+                                             "showLoader": true]
+                /// Api param
+                let apiParam = [
+                    "secretKey": SocketChatManager.sharedInstance.secretKey,
+                    "userId": SocketChatManager.sharedInstance.myUserId,
+                    "groupId": self.groupId,
+                    "senderName": self.groupDetail?.userName ?? "",
+                    "type": "audio",
+                    "image": url.lastPathComponent,
+                    "isChat": 1
+                ] as [String : Any]
                 
-                //let param : [String : Any] = ["file": myData, "isRead" : false, "type" : "audio", "viewBy" : (self.recentChatUser?.members)!, "readBy" : SocketChatManager.sharedInstance.myUserId, "sentAt" : "", "sentBy" : SocketChatManager.sharedInstance.myUserId, "timeMilliSeconds" : "", "fileName" : imgFileName, "contentType" : "image/png", "replyUser": "", "replyMsg": "", "replyMsgId": ""]
-                //let param1 : [String : Any] = ["messageObj" : param, "groupId" : self.groupId, "secretKey" : SocketChatManager.sharedInstance.secretKey, "userId": SocketChatManager.sharedInstance.myUserId, "userName": SocketChatManager.sharedInstance.myUserName]
-                
-                //if self.sendMessage(param: param1) {
-//                    let timestamp : Int = Int(NSDate().timeIntervalSince1970)
-//                    let sentAt : [String : Any] = ["seconds" : timestamp]
-//                    let msg : [String : Any] = ["sentBy" : SocketChatManager.sharedInstance.myUserId,
-//                                                "type" : "audio",
-//                                                "sentAt" : sentAt,
-//                                                "audio" : urls.first!]
-                    
-                    /*if self.loadChatMsgToArray(msg: msg, timestamp: timestamp) {
+                guard let responseData = try? JSONSerialization.data(withJSONObject: param, options: []) else { return }
+                do {
+                    let newMsg = try JSONDecoder().decode(Message.self, from: responseData)
+                    print(newMsg)
+                    if self.loadChatMsgToArray(msg: newMsg, timestamp: timestamp) {
                         self.tblUserChat.reloadData()
                         self.tblUserChat.scrollToRow(at: IndexPath(row: (self.arrSectionMsg![self.arrSectionMsg!.count - 1].count - 1), section: (self.arrSectionMsg!.count - 1)), at: .bottom, animated: true)
+                    }
+                } catch let err {
+                    print(err)
+                    return
+                }
+                
+                DispatchQueue.main.async {
+                    NetworkManager.sharedInstance.uploadImage(dictiParam: apiParam, image: myData, type: "audio", contentType: self.imgFileName.mimeType())
+                    { imgUrl in
+                        print("Uploaded image -> \(imgUrl)")
+                    } errorCompletion: { errMsg in
+                        let toastMsg = ToastUtility.Builder(message: errMsg, controller: self, keyboardActive: false)
+                        toastMsg.setColor(background: .red, text: .black)
+                        toastMsg.show()
+
+                        self.arrSectionMsg![self.arrSectionMsg!.count - 1].removeLast()
+                        self.tblUserChat.reloadData()
                     }   //  */
-                //}
+                }
             } catch let error {
                 print(error.localizedDescription)
             }
@@ -1128,7 +1173,8 @@ extension ChatVC : UITableViewDelegate, UITableViewDataSource {
         action.image = UIImage(named: "reply", in: self.bundle, compatibleWith: nil) //UIImage(named: "reply")
         action.backgroundColor = .systemBlue.withAlphaComponent(0.01)
         
-        if !self.isUserSendMsg || self.isLongPressEnable || (self.arrSectionMsg![indexPath.section][indexPath.row].type ?? "") == "text" {
+        //if !self.isUserSendMsg || self.isLongPressEnable || (self.arrSectionMsg![indexPath.section][indexPath.row].type ?? "") == "text" {
+        if !self.isUserSendMsg || self.isLongPressEnable {
             return nil
         } else {
             return UISwipeActionsConfiguration(actions: [action])

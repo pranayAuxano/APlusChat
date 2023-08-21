@@ -631,22 +631,22 @@ public class ChatVC: UIViewController {
         self.fromLibrary()
         
         /*let alert = UIAlertController(title: "", message: "Please select an option", preferredStyle: .actionSheet)
-        alert.addAction(UIAlertAction(title: "Camera", style: .default, handler: { alert in
+        /*alert.addAction(UIAlertAction(title: "Camera", style: .default, handler: { alert in
             self.isDocumentPickerOpen = true
             self.openCamera()
-        }))
+        }))     /// */
         alert.addAction(UIAlertAction(title: "From library", style: .default, handler: { alert in
             self.isDocumentPickerOpen = true
             self.fromLibrary()
         }))
-        /*alert.addAction(UIAlertAction(title: "Document", style: .default, handler: { alert in
+        alert.addAction(UIAlertAction(title: "Document", style: .default, handler: { alert in
             if #available(iOS 14.0, *) {
                 self.isDocumentPickerOpen = true
                 self.selectFiles()
             } else {
                 // Fallback on earlier versions
             }
-        })) //  */
+        })) ///  *
         alert.addAction(UIAlertAction(title: "Dismiss", style: .cancel, handler: { alert in
             self.isDocumentPickerOpen = false
         }))

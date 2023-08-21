@@ -382,8 +382,8 @@ public class ContactInfoVC: UIViewController {
         var param = ["groupId" : groupId,
                      "name" : txtUserName.text!,
                      "groupImage" : self.groupDetail?.groupImage ?? "",
-                     "fileName" : imgFileName,
-                     "contentType" : mimeType,
+                     //"fileName" : imgFileName,
+                     //"contentType" : mimeType,
                      "secretKey" : SocketChatManager.sharedInstance.secretKey] as [String : Any]
         
         let apiParam = [

@@ -76,7 +76,7 @@ extension ContactInfoVC : UITableViewDelegate, UITableViewDataSource {
             "groupId": groupDetail?.groupId ?? "",
             "members": arrUserIds,
             "viewBy": arrUserIds,
-            "users": arrSelectedUser,
+            //"users": arrSelectedUser,
             "removeMember": "\(id)"
         ] as [String : Any]
         
