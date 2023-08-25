@@ -6,7 +6,7 @@ target 'APlus' do
   use_frameworks!
 
   # Pods for APlus
-  pod 'Socket.IO-Client-Swift'
+#  pod 'Socket.IO-Client-Swift' #, '~> 16.0.1'
   pod 'ProgressHUD'
 
   target 'APlusTests' do

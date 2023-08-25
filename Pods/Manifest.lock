@@ -1,24 +1,16 @@
 PODS:
   - ProgressHUD (13.7.2)
-  - Socket.IO-Client-Swift (16.0.1):
-    - Starscream (~> 4.0)
-  - Starscream (4.0.6)
 
 DEPENDENCIES:
   - ProgressHUD
-  - Socket.IO-Client-Swift
 
 SPEC REPOS:
   trunk:
     - ProgressHUD
-    - Socket.IO-Client-Swift
-    - Starscream
 
 SPEC CHECKSUMS:
   ProgressHUD: 093d24ca970f191744017bee2649e37d0cd1c5b9
-  Socket.IO-Client-Swift: c116d6dc9fd6be9c259bacfe143f8725bce7d79e
-  Starscream: fb2c4510bebf908c62bd383bcf05e673720e91fd
 
-PODFILE CHECKSUM: dd9f324aba175c402e748883ed19ad026d20a9bf
+PODFILE CHECKSUM: 83b1f28146c2df6be10c8e2d2103806aa68e1e84
 
 COCOAPODS: 1.12.1
