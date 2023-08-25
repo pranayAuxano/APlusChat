@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21678"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -97,10 +97,10 @@
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="P2O-Dt-aWz">
-                                        <rect key="frame" x="1" y="68.5" width="83.5" height="27.5"/>
+                                        <rect key="frame" x="1" y="68.5" width="88.5" height="27.5"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gu3-xB-lv0">
-                                                <rect key="frame" x="0.0" y="3" width="83.5" height="23.5"/>
+                                                <rect key="frame" x="0.0" y="3" width="88.5" height="23.5"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="16" id="KcN-el-94S"/>
@@ -124,7 +124,7 @@
                                     <constraint firstAttribute="bottom" secondItem="P2O-Dt-aWz" secondAttribute="bottom" constant="1" id="17x-6o-Y4n"/>
                                     <constraint firstAttribute="trailing" secondItem="p1I-bK-mYH" secondAttribute="trailing" constant="1" id="Jsg-W1-9ID"/>
                                     <constraint firstItem="P2O-Dt-aWz" firstAttribute="top" secondItem="p1I-bK-mYH" secondAttribute="bottom" id="QgC-fF-CgH"/>
-                                    <constraint firstAttribute="trailing" secondItem="P2O-Dt-aWz" secondAttribute="trailing" constant="5" id="YJd-gG-0Cl"/>
+                                    <constraint firstAttribute="trailing" secondItem="P2O-Dt-aWz" secondAttribute="trailing" id="YJd-gG-0Cl"/>
                                     <constraint firstItem="p1I-bK-mYH" firstAttribute="top" secondItem="Tzo-1g-r0P" secondAttribute="top" id="ZAT-1S-jZB"/>
                                     <constraint firstItem="P2O-Dt-aWz" firstAttribute="leading" secondItem="p1I-bK-mYH" secondAttribute="leading" id="aa1-Nq-bO8"/>
                                     <constraint firstItem="p1I-bK-mYH" firstAttribute="leading" secondItem="Tzo-1g-r0P" secondAttribute="leading" constant="1" id="skl-ld-9Lz"/>
