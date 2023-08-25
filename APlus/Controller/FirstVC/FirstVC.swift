@@ -6,7 +6,7 @@
 //
 
 import UIKit
-import SocketIO
+//import SocketIO
 import ProgressHUD
 
 let imageCache = NSCache<AnyObject, AnyObject>()

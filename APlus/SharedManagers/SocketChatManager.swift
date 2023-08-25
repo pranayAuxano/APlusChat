@@ -6,8 +6,8 @@
 //
 
 import Foundation
-import SocketIO
-import Starscream
+//import SocketIO
+//import Starscream
 import UIKit
 
 protocol SocketDelegate {
