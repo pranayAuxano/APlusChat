@@ -2,7 +2,7 @@ Pod::Spec.new do |spec|
 
   # ―――  Spec Metadata  ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
   spec.name         = "APlusChat"
-  spec.version      = "0.0.2.3.5"
+  spec.version      = "0.0.2.3.6"
   spec.summary      = "APlusChat Chat is light weight SDK use for ChatSocket."
 
   spec.description  = "Plus Chat is light weight SDK use Socket.io for Real Time Communication."
