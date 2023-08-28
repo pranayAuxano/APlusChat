@@ -190,43 +190,7 @@ extension ForwardMsgGrpListVC: UITableViewDelegate, UITableViewDataSource, Selec
             arrSelectedGrpList.append(arrRecentChatGroupList?[indexPath.row].groupId ?? "")
             cell.btnSelectContact.isSelected = true
         }
-
-        /*if arrSelectedGrpList.count > 0 {
-            btnSend.backgroundColor = UIColor(red: 15/255.0, green: 101/255.0, blue: 158/255.0, alpha: 1)
-            btnSend.isEnabled = true
-        } else {
-            btnSend.backgroundColor = UIColor(red: 104/255.0, green: 162/255.0, blue: 254/255.0, alpha: 1)
-            btnSend.isEnabled = false
-        }   //  */
     }
-    
-    /*func selectGrpToForward(sender: UIButton) {
-        let indexPath = IndexPath(row: sender.tag, section: 0)
-        guard let cell = self.tblForwardToGrp.cellForRow(at: indexPath) as? GrpContactTVCell else { return }
-
-        if cell.btnSelectContact.isSelected {
-            for i in 0 ..< arrSelectedGrpList.count {
-                if arrSelectedGrpList[i] == (arrRecentChatGroupList?[indexPath.row].groupId ?? "") {
-                    arrRecentChatGroupList?[indexPath.row].isSelected = false
-                    arrSelectedGrpList.remove(at: i)
-                    cell.btnSelectContact.isSelected = false
-                    break
-                }
-            }
-        } else {
-            arrRecentChatGroupList?[indexPath.row].isSelected = true
-            arrSelectedGrpList.append(arrRecentChatGroupList?[indexPath.row].groupId ?? "")
-            cell.btnSelectContact.isSelected = true
-        }
-
-        /*if arrSelectedGrpList.count > 0 {
-            btnSend.backgroundColor = UIColor(red: 15/255.0, green: 101/255.0, blue: 158/255.0, alpha: 1)
-            btnSend.isEnabled = true
-        } else {
-            btnSend.backgroundColor = UIColor(red: 104/255.0, green: 162/255.0, blue: 254/255.0, alpha: 1)
-            btnSend.isEnabled = false
-        }   //  */
-    }   /// */
 }
 
 extension ForwardMsgGrpListVC: SocketDelegate {
