@@ -106,10 +106,10 @@
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9K7-jF-kNB">
-                                        <rect key="frame" x="1" y="103.5" width="83.5" height="27.5"/>
+                                        <rect key="frame" x="1" y="103.5" width="88.5" height="27.5"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OzT-3y-FbR">
-                                                <rect key="frame" x="0.0" y="3" width="83.5" height="23.5"/>
+                                                <rect key="frame" x="0.0" y="3" width="88.5" height="23.5"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="16" id="WMJ-iB-kjS"/>
@@ -139,7 +139,7 @@
                                     <constraint firstAttribute="trailing" secondItem="5pd-m7-8Fd" secondAttribute="trailing" constant="5" id="alG-CV-BG9"/>
                                     <constraint firstItem="EUf-L3-Z4Y" firstAttribute="top" secondItem="uzs-59-WrN" secondAttribute="top" priority="250" id="e1E-Wv-Whe"/>
                                     <constraint firstItem="EUf-L3-Z4Y" firstAttribute="leading" secondItem="uzs-59-WrN" secondAttribute="leading" constant="1" id="fQf-Ng-x0O"/>
-                                    <constraint firstAttribute="trailing" secondItem="9K7-jF-kNB" secondAttribute="trailing" constant="5" id="zyh-Yx-uw0"/>
+                                    <constraint firstAttribute="trailing" secondItem="9K7-jF-kNB" secondAttribute="trailing" id="zyh-Yx-uw0"/>
                                 </constraints>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="55:55 pm" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fOv-56-qv6">
