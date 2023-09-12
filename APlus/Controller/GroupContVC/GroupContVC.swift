@@ -134,7 +134,7 @@ public class GroupContVC: UIViewController {
                 "groupId": groupId ?? "",
                 "members": arrUserIds,
                 "viewBy": arrUserIds,
-                "users": arrSelectedUser,
+                //"users": arrSelectedUser,
                 "addMembersArr": addMembersArr
             ] as [String : Any]
             
