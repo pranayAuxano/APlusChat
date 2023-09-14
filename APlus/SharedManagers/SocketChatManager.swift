@@ -597,10 +597,18 @@ public class SocketChatManager {
         }
     }
     
-    func online(param: [String : Any]) {
+    /*func online(param: [String : Any]) {
         if Network.reachability.isReachable {
             socket?.emit("online", param)
             socket?.off("online")
+            //self.getOnlineRes(event: "online-status")
+        }
+    }   /// */
+    
+    func onlineUser(param: [String : Any]) {
+        if Network.reachability.isReachable {
+            socket?.emit("online-user", param)
+            socket?.off("online-user")
             //self.getOnlineRes(event: "online-status")
         }
     }

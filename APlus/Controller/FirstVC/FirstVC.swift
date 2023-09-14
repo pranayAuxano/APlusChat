@@ -372,6 +372,14 @@ extension FirstVC : SocketDelegate {
     
     func recentChatGroupList(groupList: [GetGroupList]) {
         self.arrAllRecentChatGroupList = groupList
+        
+        if self.arrAllRecentChatGroupList?.count ?? 0 == 1 {
+            SocketChatManager.sharedInstance.onlineUser(param: [
+                "secretKey" : SocketChatManager.sharedInstance.secretKey,
+                "userId" : SocketChatManager.sharedInstance.myUserId
+            ])
+        }
+        
         self.arrRecentChatGroupList = self.arrAllRecentChatGroupList
         tblChatList.isScrollEnabled = true
         self.isGetChatResponse = true
