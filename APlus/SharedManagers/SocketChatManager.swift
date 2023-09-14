@@ -150,7 +150,7 @@ public class SocketChatManager {
         }
     }
     
-    // MARK: - Get previous, current chat message and leave chat
+    // MARK: - Listener - Get previous, current chat message and leave chat
     
     func getGroupList(event : String, fromForward: Bool) {
         socket?.on("get-group-list-res", callback: { (data, ack) in
