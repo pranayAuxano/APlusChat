@@ -503,8 +503,15 @@ public class ChatVC: UIViewController {
             SocketChatManager.sharedInstance.socket?.off("typing-res")
             SocketChatManager.sharedInstance.socket?.off("online-status")
             
-            //self.navigationController?.popToRootViewController(animated: true)
-            self.navigationController?.popViewController(animated: true)
+            //self.navigationController?.popViewController(animated: true)
+            if let viewControllers = self.navigationController?.viewControllers {
+                for viewController in viewControllers {
+                    if viewController is FirstVC {
+                        self.navigationController?.popToViewController(viewController, animated: true)
+                        break
+                    }
+                }
+            }
         }
     }
     

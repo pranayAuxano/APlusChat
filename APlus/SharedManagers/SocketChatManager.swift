@@ -30,7 +30,8 @@ let BASE_URL = HTTP_SERVER_URL + "user/public/"
 public class SocketChatManager {
     
     // MARK: - Properties
-    public var secretKey : String = "U2FsdGVkX1+7qzewSEp+LwSkMT9NT++KymPpxJIk2miNqCEZITDpztANYOZ04W/F"
+    public var secretKey : String = "U2FsdGVkX19qU0mGWo0WdPbKxMfKE7gf743fNm8mkkekc6FDN/Jhg/vxoWU0QUUW"  // iOS
+//    public var secretKey : String = "U2FsdGVkX1+7qzewSEp+LwSkMT9NT++KymPpxJIk2miNqCEZITDpztANYOZ04W/F"  // Android
     
     public var myUserId : String = "1"         // Pranay
     
