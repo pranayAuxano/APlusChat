@@ -107,7 +107,8 @@ internal let mimeTypes = [
     "avi":      "video/x-msvideo"
 ]
 
-internal func MimeType(ext: String?) -> String {
+internal func MimeType(ext: String?) -> String
+{
     return mimeTypes[ext?.lowercased() ?? "" ] ?? DEFAULT_MIME_TYPE
 }
 
@@ -135,57 +136,80 @@ internal func MimeType(ext: String?) -> String {
 //    }
 //}
 
-extension NSURL {
-    public func mimeType() -> String {
-        if #available(iOS 14.0, *) {
+extension NSURL
+{
+    public func mimeType() -> String
+    {
+        if #available(iOS 14.0, *)
+        {
             if let pathExt = self.pathExtension,
-               let mimeType = UTType(filenameExtension: pathExt)?.preferredMIMEType {
+               let mimeType = UTType(filenameExtension: pathExt)?.preferredMIMEType
+            {
                 return mimeType
             }
-            else {
+            else
+            {
                 return "application/octet-stream"
             }
-        } else {
+        }
+        else
+        {
             // Fallback on earlier versions
         }
         return "application/octet-stream"
     }
 }
 
-extension URL {
-    public func mimeType() -> String {
-        if #available(iOS 14.0, *) {
-            if let mimeType = UTType(filenameExtension: self.pathExtension)?.preferredMIMEType {
+extension URL
+{
+    public func mimeType() -> String
+    {
+        if #available(iOS 14.0, *)
+        {
+            if let mimeType = UTType(filenameExtension: self.pathExtension)?.preferredMIMEType
+            {
                 return mimeType
             }
-            else {
+            else
+            {
                 return "application/octet-stream"
             }
-        } else {
+        }
+        else
+        {
             // Fallback on earlier versions
         }
         return "application/octet-stream"
     }
 }
 
-extension NSString {
-    public func mimeType() -> String {
-        if #available(iOS 14.0, *) {
-            if let mimeType = UTType(filenameExtension: self.pathExtension)?.preferredMIMEType {
+extension NSString
+{
+    public func mimeType() -> String
+    {
+        if #available(iOS 14.0, *)
+        {
+            if let mimeType = UTType(filenameExtension: self.pathExtension)?.preferredMIMEType
+            {
                 return mimeType
             }
-            else {
+            else
+            {
                 return "application/octet-stream"
             }
-        } else {
+        }
+        else
+        {
             // Fallback on earlier versions
         }
         return "application/octet-stream"
     }
 }
 
-extension String {
-    public func mimeType() -> String {
+extension String
+{
+    public func mimeType() -> String
+    {
         return (self as NSString).mimeType()
     }
 }

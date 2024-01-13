@@ -7,8 +7,8 @@
 
 import Foundation
 
-struct List: Codable {
-    
+struct List: Codable
+{
     enum CodingKeys: String, CodingKey {
         case userId
         case serverUserId
@@ -26,7 +26,8 @@ struct List: Codable {
     var groups: [String]?
     var isSelected: Bool? = false
     
-    init(from decoder: Decoder) throws {
+    init(from decoder: Decoder) throws
+    {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         userId = try container.decodeIfPresent(String.self, forKey: .userId)
         serverUserId = try container.decodeIfPresent(String.self, forKey: .serverUserId)
@@ -36,7 +37,8 @@ struct List: Codable {
         groups = try container.decodeIfPresent([String].self, forKey: .groups)
     }
     
-    func encode(to encoder: Encoder) throws {
+    func encode(to encoder: Encoder) throws
+    {
         var container = encoder.container(keyedBy: CodingKeys.self)
         
         try container.encodeIfPresent(userId, forKey: .userId)

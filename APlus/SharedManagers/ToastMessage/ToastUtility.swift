@@ -1,9 +1,10 @@
 
 import UIKit
 
-class ToastUtility {
-    
-    class func showToast(message : String, controller: UIViewController) {
+class ToastUtility
+{
+    class func showToast(message : String, controller: UIViewController)
+    {
         let toastLabel = UILabel(frame: CGRect(x: controller.view.frame.size.width/2 - 150, y: controller.view.frame.size.height - 150, width: 300, height: 30))
         toastLabel.backgroundColor = UIColor.lightGray.withAlphaComponent(0.5)
         toastLabel.textColor = UIColor.white
@@ -22,8 +23,8 @@ class ToastUtility {
         })
     }
     
-    class Builder {
-        
+    class Builder
+    {
         // MARK: Private Var
         private var toast           : UILabel
         private var controller      : UIViewController
@@ -34,22 +35,26 @@ class ToastUtility {
         private var width   : CGFloat   = 300.0
         
         // MARK: init Method
-        init(message: String, controller: UIViewController, keyboardActive: Bool) {
-            
+        init(message: String, controller: UIViewController, keyboardActive: Bool)
+        {
             let frame : CGRect?
-            if keyboardActive {
+            if keyboardActive
+            {
                 frame = CGRect(
                     x: controller.view.frame.size.width/2 - 150,
                     y: controller.view.frame.size.height/2 - 20,
                     width: width,
                     height: 29)
-            } else {
+            }
+            else
+            {
                 frame = CGRect(
                     x: controller.view.frame.size.width/2 - 150,
                     y: controller.view.frame.size.height - 150,
                     width: width,
                     height: 29)
             }
+            
             //let frame = CGRect(
                 //x: controller.view.frame.size.width/2 - 150,
                 //y: controller.view.frame.size.height - 150,
@@ -64,39 +69,48 @@ class ToastUtility {
             defaultSetup()
         }
         
-        // MARK: Builder Set Methods
-        func setColor(background: UIColor, text: UIColor, alpha: CGFloat = 0.5) -> ToastUtility.Builder {
+        // MARK: - Builder Set Methods
+        
+        func setColor(background: UIColor, text: UIColor, alpha: CGFloat = 0.5) -> ToastUtility.Builder
+        {
             toast.backgroundColor   = background.withAlphaComponent(alpha)
             toast.textColor         = text
             return self
         }
         
-        func set(font: UIFont) -> ToastUtility.Builder {
+        func set(font: UIFont) -> ToastUtility.Builder
+        {
             toast.font = font
             return self
         }
         
-        func setScreenTime(duration: TimeInterval) -> ToastUtility.Builder {
+        func setScreenTime(duration: TimeInterval) -> ToastUtility.Builder
+        {
             self.screenTime = duration
             return self
         }
         
-        func setHideAnimation(duration: TimeInterval) -> ToastUtility.Builder {
+        func setHideAnimation(duration: TimeInterval) -> ToastUtility.Builder
+        {
             self.hideAnimationDuration = duration
             return self
         }
         
-//        func dynamicHeight() -> ToastUtility.Builder {
+//        func dynamicHeight() -> ToastUtility.Builder
+//        {
 //            if let heigth = toast.text?
-//                .height(withConstrainedWidth: width, font: toast.font) {
+//                .height(withConstrainedWidth: width, font: toast.font)
+//        {
 //                toast.frame.size.height = heigth
 //            }
 //            return self
 //        }
         
         
-        // MARK: Build Method (show)
-        func show() {
+        // MARK: - Build Method (show)
+        
+        func show()
+        {
             controller.view.addSubview(toast)
             controller.view.bringSubviewToFront(toast)
             UIView.animate(
@@ -111,8 +125,10 @@ class ToastUtility {
             })
         }
         
-        // MARK: Private Method
-        private func defaultSetup() {
+        // MARK: - Private Method
+        
+        private func defaultSetup()
+        {
             toast.backgroundColor = UIColor.lightGray.withAlphaComponent(0.5)
             toast.textColor = UIColor.white
             toast.textAlignment = .center

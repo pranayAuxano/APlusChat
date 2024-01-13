@@ -8,8 +8,8 @@
 import UIKit
 import Network
 
-class NetworkManager: NSObject {
-
+class NetworkManager: NSObject
+{
     static let sharedInstance = NetworkManager()
     private override init() {}
     
@@ -18,15 +18,19 @@ class NetworkManager: NSObject {
     var isReachable: Bool { status == .satisfied }
     var isReachableOnCellular: Bool = true
     
-    func startMonitoring() {
+    func startMonitoring()
+    {
         monitor.pathUpdateHandler = { [weak self] path in
             self?.status = path.status
             self?.isReachableOnCellular = path.isExpensive
             
-            if path.status == .satisfied {
+            if path.status == .satisfied
+            {
                 print("We're connected!")
                 // post connected notification
-            } else {
+            }
+            else
+            {
                 print("No connection.")
                 // post disconnected notification
             }
@@ -37,13 +41,16 @@ class NetworkManager: NSObject {
         monitor.start(queue: queue)
     }
     
-    func stopMonitoring() {
+    func stopMonitoring()
+    {
         monitor.cancel()
     }
     
-    func getData(from url: URL, completion: @escaping (Data?, URLResponse?, Error?) -> Void) -> Cancellable {
+    func getData(from url: URL, completion: @escaping (Data?, URLResponse?, Error?) -> Void) -> Cancellable
+    {
         let dataTask = URLSession.shared.dataTask(with: url) { data, response, err in
-            if err == nil {
+            if err == nil
+            {
                 completion(data, response, err)
             }
         }
@@ -51,7 +58,8 @@ class NetworkManager: NSObject {
         return dataTask
     }
     
-    func download(url : URL, fileLocation : URL, obj : ChatVC, completion : @escaping (_ result : String) -> Void) {
+    func download(url : URL, fileLocation : URL, obj : ChatVC, completion : @escaping (_ result : String) -> Void)
+    {
         let downloadTask = URLSession.shared.dataTask(with: url) { data, response, error in
             //let saveFile = documentUrl.appendingPathComponent(fileLocation)
             //try FileManager.default.moveItem(at: fileUrl, to: savedFile)
@@ -67,7 +75,9 @@ class NetworkManager: NSObject {
                     obj.present(alertController, animated: true, completion: nil)
                 }
                 completion("downloaded")
-            } catch let error {
+            }
+            catch let error
+            {
                 print(error.localizedDescription)
             }
         }
@@ -80,7 +90,8 @@ class NetworkManager: NSObject {
                      type: String,
                      contentType: String,
                      COMPLETION completion: @escaping ((String) -> Void),
-                     errorCompletion: @escaping ((String) -> Void)) {
+                     errorCompletion: @escaping ((String) -> Void))
+    {
         
         let boundary = UUID().uuidString
         let session = URLSession.shared
@@ -89,23 +100,29 @@ class NetworkManager: NSObject {
         urlRequest.setValue("multipart/form-data; boundary=\(boundary)", forHTTPHeaderField: "Content-Type")
         
         var data = Data()
-        for (key, value) in dictiParam {
-            
-            if key == "image" {
-                if type == "image" {
+        for (key, value) in dictiParam
+        {
+            if key == "image"
+            {
+                if type == "image"
+                {
                     let img: UIImage = image as! UIImage
                     data.append("\r\n--\(boundary)\r\n".data(using: .utf8)!)
                     data.append("Content-Disposition: form-data; name=\"\("selectFile")\"; filename=\"\(value as! String)\"\r\n".data(using: .utf8)!)
                     data.append("Content-Type: image/png\r\n\r\n".data(using: .utf8)!)
                     data.append(img.pngData()!)
-                } else if type == "video" {
+                }
+                else if type == "video"
+                {
                     let video = image as! Data
                     data.append("\r\n--\(boundary)\r\n".data(using: .utf8)!)
                     data.append("Content-Disposition: form-data; name=\"\("selectFile")\"; filename=\"\(value as! String)\"\r\n".data(using: .utf8)!)
                     data.append("Content-Type: \(contentType)\r\n\r\n".data(using: .utf8)!)
                     //data.append(img.pngData()!)
                     data.append(video)
-                } else if type == "document" {
+                }
+                else if type == "document"
+                {
                     let url = image as! URL
                     do {
                         let myData = try Data(contentsOf: url)
@@ -113,11 +130,15 @@ class NetworkManager: NSObject {
                         data.append("Content-Disposition: form-data; name=\"\("selectFile")\"; filename=\"\(value as! String)\"\r\n".data(using: .utf8)!)
                         data.append("Content-Type: \(contentType)\r\n\r\n".data(using: .utf8)!)
                         data.append(myData)
-                    } catch let err {
+                    }
+                    catch let err
+                    {
                         print(err)
                         return
                     }
-                } else if type == "audio" {
+                }
+                else if type == "audio"
+                {
                     let audio = image as! Data
                     data.append("\r\n--\(boundary)\r\n".data(using: .utf8)!)
                     data.append("Content-Disposition: form-data; name=\"\("selectFile")\"; filename=\"\(value as! String)\"\r\n".data(using: .utf8)!)
@@ -126,7 +147,9 @@ class NetworkManager: NSObject {
                     //data.append(audio)
                     data.append(image as! Data)
                 }
-            } else {
+            }
+            else
+            {
                 data.append("\r\n--\(boundary)\r\n".data(using: .utf8)!)
                 data.append("Content-Disposition: form-data; name=\"\(key)\"\r\n\r\n".data(using: .utf8)!)
                 data.append("\(value)".data(using: .utf8)!)
@@ -138,28 +161,37 @@ class NetworkManager: NSObject {
         
         session.uploadTask(with: urlRequest, from: data, completionHandler: { responseData, response, error in
             DispatchQueue.main.async {
-                if (error != nil) {
+                if (error != nil)
+                {
                     print("Get error whiile send data -> \(error?.localizedDescription)")
                     return
                 }
+                
                 do {
                     let dictData = try JSONSerialization.jsonObject(with: responseData!, options: .allowFragments) as? NSDictionary
                     let status = dictData!["success"] as! Int
-                    if status == 1 {
+                    
+                    if status == 1
+                    {
                         print(dictData)
                         completion(dictData!["file"] as! String)
-                    } else {
+                    }
+                    else
+                    {
                         let errors = dictData!["errors"] as? [[String: Any]]
                         errorCompletion(errors![0]["msg"] as! String)
                     }
-                } catch {
+                }
+                catch
+                {
                     errorCompletion(error.localizedDescription)
                 }
             }
         }).resume()
     }
     
-    func createGroup(url: String = SocketChatManager.sharedInstance.CREATE_GROUP, param: [String : Any], COMPLETION completion: @escaping ((String) -> Void), errorCompletion: @escaping ((String) -> Void)) {
+    func createGroup(url: String = SocketChatManager.sharedInstance.CREATE_GROUP, param: [String : Any], COMPLETION completion: @escaping ((String) -> Void), errorCompletion: @escaping ((String) -> Void))
+    {
         //let data = file.pngData()!.bytes
         //let params = ["file": file, "fileName": fileName, "contentType" : contentType] as Dictionary<String, Any>
         
@@ -175,7 +207,8 @@ class NetworkManager: NSObject {
 
         request.cachePolicy = .reloadIgnoringCacheData
         
-        if param != nil {
+        if param != nil
+        {
             let theJSONData = try? JSONSerialization.data(withJSONObject: param, options: JSONSerialization.WritingOptions.init(rawValue: 0))
             let JsonString = String.init(data: theJSONData!, encoding: String.Encoding(rawValue: String.Encoding.utf8.rawValue))
             
@@ -186,7 +219,9 @@ class NetworkManager: NSObject {
         print(URLRequest(url: url1!))
         let task = session.dataTask(with: request, completionHandler:{
             (data, response, error) in
-            if error == nil {
+            
+            if error == nil
+            {
                 guard let data = data else { return }
                 do {
                     let jsonDecoder = JSONDecoder()
@@ -194,22 +229,28 @@ class NetworkManager: NSObject {
                     print(jsonResponse)
                     let dataReceived: CreateGroupRes = try jsonDecoder.decode(CreateGroupRes.self, from: data)
                     completion(dataReceived.groupId ?? "")
-                } catch let jsonErr {
+                }
+                catch let jsonErr
+                {
                     print(jsonErr)
                     completion("Error")
                 }
-            } else {
+            }
+            else
+            {
                 completion("Error")
             }
         })
         task.resume()
     }
     
-    func convertImageToBase64String (img: UIImage) -> String {
+    func convertImageToBase64String (img: UIImage) -> String
+    {
         return img.jpegData(compressionQuality: 1)?.base64EncodedString() ?? ""
     }
     
-    func convertBase64StringToImage (imageBase64String:String) -> UIImage {
+    func convertBase64StringToImage (imageBase64String:String) -> UIImage
+    {
         let imageData = Data(base64Encoded: imageBase64String)
         let image = UIImage(data: imageData!)
         return image!

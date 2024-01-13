@@ -67,11 +67,13 @@ public class ContactInfoVC: UIViewController {
     var isDeleteChatGroup: Bool = false
     var bundle = Bundle()
     
-    public init() {
+    public init()
+    {
         super.init(nibName: "ContactInfo", bundle: Bundle(for: ContactInfoVC.self))
     }
     
-    required init?(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder)
+    {
         fatalError("init(coder:) has not been implemented ContactInfoVC")
     }
     
@@ -117,14 +119,18 @@ public class ContactInfoVC: UIViewController {
         viewProfilePic.layer.cornerRadius = viewProfilePic.frame.width / 2
         imgProfile.layer.cornerRadius = imgProfile.frame.width / 2
         
-        if !isImagePickerOpen {
+        if !isImagePickerOpen
+        {
             self.groupDetailSocketCall()
-        } else {
+        }
+        else
+        {
             self.isImagePickerOpen = false
         }
     }
     
-    func groupDetailSocketCall() {
+    func groupDetailSocketCall()
+    {
         SocketChatManager.sharedInstance.reqGroupDetail(param: [
             "userId": SocketChatManager.sharedInstance.myUserId,
             "secretKey": SocketChatManager.sharedInstance.secretKey,
@@ -132,12 +138,14 @@ public class ContactInfoVC: UIViewController {
         ])    // Need for detail screen
     }
     
-    func getGroupDetail(groupDetail : GroupDetail) {
+    func getGroupDetail(groupDetail : GroupDetail)
+    {
         self.groupDetail = groupDetail
         groupId = self.groupDetail?.groupId ?? ""
         isGroup = self.groupDetail?.isGroup ?? false
         
-        if isGroup {
+        if isGroup
+        {
             self.imgProfile.image = UIImage(named: "group-placeholder.jpg", in: bundle, compatibleWith: nil)
             viewExit.isHidden = false
             viewTblAddParticiExitGrp.isHidden = false
@@ -146,7 +154,9 @@ public class ContactInfoVC: UIViewController {
             txtUserName.text = (self.groupDetail?.name)!
             txtUserName.isEnabled = false
             lblEmail.text = "\((self.groupDetail?.users?.count)!) participants"
-            if (self.groupDetail?.createdBy)! == SocketChatManager.sharedInstance.myUserId {
+            
+            if (self.groupDetail?.createdBy)! == SocketChatManager.sharedInstance.myUserId
+            {
                 isAdmin = true
                 isRemoveMember = true
                 
@@ -161,7 +171,9 @@ public class ContactInfoVC: UIViewController {
             }
             self.constraintHeighttblParticipants.constant = CGFloat((self.groupDetail?.users?.count)! * 70)
             self.setPermissions()
-        } else {
+        }
+        else
+        {
             self.imgProfile.image = UIImage(named: "placeholder-profile-img.png", in: bundle, compatibleWith: nil)
             
             viewTblAddParticiExitGrp.isHidden = true
@@ -170,40 +182,52 @@ public class ContactInfoVC: UIViewController {
             constraintBottomDeleteGroup.priority = .defaultLow
             constraintHeightViewTblAddParticipants.priority = .required
             
-            if SocketChatManager.sharedInstance.userRole?.deleteChat ?? 0 == 1 {
+            if SocketChatManager.sharedInstance.userRole?.deleteChat ?? 0 == 1
+            {
                 viewDelete.isHidden = false
                 btnDelete.setTitle("Delete Chat", for: .normal)
             }
             
-            for i in 0 ..< (self.groupDetail?.users?.count)! {
-                if (self.groupDetail?.users?[i].userId)! != SocketChatManager.sharedInstance.myUserId {
+            for i in 0 ..< (self.groupDetail?.users?.count)!
+            {
+                if (self.groupDetail?.users?[i].userId)! != SocketChatManager.sharedInstance.myUserId
+                {
                     txtUserName.text = (self.groupDetail?.users?[i].name)!
                     lblEmail.text = (self.groupDetail?.users?[i].mobileEmail)!
                     strProfileImg = self.groupDetail?.users?[i].profilePicture ?? ""
                 }
             }
-            if #available(iOS 15.0, *) {
+            
+            if #available(iOS 15.0, *)
+            {
                 tblParticipants.sectionHeaderTopPadding = 0.0
-            } else {
-                // Fallback on earlier versions
             }
+            else
+            {   /*Fallback on earlier versions*/    }
         }
         
-        if strProfileImg != "" {
+        if strProfileImg != ""
+        {
             var imageURL: URL?
             var isFromCatch : Bool = false
             imageURL = URL(string: strProfileImg!)!
             
             // retrieves image if already available in cache
-            if let imageFromCache = imageCache.object(forKey: imageURL as AnyObject) as? UIImage {
+            if let imageFromCache = imageCache.object(forKey: imageURL as AnyObject) as? UIImage
+            {
                 self.imgProfile.image = imageFromCache
                 isFromCatch = true
             }
-            if isFromCatch {
+            
+            if isFromCatch
+            {
                 NetworkManager.sharedInstance.getData(from: imageURL!) { data, response, err in
-                    if err == nil {
-                        DispatchQueue.main.async {
-                            if let imageToCache = UIImage(data: data!) {
+                    if err == nil
+                    {
+                        DispatchQueue.main.async
+                        {
+                            if let imageToCache = UIImage(data: data!)
+                            {
                                 self.imgProfile.image = imageToCache
                                 imageCache.setObject(imageToCache, forKey: imageURL as AnyObject)
                             }
@@ -215,44 +239,54 @@ public class ContactInfoVC: UIViewController {
         self.tblParticipants.reloadData()
     }
     
-    func setPermissions() {
-        if self.groupDetail?.groupPermission?[0].permission?.addProfilePicture ?? 0 == 0 {
+    func setPermissions()
+    {
+        if self.groupDetail?.groupPermission?[0].permission?.addProfilePicture ?? 0 == 0
+        {
             btnProfilePic.isHidden = true
             //btnUpdate.isHidden = true
         }
         
-        if self.groupDetail?.groupPermission?[0].permission?.changeGroupName ?? 0 == 0 {
+        if self.groupDetail?.groupPermission?[0].permission?.changeGroupName ?? 0 == 0
+        {
             self.txtUserName.layer.borderWidth = 0.0
             txtUserName.isEnabled = false
             //btnUpdate.isHidden = true
-        } else {
-            //self.txtUserName.layer.borderWidth = 1.0
         }
+        else
+        {   /*self.txtUserName.layer.borderWidth = 1.0*/  }
         
-        if (self.groupDetail?.groupPermission?[0].permission?.addProfilePicture ?? 0 == 1) || (self.groupDetail?.groupPermission?[0].permission?.changeGroupName ?? 0 == 1) {
+        if (self.groupDetail?.groupPermission?[0].permission?.addProfilePicture ?? 0 == 1) || (self.groupDetail?.groupPermission?[0].permission?.changeGroupName ?? 0 == 1)
+        {
             btnUpdate.isHidden = false
         }
         
-        if self.groupDetail?.groupPermission?[0].permission?.addMember ?? 0 == 1 {
+        if self.groupDetail?.groupPermission?[0].permission?.addMember ?? 0 == 1
+        {
             viewParticipants.isHidden = false
             lblParticipants.text = "\((self.groupDetail?.users?.count)!) participants"
             constraintHeightParticipants.constant = 40
         }
         
-        if self.groupDetail?.groupPermission?[0].permission?.removeMember ?? 0 == 1 {
+        if self.groupDetail?.groupPermission?[0].permission?.removeMember ?? 0 == 1
+        {
             isRemoveMember = true
         }
         
-        if self.groupDetail?.groupPermission?[0].permission?.exitGroup ?? 0 == 0 {
+        if self.groupDetail?.groupPermission?[0].permission?.exitGroup ?? 0 == 0
+        {
             viewExit.isHidden = true
             constraintHeightExitGroup.constant = 0
         }
         
-        if self.groupDetail?.groupPermission?[0].permission?.deleteChat ?? 0 == 0 {
+        if self.groupDetail?.groupPermission?[0].permission?.deleteChat ?? 0 == 0
+        {
             viewDelete.isHidden = true
             constraintHeightDeleteGroup.constant = 0
             constraintBottomDeleteGroup.constant = 0
-        } else {
+        }
+        else
+        {
             viewDelete.isHidden = false
             constraintHeightDeleteGroup.constant = 60
             constraintBottomDeleteGroup.constant = 8
@@ -264,9 +298,12 @@ public class ContactInfoVC: UIViewController {
     }
     
     @IBAction func btnAddMemberTap(_ sender: UIButton) {
+        
         arrSelectedUser.removeAll()
         arrUserIds.removeAll()
-        for i in 0 ..< (groupDetail?.users!.count)! {
+        
+        for i in 0 ..< (groupDetail?.users!.count)!
+        {
             arrUserIds.append((groupDetail?.users![i].userId)!)
             let contectDetail = ["userId" : self.groupDetail?.users![i].userId ?? "",
                                  "profilePicture" : self.groupDetail?.users![i].profilePicture ?? "",
@@ -287,9 +324,12 @@ public class ContactInfoVC: UIViewController {
     }
     
     @IBAction func btnExitDeleteTap(_ sender: UIButton) {
-        if sender.tag == 0 {
+        
+        if sender.tag == 0
+        {
             // 0 for Exit
-            if (groupDetail?.isGroup)! {
+            if (groupDetail?.isGroup)!
+            {
                 //(groupId, userId)
                 let alertController = UIAlertController(title: "Are you sure you want to exit group ?", message: "", preferredStyle: .alert)
                 let OKAction = UIAlertAction(title: "OK", style: .default) { action in
@@ -306,9 +346,12 @@ public class ContactInfoVC: UIViewController {
                 alertController.addAction(cancelAction)
                 self.present(alertController, animated: true, completion: nil)
             }
-        } else if sender.tag == 1 {
+        }
+        else if sender.tag == 1
+        {
             // 1 for Delete
-            if (groupDetail?.isGroup)! {
+            if (groupDetail?.isGroup)!
+            {
                 let alertController = UIAlertController(title: "Are you sure you want to delete group ?", message: "", preferredStyle: .alert)
                 let OKAction = UIAlertAction(title: "OK", style: .default) { action in
                     //Delete group
@@ -325,7 +368,9 @@ public class ContactInfoVC: UIViewController {
                 alertController.addAction(OKAction)
                 alertController.addAction(cancelAction)
                 self.present(alertController, animated: true, completion: nil)
-            } else {
+            }
+            else
+            {
                 let alertController = UIAlertController(title: "Are you sure you want to delete chat ?", message: "", preferredStyle: .alert)
                 let OKAction = UIAlertAction(title: "OK", style: .default) { action in
                     //Delete chat
@@ -346,30 +391,44 @@ public class ContactInfoVC: UIViewController {
         }
     }
     
-    func responseBack(_ isUpdate : Bool) {
+    func responseBack(_ isUpdate : Bool)
+    {
         ProgressHUD.dismiss()
-        if isUpdate {
-            if self.isDeleteChatGroup {
-                if let viewControllers = self.navigationController?.viewControllers {
-                    for viewController in viewControllers {
-                        if viewController is FirstVC {
+        if isUpdate
+        {
+            if self.isDeleteChatGroup
+            {
+                if let viewControllers = self.navigationController?.viewControllers
+                {
+                    for viewController in viewControllers
+                    {
+                        if viewController is FirstVC
+                        {
                             self.navigationController?.popToViewController(viewController, animated: true)
                             break
                         }
                     }
                 }
-            } else {
+            }
+            else
+            {
                 let toastMsg = ToastUtility.Builder(message: "Group details updated.", controller: self, keyboardActive: false)
                 toastMsg.setColor(background: .green, text: .black)
                 toastMsg.show()
             }
-        } else {
+        }
+        else
+        {
             ProgressHUD.dismiss()
-            if self.isDeleteChatGroup {
+            
+            if self.isDeleteChatGroup
+            {
                 /*let toastMsg = ToastUtility.Builder(message: "Fail to Exit/Delete.", controller: self, keyboardActive: false)
                 toastMsg.setColor(background: .red, text: .black)
                 toastMsg.show() //  */
-            } else {
+            }
+            else
+            {
                 let toastMsg = ToastUtility.Builder(message: "Group details not updated.", controller: self, keyboardActive: false)
                 toastMsg.setColor(background: .red, text: .black)
                 toastMsg.show()
@@ -379,6 +438,7 @@ public class ContactInfoVC: UIViewController {
     }
     
     @IBAction func btnUpdateTap(_ sender: UIButton) {
+        
         var param = ["groupId" : groupId,
                      "name" : txtUserName.text!,
                      "groupImage" : self.groupDetail?.groupImage ?? "",
@@ -397,9 +457,12 @@ public class ContactInfoVC: UIViewController {
         ] as [String : Any]
         
         self.isDeleteChatGroup = false
-        if isPictureSelect {
+        
+        if isPictureSelect
+        {
             ProgressHUD.show()
             DispatchQueue.main.async {
+                
                 NetworkManager.sharedInstance.uploadImage(dictiParam: apiParam, image: self.imgProfile.image!, type: "image", contentType: "") { imgUrl in
                     param["groupImage"] = imgUrl
                     self.isPictureSelect = false
@@ -411,7 +474,9 @@ public class ContactInfoVC: UIViewController {
                     toastMsg.show()
                 }
             }
-        } else {
+        }
+        else
+        {
             isPictureSelect = false
             ProgressHUD.show()
             SocketChatManager.sharedInstance.updateGroup(param: param)
@@ -436,15 +501,20 @@ public class ContactInfoVC: UIViewController {
     }
 }
 
-extension ContactInfoVC : UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-    func openCamera() {
-        if UIImagePickerController.isSourceTypeAvailable(.camera){
+extension ContactInfoVC : UIImagePickerControllerDelegate, UINavigationControllerDelegate
+{
+    func openCamera()
+    {
+        if UIImagePickerController.isSourceTypeAvailable(.camera)
+        {
             isCameraOpen = false
             imagePicker.delegate = self
             imagePicker.allowsEditing = true
             imagePicker.sourceType = .camera
             present(imagePicker, animated: true, completion: nil)
-        } else {
+        }
+        else
+        {
             let alertWarning = UIAlertController(title: "", message: "Camera not available.", preferredStyle: .alert)
             alertWarning.addAction(UIAlertAction(title: "OK", style: .cancel, handler: { alert in
             }))
@@ -452,8 +522,10 @@ extension ContactInfoVC : UIImagePickerControllerDelegate, UINavigationControlle
         }
     }
     
-    func openGallary() {
-        if UIImagePickerController.isSourceTypeAvailable(.photoLibrary){
+    func openGallary()
+    {
+        if UIImagePickerController.isSourceTypeAvailable(.photoLibrary)
+        {
             imagePicker.delegate = self
             imagePicker.allowsEditing = true
             imagePicker.sourceType = .photoLibrary
@@ -462,20 +534,26 @@ extension ContactInfoVC : UIImagePickerControllerDelegate, UINavigationControlle
         }
     }
     
-    public func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        if let pickedImage = info[UIImagePickerController.InfoKey.editedImage] as? UIImage {
+    public func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any])
+    {
+        if let pickedImage = info[UIImagePickerController.InfoKey.editedImage] as? UIImage
+        {
             self.dismiss(animated: true) {
             }
             
             var isImgLoad : Bool = false
-            if !isCameraOpen {
+            
+            if !isCameraOpen
+            {
                 let photo = info[.phAsset] as? PHAsset
                 imgFileName = photo?.value(forKey: "filename") as? String ?? ""
                 imgFileName = imgFileName == "" ? (URL(string: "\(info[.imageURL]!)")?.lastPathComponent)! : imgFileName
                 print(imgFileName)
                 mimeType = imgFileName.mimeType()
                 isImgLoad = true
-            } else {
+            }
+            else
+            {
                 guard let image = info[.editedImage] as? UIImage else {
                     print("No image found")
                     return
@@ -487,16 +565,20 @@ extension ContactInfoVC : UIImagePickerControllerDelegate, UINavigationControlle
                 mimeType = fileUrl.mimeType()
                 //guard let data = image.jpegData(compressionQuality: 1) else { return }
                 guard let data = image.pngData() else { return }
+                
                 do {
                     try data.write(to: fileUrl)
                     isImgLoad = true
-                } catch let error {
+                }
+                catch let error
+                {
                     print("error saving file with error --", error)
                 }
                 isCameraOpen = false
             }
             
-            if isImgLoad {
+            if isImgLoad
+            {
                 imgProfile.contentMode = .scaleAspectFill
                 imgProfile.image = pickedImage
                 isPictureSelect = true
@@ -504,15 +586,18 @@ extension ContactInfoVC : UIImagePickerControllerDelegate, UINavigationControlle
         }
     }
     
-    public func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+    public func imagePickerControllerDidCancel(_ picker: UIImagePickerController)
+    {
         isCameraOpen = false
         self.dismiss(animated: true) {
         }
     }
 }
 
-extension ContactInfoVC : UITextFieldDelegate {
-    public func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+extension ContactInfoVC : UITextFieldDelegate
+{
+    public func textFieldShouldReturn(_ textField: UITextField) -> Bool
+    {
         textField.resignFirstResponder() // dismiss keyboard
         return true
     }

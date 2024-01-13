@@ -7,11 +7,11 @@
 
 import Foundation
 
-protocol Cancellable {
+protocol Cancellable
+{
     // MARK: - Methods
     func cancel()
 }
 
-extension URLSessionTask: Cancellable {
-    
-}
+extension URLSessionTask: Cancellable
+{   }

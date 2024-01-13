@@ -14,7 +14,9 @@ import Foundation
  }   //  */
 
 //["msg": videoD!, "rid": self.groupId, "type" : "video", "name" : (videoUrl?.lastPathComponent)!, "thumbnail" : imgData!]
-struct ReceiveMessage: Codable {
+
+struct ReceiveMessage: Codable
+{
     var msg : String?
     var thumbnail : String?
     var sentBy : String?
@@ -36,7 +38,8 @@ struct ReceiveMessage: Codable {
     var replyMsgType: String?
 }
 
-struct ProfileDetail: Codable {
+struct ProfileDetail: Codable
+{
     let mobileEmail, name, profilePicture, userID: String?
     
     enum CodingKeys: String, CodingKey {
@@ -46,19 +49,23 @@ struct ProfileDetail: Codable {
     }
 }
 
-struct reqResponse: Codable {
+struct reqResponse: Codable
+{
     var isSuccess: Bool?
     var msg: String?
     var isUpdate: Bool?
 }
 
-struct UnreadCount {
+struct UnreadCount
+{
     var unreadCount: Int
     var userId:String
 }
 
 // MARK: - TypingResponse
-struct TypingResponse: Codable {
+
+struct TypingResponse: Codable
+{
     var groupId: String?
     var isTyping: String?
     var name: String?
@@ -67,7 +74,9 @@ struct TypingResponse: Codable {
 }
 
 // MARK: - UserRole
-struct UserRole: Codable {
+
+struct UserRole: Codable
+{
     var createGroup: Int?
     var createOneToOneChat: Int?
     var deleteMessage: Int?
@@ -79,7 +88,9 @@ struct UserRole: Codable {
 }
 
 // MARK: - OnlineStaus
-struct OnlineStatus: Codable {
+
+struct OnlineStatus: Codable
+{
     let isOnline: Bool?
     let userId: String?
 }

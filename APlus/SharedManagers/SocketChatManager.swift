@@ -6,11 +6,10 @@
 //
 
 import Foundation
-//import SocketIO
-//import Starscream
 import UIKit
 
-protocol SocketDelegate {
+protocol SocketDelegate
+{
     func msgReceived(message : Message)
     func getRecentUser(message : String)
     func recentChatGroupList(groupList : [GetGroupList])
@@ -33,7 +32,7 @@ public class SocketChatManager {
     public var secretKey : String = "U2FsdGVkX19qU0mGWo0WdPbKxMfKE7gf743fNm8mkkekc6FDN/Jhg/vxoWU0QUUW"  // iOS
 //    public var secretKey : String = "U2FsdGVkX1+7qzewSEp+LwSkMT9NT++KymPpxJIk2miNqCEZITDpztANYOZ04W/F"  // Android
     
-    public var myUserId : String = "1"         // Pranay
+    public var myUserId : String = "101"         // Pranay
     
     public var myUserName : String = ""
     public var themeColor: ThemeColor? = .red
@@ -63,42 +62,59 @@ public class SocketChatManager {
     
     
     // MARK: - Life Cycle
-    init() {
+    
+    init()
+    {
         initializeSocket()
         socket?.connect()
         setupSocketEvents()
     }
     
-    func stop() {
+    func stop()
+    {
         socket?.removeAllHandlers()
     }
     
+    
     // MARK: - Socket Setup
-    func initializeSocket() {
+    
+    func initializeSocket()
+    {
         manager = SocketManager(socketURL: URL(string: HTTP_SERVER_URL)!, config: [.log(true), .compress, .reconnects(true), .reconnectWait(10)])
         self.socket = manager?.defaultSocket
     }
     
-    func establishConnection() {
-        if !(Network.reachability.isReachable) {
+    func establishConnection()
+    {
+        if !(Network.reachability.isReachable)
+        {
             DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
                 self.establishConnection()
             }
             return
-        } else {
+        }
+        else
+        {
             socket?.connect()
         }
     }
     
-    func connectSocket(handler:(()->Void)? = nil) {
-        if socket == nil {
+    func connectSocket(handler:(()->Void)? = nil)
+    {
+        if socket == nil
+        {
             self.initializeSocket()
         }
-        if self.socket?.status != .connected {
+        
+        if self.socket?.status != .connected
+        {
             handler?()
             return
-        } else {
-            if let handlr = handler {
+        }
+        else
+        {
+            if let handlr = handler
+            {
                 if self.socketHandlerArr.contains(where: { (handle) -> Bool in
                     let obj1 = unsafeBitCast(handle as ObjBlock, to: AnyObject.self)
                     let obj2 = unsafeBitCast(handlr as ObjBlock, to: AnyObject.self)
@@ -108,25 +124,30 @@ public class SocketChatManager {
                 }
             }
             
-            if self.socket?.status != .connecting {
+            if self.socket?.status != .connecting
+            {
                 self.socket?.connect()
             }
         }
     }
     
-    public func closeConnection() {
+    public func closeConnection()
+    {
         socket?.disconnect()
     }
     
-    func stringArrayToData(stringArray: [Any]) -> Data? {
+    func stringArrayToData(stringArray: [Any]) -> Data?
+    {
         return try? JSONSerialization.data(withJSONObject: stringArray, options: [])
     }
-    func dataToStringArray(data: Data) -> [Any]? {
+    
+    func dataToStringArray(data: Data) -> [Any]?
+    {
         return (try? JSONSerialization.jsonObject(with: data, options: [])) as? [String]
     }
     
-    func setupSocketEvents() {
-        
+    func setupSocketEvents()
+    {
         socket?.on(clientEvent: .connect){ (data,ack) in
             print("Hey Socket Connected")
             self.socketDelegate?.getRecentUser(message: "Socket Connected.")
@@ -151,9 +172,11 @@ public class SocketChatManager {
         }
     }
     
+    
     // MARK: - Listener - Get previous, current chat message and leave chat
     
-    func getGroupList(event : String, fromForward: Bool) {
+    func getGroupList(event : String, fromForward: Bool)
+    {
         socket?.on("get-group-list-res", callback: { (data, ack) in
             print("get-group-list-res - \(data)")
             guard let responseData = try? JSONSerialization.data(withJSONObject: data[0], options: []) else { return }
@@ -163,13 +186,16 @@ public class SocketChatManager {
                 self.socket?.off("get-group-list")
                 //self.socket?.off("get-group-list-res")
                 self.socketDelegate?.recentChatGroupList(groupList: recentGroupList)
-            } catch let err {
+            }
+            catch let err
+            {
                 print(err)
             }
         })
     }
     
-    func getGroupDetail(event : String) {
+    func getGroupDetail(event : String)
+    {
         socket?.on(event, callback: { (data, ack) in
             print("Group Detail - \(data)")
             guard let responseData = try? JSONSerialization.data(withJSONObject: data[0], options: []) else { return }
@@ -178,28 +204,34 @@ public class SocketChatManager {
                 self.socket?.off("get-group")
                 self.socket?.off("get-group-res")
                 self.contectInfoVC!().getGroupDetail(groupDetail: groupDetail)
-            } catch let err {
+            }
+            catch let err
+            {
                 print(err)
             }
         })
     }
     
-    func getPreviousChatMsg(event : String) {
+    func getPreviousChatMsg(event : String)
+    {
         socket?.on("get-chat-res", callback: { (data, ack) in
             print("get-chat-res -- Previous chat message - \((data.first)!)")
             guard let responseData = try? JSONSerialization.data(withJSONObject: data[0], options: []) else { return }
             do {
-                let previousChat = try! JSONDecoder().decode(PreviousChat.self, from: responseData)
+                let previousChat = try JSONDecoder().decode(PreviousChat.self, from: responseData)
                 self.socket?.off("get-chat")
                 self.socket?.off("get-chat-res")
                 self.userChatVC!().getPreviousChat(chat: previousChat)
-            } catch let err {
+            }
+            catch let err
+            {
                 print(err)
             }
         })
     }
     
-    func getCurrentChatMsg(event : String) {
+    func getCurrentChatMsg(event : String)
+    {
         socket?.on("receive-message", callback: { (data, ack) in
             print("Received message - \((data.first)!)")
             guard let responseData = try? JSONSerialization.data(withJSONObject: data[0], options: []) else { return }
@@ -209,22 +241,28 @@ public class SocketChatManager {
         })
     }
     
-    func getProfileDetails(from isProfile : Bool) {
+    func getProfileDetails(from isProfile : Bool)
+    {
         socket?.on("profile-res", callback: { (data, ack) in
             print("profile-res - \((data.first)!)")
             guard let responseData = try? JSONSerialization.data(withJSONObject: data[0], options: []) else { return }
             let receiveMessage : ProfileDetail = try! JSONDecoder().decode(ProfileDetail.self, from: responseData)
             self.socket?.off("get-profile")
             self.socket?.off("profile-res")
-            if isProfile {
+            
+            if isProfile
+            {
                 self.profileDetailVC!().getProfileDetail(receiveMessage)
-            } else {
+            }
+            else
+            {
                 self.viewController!().getProfileDetail(receiveMessage)
             }
         })
     }
     
-    func profileUpdated() {
+    func profileUpdated()
+    {
         socket?.on("update-profile-res", callback: { (data, ack) in
             print("update-profile-res - \((data.first)!)")
             guard let responseData = try? JSONSerialization.data(withJSONObject: data[0], options: []) else { return }
@@ -235,7 +273,8 @@ public class SocketChatManager {
         })
     }
     
-    func unreadCountZeroRes() {
+    func unreadCountZeroRes()
+    {
         socket?.on("unread-count-res", callback: { (data, ack) in
             print("unread-count-res - \((data.first)!)")
             self.socket?.off("unread-count")
@@ -243,22 +282,28 @@ public class SocketChatManager {
         })
     }
     
-    /*func createGroupRes(from createGroup : Bool) {
+    /*func createGroupRes(from createGroup : Bool)
+     {
         socket?.on("create-group-res", callback: { (data, ack) in
             print("create-group-res - \((data.first)!)")
             guard let responseData = try? JSONSerialization.data(withJSONObject: data[0], options: []) else { return }
             let receiveMessage : reqResponse = try! JSONDecoder().decode(reqResponse.self, from: responseData)
             self.socket?.off("create-group")
             self.socket?.off("create-group-res")
-            if createGroup {
+     
+            if createGroup
+     {
                 self.createGroupVC!().responseBack(receiveMessage.isSuccess!)
-            } else {
+            }
+     else
+     {
                 self.contactListVC!().responseBack(receiveMessage.isSuccess!)
             }
         })
     }   //  */
     
-    func updateGroupRes() {
+    func updateGroupRes()
+    {
         socket?.on("update-group-res", callback: { (data, ack) in
             print("update-group-res - \((data.first)!)")
             guard let responseData = try? JSONSerialization.data(withJSONObject: data[0], options: []) else { return }
@@ -269,7 +314,8 @@ public class SocketChatManager {
         })
     }
     
-    func exitGroupRes() {
+    func exitGroupRes()
+    {
         socket?.on("exit-group-res", callback: { (data, ack) in
             print("Received message - \((data.first)!)")
             guard let responseData = try? JSONSerialization.data(withJSONObject: data[0], options: []) else { return }
@@ -280,37 +326,48 @@ public class SocketChatManager {
         })
     }
     
-    func deleteGroupRes(from userChat : Bool) {
+    func deleteGroupRes(from userChat : Bool)
+    {
         socket?.on("delete-group-res", callback: { (data, ack) in
             print("delete-group-res - \((data.first)!)")
             guard let responseData = try? JSONSerialization.data(withJSONObject: data[0], options: []) else { return }
             let receiveMessage : reqResponse = try! JSONDecoder().decode(reqResponse.self, from: responseData)
             self.socket?.off("delete-group")
             self.socket?.off("delete-group-res")
-            if userChat {
+            
+            if userChat
+            {
                 self.userChatVC!().responseBack(receiveMessage.isSuccess!)
-            } else {
+            }
+            else
+            {
                 self.contectInfoVC!().responseBack(receiveMessage.isSuccess!)
             }
         })
     }
     
-    func deleteChatRes(from userChat : Bool) {
+    func deleteChatRes(from userChat : Bool)
+    {
         socket?.on("delete-chat-res", callback: { (data, ack) in
             print("delete-chat-res - \((data.first)!)")
             guard let responseData = try? JSONSerialization.data(withJSONObject: data[0], options: []) else { return }
             let receiveMessage : reqResponse = try! JSONDecoder().decode(reqResponse.self, from: responseData)
             self.socket?.off("delete-chat")
             self.socket?.off("delete-chat-res")
-            if userChat {
+            
+            if userChat
+            {
                 self.userChatVC!().responseBack(receiveMessage.isSuccess!)
-            } else {
+            }
+            else
+            {
                 self.contectInfoVC!().responseBack(receiveMessage.isSuccess!)
             }
         })
     }
     
-    func clearChatRes() {
+    func clearChatRes()
+    {
         socket?.on("clear-chat-res", callback: { (data, ack) in
             print("clear-chat-res - \((data.first)!)")
             guard let responseData = try? JSONSerialization.data(withJSONObject: data[0], options: []) else { return }
@@ -321,22 +378,28 @@ public class SocketChatManager {
         })
     }
     
-    func userListRes(from userChat : Bool) {
+    func userListRes(from userChat : Bool)
+    {
         socket?.on("user-list-res", callback: { (data, ack) in
             print("user-list-res - \((data.first)!)")
             guard let responseData = try? JSONSerialization.data(withJSONObject: data[0], options: []) else { return }
             let receiveMessage : ContactList = try! JSONDecoder().decode(ContactList.self, from: responseData)
             self.socket?.off("user-list")
             self.socket?.off("user-list-res")
-            if userChat {
+            
+            if userChat
+            {
                 self.contactListVC!().getUserListRes(receiveMessage)
-            } else {
+            }
+            else
+            {
                 self.groupContactVC!().getUserListRes(receiveMessage)
             }
         })
     }
     
-    func addMemberRes() {
+    func addMemberRes()
+    {
         socket?.on("add-member-res", callback: { (data, ack) in
             print("add-member-res - \((data.first)!)")
             guard let responseData = try? JSONSerialization.data(withJSONObject: data[0], options: []) else { return }
@@ -347,7 +410,8 @@ public class SocketChatManager {
         })
     }
     
-    func removeMemberRes() {
+    func removeMemberRes()
+    {
         socket?.on("remove-member-res", callback: { (data, ack) in
             print("remove-member-res - \((data.first)!)")
             guard let responseData = try? JSONSerialization.data(withJSONObject: data[0], options: []) else { return }
@@ -358,7 +422,8 @@ public class SocketChatManager {
         })
     }
     
-    func leaveChat(param : [String : String]) {
+    func leaveChat(param : [String : String])
+    {
         self.socket?.off("receive-message")
         self.socket?.off("join")
         socket?.emit("leave-group", param, completion: {
@@ -366,7 +431,8 @@ public class SocketChatManager {
         })
     }
     
-    func typingRes() {
+    func typingRes()
+    {
         socket?.on("typing-res", callback: { (data, ack) in
             print("typing-res - \((data.first)!)")
             print("Hello get response.")
@@ -376,7 +442,8 @@ public class SocketChatManager {
         })
     }
     
-    func getOnlineRes(event : String) {
+    func getOnlineRes(event : String)
+    {
         socket?.on(event, callback: { (data, ack) in
             print("online-status - \((data.first)!)")
             guard let responseData = try? JSONSerialization.data(withJSONObject: data[0], options: []) else { return }
@@ -387,7 +454,8 @@ public class SocketChatManager {
         })
     }
     
-    func getUserRoleRes(event : String) {
+    func getUserRoleRes(event : String)
+    {
         socket?.on(event, callback: { (data, ack) in
             print("user-role-res - \((data.first)!)")
             guard let responseData = try? JSONSerialization.data(withJSONObject: data[0], options: []) else { return }
@@ -399,7 +467,8 @@ public class SocketChatManager {
         })
     }
     
-    func forwardMsgRes(event : String) {
+    func forwardMsgRes(event : String)
+    {
         socket?.on(event, callback: { (data, ack) in
             print("forward-file-res - \((data.first)!)")
             guard let responseData = try? JSONSerialization.data(withJSONObject: data[0], options: []) else { return }
@@ -411,7 +480,8 @@ public class SocketChatManager {
         })
     }
     
-    func getSomeErr(event : String) {
+    func getSomeErr(event : String)
+    {
         socket?.on("error-message-res", callback: { (data, ack) in
             print("error-message-res - \((data.first)!)")
             /*{
@@ -428,7 +498,8 @@ public class SocketChatManager {
         })
     }
     
-    /*public func getUnreadChatRes(event : String) {
+    /*public func getUnreadChatRes(event : String)
+     {
         socket?.on(event, callback: { (data, ack) in
             print("get-groups-call - \((data.first)!)")
             self.socketDelegate?.getUnreadChat(noOfChat: data.first as! Int)
@@ -440,8 +511,10 @@ public class SocketChatManager {
     // MARK: - Socket Emits
     
     //public func socketLogin(userId: String, secretKey: String, theme: ThemeColor = .red) {
-    public func socketLogin(userId: String, secretKey: String) {
-        if secretKey != "" && userId != "" {
+    public func socketLogin(userId: String, secretKey: String)
+    {
+        if secretKey != "" && userId != ""
+        {
             print("User Id: \(userId)")
             print("secretKey : \(secretKey)")
             self.myUserId = userId
@@ -449,16 +522,20 @@ public class SocketChatManager {
             //self.themeColor = theme
             //SocketChatManager.sharedInstance.online(param: ["userId": myUserId, "secretKey": secretKey])
             //SocketChatManager.sharedInstance.getUserRole(param: ["secretKey": secretKey, "userId": myUserId])
-        } else {
+        }
+        else
+        {
             print("User Id & secretKey : Not available while call function...")
         }
     }
     
-    public func socketSignUp() {
+    public func socketSignUp()
+    {
         print("Signup Function Call")
     }
     
-    public func socketLogOut(userId: String, secretKey: String) {
+    public func socketLogOut(userId: String, secretKey: String)
+    {
         print("Logout Function Call")
     }
     
@@ -466,30 +543,37 @@ public class SocketChatManager {
 //        socket?.emit("join", param)
 //    }
     
-    func reqRecentChatList(param: [String : Any], fromForward: Bool = false) {
+    func reqRecentChatList(param: [String : Any], fromForward: Bool = false)
+    {
         self.socket?.off("get-group-list-res")
         socket?.emit("get-group-list", param)
         self.getGroupList(event: "get-group-list-res", fromForward: fromForward)
         socket?.off("get-group-list")
     }
     
-    func reqPreviousChatMsg(param: [String : Any]) {
-        if Network.reachability.isReachable {
+    func reqPreviousChatMsg(param: [String : Any])
+    {
+        if Network.reachability.isReachable
+        {
             socket?.emit("get-chat", param)
             self.getPreviousChatMsg(event: "get-chat-res")
             self.getCurrentChatMsg(event: "receive-message")
         }
     }
     
-    func unreadCountZero(param: [String : String]) {
-        if Network.reachability.isReachable {
+    func unreadCountZero(param: [String : String])
+    {
+        if Network.reachability.isReachable
+        {
             socket?.emit("unread-count", param)
             self.unreadCountZeroRes()
         }
     }
     
-    func reqProfileDetails(param : [String : Any], from isProfile : Bool) {
-        if Network.reachability.isReachable {
+    func reqProfileDetails(param : [String : Any], from isProfile : Bool)
+    {
+        if Network.reachability.isReachable
+        {
             socket?.emit("get-profile", param)
             self.socket?.off("get-profile")
             self.getProfileDetails(from: isProfile)
@@ -502,97 +586,121 @@ public class SocketChatManager {
         self.getGroupDetail(event: "get-group-res")
     }
     
-    func updateProfile(param : [String : Any]) {
+    func updateProfile(param : [String : Any])
+    {
         //update-profile = userId, name, profilePicture
         //["userId" : "" , "name": "" , "profilePicture" : "" ]
-        if Network.reachability.isReachable {
+        if Network.reachability.isReachable
+        {
             socket?.emit("update-profile", param)
             socket?.off("update-profile")
             self.profileUpdated()
         }
     }
     
-    /*func createGroup(param : [String : Any], from createGroup : Bool) {
+    /*func createGroup(param : [String : Any], from createGroup : Bool)
+     {
         //request body (groupId, userId)
-        if Network.reachability.isReachable {
+        if Network.reachability.isReachable
+     {
             socket?.emit("create-group", param)
             self.createGroupRes(from: createGroup)
         }
     }   //  */
     
-    func updateGroup(param : [String : Any]) {
+    func updateGroup(param : [String : Any])
+    {
         //request body (groupId, userId)
-        if Network.reachability.isReachable {
+        if Network.reachability.isReachable
+        {
             socket?.emit("update-group", param)
             self.updateGroupRes()
         }
     }
     
-    func exitGroup(param : [String : Any]) {
+    func exitGroup(param : [String : Any])
+    {
         //request body (groupId, userId)
-        if Network.reachability.isReachable {
+        if Network.reachability.isReachable
+        {
             socket?.emit("exit-group", param)
             self.exitGroupRes()
         }
     }
     
-    func deleteGroup(param : [String : Any], fromChat userChat : Bool) {
+    func deleteGroup(param : [String : Any], fromChat userChat : Bool)
+    {
         //request body (groupId, userId)
-        if Network.reachability.isReachable {
+        if Network.reachability.isReachable
+        {
             socket?.emit("delete-group", param)
             self.deleteGroupRes(from: userChat)
         }
     }
     
-    func deleteChat(param : [String : Any], fromChat userChat : Bool) {
+    func deleteChat(param : [String : Any], fromChat userChat : Bool)
+    {
         //request body (groupId, userId)
-        if Network.reachability.isReachable {
+        if Network.reachability.isReachable
+        {
             socket?.emit("delete-chat", param)
             self.deleteChatRes(from: userChat)
         }
     }
     
-    func clearChat(param : [String : Any]) {
+    func clearChat(param : [String : Any])
+    {
         //request body (groupId, userId)
-        if Network.reachability.isReachable {
+        if Network.reachability.isReachable
+        {
             socket?.emit("clear-chat", param)
             self.clearChatRes()
         }
     }
     
-    func getUserList(param : [String : Any], from userList : Bool) {
+    func getUserList(param : [String : Any], from userList : Bool)
+    {
         //request body (userId, secretKey)
-        if Network.reachability.isReachable {
+        if Network.reachability.isReachable
+        {
             socket?.emit("user-list", param)
             self.userListRes(from: userList)
         }
     }
     
-    func addMember(param : [String : Any]) {
+    func addMember(param : [String : Any])
+    {
         //request body (userId, secretKey)
-        if Network.reachability.isReachable {
+        if Network.reachability.isReachable
+        {
             socket?.emit("add-member", param)
             self.addMemberRes()
         }
     }
     
-    func removeMember(param : [String : Any]) {
+    func removeMember(param : [String : Any])
+    {
         //request body (userId, secretKey)
-        if Network.reachability.isReachable {
+        if Network.reachability.isReachable
+        {
             socket?.emit("remove-member", param)
             self.removeMemberRes()
         }
     }
     
-    func sendMsg(message: [String : Any]) {
+    func sendMsg(message: [String : Any])
+    {
         //["msg": , "rid": , "type" : , "name" : ]
-        if Network.reachability.isReachable {
+        if Network.reachability.isReachable
+        {
             socket?.emit("send-message", message)
         }
     }
     
-    func userTyping(message: [String : Any]) {
-        if Network.reachability.isReachable {
+    func userTyping(message: [String : Any])
+    {
+        if Network.reachability.isReachable
+        {
             socket?.emit("typing", message)
             socket?.off("typing")
         }
@@ -606,24 +714,30 @@ public class SocketChatManager {
         }
     }   /// */
     
-    func onlineUser(param: [String : Any]) {
-        if Network.reachability.isReachable {
+    func onlineUser(param: [String : Any])
+    {
+        if Network.reachability.isReachable
+        {
             socket?.emit("online-user", param)
             socket?.off("online-user")
             //self.getOnlineRes(event: "online-status")
         }
     }
     
-    func getUserRole(param: [String : Any]) {
-        if Network.reachability.isReachable {
+    func getUserRole(param: [String : Any])
+    {
+        if Network.reachability.isReachable
+        {
             socket?.emit("user-role", param)
             socket?.off("user-role")
             self.getUserRoleRes(event: "user-role-res")
         }
     }
     
-    func forwardMsg(event: String, param: [String : Any]) {
-        if Network.reachability.isReachable {
+    func forwardMsg(event: String, param: [String : Any])
+    {
+        if Network.reachability.isReachable
+        {
             //socket -> "forward-file"
             socket?.emit(event, param)
             socket?.off(event)
@@ -631,9 +745,11 @@ public class SocketChatManager {
         }
     }
     
-    /*public func getUnreadChat(event: String, param: [String : Any]) {
+    /*public func getUnreadChat(event: String, param: [String : Any])
+     {
         //user-unread-count
-        if Network.reachability.isReachable {
+        if Network.reachability.isReachable
+     {
             socket?.emit(event, param)
             socket?.off(event)
             self.getUnreadChatRes(event: "user-unread-count-res")

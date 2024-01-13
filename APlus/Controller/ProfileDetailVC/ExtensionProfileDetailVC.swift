@@ -9,25 +9,32 @@ import Foundation
 import UIKit
 import Photos
 
-extension ProfDetailVC : UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-    func openCamera() {
-        if UIImagePickerController.isSourceTypeAvailable(.camera){
+extension ProfDetailVC : UIImagePickerControllerDelegate, UINavigationControllerDelegate
+{
+    func openCamera()
+    {
+        if UIImagePickerController.isSourceTypeAvailable(.camera)
+        {
             isCameraOpen = true
             imagePicker.delegate = self
             imagePicker.allowsEditing = true
             imagePicker.sourceType = .camera
             present(imagePicker, animated: true, completion: nil)
-        } else {
+        }
+        else
+        {
             isCameraOpen = false
             let alertWarning = UIAlertController(title: "", message: "Camera not available.", preferredStyle: .alert)
             alertWarning.addAction(UIAlertAction(title: "OK", style: .cancel, handler: { alert in
             }))
             self.present(alertWarning, animated: true)
-            }
+        }
     }
     
-    func openGallary() {
-        if UIImagePickerController.isSourceTypeAvailable(.photoLibrary){
+    func openGallary()
+    {
+        if UIImagePickerController.isSourceTypeAvailable(.photoLibrary)
+        {
             imagePicker.delegate = self
             imagePicker.allowsEditing = true
             imagePicker.sourceType = .photoLibrary
@@ -35,8 +42,10 @@ extension ProfDetailVC : UIImagePickerControllerDelegate, UINavigationController
         }
     }
     
-    public func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        if let pickedImage = info[UIImagePickerController.InfoKey.editedImage] as? UIImage {
+    public func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any])
+    {
+        if let pickedImage = info[UIImagePickerController.InfoKey.editedImage] as? UIImage
+        {
             self.dismiss(animated: true) {
             }
             

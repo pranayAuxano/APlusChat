@@ -7,8 +7,8 @@
 
 import Foundation
 
-struct Permission: Codable {
-    
+struct Permission: Codable
+{
     enum CodingKeys: String, CodingKey {
         case addProfilePicture
         case deleteChat
@@ -31,7 +31,8 @@ struct Permission: Codable {
     var sendMessage: Int?
     var clearChat: Int?
     
-    init(from decoder: Decoder) throws {
+    init(from decoder: Decoder) throws
+    {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         addProfilePicture = try container.decodeIfPresent(Int.self, forKey: .addProfilePicture)
         deleteChat = try container.decodeIfPresent(Int.self, forKey: .deleteChat)

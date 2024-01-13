@@ -8,14 +8,18 @@
 import Foundation
 
 // MARK: - PreviousChat
-struct PreviousChat: Codable {
+
+struct PreviousChat: Codable
+{
     var groupData: GroupData?
     var hasMore: Bool?
     var messages: [Message]?
 }
 
 // MARK: - GroupData
-struct GroupData: Codable {
+
+struct GroupData: Codable
+{
     var userPermission: UserPermission?
     var userName: String?
     var opponentUserId: String?
@@ -26,13 +30,17 @@ struct GroupData: Codable {
 }
 
 // MARK: - UserPermission
-struct UserPermission: Codable {
+
+struct UserPermission: Codable
+{
     var permission: Permission?
     var userId: String?
 }
 
 // MARK: - Message
-struct Message: Codable {
+
+struct Message: Codable
+{
     var msgId: String?
     var contentType: String?
     var fileName: String?

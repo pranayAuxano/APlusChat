@@ -16,9 +16,10 @@ import Photos
 import UniformTypeIdentifiers
 
 // MARK: - Textfiled Delegate
-extension ChatVC : UITextFieldDelegate {
-    
-    func registerKeyboardNotifications() {
+extension ChatVC : UITextFieldDelegate
+{
+    func registerKeyboardNotifications()
+    {
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(keyboardWillShow(notification:)),
                                                name: UIResponder.keyboardWillShowNotification,
@@ -29,15 +30,24 @@ extension ChatVC : UITextFieldDelegate {
                                                object: nil)
     }
     
-    @objc func keyboardWillShow(notification: NSNotification) {
+    @objc func keyboardWillShow(notification: NSNotification)
+    {
         self.isKeyboardActive = true
-        if let keyboardSize = (notification.userInfo![UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
-            if isLongPressEnable {
-                if selectedCount == 0 {
+        
+        if let keyboardSize = (notification.userInfo![UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue
+        {
+            if isLongPressEnable
+            {
+                if selectedCount == 0
+                {
                     selectedCount = 0
-                    for i in 0 ..< (self.arrSectionMsg?.count ?? 0) {
-                        for j in 0 ..< (self.arrSectionMsg?[i].count ?? 0) {
-                            if (self.arrSectionMsg?[i][j].isSelected ?? false) == true {
+                    
+                    for i in 0 ..< (self.arrSectionMsg?.count ?? 0)
+                    {
+                        for j in 0 ..< (self.arrSectionMsg?[i].count ?? 0)
+                        {
+                            if (self.arrSectionMsg?[i][j].isSelected ?? false) == true
+                            {
                                 arrSectionMsg![i][j].isSelected = false
                             }
                         }
@@ -48,6 +58,7 @@ extension ChatVC : UITextFieldDelegate {
                 self.viewForwardMsg.isHidden = true
                 self.selectedCount = 0
                 self.lblForwardCount.text = "0"
+                
                 DispatchQueue.main.async {
                     self.tblUserChat.backgroundColor = .clear
                     self.tblUserChat.reloadData()
@@ -57,23 +68,29 @@ extension ChatVC : UITextFieldDelegate {
         }
     }
     
-    @objc func keyboardWillHide(notification: NSNotification) {
+    @objc func keyboardWillHide(notification: NSNotification)
+    {
         self.isKeyboardActive = false
         constMainChatViewBottom.constant = 0
     }
     
-    public func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+    public func textFieldShouldReturn(_ textField: UITextField) -> Bool
+    {
         textField.resignFirstResponder() // dismiss keyboard
         return true
     }
     
     public func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        
         let currentString: NSString = textField.text! as NSString
         let newString: NSString = currentString.replacingCharacters(in: range, with: string) as NSString
-        if newString.length > 0 {
+        
+        if newString.length > 0
+        {
             timeSeconds = 2
             //Call typing on socket.
-            if !isTyping {
+            if !isTyping
+            {
                 SocketChatManager.sharedInstance.userTyping(message: [
                     "secretKey": SocketChatManager.sharedInstance.secretKey,
                     "groupId": groupId,
@@ -86,7 +103,9 @@ extension ChatVC : UITextFieldDelegate {
                 self.isTyping = true
                 timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(self.update), userInfo: nil, repeats: true)
             }
-        } else {
+        }
+        else
+        {
             //Call typing off socket.
             self.timer.invalidate()
             SocketChatManager.sharedInstance.userTyping(message: [
@@ -98,13 +117,18 @@ extension ChatVC : UITextFieldDelegate {
             ])
             self.isTyping = false
         }
+        
         return true
     }
     
     // MARK: - UI Methods
-    @objc func update() {
+    
+    @objc func update()
+    {
         timeSeconds -= 1
-        if timeSeconds <= 0 {
+        
+        if timeSeconds <= 0
+        {
             self.timer.invalidate()
             SocketChatManager.sharedInstance.userTyping(message: [
                 "secretKey": SocketChatManager.sharedInstance.secretKey,
@@ -115,23 +139,31 @@ extension ChatVC : UITextFieldDelegate {
             ])
             self.isTyping = false
             lblOnline.text = onlineUser
-        } else {
+        }
+        else
+        {
             lblOnline.text = onlineUser
         }
     }
 }
 
 // MARK: - Camera, Gallary
-extension ChatVC : UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-    func openCamera() {
-        if UIImagePickerController.isSourceTypeAvailable(.camera){
+
+extension ChatVC : UIImagePickerControllerDelegate, UINavigationControllerDelegate
+{
+    func openCamera()
+    {
+        if UIImagePickerController.isSourceTypeAvailable(.camera)
+        {
             imagePicker.delegate = self
             imagePicker.allowsEditing = true
             imagePicker.sourceType = .camera
             imagePicker.mediaTypes = ["public.image", "public.movie"]
             isCameraClick = true
             present(imagePicker, animated: true, completion: nil)
-        } else {
+        }
+        else
+        {
             //self.isDocumentPickerOpen = false
             let alertWarning = UIAlertController(title: "Camera", message: "Camera not working.", preferredStyle: .alert)
             alertWarning.addAction(UIAlertAction(title: "OK", style: .cancel, handler: { alert in
@@ -140,8 +172,10 @@ extension ChatVC : UIImagePickerControllerDelegate, UINavigationControllerDelega
         }
     }
     
-    func fromLibrary() {
-        if UIImagePickerController.isSourceTypeAvailable(.photoLibrary){
+    func fromLibrary()
+    {
+        if UIImagePickerController.isSourceTypeAvailable(.photoLibrary)
+        {
             imagePicker.delegate = self
             imagePicker.allowsEditing = false
             imagePicker.sourceType = .photoLibrary
@@ -153,8 +187,10 @@ extension ChatVC : UIImagePickerControllerDelegate, UINavigationControllerDelega
     }
     
     //also use for camera capture image
-    public func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        if isCameraClick && (info[.originalImage] is UIImage) {
+    public func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any])
+    {
+        if isCameraClick && (info[.originalImage] is UIImage)
+        {
             self.dismiss(animated: true) {
                 guard let image = info[.originalImage] as? UIImage else {
                     print("No image found")
@@ -165,14 +201,17 @@ extension ChatVC : UIImagePickerControllerDelegate, UINavigationControllerDelega
                 let imageName = "\(Utility.fileName()).png"
                 let fileUrl = documentsDirectory.appendingPathComponent(imageName)
                 guard let data = image.jpegData(compressionQuality: 1) else { return }
+                
                 do {
                     try data.write(to: fileUrl)
-                } catch let error {
+                }
+                catch let error
+                {
                     print("error saving file with error --", error)
                 }
                 
-                if FileManager.default.fileExists(atPath: fileUrl.path) {
-                    
+                if FileManager.default.fileExists(atPath: fileUrl.path)
+                {
                     self.imgFileName = fileUrl.lastPathComponent
                     
                     let appImage = UIImage(contentsOfFile: fileUrl.path)
@@ -212,7 +251,9 @@ extension ChatVC : UIImagePickerControllerDelegate, UINavigationControllerDelega
                             self.tblUserChat.reloadData()
                             self.tblUserChat.scrollToRow(at: IndexPath(row: (self.arrSectionMsg![self.arrSectionMsg!.count - 1].count - 1), section: (self.arrSectionMsg!.count - 1)), at: .bottom, animated: true)
                         }
-                    } catch let err {
+                    }
+                    catch let err
+                    {
                         print(err)
                         return
                     }
@@ -232,7 +273,9 @@ extension ChatVC : UIImagePickerControllerDelegate, UINavigationControllerDelega
                     }
                 }
             }
-        } else if info[UIImagePickerController.InfoKey.originalImage] is UIImage {
+        }
+        else if info[UIImagePickerController.InfoKey.originalImage] is UIImage
+        {
             self.dismiss(animated: true) {
                 //let imageUrl = info[UIImagePickerController.InfoKey.imageURL] as? URL
                 let imageUrl = info[.imageURL] as? URL
@@ -272,6 +315,7 @@ extension ChatVC : UIImagePickerControllerDelegate, UINavigationControllerDelega
                 ] as [String : Any]
                 
                 guard let responseData = try? JSONSerialization.data(withJSONObject: param, options: []) else { return }
+                
                 do {
                     let newMsg = try JSONDecoder().decode(Message.self, from: responseData)
                     print(newMsg)
@@ -279,7 +323,9 @@ extension ChatVC : UIImagePickerControllerDelegate, UINavigationControllerDelega
                         self.tblUserChat.reloadData()
                         self.tblUserChat.scrollToRow(at: IndexPath(row: (self.arrSectionMsg![self.arrSectionMsg!.count - 1].count - 1), section: (self.arrSectionMsg!.count - 1)), at: .bottom, animated: true)
                     }
-                } catch let err {
+                }
+                catch let err
+                {
                     print(err)
                     return
                 }
@@ -298,7 +344,9 @@ extension ChatVC : UIImagePickerControllerDelegate, UINavigationControllerDelega
                     }
                 }
             }
-        } else {
+        }
+        else
+        {
             let videoUrl = info[UIImagePickerController.InfoKey.mediaURL] as? URL
             print("Video_ URL - \((videoUrl?.path)!)")
             
@@ -362,7 +410,9 @@ extension ChatVC : UIImagePickerControllerDelegate, UINavigationControllerDelega
                             self.tblUserChat.reloadData()
                             self.tblUserChat.scrollToRow(at: IndexPath(row: (self.arrSectionMsg![self.arrSectionMsg!.count - 1].count - 1), section: (self.arrSectionMsg!.count - 1)), at: .bottom, animated: true)
                         }
-                    } catch let err {
+                    }
+                    catch let err
+                    {
                         print(err)
                         return
                     }
@@ -380,14 +430,17 @@ extension ChatVC : UIImagePickerControllerDelegate, UINavigationControllerDelega
                             self.tblUserChat.reloadData()
                         }
                     }
-                } catch {
+                }
+                catch
+                {
                     print("error")
                 }
             }
         }
     }
     
-    public func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+    public func imagePickerControllerDidCancel(_ picker: UIImagePickerController)
+    {
         //self.isDocumentPickerOpen = false
         self.dismiss(animated: true) {
         }
@@ -396,10 +449,12 @@ extension ChatVC : UIImagePickerControllerDelegate, UINavigationControllerDelega
 }
 
 // MARK: - Select document
-extension ChatVC : UIDocumentPickerDelegate, UIDocumentMenuDelegate {
-    
+
+extension ChatVC : UIDocumentPickerDelegate, UIDocumentMenuDelegate
+{
     @available(iOS 14.0, *)
-    func selectFiles() {
+    func selectFiles()
+    {
         //let supportedTypes: [String] = ["public.rtf", "public.jpeg", "public.png", "com.adobe.pdf", "com.microsoft.excel.xls", "com.microsoft.word.doc", "org.openxmlformats.spreadsheetml.sheet", "org.openxmlformats.wordprocessingml.document"]
         let supportedTypes: [String] = ["public.rtf",
                                         "com.adobe.pdf",
@@ -419,11 +474,13 @@ extension ChatVC : UIDocumentPickerDelegate, UIDocumentMenuDelegate {
         self.present(documentsPicker, animated: true, completion: nil)
     }
     
-    public func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentsAt urls: [URL]) {
-        
+    public func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentsAt urls: [URL])
+    {
         //Check - if selected document is image then check extension and display image.
         let url = urls.first! as URL
-        if arrImageExtension.contains((url.pathExtension).lowercased()) {
+        
+        if arrImageExtension.contains((url.pathExtension).lowercased())
+        {
             //Need to make a new image with the jpeg data to be able to close the security resources!
             guard let image = UIImage(contentsOfFile: url.path), let imageCopy = UIImage(data: image.jpegData(compressionQuality: 1.0)!) else { return }
             
@@ -465,7 +522,9 @@ extension ChatVC : UIDocumentPickerDelegate, UIDocumentMenuDelegate {
                     self.tblUserChat.reloadData()
                     self.tblUserChat.scrollToRow(at: IndexPath(row: (self.arrSectionMsg![self.arrSectionMsg!.count - 1].count - 1), section: (self.arrSectionMsg!.count - 1)), at: .bottom, animated: true)
                 }
-            } catch let err {
+            }
+            catch let err
+            {
                 print(err)
                 return
             }
@@ -483,7 +542,9 @@ extension ChatVC : UIDocumentPickerDelegate, UIDocumentMenuDelegate {
                     self.tblUserChat.reloadData()
                 }
             }
-        } else if arrDocExtension.contains((url.pathExtension).lowercased()) {
+        }
+        else if arrDocExtension.contains((url.pathExtension).lowercased())
+        {
             do {
                 //let myData = try Data(contentsOf: url)
                 //print(myData)
@@ -523,7 +584,9 @@ extension ChatVC : UIDocumentPickerDelegate, UIDocumentMenuDelegate {
                         self.tblUserChat.reloadData()
                         self.tblUserChat.scrollToRow(at: IndexPath(row: (self.arrSectionMsg![self.arrSectionMsg!.count - 1].count - 1), section: (self.arrSectionMsg!.count - 1)), at: .bottom, animated: true)
                     }
-                } catch let err {
+                }
+                catch let err
+                {
                     print(err)
                     return
                 }
@@ -541,10 +604,14 @@ extension ChatVC : UIDocumentPickerDelegate, UIDocumentMenuDelegate {
                         self.tblUserChat.reloadData()
                     }
                 }
-            } catch let error {
+            }
+            catch let error
+            {
                 print(error.localizedDescription)
             }
-        } else if arrAudioExtension.contains((url.pathExtension).lowercased()) {
+        }
+        else if arrAudioExtension.contains((url.pathExtension).lowercased())
+        {
             do {
                 //var myData = NSData(contentsOfURL: url)
                 let myData = try Data(contentsOf: url)
@@ -585,7 +652,9 @@ extension ChatVC : UIDocumentPickerDelegate, UIDocumentMenuDelegate {
                         self.tblUserChat.reloadData()
                         self.tblUserChat.scrollToRow(at: IndexPath(row: (self.arrSectionMsg![self.arrSectionMsg!.count - 1].count - 1), section: (self.arrSectionMsg!.count - 1)), at: .bottom, animated: true)
                     }
-                } catch let err {
+                }
+                catch let err
+                {
                     print(err)
                     return
                 }
@@ -603,10 +672,14 @@ extension ChatVC : UIDocumentPickerDelegate, UIDocumentMenuDelegate {
                         self.tblUserChat.reloadData()
                     }   //  */
                 }
-            } catch let error {
+            }
+            catch let error
+            {
                 print(error.localizedDescription)
             }
-        } else if arrVideoExtension.contains((url.pathExtension).lowercased()) {
+        }
+        else if arrVideoExtension.contains((url.pathExtension).lowercased())
+        {
             do {
                 //let videoD = try Data(contentsOf: videoUrl!)
                 let videoD = try Data(contentsOf: url)
@@ -681,55 +754,68 @@ extension ChatVC : UIDocumentPickerDelegate, UIDocumentMenuDelegate {
                         self.tblUserChat.reloadData()
                     }
                 }
-            } catch let error {
+            }
+            catch let error
+            {
                 print(error.localizedDescription)
             }
         }
         controller.dismiss(animated: true)
     }
     
-    public func documentMenu(_ documentMenu: UIDocumentMenuViewController, didPickDocumentPicker documentPicker: UIDocumentPickerViewController) {
+    public func documentMenu(_ documentMenu: UIDocumentMenuViewController, didPickDocumentPicker documentPicker: UIDocumentPickerViewController)
+    {
         print("Document picked.")
         //self.isDocumentPickerOpen = false
     }
     
-    public func documentPickerWasCancelled(_ controller: UIDocumentPickerViewController) {
+    public func documentPickerWasCancelled(_ controller: UIDocumentPickerViewController)
+    {
         print("Document picker cancel.")
         //self.isDocumentPickerOpen = false
     }
 }
 
 // MARK: - Socket Delegate
-extension ChatVC : SocketDelegate {
-    func getUnreadChat(noOfChat: Int) {
-    }
+extension ChatVC : SocketDelegate
+{
+    func getUnreadChat(noOfChat: Int)
+    {   }
     
-    func getUserRole() {
+    func getUserRole()
+    {
         setData()
     }
     
-    func getPreviousChatMsg(message: String) {
+    func getPreviousChatMsg(message: String)
+    {
         print("Previous chat message.")
     }
     
-    func getRecentUser(message: String) {
-    }
+    func getRecentUser(message: String)
+    {   }
     
-    func recentChatGroupList(groupList: [GetGroupList]) {
-    }
+    func recentChatGroupList(groupList: [GetGroupList])
+    {   }
     
-    func msgReceived(message: Message) {
+    func msgReceived(message: Message)
+    {
         let timestamp : Int = Int(NSDate().timeIntervalSince1970)
         
-        if message.sentBy != SocketChatManager.sharedInstance.myUserId {
-            if self.loadChatMsgToArray(msg: message, timestamp: timestamp) {
+        if message.sentBy != SocketChatManager.sharedInstance.myUserId
+        {
+            if self.loadChatMsgToArray(msg: message, timestamp: timestamp)
+            {
                 tblUserChat.reloadData()
                 tblUserChat.scrollToRow(at: IndexPath(row: (self.arrSectionMsg![arrSectionMsg!.count - 1].count - 1), section: (arrSectionMsg!.count - 1)), at: .bottom, animated: true)
             }
         }
-        else if (message.type == "text") {
-            for i in 0 ..< self.arrSectionMsg![arrSectionMsg!.count - 1].count {
-                if (message.sentBy == SocketChatManager.sharedInstance.myUserId) && (self.arrSectionMsg![arrSectionMsg!.count - 1][i].type ?? "" == "text") && (message.message == self.arrSectionMsg![arrSectionMsg!.count - 1][i].message ?? "") && (self.arrSectionMsg![arrSectionMsg!.count - 1][i].msgId ?? "" == "") {
+        else if (message.type == "text")
+        {
+            for i in 0 ..< self.arrSectionMsg![arrSectionMsg!.count - 1].count
+            {
+                if (message.sentBy == SocketChatManager.sharedInstance.myUserId) && (self.arrSectionMsg![arrSectionMsg!.count - 1][i].type ?? "" == "text") && (message.message == self.arrSectionMsg![arrSectionMsg!.count - 1][i].message ?? "") && (self.arrSectionMsg![arrSectionMsg!.count - 1][i].msgId ?? "" == "")
+                {
                     self.arrSectionMsg![arrSectionMsg!.count - 1][i] = message
                     DispatchQueue.main.async {
                         self.tblUserChat.reloadData()
@@ -738,9 +824,12 @@ extension ChatVC : SocketDelegate {
                 }
             }
         }
-        else {
-            for i in 0 ..< self.arrSectionMsg![arrSectionMsg!.count - 1].count {
-                if (message.sentBy == SocketChatManager.sharedInstance.myUserId) && (self.arrSectionMsg![arrSectionMsg!.count - 1][i].type ?? "" == message.type) && (self.arrSectionMsg![arrSectionMsg!.count - 1][i].showLoader ?? false) {
+        else
+        {
+            for i in 0 ..< self.arrSectionMsg![arrSectionMsg!.count - 1].count
+            {
+                if (message.sentBy == SocketChatManager.sharedInstance.myUserId) && (self.arrSectionMsg![arrSectionMsg!.count - 1][i].type ?? "" == message.type) && (self.arrSectionMsg![arrSectionMsg!.count - 1][i].showLoader ?? false)
+                {
                     self.arrSectionMsg![arrSectionMsg!.count - 1][i] = message
                     DispatchQueue.main.async {
                         self.tblUserChat.reloadData()
@@ -753,8 +842,9 @@ extension ChatVC : SocketDelegate {
 }
 
 // MARK: - TableView Delegate
-extension ChatVC : UITableViewDelegate, UITableViewDataSource {
-    
+
+extension ChatVC : UITableViewDelegate, UITableViewDataSource
+{
     public func numberOfSections(in tableView: UITableView) -> Int {
         return self.arrDtForSection?.count ?? 0
     }
@@ -787,7 +877,8 @@ extension ChatVC : UITableViewDelegate, UITableViewDataSource {
     
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        if (indexPath.section == 0) && (indexPath.row == 0) && isHasMore && !self.isCallPreChatPage {
+        if (indexPath.section == 0) && (indexPath.row == 0) && isHasMore && !self.isCallPreChatPage
+        {
             self.startAt = (self.arrSectionMsg![0][0].time ?? 0) - 1
             self.intScroll = 1
             SocketChatManager.sharedInstance.reqPreviousChatMsg(param: [
@@ -801,17 +892,23 @@ extension ChatVC : UITableViewDelegate, UITableViewDataSource {
         }
         
         let msgType : String = (self.arrSectionMsg![indexPath.section][indexPath.row].type)!
+        
         if (self.arrSectionMsg![indexPath.section][indexPath.row].sentBy)! == SocketChatManager.sharedInstance.myUserId
         {
             if msgType == "document"
             {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "OwnFileBubbleCell", for: indexPath) as! OwnFileBubbleCell
-                if isLongPressEnable {
+                
+                if isLongPressEnable
+                {
                     //cell.backgroundColor = (self.arrSectionMsg![indexPath.section][indexPath.row].isSelected ?? false) ? .lightGray.withAlphaComponent(0.2) : .clear
                     cell.backgroundColor = (self.arrSectionMsg![indexPath.section][indexPath.row].isSelected ?? false) ? Colors.longPressColor.returnColor().withAlphaComponent(0.2) : .clear
-                } else {
+                }
+                else
+                {
                     cell.backgroundColor = .clear
                 }
+                
                 cell.viewMsg.backgroundColor = Colors.lightTheme.returnColor()
                 
                 cell.lblFileName.text = self.arrSectionMsg![indexPath.section][indexPath.row].fileName ?? "Document File"
@@ -822,11 +919,16 @@ extension ChatVC : UITableViewDelegate, UITableViewDataSource {
             else if msgType == "image"
             {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "OwnImgChatBubbleCell", for: indexPath) as! OwnImgChatBubbleCell
-                if isLongPressEnable {
+                
+                if isLongPressEnable
+                {
                     cell.backgroundColor = (self.arrSectionMsg![indexPath.section][indexPath.row].isSelected ?? false) ? Colors.longPressColor.returnColor().withAlphaComponent(0.2) : .clear
-                } else {
+                }
+                else
+                {
                     cell.backgroundColor = .clear
                 }
+                
                 cell.viewImg.backgroundColor = Colors.lightTheme.returnColor()
                 cell.configure(msgType, self.arrSectionMsg![indexPath.section][indexPath.row].filePath!, "", self.arrSectionMsg![indexPath.section][indexPath.row].showLoader ?? false)
                 cell.lblTime.text = Utility.convertTimestamptoTimeString(timestamp: "\((self.arrSectionMsg![indexPath.section][indexPath.row].timeMilliSeconds?.seconds)!)")
@@ -835,11 +937,16 @@ extension ChatVC : UITableViewDelegate, UITableViewDataSource {
             else if msgType == "video"
             {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "OwnImgChatBubbleCell", for: indexPath) as! OwnImgChatBubbleCell
-                if isLongPressEnable {
+                
+                if isLongPressEnable
+                {
                     cell.backgroundColor = (self.arrSectionMsg![indexPath.section][indexPath.row].isSelected ?? false) ? Colors.longPressColor.returnColor().withAlphaComponent(0.2) : .clear
-                } else {
+                }
+                else
+                {
                     cell.backgroundColor = .clear
                 }
+                
                 cell.viewImg.backgroundColor = Colors.lightTheme.returnColor()
                 cell.configure(msgType, self.arrSectionMsg![indexPath.section][indexPath.row].thumbnailPath ?? "", "", self.arrSectionMsg![indexPath.section][indexPath.row].showLoader ?? false)
                 cell.lblTime.text = Utility.convertTimestamptoTimeString(timestamp: "\((self.arrSectionMsg![indexPath.section][indexPath.row].timeMilliSeconds?.seconds)!)")
@@ -848,11 +955,16 @@ extension ChatVC : UITableViewDelegate, UITableViewDataSource {
             else if msgType == "audio"
             {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "OwnAudioBubbleCell", for: indexPath) as! OwnAudioBubbleCell
-                if isLongPressEnable {
+                
+                if isLongPressEnable
+                {
                     cell.backgroundColor = (self.arrSectionMsg![indexPath.section][indexPath.row].isSelected ?? false) ? Colors.longPressColor.returnColor().withAlphaComponent(0.2) : .clear
-                } else {
+                }
+                else
+                {
                     cell.backgroundColor = .clear
                 }
+                
                 cell.viewMsg.backgroundColor = Colors.lightTheme.returnColor()
                 
                 cell.lblFileName.text = self.arrSectionMsg![indexPath.section][indexPath.row].fileName ?? "Audio File"
@@ -861,50 +973,67 @@ extension ChatVC : UITableViewDelegate, UITableViewDataSource {
             }
             else
             {
-                if self.arrSectionMsg![indexPath.section][indexPath.row].replyMsgId ?? "" == "" {
+                if self.arrSectionMsg![indexPath.section][indexPath.row].replyMsgId ?? "" == ""
+                {
                     let cell = tableView.dequeueReusableCell(withIdentifier: "OwnChatBubbleCell", for: indexPath) as! OwnChatBubbleCell
                     cell.viewMsg.backgroundColor = Colors.lightTheme.returnColor()
                     cell.lblMsg.text = (self.arrSectionMsg![indexPath.section][indexPath.row].message)!
                     cell.lblTime.text = Utility.convertTimestamptoTimeString(timestamp: "\((self.arrSectionMsg![indexPath.section][indexPath.row].timeMilliSeconds?.seconds)!)")
                     return cell
-                } else {
+                }
+                else
+                {
                     let cell = tableView.dequeueReusableCell(withIdentifier: "OwnReplyTVCell", for: indexPath) as! OwnReplyTVCell
                     cell.viewMsg.backgroundColor = Colors.lightTheme.returnColor()
                     //cell.viewMsg.setBgColor(color: SocketChatManager.sharedInstance.themeColor!)
                     
                     var userName : String = self.arrSectionMsg![indexPath.section][indexPath.row].replyUser ?? "" //""
                     var type: String = self.arrSectionMsg![indexPath.section][indexPath.row].replyMsgType ?? ""
-                    if self.arrSectionMsg![indexPath.section][indexPath.row].replyUserId ?? "" == SocketChatManager.sharedInstance.myUserId {
+                    
+                    if self.arrSectionMsg![indexPath.section][indexPath.row].replyUserId ?? "" == SocketChatManager.sharedInstance.myUserId
+                    {
                         userName = "You"
                     }
+                    
                     cell.lblReplyUser.text = userName
                     
                     cell.lblReplyMsg.isHidden = true
                     cell.ImgReplyImg.isHidden = true
                     cell.imgVideo.isHidden = true
-                    if type == "image" {
+                    
+                    if type == "image"
+                    {
                         cell.ImgReplyImg.isHidden = false
                         cell.configure("image", self.arrSectionMsg![indexPath.section][indexPath.row].replyMsg ?? "", "")
                         cell.constraintImgBottom.priority = .required
-                    } else if type == "video" {
+                    }
+                    else if type == "video"
+                    {
                         cell.ImgReplyImg.isHidden = false
                         cell.imgVideo.isHidden = false
                         cell.configure("image", self.arrSectionMsg![indexPath.section][indexPath.row].replyMsg ?? "", "")
                         cell.constraintImgBottom.priority = .required
-                    } else if type == "audio" {
+                    }
+                    else if type == "audio"
+                    {
                         cell.lblReplyMsg.isHidden = false
                         cell.lblReplyMsg.text = (self.arrSectionMsg![indexPath.section][indexPath.row].replyMsg)!
                         cell.constraintImgBottom.priority = .defaultLow
-                    } else if type == "document" {
+                    }
+                    else if type == "document"
+                    {
                         cell.lblReplyMsg.isHidden = false
                         cell.lblReplyMsg.text = (self.arrSectionMsg![indexPath.section][indexPath.row].replyMsg)!
                         cell.constraintImgBottom.priority = .defaultLow
-                    } else {
+                    }
+                    else
+                    {
                         /// type == "text"
                         cell.lblReplyMsg.isHidden = false
                         cell.lblReplyMsg.text = (self.arrSectionMsg![indexPath.section][indexPath.row].replyMsg)!
                         cell.constraintImgBottom.priority = .defaultLow
                     }
+                    
                     cell.lblMsg.text = (self.arrSectionMsg![indexPath.section][indexPath.row].message)!
                     cell.lblTime.text = Utility.convertTimestamptoTimeString(timestamp: "\((self.arrSectionMsg![indexPath.section][indexPath.row].timeMilliSeconds?.seconds)!)")
                     
@@ -917,33 +1046,48 @@ extension ChatVC : UITableViewDelegate, UITableViewDataSource {
             if msgType == "document"
             {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "OtherFileBubbleCell", for: indexPath) as! OtherFileBubbleCell
-                if isLongPressEnable {
+                
+                if isLongPressEnable
+                {
                     cell.backgroundColor = (self.arrSectionMsg![indexPath.section][indexPath.row].isSelected ?? false) ? Colors.longPressColor.returnColor().withAlphaComponent(0.2) : .clear
-                } else {
+                }
+                else
+                {
                     cell.backgroundColor = .clear
                 }
+                
                 cell.viewMsg.backgroundColor = .white
                 cell.lblFileName.text = self.arrSectionMsg![indexPath.section][indexPath.row].fileName ?? "Document File"
                 cell.lblTime.text = Utility.convertTimestamptoTimeString(timestamp: "\((self.arrSectionMsg![indexPath.section][indexPath.row].timeMilliSeconds?.seconds)!)")
-                if isGroup {
+                
+                if isGroup
+                {
                     cell.lblUserName.isHidden = false
                     cell.lblUserName.text = self.arrSectionMsg![indexPath.section][indexPath.row].senderName ?? ""
                     cell.constTopMsg.priority = .defaultLow
                 }
+                
                 return cell
             }
             else if msgType == "image"
             {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "OtherImgChatBubbleCell", for: indexPath) as! OtherImgChatBubbleCell
-                if isLongPressEnable {
+                
+                if isLongPressEnable
+                {
                     cell.backgroundColor = (self.arrSectionMsg![indexPath.section][indexPath.row].isSelected ?? false) ? Colors.longPressColor.returnColor().withAlphaComponent(0.2) : .clear
-                } else {
+                }
+                else
+                {
                     cell.backgroundColor = .clear
                 }
+                
                 cell.viewImg.backgroundColor = .white
                 cell.configure(msgType, self.arrSectionMsg![indexPath.section][indexPath.row].filePath!, "")
                 cell.lblTime.text = Utility.convertTimestamptoTimeString(timestamp: "\((self.arrSectionMsg![indexPath.section][indexPath.row].timeMilliSeconds?.seconds)!)")
-                if isGroup {
+                
+                if isGroup
+                {
                     cell.lblUserName.isHidden = false
                     cell.lblUserName.text = self.arrSectionMsg![indexPath.section][indexPath.row].senderName ?? ""
                     cell.constTopImg.priority = .defaultLow
@@ -953,15 +1097,22 @@ extension ChatVC : UITableViewDelegate, UITableViewDataSource {
             else if msgType == "video"
             {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "OtherImgChatBubbleCell", for: indexPath) as! OtherImgChatBubbleCell
-                if isLongPressEnable {
+                
+                if isLongPressEnable
+                {
                     cell.backgroundColor = (self.arrSectionMsg![indexPath.section][indexPath.row].isSelected ?? false) ? Colors.longPressColor.returnColor().withAlphaComponent(0.2) : .clear
-                } else {
+                }
+                else
+                {
                     cell.backgroundColor = .clear
                 }
+                
                 cell.viewImg.backgroundColor = .white
                 cell.configure(msgType, self.arrSectionMsg![indexPath.section][indexPath.row].thumbnailPath ?? "", "")
                 cell.lblTime.text = Utility.convertTimestamptoTimeString(timestamp: "\((self.arrSectionMsg![indexPath.section][indexPath.row].timeMilliSeconds?.seconds)!)")
-                if isGroup {
+                
+                if isGroup
+                {
                     cell.lblUserName.isHidden = false
                     cell.lblUserName.text = self.arrSectionMsg![indexPath.section][indexPath.row].senderName ?? ""
                     cell.constTopImg.priority = .defaultLow
@@ -971,15 +1122,22 @@ extension ChatVC : UITableViewDelegate, UITableViewDataSource {
             else if msgType == "audio"
             {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "OtherAudioBubbleCell", for: indexPath) as! OtherAudioBubbleCell
-                if isLongPressEnable {
+                
+                if isLongPressEnable
+                {
                     cell.backgroundColor = (self.arrSectionMsg![indexPath.section][indexPath.row].isSelected ?? false) ? Colors.longPressColor.returnColor().withAlphaComponent(0.2) : .clear
-                } else {
+                }
+                else
+                {
                     cell.backgroundColor = .clear
                 }
+                
                 cell.viewMsg.backgroundColor = .white
                 cell.lblFileName.text = self.arrSectionMsg![indexPath.section][indexPath.row].fileName ?? "Audio File"
                 cell.lblTime.text = Utility.convertTimestamptoTimeString(timestamp: "\((self.arrSectionMsg![indexPath.section][indexPath.row].timeMilliSeconds?.seconds)!)")
-                if isGroup {
+                
+                if isGroup
+                {
                     cell.lblUserName.isHidden = false
                     cell.lblUserName.text = self.arrSectionMsg![indexPath.section][indexPath.row].senderName ?? ""
                     cell.constTopMsg.priority = .defaultLow
@@ -988,23 +1146,30 @@ extension ChatVC : UITableViewDelegate, UITableViewDataSource {
             }
             else
             {
-                if self.arrSectionMsg![indexPath.section][indexPath.row].replyMsgId ?? "" == "" {
+                if self.arrSectionMsg![indexPath.section][indexPath.row].replyMsgId ?? "" == ""
+                {
                     let cell = tableView.dequeueReusableCell(withIdentifier: "OtherChatBubbleCell", for: indexPath) as! OtherChatBubbleCell
                     cell.viewMsg.backgroundColor = .white
                     cell.lblMsg.text = (self.arrSectionMsg![indexPath.section][indexPath.row].message)!
                     cell.lblTime.text = Utility.convertTimestamptoTimeString(timestamp: "\((self.arrSectionMsg![indexPath.section][indexPath.row].timeMilliSeconds?.seconds)!)")
-                    if isGroup {
+                    
+                    if isGroup
+                    {
                         cell.lblUserName.isHidden = false
                         cell.lblUserName.text = self.arrSectionMsg![indexPath.section][indexPath.row].senderName ?? ""
                         cell.constTopMsg.priority = .defaultLow
                     }
                     return cell
-                } else {
+                }
+                else
+                {
                     let cell = tableView.dequeueReusableCell(withIdentifier: "OtherReplyTVCell", for: indexPath) as! OtherReplyTVCell
                     
                     var userName : String = self.arrSectionMsg![indexPath.section][indexPath.row].replyUser ?? ""
                     let type: String = self.arrSectionMsg![indexPath.section][indexPath.row].replyMsgType ?? ""
-                    if self.arrSectionMsg![indexPath.section][indexPath.row].replyUserId ?? "" == SocketChatManager.sharedInstance.myUserId {
+                    
+                    if self.arrSectionMsg![indexPath.section][indexPath.row].replyUserId ?? "" == SocketChatManager.sharedInstance.myUserId
+                    {
                         userName = "You"
                     }
                     cell.lblReplyUser.text = userName
@@ -1012,34 +1177,47 @@ extension ChatVC : UITableViewDelegate, UITableViewDataSource {
                     cell.lblReplyMsg.isHidden = true
                     cell.ImgReplyImg.isHidden = true
                     cell.imgVideo.isHidden = true
-                    if type == "image" {
+                    
+                    if type == "image"
+                    {
                         cell.ImgReplyImg.isHidden = false
                         cell.configure("image", self.arrSectionMsg![indexPath.section][indexPath.row].replyMsg ?? "", "")
                         cell.constraintImgBottom.priority = .required
-                    }else if type == "video" {
+                    }
+                    else if type == "video"
+                    {
                         cell.ImgReplyImg.isHidden = false
                         cell.imgVideo.isHidden = false
                         cell.configure("image", self.arrSectionMsg![indexPath.section][indexPath.row].replyMsg ?? "", "")
                         cell.constraintImgBottom.priority = .required
-                    } else if type == "audio" {
+                    }
+                    else if type == "audio"
+                    {
                         cell.lblReplyMsg.isHidden = false
                         cell.lblReplyMsg.text = (self.arrSectionMsg![indexPath.section][indexPath.row].replyMsg)!
                         cell.constraintImgBottom.priority = .defaultLow
-                    } else if type == "document" {
+                    }
+                    else if type == "document"
+                    {
                         cell.lblReplyMsg.isHidden = false
                         cell.lblReplyMsg.text = (self.arrSectionMsg![indexPath.section][indexPath.row].replyMsg)!
                         cell.constraintImgBottom.priority = .defaultLow
-                    } else {
+                    }
+                    else
+                    {
                         /// type == "text"
                         cell.lblReplyMsg.isHidden = false
                         cell.lblReplyMsg.text = (self.arrSectionMsg![indexPath.section][indexPath.row].replyMsg)!
                         cell.constraintImgBottom.priority = .defaultLow
                     }
+                    
                     cell.lblMsg.text = (self.arrSectionMsg![indexPath.section][indexPath.row].message)!
                     cell.lblTime.text = Utility.convertTimestamptoTimeString(timestamp: "\((self.arrSectionMsg![indexPath.section][indexPath.row].timeMilliSeconds?.seconds)!)")
                     
                     cell.constTopMsg.priority = .required
-                    if isGroup {
+                    
+                    if isGroup
+                    {
                         cell.lblUserName.isHidden = false
                         cell.lblUserName.text = self.arrSectionMsg![indexPath.section][indexPath.row].senderName ?? ""
                         cell.constTopMsg.priority = .defaultLow
@@ -1056,19 +1234,28 @@ extension ChatVC : UITableViewDelegate, UITableViewDataSource {
     }
     
     public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
         let msgType : String = (self.arrSectionMsg![indexPath.section][indexPath.row].type)!
-        if isLongPressEnable {
-            if msgType != "text" {
-                if arrSectionMsg![indexPath.section][indexPath.row].isSelected ?? false {
+        
+        if isLongPressEnable
+        {
+            if msgType != "text"
+            {
+                if arrSectionMsg![indexPath.section][indexPath.row].isSelected ?? false
+                {
                     selectedCount -= 1
                     self.lblForwardCount.text = "\(selectedCount)"
                     arrSectionMsg![indexPath.section][indexPath.row].isSelected = false
-                } else {
+                }
+                else
+                {
                     selectedCount += 1
                     self.lblForwardCount.text = "\(selectedCount)"
                     arrSectionMsg![indexPath.section][indexPath.row].isSelected = true
                 }
-                if self.selectedCount == 0 {
+                
+                if self.selectedCount == 0
+                {
                     self.isLongPressEnable = false
                     self.viewUserInfo.isHidden = false
                     self.viewForwardMsg.isHidden = true
@@ -1079,9 +1266,11 @@ extension ChatVC : UITableViewDelegate, UITableViewDataSource {
                 self.tblUserChat.reloadData()
                 //arrSectionMsg![indexPath.section][indexPath.row].isSelected = (arrSectionMsg![indexPath.section][indexPath.row].isSelected ?? false) ? false : true
             }
-        } else {
-            if msgType == "document" {
-                
+        }
+        else
+        {
+            if msgType == "document"
+            {
                 guard let url = URL(string: (self.arrSectionMsg![indexPath.section][indexPath.row].filePath)!) else { return }
                 UIApplication.shared.open(url)
                 
@@ -1102,7 +1291,9 @@ extension ChatVC : UITableViewDelegate, UITableViewDataSource {
                  print(error.localizedDescription)
                  }
                  ///     */
-            } else if msgType == "video" {
+            }
+            else if msgType == "video"
+            {
                 //let player = AVPlayer(url: URL(fileURLWithPath: "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"))
                 //let player = AVPlayer(url: URL(string: "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4")!)
                 
@@ -1113,12 +1304,16 @@ extension ChatVC : UITableViewDelegate, UITableViewDataSource {
                 self.present(vcPlayer, animated: true) {
                     vcPlayer.player?.play()
                 }
-            } else if msgType == "image" {
+            }
+            else if msgType == "image"
+            {
                 let vc =  ImgViewerVC()
                 vc.strImageName = (self.arrSectionMsg![indexPath.section][indexPath.row].filePath)!
                 //self.navigationController?.pushViewController(vc, animated: true)
                 self.present(vc, animated: true)
-            } else if msgType == "audio" {
+            }
+            else if msgType == "audio"
+            {
                 //http://freetone.org/ring/stan/iPhone_5-Alarm.mp3
                 //https://s3.amazonaws.com/kargopolov/kukushka.mp3
                 let url = URL(string: "https://s3.amazonaws.com/kargopolov/kukushka.mp3")
@@ -1174,15 +1369,21 @@ extension ChatVC : UITableViewDelegate, UITableViewDataSource {
         action.backgroundColor = .systemBlue.withAlphaComponent(0.01)
         
         //if !self.isUserSendMsg || self.isLongPressEnable || (self.arrSectionMsg![indexPath.section][indexPath.row].type ?? "") == "text" {
-        if !self.isUserSendMsg || self.isLongPressEnable {
+        
+        if !self.isUserSendMsg || self.isLongPressEnable
+        {
             return nil
-        } else {
+        }
+        else
+        {
             return UISwipeActionsConfiguration(actions: [action])
         }
     }
     
     func playAudio(isFileExist : Bool, filePath : URL) {
-        if isFileExist {
+        
+        if isFileExist
+        {
             DispatchQueue.main.async {
                 let vc =  AudioPlayVC()
                 vc.filePath = filePath
@@ -1191,36 +1392,53 @@ extension ChatVC : UITableViewDelegate, UITableViewDataSource {
         }
     }
     
-    private func replyMsg() {
-        if self.isGroup {
-            if (self.swipeReplyMsg?.sentBy ?? "") == SocketChatManager.sharedInstance.myUserId {
+    private func replyMsg()
+    {
+        if self.isGroup
+        {
+            if (self.swipeReplyMsg?.sentBy ?? "") == SocketChatManager.sharedInstance.myUserId
+            {
                 self.lblReplyUser.text = "You"
-            } else {
+            }
+            else
+            {
                 self.lblReplyUser.text = self.swipeReplyMsg?.senderName ?? ""
             }
-        } else {
+        }
+        else
+        {
             self.lblReplyUser.text = ""
         }
         
         self.isImg = false
         self.lblReplyMsg.isHidden = true
         self.imgReplyImage.isHidden = true
-        if self.swipeReplyMsg?.type == "text" {
+        
+        if self.swipeReplyMsg?.type == "text"
+        {
             self.lblReplyMsg.isHidden = false
             self.lblReplyMsg.text = self.swipeReplyMsg?.message ?? ""
-        } else if self.swipeReplyMsg?.type == "image" {
+        }
+        else if self.swipeReplyMsg?.type == "image"
+        {
             self.imgReplyImage.isHidden = false
             self.isImg = true
             self.loadImage(self.swipeReplyMsg?.filePath ?? "")
-        } else if self.swipeReplyMsg?.type == "document" {
+        }
+        else if self.swipeReplyMsg?.type == "document"
+        {
             self.lblReplyMsg.isHidden = false
             self.lblReplyMsg.text = self.swipeReplyMsg?.fileName ?? ""
-        } else if self.swipeReplyMsg?.type == "video" {
+        }
+        else if self.swipeReplyMsg?.type == "video"
+        {
             self.imgVideo.isHidden = false
             self.imgReplyImage.isHidden = false
             self.isImg = true
             self.loadImage(self.swipeReplyMsg?.thumbnailPath ?? "")
-        } else if self.swipeReplyMsg?.type == "audio" {
+        }
+        else if self.swipeReplyMsg?.type == "audio"
+        {
             self.lblReplyMsg.isHidden = false
             self.lblReplyMsg.text = self.swipeReplyMsg?.fileName ?? ""
         }
@@ -1231,31 +1449,37 @@ extension ChatVC : UITableViewDelegate, UITableViewDataSource {
         self.isSwipe = true
     }
 
-    private func handleMarkAsUnread() {
-        print("Marked as unread")
-    }
+    private func handleMarkAsUnread()
+    {   print("Marked as unread")   }
 
-    private func handleMoveToTrash() {
-        print("Moved to trash")
-    }
+    private func handleMoveToTrash()
+    {   print("Moved to trash") }
 
-    private func handleMoveToArchive() {
-        print("Moved to archive")
-    }
+    private func handleMoveToArchive()
+    {    print("Moved to archive")   }
 }
 
 // MARK: - Load chat msg to Array
-extension ChatVC {
-    func loadChatMsgToArray(msg : Message, timestamp : Int) -> Bool {
+
+extension ChatVC
+{
+    func loadChatMsgToArray(msg : Message, timestamp : Int) -> Bool
+    {
         let strDate : String = Utility.convertTimestamptoDateString(timestamp: timestamp)
-        if (arrDtForSection?.contains(strDate))! {
-            for j in 0 ..< arrDtForSection!.count {
-                if arrDtForSection![j] == strDate {
+        
+        if (arrDtForSection?.contains(strDate))!
+        {
+            for j in 0 ..< arrDtForSection!.count
+            {
+                if arrDtForSection![j] == strDate
+                {
                     //arrSectionMsg?[j].append((self.arrGetPreviousChat?[i])!)
                     arrSectionMsg?[j].append(msg)
                 }
             }
-        } else {
+        }
+        else
+        {
             var tempMsg : [Message] = []
             tempMsg.append(msg)
             arrSectionMsg?.append(tempMsg)
@@ -1264,25 +1488,33 @@ extension ChatVC {
         return true
     }
     
-    func loadImage(_ image: String) {
+    func loadImage(_ image: String)
+    {
         imgReplyImage.image = UIImage(named: "default", in: self.bundle, compatibleWith: nil)
         imgReplyImage.image = UIImage(contentsOfFile: image)
-        if image != "" {
+        
+        if image != ""
+        {
             var imageURL: URL?
             imageURL = URL(string: image)!
             
             // retrieves image if already available in cache
-            if let imageFromCache = imageCache.object(forKey: imageURL as AnyObject) as? UIImage {
+            if let imageFromCache = imageCache.object(forKey: imageURL as AnyObject) as? UIImage
+            {
                 self.imgReplyImage.image = imageFromCache
                 return
             }
+            
             imageRequest = NetworkManager.sharedInstance.getData(from: URL(string: image)!) { data, resp, err in
                 guard let data = data, err == nil else {
                     print("Error in download from url")
                     return
                 }
+                
                 DispatchQueue.main.async {
-                    if let imageToCache = UIImage(data: data) {
+                    
+                    if let imageToCache = UIImage(data: data)
+                    {
                         self.imgReplyImage.image = imageToCache
                         imageCache.setObject(imageToCache, forKey: imageURL as AnyObject)
                     }
@@ -1291,25 +1523,33 @@ extension ChatVC {
         }
     }
     
-    func loadImage1(_ image: String) -> UIImage {
+    func loadImage1(_ image: String) -> UIImage
+    {
         imgReplyImage.image = UIImage(named: "default", in: self.bundle, compatibleWith: nil)
         imgReplyImage.image = UIImage(contentsOfFile: image)
-        if image != "" {
+        
+        if image != ""
+        {
             var imageURL: URL?
             imageURL = URL(string: image)!
             
             // retrieves image if already available in cache
-            if let imageFromCache = imageCache.object(forKey: imageURL as AnyObject) as? UIImage {
+            if let imageFromCache = imageCache.object(forKey: imageURL as AnyObject) as? UIImage
+            {
                 //return
                 return imageFromCache
             }
+            
             imageRequest = NetworkManager.sharedInstance.getData(from: URL(string: image)!) { data, resp, err in
                 guard let data = data, err == nil else {
                     print("Error in download from url")
                     return
                 }
+                
                 DispatchQueue.main.async {
-                    if let imageToCache = UIImage(data: data) {
+                    
+                    if let imageToCache = UIImage(data: data)
+                    {
                         self.imgReplyImage.image = imageToCache
                         imageCache.setObject(imageToCache, forKey: imageURL as AnyObject)
                     }
@@ -1321,16 +1561,21 @@ extension ChatVC {
 }
 
 // MARK: - UI Gesture Recognizer Delegate
-extension ChatVC: UIGestureRecognizerDelegate {
-    func setupLongPressGesture() {
+
+extension ChatVC: UIGestureRecognizerDelegate
+{
+    func setupLongPressGesture()
+    {
         let longPressGesture:UILongPressGestureRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(ChatVC.handleLongPress(_:)))
         longPressGesture.minimumPressDuration = 1.1 // 1 second press
         longPressGesture.delegate = self
         self.tblUserChat.addGestureRecognizer(longPressGesture)
     }
     
-    @objc func handleLongPress(_ gestureRecognizer: UILongPressGestureRecognizer){
-        if gestureRecognizer.state == .began {
+    @objc func handleLongPress(_ gestureRecognizer: UILongPressGestureRecognizer)
+    {
+        if gestureRecognizer.state == .began
+        {
             self.view.endEditing(true)
             self.isLongPressEnable = true
             self.viewUserInfo.isHidden = true
@@ -1341,7 +1586,9 @@ extension ChatVC: UIGestureRecognizerDelegate {
             }
             
             let touchPoint = gestureRecognizer.location(in: self.tblUserChat)
-            if let indexPath = self.tblUserChat.indexPathForRow(at: touchPoint) {
+            
+            if let indexPath = self.tblUserChat.indexPathForRow(at: touchPoint)
+            {
                 print("Long press touch point --> \(indexPath.section) -- \(indexPath.row)")
             }
         }

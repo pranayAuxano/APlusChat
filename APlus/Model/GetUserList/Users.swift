@@ -8,7 +8,8 @@
 import Foundation
 
 // MARK: - User
-struct User: Codable {
+struct User: Codable
+{
     var name: String?
     var profilePicture: String?
     var mobileEmail: String?

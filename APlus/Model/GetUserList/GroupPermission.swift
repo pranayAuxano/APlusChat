@@ -7,8 +7,8 @@
 
 import Foundation
 
-struct GroupPermission: Codable {
-    
+struct GroupPermission: Codable
+{
     enum CodingKeys: String, CodingKey {
         case permission
         case userId
@@ -17,7 +17,8 @@ struct GroupPermission: Codable {
     var permission: Permission?
     var userId: String?
     
-    init(from decoder: Decoder) throws {
+    init(from decoder: Decoder) throws
+    {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         permission = try container.decodeIfPresent(Permission.self, forKey: .permission)
         userId = try container.decodeIfPresent(String.self, forKey: .userId)

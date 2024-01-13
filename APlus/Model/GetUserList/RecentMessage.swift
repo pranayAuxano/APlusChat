@@ -7,7 +7,8 @@
 
 import Foundation
 
-struct RecentMessage: Codable {
+struct RecentMessage: Codable
+{
     var timeMilliSeconds: CreateAt?         //var timeMilliSeconds: TimeMilliSeconds?
     var fileName: String?
     var replyUserId: String?
@@ -46,7 +47,8 @@ struct RecentMessage: Codable {
         case senderName
     }
     
-    init(from decoder: Decoder) throws {
+    init(from decoder: Decoder) throws
+    {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         timeMilliSeconds = try container.decodeIfPresent(CreateAt.self, forKey: .timeMilliSeconds)
         fileName = try container.decodeIfPresent(String.self, forKey: .fileName)

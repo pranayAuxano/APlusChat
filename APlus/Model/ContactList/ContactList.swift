@@ -7,8 +7,8 @@
 
 import Foundation
 
-struct ContactList: Codable {
-    
+struct ContactList: Codable
+{
     enum CodingKeys: String, CodingKey {
         case isSuccess
         case list
@@ -19,14 +19,16 @@ struct ContactList: Codable {
     var list: [List]?
     var count: Int?
     
-    init(from decoder: Decoder) throws {
+    init(from decoder: Decoder) throws
+    {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         isSuccess = try container.decodeIfPresent(Bool.self, forKey: .isSuccess)
         list = try container.decodeIfPresent([List].self, forKey: .list)
         count = try container.decodeIfPresent(Int.self, forKey: .count)
     }
     
-    func encode(to encoder: Encoder) throws {
+    func encode(to encoder: Encoder) throws
+    {
         var container = encoder.container(keyedBy: CodingKeys.self)
         
         try container.encodeIfPresent(isSuccess, forKey: .isSuccess)
@@ -36,7 +38,9 @@ struct ContactList: Codable {
 }
 
 // MARK: - CreateGroup
-struct CreateGroupRes: Codable {
+
+struct CreateGroupRes: Codable
+{
     var groupId: String?
     var success: Bool?
 }

@@ -8,7 +8,8 @@
 import UIKit
 import ProgressHUD
 
-protocol ProfileImgDelegate {
+protocol ProfileImgDelegate
+{
     func setProfileImg(image : UIImage)
 }
 
@@ -36,11 +37,13 @@ public class ProfDetailVC: UIViewController {
     
     private var imageRequest: Cancellable?
     
-    public init() {
+    public init()
+    {
         super.init(nibName: "ProfileDetail", bundle: Bundle(for: ProfDetailVC.self))
     }
     
-    required init?(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder)
+    {
         fatalError("init(coder:) has not been implemented ProfileDetail")
     }
     
@@ -53,7 +56,8 @@ public class ProfDetailVC: UIViewController {
         btnSave.isEnabled = false
         btnSave.backgroundColor = Colors.disableButton.returnColor()
         
-        if SocketChatManager.sharedInstance.userRole?.updateProfile ?? 0 == 1 {
+        if SocketChatManager.sharedInstance.userRole?.updateProfile ?? 0 == 1
+        {
             txtUserName.isEnabled = true
             btnProfileImg.isEnabled = true
             btnSave.isEnabled = true
@@ -66,9 +70,12 @@ public class ProfDetailVC: UIViewController {
         
         self.navigationController?.isNavigationBarHidden = true
         
-        if self.profileDetail != nil {
+        if self.profileDetail != nil
+        {
             self.getProfileDetail(self.profileDetail!)
-        } else {
+        }
+        else
+        {
             SocketChatManager.sharedInstance.reqProfileDetails(param: [
                 "secretKey" : SocketChatManager.sharedInstance.secretKey,
                 "userId" : SocketChatManager.sharedInstance.myUserId
@@ -111,7 +118,9 @@ public class ProfDetailVC: UIViewController {
     }
     
     @IBAction func btnSaveTap(_ sender: UIButton) {
-        if !Validations.isValidUserName(userName: txtUserName.text!) {
+        
+        if !Validations.isValidUserName(userName: txtUserName.text!)
+        {
             let imgData = imgProfile.image?.pngData()
             
             let param = [
@@ -134,7 +143,9 @@ public class ProfDetailVC: UIViewController {
             ] as [String : Any]
             
             ProgressHUD.show()
-            if isPictureSelect {
+            
+            if isPictureSelect
+            {
                 NetworkManager.sharedInstance.uploadImage(dictiParam: dictiParam, image: self.imgProfile.image!, type: "image", contentType: "")
                 { strDisPic in
                     self.updateProfile(param: param, strDisPic: strDisPic)
@@ -144,10 +155,14 @@ public class ProfDetailVC: UIViewController {
                     toastMsg.setColor(background: .red, text: .black)
                     toastMsg.show()
                 }
-            } else {
+            }
+            else
+            {
                 self.updateProfile(param: param, strDisPic: "")
             }
-        } else {
+        }
+        else
+        {
             let alertWarning = UIAlertController(title: "", message: "Enter username.", preferredStyle: .alert)
             alertWarning.addAction(UIAlertAction(title: "OK", style: .cancel, handler: { alert in
             }))
@@ -155,39 +170,54 @@ public class ProfDetailVC: UIViewController {
         }
     }
     
-    func updateProfile(param: [String : Any], strDisPic: String) {
+    func updateProfile(param: [String : Any], strDisPic: String)
+    {
         var param1 = param
-        if strDisPic != "" {
+        
+        if strDisPic != ""
+        {
             param1["profilePicture"] = strDisPic
-        } else {
+        }
+        else
+        {
             param1["profilePicture"] = profileDetail?.profilePicture ?? ""
         }
         SocketChatManager.sharedInstance.updateProfile(param: param1)
         isPictureSelect = false
     }
     
-    func getProfileDetail(_ profileDetail : ProfileDetail) {
+    func getProfileDetail(_ profileDetail : ProfileDetail)
+    {
         print("Get response of profile details.")
         txtUserName.text = profileDetail.name ?? ""
         
         imgProfile.image = UIImage(named: "placeholder-profile-img.png", in: self.bundle, compatibleWith: nil)
-        if profileDetail.profilePicture! != "" {
+        
+        if profileDetail.profilePicture! != ""
+        {
             var imageURL: URL?
             imageURL = URL(string: profileDetail.profilePicture!)!
-            if let imageFromCache = imageCache.object(forKey: imageURL as AnyObject) as? UIImage {
+            
+            if let imageFromCache = imageCache.object(forKey: imageURL as AnyObject) as? UIImage
+            {
                 self.imgProfile.image = imageFromCache
                 return
             }
+            
             imageRequest = NetworkManager.sharedInstance.getData(from: imageURL!) { data, resp, err in
                 guard let data = data, err == nil else {
                     print("Error in download from url")
                     return
                 }
                 DispatchQueue.main.async {
-                    if let imageToCache = UIImage(data: data) {
+                    
+                    if let imageToCache = UIImage(data: data)
+                    {
                         self.imgProfile.image = imageToCache
                         imageCache.setObject(imageToCache, forKey: imageURL as AnyObject)
-                    } else {
+                    }
+                    else
+                    {
                         self.imgProfile.image = UIImage(named: "placeholder-profile-img.png", in: self.bundle, compatibleWith: nil)
                     }
                 }
@@ -195,14 +225,20 @@ public class ProfDetailVC: UIViewController {
         }
     }
     
-    func profileUpdate(_ isUpdate : Bool) {
+    func profileUpdate(_ isUpdate : Bool)
+    {
         ProgressHUD.dismiss()
         var msg : String = ""
-        if isUpdate {
+        
+        if isUpdate
+        {
             msg = "Profile updated successfully."
-        } else {
+        }
+        else
+        {
             msg = "Profile not updated."
         }
+        
         let alertWarning = UIAlertController(title: "", message: msg, preferredStyle: .alert)
         alertWarning.addAction(UIAlertAction(title: "OK", style: .cancel, handler: { alert in
             if isUpdate {

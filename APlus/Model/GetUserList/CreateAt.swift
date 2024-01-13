@@ -7,8 +7,8 @@
 
 import Foundation
 
-struct CreateAt: Codable {
-    
+struct CreateAt: Codable
+{
     enum CodingKeys: String, CodingKey {
         case nanoseconds
         case seconds

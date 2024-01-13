@@ -8,7 +8,9 @@
 import Foundation
 
 // MARK: - GetGroupList
-struct GetGroupList: Codable {
+
+struct GetGroupList: Codable
+{
     var imagePath: String?
     var groupName: String?
     var latestTime: LatestTime?
@@ -22,7 +24,9 @@ struct GetGroupList: Codable {
 }
 
 // MARK: - LatestTime
-struct LatestTime: Codable {
+
+struct LatestTime: Codable
+{
     var seconds: Int?
     var nanoseconds: Int?
 }
