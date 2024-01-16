@@ -41,38 +41,46 @@ class OtherReplyTVCell: UITableViewCell {
         self.viewReplyMsg.layer.cornerRadius = 3
     }
 
-    func configure(_ msgType : String,_ image : String,_ data : String) {
-        if msgType == "video" {
+    func configure(_ msgType : String,_ image : String,_ data : String)
+    {
+        if msgType == "video"
+        {
             ImgReplyImg.image = UIImage(named: "default")
             imgVideo.isHidden = false
             //imgVideo.image = UIImage(named: "Play")
             //ImgReplyImg.image = UIImage(contentsOfFile: image)
             self.loadImg(image)
         }
-        else if msgType == "image" {
+        else if msgType == "image"
+        {
             ImgReplyImg.image = UIImage(named: "default")
             ImgReplyImg.image = UIImage(contentsOfFile: image)
             self.loadImg(image)
         }
     }
     
-    func loadImg(_ image : String) {
-        if image != "" {
+    func loadImg(_ image : String)
+    {
+        if image != ""
+        {
             var imageURL: URL?
             imageURL = URL(string: image)!
             
             // retrieves image if already available in cache
-            if let imageFromCache = imageCache.object(forKey: imageURL as AnyObject) as? UIImage {
+            if let imageFromCache = imageCache.object(forKey: imageURL as AnyObject) as? UIImage
+            {
                 self.ImgReplyImg.image = imageFromCache
                 return
             }
+            
             imageRequest = NetworkManager.sharedInstance.getData(from: URL(string: image)!) { data, resp, err in
                 guard let data = data, err == nil else {
                     print("Error in download from url")
                     return
                 }
                 DispatchQueue.main.async {
-                    if let imageToCache = UIImage(data: data) {
+                    if let imageToCache = UIImage(data: data)
+                    {
                         self.ImgReplyImg.image = imageToCache
                         imageCache.setObject(imageToCache, forKey: imageURL as AnyObject)
                     }

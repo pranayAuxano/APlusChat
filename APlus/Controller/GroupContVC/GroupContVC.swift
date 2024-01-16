@@ -37,21 +37,25 @@ public class GroupContVC: UIViewController {
     var addMembersArr: [String] = []
     var bundle = Bundle()
     
-    public init() {
+    public init()
+    {
         super.init(nibName: "GroupContVC", bundle: Bundle(for: GroupContVC.self))
     }
     
-    required init?(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder)
+    {
         fatalError("init(coder:) has not been implemented GroupContVC")
     }
     
     public override func viewDidLoad() {
         super.viewDidLoad()
         
-        if isAddMember {
+        if isAddMember
+        {
             lblCreatGroup.text = "Add Member"
             btnNext.setTitle("Add", for: .normal)
         }
+        
         btnNext.layer.cornerRadius = 5.0
         btnNext.isEnabled = false
         btnNext.backgroundColor = UIColor(red: 104/255.0, green: 162/255.0, blue: 254/255.0, alpha: 1)
@@ -72,6 +76,7 @@ public class GroupContVC: UIViewController {
     }
     
     public override func viewWillAppear(_ animated: Bool) {
+        
         bundle = Bundle(for: GroupContVC.self)
         
         ProgressHUD.show()
@@ -82,12 +87,15 @@ public class GroupContVC: UIViewController {
         ], from: false)
     }
     
-    func getUserListRes(_ contactList : ContactList) {
+    func getUserListRes(_ contactList : ContactList)
+    {
         self.contactList = contactList
         self.arrAllContactList = contactList.list
         
-        for i in 0 ..< (arrAllContactList!.count) {
-            if (arrAllContactList![i].userId)! == SocketChatManager.sharedInstance.myUserId {
+        for i in 0 ..< (arrAllContactList!.count)
+        {
+            if (arrAllContactList![i].userId)! == SocketChatManager.sharedInstance.myUserId
+            {
                 self.myContactDetail = arrAllContactList![i]
                 arrAllContactList?.remove(at: i)
                 self.contactList?.list?.remove(at: i)
@@ -95,10 +103,14 @@ public class GroupContVC: UIViewController {
             }
         }
         
-        if isAddMember {
-            for i in 0 ..< (arrUserIds.count) {
-                for j in 0 ..< (arrAllContactList!.count) {
-                    if (arrAllContactList![j].userId)! == arrUserIds[i] {
+        if isAddMember
+        {
+            for i in 0 ..< (arrUserIds.count)
+            {
+                for j in 0 ..< (arrAllContactList!.count)
+                {
+                    if (arrAllContactList![j].userId)! == arrUserIds[i]
+                    {
                         arrAllContactList?.remove(at: j)
                         self.contactList?.list?.remove(at: j)
                         break
@@ -118,8 +130,11 @@ public class GroupContVC: UIViewController {
     }
     
     @IBAction func btnNextTap(_ sender: UIButton) {
-        if isAddMember {
-            for i in 0 ..< (arrSelectedContactList?.count ?? 0) {
+        
+        if isAddMember
+        {
+            for i in 0 ..< (arrSelectedContactList?.count ?? 0)
+            {
                 arrUserIds.append(arrSelectedContactList![i].userId ?? "")
                 let contectDetail = ["userId" : arrSelectedContactList![i].userId ?? "",
                                      "serverUserId" : arrSelectedContactList![i].serverUserId ?? "",
@@ -129,6 +144,7 @@ public class GroupContVC: UIViewController {
                                      "groups" : arrSelectedContactList![i].groups ?? []] as [String : Any]
                 arrSelectedUser.append(contectDetail)
             }
+            
             let param = [
                 "secretKey": SocketChatManager.sharedInstance.secretKey,
                 "groupId": groupId ?? "",
@@ -140,7 +156,9 @@ public class GroupContVC: UIViewController {
             
             ProgressHUD.show()
             SocketChatManager.sharedInstance.addMember(param: param)
-        } else {
+        }
+        else
+        {
             let vc =  CreateGrpVC()
             vc.arrSelectedContactList = self.arrSelectedContactList
             vc.myContactDetail = self.myContactDetail
@@ -148,11 +166,16 @@ public class GroupContVC: UIViewController {
         }
     }
     
-    func addMemberRes(_ isSuccess : Bool) {
+    func addMemberRes(_ isSuccess : Bool)
+    {
         ProgressHUD.dismiss()
-        if isSuccess {
+        
+        if isSuccess
+        {
             self.navigationController?.popViewController(animated: true)
-        } else {
+        }
+        else
+        {
             print("Fail to add member.")
         }
     }

@@ -23,10 +23,14 @@ class OwnFileBubbleCell: UITableViewCell {
         self.viewMsg.layer.cornerRadius = 5
     }
 
-    func configure(_ msgType : String,_ fileName : String,_ showLoader: Bool) {
-        if !showLoader {
+    func configure(_ msgType : String,_ fileName : String,_ showLoader: Bool)
+    {
+        if !showLoader
+        {
             activityIndicatorView.stopAnimating()
-        } else {
+        }
+        else
+        {
             activityIndicatorView.frame = CGRect(x: 60, y: 1, width: 40, height: 40)
             activityIndicatorView.color = .white
             viewMsg.addSubview(activityIndicatorView)

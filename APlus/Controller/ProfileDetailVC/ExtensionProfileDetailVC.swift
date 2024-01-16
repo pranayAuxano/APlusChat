@@ -50,14 +50,17 @@ extension ProfDetailVC : UIImagePickerControllerDelegate, UINavigationController
             }
             
             var isImgLoad : Bool = false
-            if !isCameraOpen {
+            if !isCameraOpen
+            {
                 let photo = info[.phAsset] as? PHAsset
                 imgFileName = photo?.value(forKey: "filename") as? String ?? ""
                 imgFileName = imgFileName == "" ? (URL(string: "\(info[.imageURL]!)")?.lastPathComponent)! : imgFileName
                 print(imgFileName)
                 mimeType = imgFileName.mimeType()
                 isImgLoad = true
-            } else {
+            }
+            else
+            {
                 guard let image = info[.editedImage] as? UIImage else {
                     print("No image found")
                     return
@@ -69,16 +72,21 @@ extension ProfDetailVC : UIImagePickerControllerDelegate, UINavigationController
                 mimeType = fileUrl.mimeType()
                 //guard let data = image.jpegData(compressionQuality: 1) else { return }
                 guard let data = image.pngData() else { return }
+                
                 do {
                     try data.write(to: fileUrl)
                     isImgLoad = true
-                } catch let error {
+                }
+                catch let error
+                {
                     print("error saving file with error --", error)
                 }
+                
                 isCameraOpen = false
             }
             
-            if isImgLoad {
+            if isImgLoad
+            {
                 imgProfile.contentMode = .scaleAspectFill
                 imgProfile.image = pickedImage
                 profileImgDelegate?.setProfileImg(image: imgProfile.image!)
@@ -87,15 +95,18 @@ extension ProfDetailVC : UIImagePickerControllerDelegate, UINavigationController
         }
     }
     
-    public func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+    public func imagePickerControllerDidCancel(_ picker: UIImagePickerController)
+    {
         isCameraOpen = false
         self.dismiss(animated: true) {
         }
     }
 }
 
-extension ProfDetailVC : UITextFieldDelegate {
-    public func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+extension ProfDetailVC : UITextFieldDelegate
+{
+    public func textFieldShouldReturn(_ textField: UITextField) -> Bool
+    {
         textField.resignFirstResponder() // dismiss keyboard
         return true
     }

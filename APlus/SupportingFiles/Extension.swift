@@ -8,15 +8,18 @@
 import Foundation
 import UIKit
 
-extension UIView {
-   func roundCorners(corners: UIRectCorner, radius: CGFloat) {
+extension UIView
+{
+   func roundCorners(corners: UIRectCorner, radius: CGFloat)
+    {
         let path = UIBezierPath(roundedRect: bounds, byRoundingCorners: corners, cornerRadii: CGSize(width: radius, height: radius))
         let mask = CAShapeLayer()
         mask.path = path.cgPath
         layer.mask = mask
     }
     
-    func dropShadow(scale: Bool = true) {
+    func dropShadow(scale: Bool = true)
+    {
         layer.masksToBounds = false
         layer.shadowColor = Colors.shadow.returnColor().cgColor
         layer.shadowOpacity = 0.7
@@ -27,8 +30,10 @@ extension UIView {
     }
 }
 
-extension Date {
-    func toCurrentTimezone() -> Date {
+extension Date
+{
+    func toCurrentTimezone() -> Date
+    {
         let timeZoneDifference =
         TimeInterval(TimeZone.current.secondsFromGMT())
         //TimeInterval(TimeZone.current.identifier)
@@ -37,19 +42,25 @@ extension Date {
    }
 }
 
-extension Data {
+extension Data
+{
     var bytes: [UInt8] {
         return [UInt8](self)
     }
 }
 
-extension UIColor {
-    convenience init(hexString: String, alpha: CGFloat = 1.0) {
+extension UIColor
+{
+    convenience init(hexString: String, alpha: CGFloat = 1.0)
+    {
         let hexString: String = hexString.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
         let scanner = Scanner(string: hexString)
-        if (hexString.hasPrefix("#")) {
+        
+        if (hexString.hasPrefix("#"))
+        {
             scanner.scanLocation = 1
         }
+        
         var color: UInt32 = 0
         scanner.scanHexInt32(&color)
         let mask = 0x000000FF
@@ -62,7 +73,8 @@ extension UIColor {
         self.init(red:red, green:green, blue:blue, alpha:alpha)
     }
     
-    func toHexString() -> String {
+    func toHexString() -> String
+    {
         var r:CGFloat = 0
         var g:CGFloat = 0
         var b:CGFloat = 0
@@ -73,8 +85,8 @@ extension UIColor {
     }
 }
 
-extension UIView {
-    
+extension UIView
+{
     // ->1
     enum Direction: Int {
         case topToBottom = 0
@@ -85,7 +97,8 @@ extension UIView {
     
     func startShimmeringAnimation(animationSpeed: Float = 1.4,
                                   direction: Direction = .leftToRight,
-                                  repeatCount: Float = MAXFLOAT) {
+                                  repeatCount: Float = MAXFLOAT)
+    {
         
         // Create color  ->2
         //let lightColor = UIColor(displayP3Red: 1.0, green: 1.0, blue: 1.0, alpha: 0.0005).cgColor
@@ -142,7 +155,8 @@ extension UIView {
         CATransaction.commit()
     }
     
-    func stopShimmeringAnimation() {
+    func stopShimmeringAnimation()
+    {
         self.backgroundColor = .white
         self.layer.mask = nil
     }

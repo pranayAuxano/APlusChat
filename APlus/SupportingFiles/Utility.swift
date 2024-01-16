@@ -8,10 +8,11 @@
 
 import UIKit
 
-class Utility {
-    
+class Utility
+{
     //convert array into string
-    class func json(from object:Any) -> String? {
+    class func json(from object:Any) -> String?
+    {
         guard let data = try? JSONSerialization.data(withJSONObject: object, options: []) else {
             return nil
         }
@@ -114,7 +115,8 @@ class Utility {
         return formatter.string(from: Date())
     }
     
-    class func convertTimestamptoLastMsgDateTimeString(timestamp: String) -> String {
+    class func convertTimestamptoLastMsgDateTimeString(timestamp: String) -> String
+    {
         let date = Date(timeIntervalSince1970: Double(timestamp)!)
         let dateFormatter = DateFormatter()
         //dateFormatter.timeZone = TimeZone(abbreviation: "UTC") //Set timezone that you want
@@ -124,28 +126,36 @@ class Utility {
         let msgDate : String = dateFormatter.string(from: date)
         let todayDate : String = dateFormatter.string(from: Date())
         
-        if msgDate == todayDate {
+        if msgDate == todayDate
+        {
             dateFormatter.dateFormat = "h:mm a"
             return dateFormatter.string(from: date)
-        } else {
+        }
+        else
+        {
             return checkMsgTimeDate(msgDate: msgDate)
         }
     }
     
-    class func checkMsgTimeDate(msgDate : String) -> String {
+    class func checkMsgTimeDate(msgDate : String) -> String
+    {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "dd-MM-yyyy"
         let yesterdayDate : String = dateFormatter.string(from: Calendar.current.date(byAdding: .day, value: -1, to: Date())!)
         
-        if yesterdayDate == msgDate {
+        if yesterdayDate == msgDate
+        {
             return "Yesterday"
-        } else {
+        }
+        else
+        {
             dateFormatter.dateFormat = "d/M/yy"
             return dateFormatter.string(from: dateFormatter.date(from: msgDate)!)
         }
     }
     
-    class func convertTimestamptoTimeString(timestamp: String) -> String {
+    class func convertTimestamptoTimeString(timestamp: String) -> String
+    {
         let date = Date(timeIntervalSince1970: Double(timestamp)!)
         let dateFormatter = DateFormatter()
         //dateFormatter.timeZone = TimeZone(abbreviation: "UTC") //Set timezone that you want
@@ -156,7 +166,8 @@ class Utility {
         return dateFormatter.string(from: date)
     }
     
-    class func convertTimestamptoDateString(timestamp: Int) -> String {
+    class func convertTimestamptoDateString(timestamp: Int) -> String
+    {
         //let date = Date(timeIntervalSince1970: Double(timestamp)!)
         let date = Date(timeIntervalSince1970: TimeInterval(timestamp))
         let dateFormatter = DateFormatter()
@@ -169,12 +180,14 @@ class Utility {
         return msgDate  //dateFormatter.string(from: date)
     }
     
-    class func convertImageToBase64(image: UIImage) -> String {
+    class func convertImageToBase64(image: UIImage) -> String
+    {
         let imageData = image.pngData()!
         return imageData.base64EncodedString(options: Data.Base64EncodingOptions.lineLength64Characters)
     }
     
-    class func convertBase64ToImage(imageString: String) -> UIImage {
+    class func convertBase64ToImage(imageString: String) -> UIImage
+    {
         let imageData = Data(base64Encoded: imageString,
                              options: Data.Base64DecodingOptions.ignoreUnknownCharacters)!
         return UIImage(data: imageData)!

@@ -648,8 +648,8 @@
 		129197C228F6FAAB000AD9D4 /* OwnAudioBubbleCell */ = {
 			isa = PBXGroup;
 			children = (
-				129197C328F6FAAB000AD9D4 /* OwnAudioBubbleCell.swift */,
 				129197C428F6FAAB000AD9D4 /* OwnAudioBubbleCell.xib */,
+				129197C328F6FAAB000AD9D4 /* OwnAudioBubbleCell.swift */,
 			);
 			path = OwnAudioBubbleCell;
 			sourceTree = "<group>";
@@ -687,8 +687,8 @@
 		129197CC28F6FAAB000AD9D4 /* OtherChatBubbleCell */ = {
 			isa = PBXGroup;
 			children = (
-				129197CD28F6FAAB000AD9D4 /* OtherChatBubbleCell.swift */,
 				129197CE28F6FAAB000AD9D4 /* OtherChatBubbleCell.xib */,
+				129197CD28F6FAAB000AD9D4 /* OtherChatBubbleCell.swift */,
 			);
 			path = OtherChatBubbleCell;
 			sourceTree = "<group>";
@@ -696,8 +696,8 @@
 		129197CF28F6FAAB000AD9D4 /* OtherAudioBubbleCell */ = {
 			isa = PBXGroup;
 			children = (
-				129197D028F6FAAB000AD9D4 /* OtherAudioBubbleCell.swift */,
 				129197D128F6FAAB000AD9D4 /* OtherAudioBubbleCell.xib */,
+				129197D028F6FAAB000AD9D4 /* OtherAudioBubbleCell.swift */,
 			);
 			path = OtherAudioBubbleCell;
 			sourceTree = "<group>";
@@ -715,8 +715,8 @@
 			isa = PBXGroup;
 			children = (
 				129197D728F6FAAB000AD9D4 /* ParticipantsTVCell */,
-				129197D628F6FAAB000AD9D4 /* ContactTVCell.swift */,
 				129197DA28F6FAAB000AD9D4 /* ContactTVCell.xib */,
+				129197D628F6FAAB000AD9D4 /* ContactTVCell.swift */,
 			);
 			path = ContactTVCell;
 			sourceTree = "<group>";
@@ -1076,8 +1076,8 @@
 		FA61E3782A581801005D963B /* ForwardMsgGrpListVC */ = {
 			isa = PBXGroup;
 			children = (
-				FA61E3742A5817F7005D963B /* ForwardMsgGrpListVC.swift */,
 				FA61E3752A5817F7005D963B /* ForwardMsgGrpListVC.xib */,
+				FA61E3742A5817F7005D963B /* ForwardMsgGrpListVC.swift */,
 			);
 			path = ForwardMsgGrpListVC;
 			sourceTree = "<group>";
@@ -1095,8 +1095,8 @@
 		FA9817E929BA1A18007C59AB /* OwnReplyTVCell */ = {
 			isa = PBXGroup;
 			children = (
-				FA9817E229BA19F8007C59AB /* OwnReplyTVCell.swift */,
 				FA9817E129BA19F8007C59AB /* OwnReplyTVCell.xib */,
+				FA9817E229BA19F8007C59AB /* OwnReplyTVCell.swift */,
 			);
 			path = OwnReplyTVCell;
 			sourceTree = "<group>";
@@ -1104,8 +1104,8 @@
 		FA9817EA29BA1A25007C59AB /* OtherReplyTVCell */ = {
 			isa = PBXGroup;
 			children = (
-				FA9817E529BA1A0F007C59AB /* OtherReplyTVCell.swift */,
 				FA9817E629BA1A0F007C59AB /* OtherReplyTVCell.xib */,
+				FA9817E529BA1A0F007C59AB /* OtherReplyTVCell.swift */,
 			);
 			path = OtherReplyTVCell;
 			sourceTree = "<group>";

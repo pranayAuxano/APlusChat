@@ -30,15 +30,18 @@ public class ContListVC: UIViewController {
     var arrRecentChatGroupList : [GetGroupList]? = []
     var bundle = Bundle()
     
-    public init() {
+    public init()
+    {
         super.init(nibName: "ContactList", bundle: Bundle(for: ContListVC.self))
     }
     
-    required init?(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder)
+    {
         fatalError("init(coder:) has not been implemented FirstViewController")
     }
     
     public override func viewDidLoad() {
+        
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         
@@ -59,6 +62,7 @@ public class ContListVC: UIViewController {
     }
     
     public override func viewWillAppear(_ animated: Bool) {
+        
         bundle = Bundle(for: ContListVC.self)
         
         ProgressHUD.show()
@@ -72,12 +76,15 @@ public class ContListVC: UIViewController {
         self.navigationController?.popViewController(animated: true)
     }
     
-    func getUserListRes(_ contactList : ContactList) {
+    func getUserListRes(_ contactList : ContactList)
+    {
         self.contactList = contactList
         self.arrAllContactList = contactList.list
         
-        for i in 0 ..< (arrAllContactList!.count) {
-            if (arrAllContactList![i].userId)! == SocketChatManager.sharedInstance.myUserId {
+        for i in 0 ..< (arrAllContactList!.count)
+        {
+            if (arrAllContactList![i].userId)! == SocketChatManager.sharedInstance.myUserId
+            {
                 self.myContactDetail = arrAllContactList![i]
                 arrAllContactList?.remove(at: i)
                 self.contactList?.list?.remove(at: i)
@@ -91,12 +98,14 @@ public class ContListVC: UIViewController {
 }
 
 
-extension ContListVC : UITableViewDelegate, UITableViewDataSource {
+extension ContListVC : UITableViewDelegate, UITableViewDataSource
+{
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return arrContactList?.count ?? 0
     }
     
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
         let cell = tableView.dequeueReusableCell(withIdentifier: "ContactTVCell", for: indexPath) as! ContactTVCell
         cell.imgContactImg.layer.cornerRadius = cell.imgContactImg.frame.height / 2
         cell.lblSeparator.backgroundColor = .gray.withAlphaComponent(0.5)
@@ -118,10 +127,14 @@ extension ContListVC : UITableViewDelegate, UITableViewDataSource {
         self.createOneToOneChat(selectUserId: self.arrContactList![indexPath.row].userId ?? "")
     }
     
-    func createOneToOneChat(selectUserId : String) {
+    func createOneToOneChat(selectUserId : String)
+    {
         var isPrevious : Bool = false
-        for i in 0 ..< (arrRecentChatGroupList?.count ?? 0) {
-            if !(arrRecentChatGroupList![i].isGroup ?? false) && (selectUserId == arrRecentChatGroupList![i].opponentUserId) {
+        
+        for i in 0 ..< (arrRecentChatGroupList?.count ?? 0)
+        {
+            if !(arrRecentChatGroupList![i].isGroup ?? false) && (selectUserId == arrRecentChatGroupList![i].opponentUserId)
+            {
                 let vc = ChatVC()
                 vc.isHideUserDetailView = false
                 vc.isGroup = self.arrRecentChatGroupList?[i].isGroup ?? false
@@ -132,14 +145,19 @@ extension ContListVC : UITableViewDelegate, UITableViewDataSource {
                 isPrevious = true
                 break
             }
-            if isPrevious {
+            
+            if isPrevious
+            {
                 break
             }
         }
         
-        if !isPrevious {
+        if !isPrevious
+        {
             arrSelectedContact?.append(myContactDetail!)
-            for i in 0 ..< (arrSelectedContact?.count ?? 0) {
+            
+            for i in 0 ..< (arrSelectedContact?.count ?? 0)
+            {
                 arrUserIds.append(arrSelectedContact![i].userId ?? "")
                 let readCount = ["unreadCount": 0, "userId": arrSelectedContact![i].userId ?? ""] as [String : Any]
                 arrReadCount.append(readCount)
@@ -151,6 +169,7 @@ extension ContListVC : UITableViewDelegate, UITableViewDataSource {
                                      "groups" : arrSelectedContact![i].groups ?? []] as [String : Any]
                 arrSelectedUser.append(contectDetail)
             }
+            
             let param = [
                 "secretKey": SocketChatManager.sharedInstance.secretKey,
                 "isGroup": false,
@@ -175,14 +194,19 @@ extension ContListVC : UITableViewDelegate, UITableViewDataSource {
     }
 }
 
-extension ContListVC : UISearchBarDelegate {
-    public func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+extension ContListVC : UISearchBarDelegate
+{
+    public func searchBarSearchButtonClicked(_ searchBar: UISearchBar)
+    {
         searchBar.resignFirstResponder()
     }
     
-    public func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+    public func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String)
+    {
         self.arrContactList = self.arrAllContactList
-        if searchText != "" {
+        
+        if searchText != ""
+        {
             self.arrContactList = self.arrAllContactList?.filter{
                 ($0.name!.lowercased()).contains(searchText.lowercased())
             }
@@ -191,7 +215,8 @@ extension ContListVC : UISearchBarDelegate {
         self.tblContact.reloadData()
     }
     
-    public func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+    public func searchBarCancelButtonClicked(_ searchBar: UISearchBar)
+    {
         searchBar.resignFirstResponder()
         self.arrContactList = self.arrAllContactList
         self.searchBar.text = ""

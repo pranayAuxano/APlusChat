@@ -35,27 +35,36 @@ class ParticipantsTVCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
-    func configure(_ image : String) {
+    func configure(_ image : String)
+    {
         imgProfile.image = UIImage(named: "placeholder-profile-img.png", in: self.bundle, compatibleWith: nil)
-        if image != "" {
+        
+        if image != ""
+        {
             var imageURL: URL?
             imageURL = URL(string: image)!
             
             // retrieves image if already available in cache
-            if let imageFromCache = imageCache.object(forKey: imageURL as AnyObject) as? UIImage {
+            if let imageFromCache = imageCache.object(forKey: imageURL as AnyObject) as? UIImage
+            {
                 self.imgProfile.image = imageFromCache
                 return
             }
+            
             imageRequest = NetworkManager.sharedInstance.getData(from: URL(string: image)!) { data, resp, err in
                 guard let data = data, err == nil else {
                     print("Error in download from url")
                     return
                 }
+                
                 DispatchQueue.main.async {
-                    if let imageToCache = UIImage(data: data) {
+                    if let imageToCache = UIImage(data: data)
+                    {
                         self.imgProfile.image = imageToCache
                         imageCache.setObject(imageToCache, forKey: imageURL as AnyObject)
-                    } else {
+                    }
+                    else
+                    {
                         self.imgProfile.image = UIImage(named: "placeholder-profile-img.png", in: self.bundle, compatibleWith: nil)
                     }
                 }
@@ -63,7 +72,8 @@ class ParticipantsTVCell: UITableViewCell {
         }
     }
     
-    @IBAction func btnRemoveTap(_ sender: UIButton) {
+    @IBAction func btnRemoveTap(_ sender: UIButton)
+    {
         self.contectInfoVC?().removeUserTap(strUserId)
     }
     

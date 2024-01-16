@@ -30,11 +30,13 @@ class ForwardMsgGrpListVC: UIViewController {
     
     var bundle = Bundle()
     
-    public init() {
+    public init()
+    {
         super.init(nibName: "ForwardMsgGrpListVC", bundle: Bundle(for: ForwardMsgGrpListVC.self))
     }
     
-    required init?(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder)
+    {
         fatalError("init(coder:) has not been implemented ForwardMsgGrpListVC")
     }
     
@@ -79,10 +81,14 @@ class ForwardMsgGrpListVC: UIViewController {
     }
     
     @IBAction func btnSendTap(_ sender: UIButton) {
-        if arrSelectedGrpList.count > 0 {
+        
+        if arrSelectedGrpList.count > 0
+        {
             var arrMsg: [Any] = []
             arrMsg.removeAll()
-            for i in 0 ..< arrSelectedMsg.count {
+            
+            for i in 0 ..< arrSelectedMsg.count
+            {
                 let msg: [String: Any] = [
                    "contentType": arrSelectedMsg[i].contentType ?? "",
                    "fileName": arrSelectedMsg[i].fileName ?? "",
@@ -109,7 +115,9 @@ class ForwardMsgGrpListVC: UIViewController {
                 SocketChatManager.sharedInstance.socket?.off("get-group-list-res")
                 self.navigationController?.popViewController(animated: true)
             }
-        } else {
+        }
+        else
+        {
             let toastMsg = ToastUtility.Builder(message: "Please select Group to forward.", controller: self, keyboardActive: false)
             toastMsg.setColor(background: .red, text: .black)
             toastMsg.show()
@@ -117,15 +125,18 @@ class ForwardMsgGrpListVC: UIViewController {
     }
 }
 
-extension ForwardMsgGrpListVC: UITableViewDelegate, UITableViewDataSource, SelectContactDelegate {
-    
+extension ForwardMsgGrpListVC: UITableViewDelegate, UITableViewDataSource, SelectContactDelegate
+{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return (self.isGetChatResponse) ? (self.arrRecentChatGroupList?.count ?? 0) : 10
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
         var cell = tableView.dequeueReusableCell(withIdentifier: "GrpContactTVCell", for: indexPath) as! GrpContactTVCell
-        if self.isGetChatResponse {
+        
+        if self.isGetChatResponse
+        {
             cell.view.stopShimmeringAnimation()
             cell.btnSelectContact.isHidden = false
             cell.imgContact.isHidden = false
@@ -139,7 +150,9 @@ extension ForwardMsgGrpListVC: UITableViewDelegate, UITableViewDataSource, Selec
             cell.lblName.text = self.arrRecentChatGroupList![indexPath.row].groupName ?? ""
             cell.configure(self.arrRecentChatGroupList![indexPath.row].imagePath ?? "", isGroup: self.arrRecentChatGroupList?[indexPath.row].isGroup ?? false)
             cell.btnSelectContact.isSelected = arrRecentChatGroupList?[indexPath.row].isSelected ?? false
-        } else {
+        }
+        else
+        {
             cell.view.backgroundColor = .white
             cell.view.startShimmeringAnimation(animationSpeed: 3.0, direction: .leftToRight)
             cell.btnSelectContact.isHidden = true
@@ -156,36 +169,47 @@ extension ForwardMsgGrpListVC: UITableViewDelegate, UITableViewDataSource, Selec
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let cell = tableView.cellForRow(at: indexPath) as? GrpContactTVCell else { return }
         
-        if cell.btnSelectContact.isSelected {
-            for i in 0 ..< arrSelectedGrpList.count {
-                if arrSelectedGrpList[i] == (arrRecentChatGroupList?[indexPath.row].groupId ?? "") {
+        if cell.btnSelectContact.isSelected
+        {
+            for i in 0 ..< arrSelectedGrpList.count
+            {
+                if arrSelectedGrpList[i] == (arrRecentChatGroupList?[indexPath.row].groupId ?? "")
+                {
                     arrRecentChatGroupList?[indexPath.row].isSelected = false
                     arrSelectedGrpList.remove(at: i)
                     cell.btnSelectContact.isSelected = false
                     break
                 }
             }
-        } else {
+        }
+        else
+        {
             arrRecentChatGroupList?[indexPath.row].isSelected = true
             arrSelectedGrpList.append(arrRecentChatGroupList?[indexPath.row].groupId ?? "")
             cell.btnSelectContact.isSelected = true
         }
     }
     
-    func selectContact(sender: UIButton) {
+    func selectContact(sender: UIButton)
+    {
         let indexPath = IndexPath(row: sender.tag, section: 0)
         guard let cell = self.tblForwardToGrp.cellForRow(at: indexPath) as? GrpContactTVCell else { return }
 
-        if cell.btnSelectContact.isSelected {
-            for i in 0 ..< arrSelectedGrpList.count {
-                if arrSelectedGrpList[i] == (arrRecentChatGroupList?[indexPath.row].groupId ?? "") {
+        if cell.btnSelectContact.isSelected
+        {
+            for i in 0 ..< arrSelectedGrpList.count
+            {
+                if arrSelectedGrpList[i] == (arrRecentChatGroupList?[indexPath.row].groupId ?? "")
+                {
                     arrRecentChatGroupList?[indexPath.row].isSelected = false
                     arrSelectedGrpList.remove(at: i)
                     cell.btnSelectContact.isSelected = false
                     break
                 }
             }
-        } else {
+        }
+        else
+        {
             arrRecentChatGroupList?[indexPath.row].isSelected = true
             arrSelectedGrpList.append(arrRecentChatGroupList?[indexPath.row].groupId ?? "")
             cell.btnSelectContact.isSelected = true
@@ -193,11 +217,13 @@ extension ForwardMsgGrpListVC: UITableViewDelegate, UITableViewDataSource, Selec
     }
 }
 
-extension ForwardMsgGrpListVC: SocketDelegate {
+extension ForwardMsgGrpListVC: SocketDelegate
+{
     func msgReceived(message: Message) {}
     func getRecentUser(message: String) {}
     
-    func recentChatGroupList(groupList: [GetGroupList]) {
+    func recentChatGroupList(groupList: [GetGroupList])
+    {
         self.arrAllRecentChatGroupList = groupList
         self.arrRecentChatGroupList = self.arrAllRecentChatGroupList
         self.tblForwardToGrp.isScrollEnabled = true
@@ -208,15 +234,19 @@ extension ForwardMsgGrpListVC: SocketDelegate {
     func getPreviousChatMsg(message: String) {}
 }
 
-extension ForwardMsgGrpListVC : UISearchBarDelegate {
-    
-    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+extension ForwardMsgGrpListVC : UISearchBarDelegate
+{
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar)
+    {
         searchBar.resignFirstResponder()
     }
     
-    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String)
+    {
         self.arrRecentChatGroupList = self.arrAllRecentChatGroupList
-        if searchText != "" {
+        
+        if searchText != ""
+        {
             self.arrRecentChatGroupList = self.arrRecentChatGroupList?.filter{
                 ($0.groupName!.lowercased()).contains(searchText.lowercased())
             }
@@ -224,7 +254,8 @@ extension ForwardMsgGrpListVC : UISearchBarDelegate {
         self.tblForwardToGrp.reloadData()
     }
     
-    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar)
+    {
         searchBar.resignFirstResponder()
         self.arrRecentChatGroupList = self.arrAllRecentChatGroupList
         self.searchBar.text = ""

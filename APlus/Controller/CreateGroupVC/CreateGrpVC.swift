@@ -33,11 +33,13 @@ public class CreateGrpVC: UIViewController {
     var mimeType : String = ""
     var isPictureSelect : Bool = false
     
-    public init() {
+    public init()
+    {
         super.init(nibName: "CreateGrpVC", bundle: Bundle(for: CreateGrpVC.self))
     }
     
-    required init?(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder)
+    {
         fatalError("init(coder:) has not been implemented ImageViewerVC")
     }
     
@@ -60,7 +62,8 @@ public class CreateGrpVC: UIViewController {
         
         arrSelectedContactList?.append(myContactDetail!)
         
-        for i in 0 ..< (arrSelectedContactList?.count ?? 0) {
+        for i in 0 ..< (arrSelectedContactList?.count ?? 0)
+        {
             arrUserIds.append(arrSelectedContactList![i].userId ?? "")
             let readCount = ["unreadCount": 0, "userId": arrSelectedContactList![i].userId ?? ""] as [String : Any]
             arrReadCount.append(readCount)
@@ -78,7 +81,8 @@ public class CreateGrpVC: UIViewController {
         self.navigationController?.popViewController(animated: true)
     }
     
-    @IBAction func btnGroupImgTap(_ sender: UIButton) {
+    @IBAction func btnGroupImgTap(_ sender: UIButton)
+    {
         imagePicker.delegate = self
         imagePicker.allowsEditing = true
         self.openGallary()
@@ -96,7 +100,9 @@ public class CreateGrpVC: UIViewController {
     }
     
     @IBAction func btnCreateGroupTap(_ sender: UIButton) {
-        if !Validations.isEmpty(str: txtGroupName.text!) {
+        
+        if !Validations.isEmpty(str: txtGroupName.text!)
+        {
             let param = [
                 "secretKey": SocketChatManager.sharedInstance.secretKey,
                 "isGroup": true,
@@ -117,7 +123,9 @@ public class CreateGrpVC: UIViewController {
             ] as [String : Any]
             
             ProgressHUD.show()
-            if isPictureSelect {
+            
+            if isPictureSelect
+            {
                 NetworkManager.sharedInstance.uploadImage(dictiParam: dictiParam, image: imgGroup.image!, type: "image", contentType: "")
                 { strDisPic in
                     self.createGroup(param: param, strDisPic: strDisPic)
@@ -127,10 +135,14 @@ public class CreateGrpVC: UIViewController {
                     toastMsg.setColor(background: .red, text: .black)
                     toastMsg.show()
                 }
-            } else {
+            }
+            else
+            {
                 self.createGroup(param: param, strDisPic: "")
             }
-        } else {
+        }
+        else
+        {
             let alertWarning = UIAlertController(title: "", message: "Please enter group name.", preferredStyle: .alert)
             alertWarning.addAction(UIAlertAction(title: "OK", style: .cancel, handler: { alert in
             }))
@@ -138,16 +150,21 @@ public class CreateGrpVC: UIViewController {
         }
     }
     
-    func createGroup(param: [String : Any], strDisPic: String) {
+    func createGroup(param: [String : Any], strDisPic: String)
+    {
         var param1 = param
         param1["groupImage"] = strDisPic
+        
         NetworkManager.sharedInstance.createGroup(param: param1) { strId in
             ProgressHUD.dismiss()
             DispatchQueue.main.async {
                 // Assuming you have a reference to the navigation controller
-                if let viewControllers = self.navigationController?.viewControllers {
-                    for viewController in viewControllers {
-                        if viewController is FirstVC {
+                if let viewControllers = self.navigationController?.viewControllers
+                {
+                    for viewController in viewControllers
+                    {
+                        if viewController is FirstVC
+                        {
                             self.navigationController?.popToViewController(viewController, animated: true)
                             break
                         }
@@ -163,23 +180,30 @@ public class CreateGrpVC: UIViewController {
     }
 }
 
-extension CreateGrpVC : UITextFieldDelegate {
-    public func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+extension CreateGrpVC : UITextFieldDelegate
+{
+    public func textFieldShouldReturn(_ textField: UITextField) -> Bool
+    {
         textField.resignFirstResponder() // dismiss keyboard
         return true
     }
 }
 
 
-extension CreateGrpVC : UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-    func openCamera() {
-        if UIImagePickerController.isSourceTypeAvailable(.camera){
+extension CreateGrpVC : UIImagePickerControllerDelegate, UINavigationControllerDelegate
+{
+    func openCamera()
+    {
+        if UIImagePickerController.isSourceTypeAvailable(.camera)
+        {
             isCameraOpen = false
             imagePicker.delegate = self
             imagePicker.allowsEditing = false
             imagePicker.sourceType = .camera
             present(imagePicker, animated: true, completion: nil)
-        } else {
+        }
+        else
+        {
             let alertWarning = UIAlertController(title: "", message: "You don't have camera", preferredStyle: .alert)
             alertWarning.addAction(UIAlertAction(title: "OK", style: .cancel, handler: { alert in
             }))
@@ -187,8 +211,10 @@ extension CreateGrpVC : UIImagePickerControllerDelegate, UINavigationControllerD
         }
     }
     
-    func openGallary() {
-        if UIImagePickerController.isSourceTypeAvailable(.photoLibrary){
+    func openGallary()
+    {
+        if UIImagePickerController.isSourceTypeAvailable(.photoLibrary)
+        {
             imagePicker.delegate = self
             imagePicker.allowsEditing = true
             imagePicker.sourceType = .photoLibrary
@@ -197,20 +223,26 @@ extension CreateGrpVC : UIImagePickerControllerDelegate, UINavigationControllerD
         }
     }
     
-    public func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        if let pickedImage = info[UIImagePickerController.InfoKey.editedImage] as? UIImage {
+    public func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any])
+    {
+        if let pickedImage = info[UIImagePickerController.InfoKey.editedImage] as? UIImage
+        {
             self.dismiss(animated: true) {
             }
             
             var isImgLoad : Bool = false
-            if !isCameraOpen {
+            
+            if !isCameraOpen
+            {
                 let photo = info[.phAsset] as? PHAsset
                 imgFileName = photo?.value(forKey: "filename") as? String ?? ""
                 imgFileName = imgFileName == "" ? (URL(string: "\(info[.imageURL]!)")?.lastPathComponent)! : imgFileName
                 print(imgFileName)
                 mimeType = imgFileName.mimeType()
                 isImgLoad = true
-            } else {
+            }
+            else
+            {
                 guard let image = info[.editedImage] as? UIImage else {
                     print("No image found")
                     return
@@ -222,16 +254,20 @@ extension CreateGrpVC : UIImagePickerControllerDelegate, UINavigationControllerD
                 mimeType = fileUrl.mimeType()
                 //guard let data = image.jpegData(compressionQuality: 1) else { return }
                 guard let data = image.pngData() else { return }
+                
                 do {
                     try data.write(to: fileUrl)
                     isImgLoad = true
-                } catch let error {
+                }
+                catch let error
+                {
                     print("error saving file with error --", error)
                 }
                 isCameraOpen = false
             }
             
-            if isImgLoad {
+            if isImgLoad
+            {
                 imgGroup.contentMode = .scaleAspectFill
                 imgGroup.image = pickedImage
                 isPictureSelect = true
@@ -239,7 +275,8 @@ extension CreateGrpVC : UIImagePickerControllerDelegate, UINavigationControllerD
         }
     }
     
-    public func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+    public func imagePickerControllerDidCancel(_ picker: UIImagePickerController)
+    {
         isCameraOpen = false
         self.dismiss(animated: true) {
         }

@@ -32,38 +32,46 @@ class OtherImgChatBubbleCell: UITableViewCell {
         constTopImg.priority = .required
     }
     
-    func configure(_ msgType : String,_ image : String,_ data : String) {
-        if msgType == "video" {
+    func configure(_ msgType : String,_ image : String,_ data : String)
+    {
+        if msgType == "video"
+        {
             img.image = UIImage(named: "default", in: self.bundle, compatibleWith: nil)
             imgVideo.isHidden = false
             imgVideo.image = UIImage(named: "Play", in: self.bundle, compatibleWith: nil)
             img.image = UIImage(contentsOfFile: image)
             self.loadImg(image)
         }
-        else if msgType == "image" {
+        else if msgType == "image"
+        {
             img.image = UIImage(named: "default", in: self.bundle, compatibleWith: nil) //UIImage(named: "default")
             img.image = UIImage(contentsOfFile: image)
             self.loadImg(image)
         }
     }
     
-    func loadImg(_ image : String) {
-        if image != "" {
+    func loadImg(_ image : String)
+    {
+        if image != ""
+        {
             var imageURL: URL?
             imageURL = URL(string: image)!
             
             // retrieves image if already available in cache
-            if let imageFromCache = imageCache.object(forKey: imageURL as AnyObject) as? UIImage {
+            if let imageFromCache = imageCache.object(forKey: imageURL as AnyObject) as? UIImage
+            {
                 self.img.image = imageFromCache
                 return
             }
+            
             imageRequest = NetworkManager.sharedInstance.getData(from: URL(string: image)!) { data, resp, err in
                 guard let data = data, err == nil else {
                     print("Error in download from url")
                     return
                 }
                 DispatchQueue.main.async {
-                    if let imageToCache = UIImage(data: data) {
+                    if let imageToCache = UIImage(data: data)
+                    {
                         self.img.image = imageToCache
                         imageCache.setObject(imageToCache, forKey: imageURL as AnyObject)
                     }

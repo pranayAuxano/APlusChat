@@ -38,7 +38,8 @@ class UserDetailTVCell: UITableViewCell {
         self.lblSeparator.backgroundColor = .clear
     }
     
-    func configure(_ name : String,_ groupImage : String,_ msgType : String, isGroup : Bool) {
+    func configure(_ name : String,_ groupImage : String,_ msgType : String, isGroup : Bool)
+    {
         viewProfileImg.layer.cornerRadius = viewProfileImg.frame.height / 2
         imgProfile.layer.cornerRadius = imgProfile.frame.height / 2
         lblUnreadMsgCount.layer.cornerRadius = lblUnreadMsgCount.frame.height / 2
@@ -49,44 +50,62 @@ class UserDetailTVCell: UITableViewCell {
         viewMsgDetail.backgroundColor = .clear
         
         lblUserName.text = name
-        if msgType == "" {
+        
+        if msgType == ""
+        {
             lblLastMsg.isHidden = false
-        } else if msgType == "text" {
+        }
+        else if msgType == "text"
+        {
             lblLastMsg.isHidden = false
-        } else if msgType == "image" {
+        }
+        else if msgType == "image"
+        {
             viewRecentPhoto.isHidden = false
             imgRecentPhoto.image = UIImage(named: "image", in: self.bundle, compatibleWith: nil)
             lblRecentPhotoVideoFile.text = "Photo"
-        } else if msgType == "audio" {
+        }
+        else if msgType == "audio"
+        {
             viewRecentPhoto.isHidden = false
             imgRecentPhoto.image = UIImage(named: "audio", in: self.bundle, compatibleWith: nil)
             lblRecentPhotoVideoFile.text = "Audio"
-        } else if msgType == "video" {
+        }
+        else if msgType == "video"
+        {
             viewRecentPhoto.isHidden = false
             imgRecentPhoto.image = UIImage(named: "video", in: self.bundle, compatibleWith: nil)
             lblRecentPhotoVideoFile.text = "Video"
-        } else if msgType == "document" {
+        }
+        else if msgType == "document"
+        {
             viewRecentPhoto.isHidden = false
             imgRecentPhoto.image = UIImage(named: "document", in: self.bundle, compatibleWith: nil)
             lblRecentPhotoVideoFile.text = "File"
         }
         
-        if groupImage != "" {
+        if groupImage != ""
+        {
             var imageURL: URL?
             imageURL = URL(string: groupImage)!
             
             // retrieves image if already available in cache
-            if let imageFromCache = imageCache.object(forKey: imageURL as AnyObject) as? UIImage {
+            if let imageFromCache = imageCache.object(forKey: imageURL as AnyObject) as? UIImage
+            {
                 self.imgProfile.image = imageFromCache
                 return
             }
+            
             imageRequest = NetworkManager.sharedInstance.getData(from: imageURL!) { data, resp, err in
                 guard let data = data, err == nil else { return }
                 DispatchQueue.main.async {
-                    if let imageToCache = UIImage(data: data) {
+                    if let imageToCache = UIImage(data: data)
+                    {
                         self.imgProfile.image = imageToCache
                         imageCache.setObject(imageToCache, forKey: imageURL as AnyObject)
-                    } else {
+                    }
+                    else
+                    {
                         self.imgProfile.image = UIImage(named: isGroup ? "group-placeholder.jpg" : "placeholder-profile-img.png", in: self.bundle, compatibleWith: nil)
                     }
                 }

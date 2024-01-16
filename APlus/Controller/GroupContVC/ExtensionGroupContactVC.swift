@@ -9,12 +9,14 @@ import Foundation
 import UIKit
 import CoreAudio
 
-extension GroupContVC : UITableViewDelegate, UITableViewDataSource, SelectContactDelegate {
+extension GroupContVC : UITableViewDelegate, UITableViewDataSource, SelectContactDelegate
+{
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return arrContactList?.count ?? 0
     }
     
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
         let cell = tableView.dequeueReusableCell(withIdentifier: "GrpContactTVCell", for: indexPath) as! GrpContactTVCell
         cell.lblSeparator.backgroundColor = UIColor(red: 255/255.0, green: 255/255.0, blue: 255/255.0, alpha: 0.5)
         cell.selectContactDelegate = self
@@ -27,7 +29,9 @@ extension GroupContVC : UITableViewDelegate, UITableViewDataSource, SelectContac
         cell.btnSelectContact.isSelected = arrContactList?[indexPath.row].isSelected ?? false
         
         let arr = (self.arrSelectedContactList?.filter({ $0.userId == arrContactList?[indexPath.row].userId ?? "" }))!
-        if arr.count > 0 {
+        
+        if arr.count > 0
+        {
             arrContactList?[indexPath.row].isSelected = true
             cell.btnSelectContact.isSelected = true
         }
@@ -41,9 +45,12 @@ extension GroupContVC : UITableViewDelegate, UITableViewDataSource, SelectContac
     public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let cell = tableView.cellForRow(at: indexPath) as? GrpContactTVCell else { return }
         
-        if cell.btnSelectContact.isSelected {
-            for i in 0 ..< (arrSelectedContactList?.count)! {
-                if (arrSelectedContactList?[i].userId)! == (arrContactList?[indexPath.row].userId)! {
+        if cell.btnSelectContact.isSelected
+        {
+            for i in 0 ..< (arrSelectedContactList?.count)!
+            {
+                if (arrSelectedContactList?[i].userId)! == (arrContactList?[indexPath.row].userId)!
+                {
                     arrContactList?[indexPath.row].isSelected = false
                     arrSelectedContactList?.remove(at: i)
                     cell.btnSelectContact.isSelected = false
@@ -51,75 +58,96 @@ extension GroupContVC : UITableViewDelegate, UITableViewDataSource, SelectContac
                 }
             }
             
-            for i in 0 ..< self.addMembersArr.count {
-                if self.addMembersArr[i] == (arrContactList?[indexPath.row].userId ?? "") {
+            for i in 0 ..< self.addMembersArr.count
+            {
+                if self.addMembersArr[i] == (arrContactList?[indexPath.row].userId ?? "")
+                {
                     self.addMembersArr.remove(at: i)
                     break
                 }
             }
-        } else {
+        }
+        else
+        {
             arrContactList?[indexPath.row].isSelected = true
             arrSelectedContactList?.append((arrContactList?[indexPath.row])!)
             cell.btnSelectContact.isSelected = true
             self.addMembersArr.append("\(arrContactList?[indexPath.row].userId ?? "")")
         }
         
-        if (arrSelectedContactList?.count)! > 0 {
+        if (arrSelectedContactList?.count)! > 0
+        {
             btnNext.backgroundColor = UIColor(red: 15/255.0, green: 101/255.0, blue: 158/255.0, alpha: 1)
             btnNext.isEnabled = true
-        } else {
+        }
+        else
+        {
             btnNext.backgroundColor = UIColor(red: 104/255.0, green: 162/255.0, blue: 254/255.0, alpha: 1)
             btnNext.isEnabled = false
         }
     }
     
-    func selectContact(sender: UIButton) {
+    func selectContact(sender: UIButton)
+    {
         let indexPath = IndexPath(row: sender.tag, section: 0)
         guard let cell = self.tblContact.cellForRow(at: indexPath) as? GrpContactTVCell else { return }
         
-        if cell.btnSelectContact.isSelected {
-            for i in 0 ..< (arrSelectedContactList?.count)! {
-                if (arrSelectedContactList?[i].userId)! == (arrContactList?[indexPath.row].userId)! {
+        if cell.btnSelectContact.isSelected
+        {
+            for i in 0 ..< (arrSelectedContactList?.count)!
+            {
+                if (arrSelectedContactList?[i].userId)! == (arrContactList?[indexPath.row].userId)!
+                {
                     arrSelectedContactList?.remove(at: i)
                     cell.btnSelectContact.isSelected = false
                     break
                 }
             }
             
-            for i in 0 ..< self.addMembersArr.count {
-                if self.addMembersArr[i] == (arrContactList?[indexPath.row].userId ?? "") {
+            for i in 0 ..< self.addMembersArr.count
+            {
+                if self.addMembersArr[i] == (arrContactList?[indexPath.row].userId ?? "")
+                {
                     self.addMembersArr.remove(at: i)
                     break
                 }
             }
-        } else {
+        }
+        else
+        {
             arrSelectedContactList?.append((arrContactList?[indexPath.row])!)
             cell.btnSelectContact.isSelected = true
             self.addMembersArr.append("\(arrContactList?[indexPath.row].userId ?? "")")
         }
         
-        if (arrSelectedContactList?.count)! > 0 {
+        if (arrSelectedContactList?.count)! > 0
+        {
             btnNext.backgroundColor = UIColor(red: 15/255.0, green: 101/255.0, blue: 158/255.0, alpha: 1)
             btnNext.isEnabled = true
-        } else {
+        }
+        else
+        {
             btnNext.backgroundColor = UIColor(red: 104/255.0, green: 162/255.0, blue: 254/255.0, alpha: 1)
             btnNext.isEnabled = false
         }
     }
 }
 
-extension GroupContVC : UISearchBarDelegate {
-    
-    public func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+extension GroupContVC : UISearchBarDelegate
+{
+    public func searchBarSearchButtonClicked(_ searchBar: UISearchBar)
+    {
         searchBar.resignFirstResponder()
     }
     
-    public func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+    public func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String)
+    {
         self.arrContactList = self.arrAllContactList?.filter{ ($0.name?.lowercased().prefix(searchText.count))! == searchText.lowercased() }
         self.tblContact.reloadData()
     }
     
-    public func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+    public func searchBarCancelButtonClicked(_ searchBar: UISearchBar)
+    {
         searchBar.resignFirstResponder()
         self.arrContactList = self.arrAllContactList
         self.searchBar.text = ""

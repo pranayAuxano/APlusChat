@@ -37,11 +37,13 @@ public class AudioPlayVC: UIViewController {
     
     @IBOutlet weak var btnPlay: UIButton!
     
-    public init() {
+    public init()
+    {
         super.init(nibName: "AudioPlayVC", bundle: Bundle(for: AudioPlayVC.self))
     }
     
-    required init?(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder)
+    {
         fatalError("init(coder:) has not been implemented AudioPlayVC")
     }
 
@@ -65,23 +67,31 @@ public class AudioPlayVC: UIViewController {
     }
     
     @IBAction func btnPlayTap(_ sender: UIButton) {
-        if sender.tag == 0 {
-            if !btnPlay.isSelected {
+        
+        if sender.tag == 0
+        {
+            if !btnPlay.isSelected
+            {
                 btnPlay.isSelected = true
                 player?.play()
                 timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(getTime), userInfo: nil, repeats: true)
-            } else {
+            }
+            else
+            {
                 btnPlay.isSelected = false
                 player?.pause()
                 timer.invalidate()
             }
-        } else {
+        }
+        else
+        {
             self.player?.stop()
             self.dismiss(animated: true)
         }
     }
     
-    func playSound() {
+    func playSound()
+    {
         let documentsDirectoryURL =  FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
         let destinationUrl = documentsDirectoryURL.appendingPathComponent(filePath!.lastPathComponent)
         
@@ -98,31 +108,40 @@ public class AudioPlayVC: UIViewController {
             min = (Int(duration) % 3600) / 60
             sec = (Int(duration) % 3600) % 60
             lblDuration.text = "\(min):\(sec)"
-            
-        } catch let error {
+        }
+        catch let error
+        {
             print(error.localizedDescription)
         }
     }
     
-    @objc func getTime() {
+    @objc func getTime()
+    {
         time += 1
-        if Float(time) <= Float(duration) {
+        
+        if Float(time) <= Float(duration)
+        {
             audioSlider.setValue(Float(time), animated: true)
             sec -= 1
-            if sec > -1 {
+            
+            if sec > -1
+            {
                 let s = sec < 10 ? "0" : ""
                 lblDuration.text = "\(min):\(s)\(sec)"
-            } else {
+            }
+            else
+            {
                 min -= 1
                 sec = 59
                 lblDuration.text = "\(min):\(sec)"
             }
-        } else {
-            
         }
+        else
+        {   }
     }
     
-    @IBAction func sliderAudio(_ sender: UISlider) {
+    @IBAction func sliderAudio(_ sender: UISlider)
+    {
         print(duration) //  Time in second
         
         //audioSlider.minimumValue = 0.0
@@ -142,5 +161,5 @@ public class AudioPlayVC: UIViewController {
 
 }
 
-extension AudioPlayVC : AVAudioPlayerDelegate {
-}
+extension AudioPlayVC : AVAudioPlayerDelegate
+{   }
