@@ -32,6 +32,9 @@ public class CreateGrpVC: UIViewController {
     var isCameraOpen : Bool = false
     var mimeType : String = ""
     var isPictureSelect : Bool = false
+    var progressHUDMsg: String?
+    
+    var bundle = Bundle()
     
     public init()
     {
@@ -122,7 +125,8 @@ public class CreateGrpVC: UIViewController {
                 "isChat": 0
             ] as [String : Any]
             
-            ProgressHUD.show()
+            //ProgressHUD.show()
+            ProgressHUD.animate(self.progressHUDMsg, .activityIndicator)
             
             if isPictureSelect
             {

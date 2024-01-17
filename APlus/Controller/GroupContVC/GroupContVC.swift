@@ -35,6 +35,7 @@ public class GroupContVC: UIViewController {
     var contectInfoVC : (()->ContactInfoVC)?
     var groupDetail : GroupDetail?
     var addMembersArr: [String] = []
+    var progressHUDMsg: String?
     var bundle = Bundle()
     
     public init()
@@ -79,7 +80,9 @@ public class GroupContVC: UIViewController {
         
         bundle = Bundle(for: GroupContVC.self)
         
-        ProgressHUD.show()
+        //ProgressHUD.show()
+        ProgressHUD.animate(self.progressHUDMsg, .activityIndicator)
+        
         self.addMembersArr.removeAll()
         SocketChatManager.sharedInstance.getUserList(param: [
             "userId" : SocketChatManager.sharedInstance.myUserId,
@@ -154,7 +157,9 @@ public class GroupContVC: UIViewController {
                 "addMembersArr": addMembersArr
             ] as [String : Any]
             
-            ProgressHUD.show()
+            //ProgressHUD.show()
+            ProgressHUD.animate(self.progressHUDMsg, .activityIndicator)
+            
             SocketChatManager.sharedInstance.addMember(param: param)
         }
         else

@@ -1,4 +1,6 @@
-<a href="https://learngpt.art"><img src="https://related.chat/github/header33.png" width="880"></a>
+# ‼️ Is there a reason you haven't starred this repo yet?
+
+Either let me know why, or go ahead and hit that star button now! 😃🌟🙏
 
 ---
 
@@ -6,96 +8,95 @@
 
 ## WHAT'S NEW
 
-### Version: 13.7.2
-
-- The `showFailed` and `showError` methods can now handle `Error?` parameters as well.
-- SF Symbols can be displayed by defining it's name `ProgressHUD.show(symbol: "car.fill")`
-- Fix the `setupDelayTimer` method. Now `[weak self]` is used within the timer's closure to prevent potential retain cycles and avoid memory leaks.
-
-### Version: 13.7.1
-
-- The `mediaSize` and `marginSize` options are now available to adjust the HUD dimensions.
-
-### Version: 13.7.0
-
-- New `AnimationType.none` has been implemented. So you can display some text without animation.
-
-### Version: 13.6.2
-
-- We have the optional `delay:` parameter to set the timeout.
-- We have the `.remove()` function to dismiss the HUD immediately.
-
-### Version: 13.5 and 13.6
-
-- Bugfix related to iPad split screen.
-- Bugfix related to showProgress.
+For detailed changes, please refer to the [Change log](CHANGELOG.md).
 
 ## OVERVIEW
 
-ProgressHUD is a lightweight and easy-to-use HUD for iOS.
+**ProgressHUD** is a convenient and intuitive HUD tool designed specifically for iOS. It enables seamless presentation of concise alerts or notifications to users of your app in a simple and non-disruptive way.
 
 ## INSTALLATION
 
 ### CocoaPods
 
-[CocoaPods](https://cocoapods.org) is a dependency manager for Cocoa projects. For usage and installation instructions, visit their website. To integrate the `ProgressHUD` into your Xcode project using CocoaPods, specify it in your `Podfile`:
+[CocoaPods](https://cocoapods.org) is a dependency manager for Swift and Objective-C Cocoa projects.
+
+To incorporate the **ProgressHUD** library into your Xcode project utilizing CocoaPods, please reference it within your `Podfile` as shown below:
 
 ```ruby
 pod 'ProgressHUD'
 ```
 
+### Swift Package Manager
+
+[Swift Package Manager](https://swift.org/package-manager) is a tool for managing the distribution of Swift code.
+
+To add **ProgressHUD** as a dependency to your project, follow these steps:
+
+1. Open your Swift project in Xcode.
+2. Navigate to `File` -> `Add Package Dependencies...`.
+3. Paste `https://github.com/relatedcode/ProgressHUD.git` into the search bar.
+4. Choose the version you want to use and click `Add Package`.
+
 ### Manually
 
-If you prefer not to use any of the dependency managers, you can integrate `ProgressHUD` into your project manually. Just copy the `ProgressHUD.swift` file in your Xcode project.
+If you prefer not to use any of the dependency managers above, you can integrate **ProgressHUD** into your project manually. Just copy all the `*.swift` files from the `ProgressHUD/Sources` folder into your Xcode project.
 
 ## QUICK START
 
 ```swift
-ProgressHUD.show("Some text...")
+ProgressHUD.banner("Banner title", "Banner message to display.")
 ```
 
 ```swift
-ProgressHUD.show("Some text...", interaction: false)
+ProgressHUD.banner("Banner title", "Message to display.", delay: 2.0)
 ```
 
 ```swift
-ProgressHUD.showSucceed()
+ProgressHUD.bannerHide()
 ```
 
 ```swift
-ProgressHUD.showSucceed("Some text...", delay: 1.5)
+ProgressHUD.animate("Some text...")
 ```
 
 ```swift
-ProgressHUD.showFailed()
+ProgressHUD.animate("Some text...", interaction: false)
 ```
 
 ```swift
-ProgressHUD.showFailed("Some text...")
+ProgressHUD.animate("Please wait...", .ballVerticalBounce)
 ```
 
 ```swift
-ProgressHUD.showProgress(0.15)
+ProgressHUD.succeed()
 ```
 
 ```swift
-ProgressHUD.showProgress("Loading...", 0.42)
+ProgressHUD.succeed("Some text...", delay: 1.5)
 ```
 
 ```swift
-ProgressHUD.show(icon: .heart)
+ProgressHUD.failed()
 ```
 
 ```swift
-ProgressHUD.show("Some text...", icon: .privacy, delay: 2.0)
+ProgressHUD.failed("Some text...")
 ```
 
 ```swift
-ProgressHUD.show(symbol: "box.truck")
+ProgressHUD.progress(0.15)
 ```
 
 ```swift
-ProgressHUD.show("Some text...", symbol: "figure.2.arms.open")
+ProgressHUD.progress("Loading...", 0.42)
+```
+
+```swift
+ProgressHUD.symbol(name: "box.truck")
+```
+
+```swift
+ProgressHUD.symbol("Some text...", name: "sun.max")
 ```
 
 ```swift
@@ -149,60 +150,43 @@ ProgressHUD.fontStatus = .boldSystemFont(ofSize: 24)
 
 ```swift
 ProgressHUD.imageSuccess = UIImage(named: "success.png")
-```
-
-```swift
 ProgressHUD.imageError = UIImage(named: "error.png")
 ```
 
-A comprehensive list of the predefined animation and icon types:
+A comprehensive list of the predefined enums:
 
 ```swift
-public enum AnimationType {
+public enum AnimationType: CaseIterable {
 	case none
-	case systemActivityIndicator
-	case horizontalCirclesPulse
-	case lineScaling
-	case singleCirclePulse
-	case multipleCirclePulse
-	case singleCircleScaleRipple
-	case multipleCircleScaleRipple
-	case circleSpinFade
-	case lineSpinFade
+	case activityIndicator
+	case ballVerticalBounce
+	case barSweepToggle
+	case circleArcDotSpin
+	case circleBarSpinFade
+	case circleDotSpinFade
+	case circlePulseMultiple
+	case circlePulseSingle
+	case circleRippleMultiple
+	case circleRippleSingle
 	case circleRotateChase
 	case circleStrokeSpin
+	case dualDotSidestep
+	case horizontalBarScaling
+	case horizontalDotScaling
+	case pacmanProgress
+	case quintupleDotDance
+	case semiRingRotation
+	case sfSymbolBounce
+	case squareCircuitSnake
+	case triangleDotShift
 }
 ```
 
 ```swift
-public enum AnimatedIcon {
+public enum LiveIcon {
 	case succeed
 	case failed
 	case added
-}
-```
-
-```swift
-public enum AlertIcon {
-	case heart
-	case doc
-	case bookmark
-	case moon
-	case star
-	case exclamation
-	case flag
-	case message
-	case question
-	case bolt
-	case shuffle
-	case eject
-	case card
-	case rotate
-	case like
-	case dislike
-	case privacy
-	case cart
-	case search
 }
 ```
 

@@ -27,6 +27,7 @@ class ForwardMsgGrpListVC: UIViewController {
     var arrSelectedGrpList: [String] = []
     var arrSelectedMsg: [Message] = []
     var strUserName: String = ""
+    var progressHUDMsg: String?
     
     var bundle = Bundle()
     
@@ -109,7 +110,9 @@ class ForwardMsgGrpListVC: UIViewController {
             ]
             SocketChatManager.sharedInstance.forwardMsg(event: "forward-file", param: param)
             
-            ProgressHUD.show()
+            //ProgressHUD.show()
+            ProgressHUD.animate(self.progressHUDMsg, .activityIndicator)
+            
             DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                 ProgressHUD.dismiss()
                 SocketChatManager.sharedInstance.socket?.off("get-group-list-res")

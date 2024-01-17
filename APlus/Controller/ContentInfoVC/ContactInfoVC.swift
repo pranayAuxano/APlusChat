@@ -65,6 +65,7 @@ public class ContactInfoVC: UIViewController {
     var isPictureSelect : Bool = false
     var isImagePickerOpen: Bool = false
     var isDeleteChatGroup: Bool = false
+    var progressHUDMsg: String?
     var bundle = Bundle()
     
     public init()
@@ -333,7 +334,8 @@ public class ContactInfoVC: UIViewController {
                 //(groupId, userId)
                 let alertController = UIAlertController(title: "Are you sure you want to exit group ?", message: "", preferredStyle: .alert)
                 let OKAction = UIAlertAction(title: "OK", style: .default) { action in
-                    ProgressHUD.show()
+                    //ProgressHUD.show()
+                    ProgressHUD.animate(self.progressHUDMsg, .activityIndicator)
                     self.isDeleteChatGroup = true
                     SocketChatManager.sharedInstance.exitGroup(param: [
                         "userId" : SocketChatManager.sharedInstance.myUserId,
@@ -355,7 +357,8 @@ public class ContactInfoVC: UIViewController {
                 let alertController = UIAlertController(title: "Are you sure you want to delete group ?", message: "", preferredStyle: .alert)
                 let OKAction = UIAlertAction(title: "OK", style: .default) { action in
                     //Delete group
-                    ProgressHUD.show()
+                    //ProgressHUD.show()
+                    ProgressHUD.animate(self.progressHUDMsg, .activityIndicator)
                     self.isDeleteChatGroup = true
                     SocketChatManager.sharedInstance.deleteGroup(param: [
                         "userId" : SocketChatManager.sharedInstance.myUserId,
@@ -374,7 +377,8 @@ public class ContactInfoVC: UIViewController {
                 let alertController = UIAlertController(title: "Are you sure you want to delete chat ?", message: "", preferredStyle: .alert)
                 let OKAction = UIAlertAction(title: "OK", style: .default) { action in
                     //Delete chat
-                    ProgressHUD.show()
+                    //ProgressHUD.show()
+                    ProgressHUD.animate(self.progressHUDMsg, .activityIndicator)
                     self.isDeleteChatGroup = true
                     SocketChatManager.sharedInstance.deleteChat(param: [
                         "userId" : SocketChatManager.sharedInstance.myUserId,
@@ -460,7 +464,8 @@ public class ContactInfoVC: UIViewController {
         
         if isPictureSelect
         {
-            ProgressHUD.show()
+            //ProgressHUD.show()
+            ProgressHUD.animate(self.progressHUDMsg, .activityIndicator)
             DispatchQueue.main.async {
                 
                 NetworkManager.sharedInstance.uploadImage(dictiParam: apiParam, image: self.imgProfile.image!, type: "image", contentType: "") { imgUrl in
@@ -478,7 +483,8 @@ public class ContactInfoVC: UIViewController {
         else
         {
             isPictureSelect = false
-            ProgressHUD.show()
+            //ProgressHUD.show()
+            ProgressHUD.animate(self.progressHUDMsg, .activityIndicator)
             SocketChatManager.sharedInstance.updateGroup(param: param)
         }
     }

@@ -28,6 +28,7 @@ public class ContListVC: UIViewController {
     var arrReadCount : [[String: Any]] = []//["unreadCount":0, "userId":""]
     var arrUserIds : [String] = []
     var arrRecentChatGroupList : [GetGroupList]? = []
+    var progressHUDMsg: String?
     var bundle = Bundle()
     
     public init()
@@ -65,7 +66,9 @@ public class ContListVC: UIViewController {
         
         bundle = Bundle(for: ContListVC.self)
         
-        ProgressHUD.show()
+        //ProgressHUD.show()
+        ProgressHUD.animate(self.progressHUDMsg, .activityIndicator)
+        
         SocketChatManager.sharedInstance.getUserList(param: [
             "userId" : SocketChatManager.sharedInstance.myUserId,
             "secretKey" : SocketChatManager.sharedInstance.secretKey

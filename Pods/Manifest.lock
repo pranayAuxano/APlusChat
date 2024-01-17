@@ -1,5 +1,5 @@
 PODS:
-  - ProgressHUD (13.7.2)
+  - ProgressHUD (14.1.0)
 
 DEPENDENCIES:
   - ProgressHUD
@@ -9,7 +9,7 @@ SPEC REPOS:
     - ProgressHUD
 
 SPEC CHECKSUMS:
-  ProgressHUD: 093d24ca970f191744017bee2649e37d0cd1c5b9
+  ProgressHUD: c4a55f108815c46a6bf082407d2f806840b7a869
 
 PODFILE CHECKSUM: 83b1f28146c2df6be10c8e2d2103806aa68e1e84
 

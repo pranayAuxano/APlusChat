@@ -33,6 +33,7 @@ public class ProfDetailVC: UIViewController {
     var isCameraOpen : Bool = false
     var mimeType : String = ""
     var isPictureSelect : Bool = false
+    var progressHUDMsg: String?
     var bundle = Bundle()
     
     private var imageRequest: Cancellable?
@@ -142,7 +143,8 @@ public class ProfDetailVC: UIViewController {
                 "isChat": 0
             ] as [String : Any]
             
-            ProgressHUD.show()
+            //ProgressHUD.show()
+            ProgressHUD.animate(self.progressHUDMsg, .activityIndicator)
             
             if isPictureSelect
             {
