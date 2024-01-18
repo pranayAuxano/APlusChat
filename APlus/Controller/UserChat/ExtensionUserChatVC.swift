@@ -1426,6 +1426,7 @@ extension ChatVC : UITableViewDelegate, UITableViewDataSource
         self.isImg = false
         self.lblReplyMsg.isHidden = true
         self.imgReplyImage.isHidden = true
+        self.imgVideo.isHidden = true
         
         if self.swipeReplyMsg?.type == "text"
         {

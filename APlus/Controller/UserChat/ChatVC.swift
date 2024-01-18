@@ -282,7 +282,7 @@ public class ChatVC: UIViewController {
     {
         registerKeyboardNotifications()
 
-        var otherUserId : String = self.groupDetail?.opponentUserId ?? ""
+        //var otherUserId : String = self.groupDetail?.opponentUserId ?? ""
         onlineUser = (self.groupDetail?.onlineStatus ?? false) ? "Online" : ""
         lblOnline.text = onlineUser
         

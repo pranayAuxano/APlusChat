@@ -152,8 +152,8 @@ public class AudioPlayVC: UIViewController {
         //print("Time - \(min):\(sec)")
         //print(player?.rate)
         
-        let value = self.audioSlider.value
-        let durationToSeek = Float(duration) * value
+        //let value = self.audioSlider.value
+        //let durationToSeek = Float(duration) * value
         //audioPlayer.seek(to: CMTimeMakeWithSeconds(Float64(durationToSeek),player.currentItem!.duration.timescale)) { [weak self](state) in
             
         //}

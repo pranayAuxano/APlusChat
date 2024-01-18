@@ -20,10 +20,10 @@ Pod::Spec.new do |spec|
 
 
   # ――― Author Metadata  ――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
-  spec.author             = { "pranayprajapati" => "pranay.prajapati@auxanoglobalservices.com" }
+  spec.author             = { "pranayAuxano" => "pranay.prajapati@auxanoglobalservices.com" }
 
-  # Or just: spec.author    = "pranayprajapati"
-  # spec.authors            = { "pranay-L53" => "pranay.prajapati@auxanoglobalservices.com" }
+  # Or just: spec.author    = "pranayAuxano"
+  # spec.authors            = { "pranayAuxano" => "pranay.prajapati@auxanoglobalservices.com" }
   # spec.social_media_url   = ""
 
   # ――― Platform Specifics ――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
