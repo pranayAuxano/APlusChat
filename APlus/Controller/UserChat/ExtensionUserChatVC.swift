@@ -243,7 +243,8 @@ extension ChatVC : UIImagePickerControllerDelegate, UINavigationControllerDelega
                         "isChat": 1
                     ] as [String : Any]
                     
-                    guard let responseData = try? JSONSerialization.data(withJSONObject: param, options: []) else { return }
+                    self.loadChatMsg(arrParam: param, timestamp: timestamp)
+                    /**guard let responseData = try? JSONSerialization.data(withJSONObject: param, options: []) else { return }
                     do {
                         let newMsg = try JSONDecoder().decode(Message.self, from: responseData)
                         print(newMsg)
@@ -256,9 +257,10 @@ extension ChatVC : UIImagePickerControllerDelegate, UINavigationControllerDelega
                     {
                         print(err)
                         return
-                    }
+                    }   //  */
                     
-                    DispatchQueue.main.async {
+                    self.uploadData(apiParam: apiParam, data: appImage!, type: "image", contentType: self.imgFileName.mimeType())
+                    /**DispatchQueue.main.async {
                         NetworkManager.sharedInstance.uploadImage(dictiParam: apiParam, image: appImage!, type: "image", contentType: self.imgFileName.mimeType())
                         { imgUrl in
                             print("Uploaded image -> \(imgUrl)")
@@ -270,7 +272,7 @@ extension ChatVC : UIImagePickerControllerDelegate, UINavigationControllerDelega
                             self.arrSectionMsg![self.arrSectionMsg!.count - 1].removeLast()
                             self.tblUserChat.reloadData()
                         }
-                    }
+                    }   //  */
                 }
             }
         }
@@ -314,8 +316,8 @@ extension ChatVC : UIImagePickerControllerDelegate, UINavigationControllerDelega
                     "isChat": 1
                 ] as [String : Any]
                 
-                guard let responseData = try? JSONSerialization.data(withJSONObject: param, options: []) else { return }
-                
+                self.loadChatMsg(arrParam: param, timestamp: timestamp)
+                /**guard let responseData = try? JSONSerialization.data(withJSONObject: param, options: []) else { return }
                 do {
                     let newMsg = try JSONDecoder().decode(Message.self, from: responseData)
                     print(newMsg)
@@ -328,9 +330,10 @@ extension ChatVC : UIImagePickerControllerDelegate, UINavigationControllerDelega
                 {
                     print(err)
                     return
-                }
+                }   //  */
                 
-                DispatchQueue.main.async {
+                self.uploadData(apiParam: apiParam, data: appImage!, type: "image", contentType: self.imgFileName.mimeType())
+                /**DispatchQueue.main.async {
                     NetworkManager.sharedInstance.uploadImage(dictiParam: apiParam, image: appImage!, type: "image", contentType: self.imgFileName.mimeType())
                     { imgUrl in
                         print("Uploaded image -> \(imgUrl)")
@@ -342,7 +345,7 @@ extension ChatVC : UIImagePickerControllerDelegate, UINavigationControllerDelega
                         self.arrSectionMsg![self.arrSectionMsg!.count - 1].removeLast()
                         self.tblUserChat.reloadData()
                     }
-                }
+                }   //  */
             }
         }
         else
@@ -402,7 +405,8 @@ extension ChatVC : UIImagePickerControllerDelegate, UINavigationControllerDelega
                         "isChat": 1
                     ] as [String : Any]
                     
-                    guard let responseData = try? JSONSerialization.data(withJSONObject: param, options: []) else { return }
+                    self.loadChatMsg(arrParam: param, timestamp: timestamp)
+                    /**guard let responseData = try? JSONSerialization.data(withJSONObject: param, options: []) else { return }
                     do {
                         let newMsg = try JSONDecoder().decode(Message.self, from: responseData)
                         print(newMsg)
@@ -415,9 +419,10 @@ extension ChatVC : UIImagePickerControllerDelegate, UINavigationControllerDelega
                     {
                         print(err)
                         return
-                    }
+                    }   //  */
                     
-                    DispatchQueue.main.async {
+                    self.uploadData(apiParam: apiParam, data: videoD, type: "video", contentType: self.imgFileName.mimeType())
+                    /**DispatchQueue.main.async {
                         NetworkManager.sharedInstance.uploadImage(dictiParam: apiParam, image: videoD, type: "video", contentType: self.imgFileName.mimeType())
                         { imgUrl in
                             print("Uploaded image -> \(imgUrl)")
@@ -429,7 +434,7 @@ extension ChatVC : UIImagePickerControllerDelegate, UINavigationControllerDelega
                             self.arrSectionMsg![self.arrSectionMsg!.count - 1].removeLast()
                             self.tblUserChat.reloadData()
                         }
-                    }
+                    }   //  */
                 }
                 catch
                 {
@@ -514,7 +519,8 @@ extension ChatVC : UIDocumentPickerDelegate, UIDocumentMenuDelegate
                 "isChat": 1
             ] as [String : Any]
             
-            guard let responseData = try? JSONSerialization.data(withJSONObject: param, options: []) else { return }
+            self.loadChatMsg(arrParam: param, timestamp: timestamp)
+            /**guard let responseData = try? JSONSerialization.data(withJSONObject: param, options: []) else { return }
             do {
                 let newMsg = try JSONDecoder().decode(Message.self, from: responseData)
                 print(newMsg)
@@ -527,9 +533,10 @@ extension ChatVC : UIDocumentPickerDelegate, UIDocumentMenuDelegate
             {
                 print(err)
                 return
-            }
+            }   //  */
             
-            DispatchQueue.main.async {
+            self.uploadData(apiParam: apiParam, data: image, type: "image", contentType: self.imgFileName.mimeType())
+            /**DispatchQueue.main.async {
                 NetworkManager.sharedInstance.uploadImage(dictiParam: apiParam, image: image, type: "image", contentType: self.imgFileName.mimeType())
                 { imgUrl in
                     print("Uploaded image -> \(imgUrl)")
@@ -541,7 +548,7 @@ extension ChatVC : UIDocumentPickerDelegate, UIDocumentMenuDelegate
                     self.arrSectionMsg![self.arrSectionMsg!.count - 1].removeLast()
                     self.tblUserChat.reloadData()
                 }
-            }
+            }   //  */
         }
         else if arrDocExtension.contains((url.pathExtension).lowercased())
         {
@@ -576,7 +583,8 @@ extension ChatVC : UIDocumentPickerDelegate, UIDocumentMenuDelegate
                     "isChat": 1
                 ] as [String : Any]
                 
-                guard let responseData = try? JSONSerialization.data(withJSONObject: param, options: []) else { return }
+                self.loadChatMsg(arrParam: param, timestamp: timestamp)
+                /**guard let responseData = try? JSONSerialization.data(withJSONObject: param, options: []) else { return }
                 do {
                     let newMsg = try JSONDecoder().decode(Message.self, from: responseData)
                     print(newMsg)
@@ -589,9 +597,10 @@ extension ChatVC : UIDocumentPickerDelegate, UIDocumentMenuDelegate
                 {
                     print(err)
                     return
-                }
+                }   //  */
                 
-                DispatchQueue.main.async {
+                self.uploadData(apiParam: apiParam, data: url, type: "document", contentType: self.imgFileName.mimeType())
+                /**DispatchQueue.main.async {
                     NetworkManager.sharedInstance.uploadImage(dictiParam: apiParam, image: url, type: "document", contentType: self.imgFileName.mimeType())
                     { imgUrl in
                         print("Uploaded image -> \(imgUrl)")
@@ -603,7 +612,7 @@ extension ChatVC : UIDocumentPickerDelegate, UIDocumentMenuDelegate
                         self.arrSectionMsg![self.arrSectionMsg!.count - 1].removeLast()
                         self.tblUserChat.reloadData()
                     }
-                }
+                }   //  */
             }
             catch let error
             {
@@ -644,7 +653,8 @@ extension ChatVC : UIDocumentPickerDelegate, UIDocumentMenuDelegate
                     "isChat": 1
                 ] as [String : Any]
                 
-                guard let responseData = try? JSONSerialization.data(withJSONObject: param, options: []) else { return }
+                self.loadChatMsg(arrParam: param, timestamp: timestamp)
+                /**guard let responseData = try? JSONSerialization.data(withJSONObject: param, options: []) else { return }
                 do {
                     let newMsg = try JSONDecoder().decode(Message.self, from: responseData)
                     print(newMsg)
@@ -657,9 +667,10 @@ extension ChatVC : UIDocumentPickerDelegate, UIDocumentMenuDelegate
                 {
                     print(err)
                     return
-                }
+                }   //  */
                 
-                DispatchQueue.main.async {
+                self.uploadData(apiParam: apiParam, data: myData, type: "audio", contentType: self.imgFileName.mimeType())
+                /**DispatchQueue.main.async {
                     NetworkManager.sharedInstance.uploadImage(dictiParam: apiParam, image: myData, type: "audio", contentType: self.imgFileName.mimeType())
                     { imgUrl in
                         print("Uploaded image -> \(imgUrl)")
@@ -670,8 +681,8 @@ extension ChatVC : UIDocumentPickerDelegate, UIDocumentMenuDelegate
 
                         self.arrSectionMsg![self.arrSectionMsg!.count - 1].removeLast()
                         self.tblUserChat.reloadData()
-                    }   //  */
-                }
+                    }
+                }   //  */
             }
             catch let error
             {
@@ -728,7 +739,8 @@ extension ChatVC : UIDocumentPickerDelegate, UIDocumentMenuDelegate
                     "isChat": 1
                 ] as [String : Any]
                 
-                guard let responseData = try? JSONSerialization.data(withJSONObject: param, options: []) else { return }
+                self.loadChatMsg(arrParam: param, timestamp: timestamp)
+                /**guard let responseData = try? JSONSerialization.data(withJSONObject: param, options: []) else { return }
                 do {
                     let newMsg = try JSONDecoder().decode(Message.self, from: responseData)
                     print(newMsg)
@@ -739,9 +751,10 @@ extension ChatVC : UIDocumentPickerDelegate, UIDocumentMenuDelegate
                 } catch let err {
                     print(err)
                     return
-                }
+                }   //  */
                 
-                DispatchQueue.main.async {
+                self.uploadData(apiParam: apiParam, data: videoD, type: "video", contentType: self.imgFileName.mimeType())
+                /**DispatchQueue.main.async {
                     NetworkManager.sharedInstance.uploadImage(dictiParam: apiParam, image: videoD, type: "video", contentType: self.imgFileName.mimeType())
                     { imgUrl in
                         print("Uploaded image -> \(imgUrl)")
@@ -753,7 +766,7 @@ extension ChatVC : UIDocumentPickerDelegate, UIDocumentMenuDelegate
                         self.arrSectionMsg![self.arrSectionMsg!.count - 1].removeLast()
                         self.tblUserChat.reloadData()
                     }
-                }
+                }   //  */
             }
             catch let error
             {
@@ -1463,6 +1476,41 @@ extension ChatVC : UITableViewDelegate, UITableViewDataSource
 
 extension ChatVC
 {
+    func uploadData(apiParam: [String: Any], data: Any, type: String, contentType: String)
+    {
+        DispatchQueue.main.async {
+            NetworkManager.sharedInstance.uploadImage(dictiParam: apiParam, image: data, type: type, contentType: contentType)
+            { imgUrl in
+                print("Uploaded image -> \(imgUrl)")
+            } errorCompletion: { errMsg in
+                let toastMsg = ToastUtility.Builder(message: errMsg, controller: self, keyboardActive: false)
+                toastMsg.setColor(background: .red, text: .black)
+                toastMsg.show()
+                
+                self.arrSectionMsg![self.arrSectionMsg!.count - 1].removeLast()
+                self.tblUserChat.reloadData()
+            }
+        }
+    }
+    
+    func loadChatMsg(arrParam: [String : Any], timestamp: Int)
+    {
+        guard let responseData = try? JSONSerialization.data(withJSONObject: arrParam, options: []) else { return }
+        do {
+            let newMsg = try JSONDecoder().decode(Message.self, from: responseData)
+            print(newMsg)
+            if self.loadChatMsgToArray(msg: newMsg, timestamp: timestamp) {
+                self.tblUserChat.reloadData()
+                self.tblUserChat.scrollToRow(at: IndexPath(row: (self.arrSectionMsg![self.arrSectionMsg!.count - 1].count - 1), section: (self.arrSectionMsg!.count - 1)), at: .bottom, animated: true)
+            }
+        }
+        catch let err
+        {
+            print(err)
+            return
+        }
+    }
+    
     func loadChatMsgToArray(msg : Message, timestamp : Int) -> Bool
     {
         let strDate : String = Utility.convertTimestamptoDateString(timestamp: timestamp)

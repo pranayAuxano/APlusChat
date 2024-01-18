@@ -764,9 +764,9 @@ public class ChatVC: UIViewController {
     @IBAction func btnAttachTap(_ sender: UIButton) {
         self.view.endEditing(true)
         
-        self.fromLibrary()
+        //self.fromLibrary()
         
-        /*let alert = UIAlertController(title: "", message: "Please select an option", preferredStyle: .actionSheet)
+        let alert = UIAlertController(title: "", message: "Please select an option", preferredStyle: .actionSheet)
         /*alert.addAction(UIAlertAction(title: "Camera", style: .default, handler: { alert in
             self.isDocumentPickerOpen = true
             self.openCamera()
