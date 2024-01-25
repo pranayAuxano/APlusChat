@@ -191,7 +191,7 @@ public class ChatVC: UIViewController {
         {   /*Fallback on earlier versions*/    }
         
         
-        if !self.isRecordAudioEnable
+        if self.isRecordAudioEnable
         {
             btnSend.isHidden = true
             btnRecordAudio.isHidden = false
@@ -889,8 +889,12 @@ public class ChatVC: UIViewController {
                 }
                 
                 txtTypeMsg.text = ""
-                btnSend.isHidden = true
-                btnRecordAudio.isHidden = false
+                
+                if self.isRecordAudioEnable
+                {
+                    btnSend.isHidden = true
+                    btnRecordAudio.isHidden = false
+                }
                 
                 guard let responseData = try? JSONSerialization.data(withJSONObject: msg, options: []) else { return }
                 do {

@@ -104,7 +104,7 @@ extension ChatVC : UITextFieldDelegate
                 timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(self.update), userInfo: nil, repeats: true)
             }
             
-            if !self.isRecordAudioEnable && ((currentString.length == 0 && newString.length == 1 && (textField.text)! != "") || (newString.length > 0))
+            if self.isRecordAudioEnable && ((currentString.length == 0 && newString.length == 1 && (textField.text)! != "") || (newString.length > 0))
             {
                 btnSend.isHidden = false
                 btnRecordAudio.isHidden = true
@@ -123,7 +123,7 @@ extension ChatVC : UITextFieldDelegate
             ])
             self.isTyping = false
             
-            if !self.isRecordAudioEnable && ((newString.length == 0 && currentString.length == 1) || textField.text! == "")
+            if self.isRecordAudioEnable && ((newString.length == 0 && currentString.length == 1) || textField.text! == "")
             {
                 btnSend.isHidden = true
                 btnRecordAudio.isHidden = false
