@@ -36,7 +36,7 @@ public class FirstVC: UIViewController {
     
     let activityIndicator = UIActivityIndicatorView()
     var isGetChatResponse: Bool = false
-    var isRecordAudioEnable: Bool = false
+    public var isRecordAudioEnable: Bool = false
     var bundle = Bundle()
     
     public init()
