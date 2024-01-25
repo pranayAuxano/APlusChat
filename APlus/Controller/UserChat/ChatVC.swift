@@ -49,6 +49,8 @@ public class ChatVC: UIViewController {
     @IBOutlet weak var lblForwardUserN: UILabel!
     @IBOutlet weak var lblForwardCount: UILabel!
     @IBOutlet weak var btnForward: UIButton!
+    @IBOutlet weak var btnRecordAudio: UIButton!
+    @IBOutlet weak var viewRecordBG: UIView!
     
     var strDisName : String?
     var strProfileImg : String? = ""
@@ -100,6 +102,13 @@ public class ChatVC: UIViewController {
     var isScroll: Bool = false
     var selectedCount: Int = 0
     var isLongPressEnable: Bool = false
+    var isRecordAudioEnable: Bool = false
+    
+    var recordingSession: AVAudioSession!
+    var audioRecorder: AVAudioRecorder!
+    var audioPlayer:AVAudioPlayer!
+    var isPress: Bool = false
+    var audioFilePath: String?
     
     var bundle = Bundle()
     
@@ -180,7 +189,21 @@ public class ChatVC: UIViewController {
         }
         else
         {   /*Fallback on earlier versions*/    }
-    
+        
+        
+        if !self.isRecordAudioEnable
+        {
+            btnSend.isHidden = true
+            btnRecordAudio.isHidden = false
+        }
+        else
+        {
+            btnSend.isHidden = false
+            btnRecordAudio.isHidden = true
+        }
+        
+        self.viewRecordBG.isHidden = true
+        
         bundle = Bundle(for: ChatVC.self)
         NotificationCenter.default.addObserver(self, selector: #selector(checkConnection), name: .flagsChanged, object: nil)
         
@@ -364,6 +387,11 @@ public class ChatVC: UIViewController {
     
     func getPreviousChat(chat : PreviousChat)
     {
+        let longGesture = UILongPressGestureRecognizer(target: self, action: #selector(long))  //Long function will call when user long press on button.
+        longGesture.minimumPressDuration = 0.7
+        btnRecordAudio.addGestureRecognizer(longGesture)
+        
+        
         print(chat)
         self.isHasMore = chat.hasMore!
         
@@ -859,7 +887,10 @@ public class ChatVC: UIViewController {
                 {
                     self.btnCloseTap(UIButton())
                 }
+                
                 txtTypeMsg.text = ""
+                btnSend.isHidden = true
+                btnRecordAudio.isHidden = false
                 
                 guard let responseData = try? JSONSerialization.data(withJSONObject: msg, options: []) else { return }
                 do {
@@ -936,5 +967,160 @@ public class ChatVC: UIViewController {
             toastMsg.show()
             return false
         }
+    }
+}
+
+extension ChatVC
+{
+    @objc func long(gestureReconizer: UILongPressGestureRecognizer)
+    {
+        if gestureReconizer.state != UIGestureRecognizer.State.ended
+        {
+            if !self.isPress
+            {
+                self.isPress = true
+                
+                UIDevice.vibrate()
+                //UINotificationFeedbackGenerator().notificationOccurred(.success)
+                
+                self.viewRecordBG.isHidden = false
+                
+                startRecording()
+            }
+        }
+        else
+        {
+            self.isPress = false
+            self.viewRecordBG.isHidden = true
+            
+            finishRecording(success: true)
+        }
+    }
+    
+//    @objc func recordAudioButtonTapped(_ sender: UIButton)
+//    {
+//        if audioRecorder == nil
+//        {
+//            startRecording()
+//        }
+//        else
+//        {
+//            finishRecording(success: true)
+//        }
+//    }
+    
+    func startRecording()
+    {
+        let audioFilename = getFileURL(forPlay: false)
+        
+        let settings = [
+            AVFormatIDKey: Int(kAudioFormatMPEG4AAC),
+            AVSampleRateKey: 12000,
+            AVNumberOfChannelsKey: 1,
+            AVEncoderAudioQualityKey: AVAudioQuality.high.rawValue
+        ]
+        
+        do
+        {
+            audioRecorder = try AVAudioRecorder(url: audioFilename, settings: settings)
+            audioRecorder.delegate = self
+            audioRecorder.record()
+        }
+        catch
+        {
+            finishRecording(success: false)
+        }
+    }
+    
+    func finishRecording(success: Bool)
+    {
+        audioRecorder.stop()
+        audioRecorder = nil
+        
+        if success
+        {
+            do
+            {
+                let myData = try Data(contentsOf: URL(string: self.audioFilePath ?? "")!)
+                
+                /// load msg to chat table
+                let timestamp : Int = Int(NSDate().timeIntervalSince1970)
+                let timeMilliSeconds: [String: Any] = ["nanoseconds": 0,
+                                                       "seconds": timestamp]
+                let param: [String : Any] = ["sentBy" : SocketChatManager.sharedInstance.myUserId,
+                                             "senderName" : self.groupDetail?.userName ?? "",
+                                             "timeMilliSeconds" : timeMilliSeconds,
+                                             "type" : "audio",
+                                             "msgId" : "",
+                                             "message" : "",
+                                             "contentType" : self.imgFileName.mimeType(),
+                                             "fileName" : URL(string: self.audioFilePath ?? "")!.lastPathComponent,
+                                             "filePath" : "",
+                                             "thumbnailPath" : "",
+                                             "time" : 0,
+                                             "showLoader": true]
+                /// Api param
+                let apiParam = [
+                    "secretKey": SocketChatManager.sharedInstance.secretKey,
+                    "userId": SocketChatManager.sharedInstance.myUserId,
+                    "groupId": self.groupId,
+                    "senderName": self.groupDetail?.userName ?? "",
+                    "type": "audio",
+                    "image": URL(string: self.audioFilePath ?? "")!.lastPathComponent,
+                    "isChat": 1
+                ] as [String : Any]
+                
+                self.loadChatMsg(arrParam: param, timestamp: timestamp)
+                
+                self.uploadData(apiParam: apiParam, data: myData, type: "audio", contentType: self.imgFileName.mimeType())
+            }
+            catch
+            {
+                print("Get Some errors.")
+            }
+        }
+        else
+        {
+            print("Fail to record audio...")
+        }
+    }
+    
+    func getDocumentsDirectory() -> URL
+    {
+        let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+        return paths[0]
+    }
+    
+    func getFileURL(forPlay: Bool) -> URL
+    {
+        let path = getDocumentsDirectory().appendingPathComponent("\(Utility.fileName()).m4a")
+        self.audioFilePath = (path as URL).absoluteString
+        return path as URL
+    }
+}
+
+extension ChatVC: AVAudioRecorderDelegate, AVAudioPlayerDelegate
+{
+    public func audioRecorderDidFinishRecording(_ recorder: AVAudioRecorder, successfully flag: Bool)
+    {
+        if !flag {
+            finishRecording(success: false)
+        }
+    }
+    
+    public func audioRecorderEncodeErrorDidOccur(_ recorder: AVAudioRecorder, error: Error?)
+    {
+        print("Error while recording audio \(error!.localizedDescription)")
+    }
+    
+    public func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool)
+    {
+        //recordButton.isEnabled = true
+        //playButton.setTitle("Play", for: .normal)
+    }
+    
+    public func audioPlayerDecodeErrorDidOccur(_ player: AVAudioPlayer, error: Error?)
+    {
+        print("Error while playing audio \(error!.localizedDescription)")
     }
 }

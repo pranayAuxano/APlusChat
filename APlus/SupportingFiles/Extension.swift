@@ -7,6 +7,7 @@
 
 import Foundation
 import UIKit
+import SoundAnalysis
 
 extension UIView
 {
@@ -159,5 +160,12 @@ extension UIView
     {
         self.backgroundColor = .white
         self.layer.mask = nil
+    }
+}
+
+extension UIDevice {
+    static func vibrate() {
+        //AudioServicesPlaySystemSound(kSystemSoundID_Vibrate)
+        AudioServicesPlaySystemSound(kSystemSoundID_Vibrate)
     }
 }

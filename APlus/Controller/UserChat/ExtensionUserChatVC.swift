@@ -103,6 +103,12 @@ extension ChatVC : UITextFieldDelegate
                 self.isTyping = true
                 timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(self.update), userInfo: nil, repeats: true)
             }
+            
+            if !self.isRecordAudioEnable && ((currentString.length == 0 && newString.length == 1 && (textField.text)! != "") || (newString.length > 0))
+            {
+                btnSend.isHidden = false
+                btnRecordAudio.isHidden = true
+            }
         }
         else
         {
@@ -116,6 +122,12 @@ extension ChatVC : UITextFieldDelegate
                 "isTyping": "false"
             ])
             self.isTyping = false
+            
+            if !self.isRecordAudioEnable && ((newString.length == 0 && currentString.length == 1) || textField.text! == "")
+            {
+                btnSend.isHidden = true
+                btnRecordAudio.isHidden = false
+            }
         }
         
         return true
@@ -244,35 +256,8 @@ extension ChatVC : UIImagePickerControllerDelegate, UINavigationControllerDelega
                     ] as [String : Any]
                     
                     self.loadChatMsg(arrParam: param, timestamp: timestamp)
-                    /**guard let responseData = try? JSONSerialization.data(withJSONObject: param, options: []) else { return }
-                    do {
-                        let newMsg = try JSONDecoder().decode(Message.self, from: responseData)
-                        print(newMsg)
-                        if self.loadChatMsgToArray(msg: newMsg, timestamp: timestamp) {
-                            self.tblUserChat.reloadData()
-                            self.tblUserChat.scrollToRow(at: IndexPath(row: (self.arrSectionMsg![self.arrSectionMsg!.count - 1].count - 1), section: (self.arrSectionMsg!.count - 1)), at: .bottom, animated: true)
-                        }
-                    }
-                    catch let err
-                    {
-                        print(err)
-                        return
-                    }   //  */
                     
                     self.uploadData(apiParam: apiParam, data: appImage!, type: "image", contentType: self.imgFileName.mimeType())
-                    /**DispatchQueue.main.async {
-                        NetworkManager.sharedInstance.uploadImage(dictiParam: apiParam, image: appImage!, type: "image", contentType: self.imgFileName.mimeType())
-                        { imgUrl in
-                            print("Uploaded image -> \(imgUrl)")
-                        } errorCompletion: { errMsg in
-                            let toastMsg = ToastUtility.Builder(message: errMsg, controller: self, keyboardActive: false)
-                            toastMsg.setColor(background: .red, text: .black)
-                            toastMsg.show()
-                            
-                            self.arrSectionMsg![self.arrSectionMsg!.count - 1].removeLast()
-                            self.tblUserChat.reloadData()
-                        }
-                    }   //  */
                 }
             }
         }
@@ -317,35 +302,8 @@ extension ChatVC : UIImagePickerControllerDelegate, UINavigationControllerDelega
                 ] as [String : Any]
                 
                 self.loadChatMsg(arrParam: param, timestamp: timestamp)
-                /**guard let responseData = try? JSONSerialization.data(withJSONObject: param, options: []) else { return }
-                do {
-                    let newMsg = try JSONDecoder().decode(Message.self, from: responseData)
-                    print(newMsg)
-                    if self.loadChatMsgToArray(msg: newMsg, timestamp: timestamp) {
-                        self.tblUserChat.reloadData()
-                        self.tblUserChat.scrollToRow(at: IndexPath(row: (self.arrSectionMsg![self.arrSectionMsg!.count - 1].count - 1), section: (self.arrSectionMsg!.count - 1)), at: .bottom, animated: true)
-                    }
-                }
-                catch let err
-                {
-                    print(err)
-                    return
-                }   //  */
                 
                 self.uploadData(apiParam: apiParam, data: appImage!, type: "image", contentType: self.imgFileName.mimeType())
-                /**DispatchQueue.main.async {
-                    NetworkManager.sharedInstance.uploadImage(dictiParam: apiParam, image: appImage!, type: "image", contentType: self.imgFileName.mimeType())
-                    { imgUrl in
-                        print("Uploaded image -> \(imgUrl)")
-                    } errorCompletion: { errMsg in
-                        let toastMsg = ToastUtility.Builder(message: errMsg, controller: self, keyboardActive: false)
-                        toastMsg.setColor(background: .red, text: .black)
-                        toastMsg.show()
-                        
-                        self.arrSectionMsg![self.arrSectionMsg!.count - 1].removeLast()
-                        self.tblUserChat.reloadData()
-                    }
-                }   //  */
             }
         }
         else
@@ -406,35 +364,8 @@ extension ChatVC : UIImagePickerControllerDelegate, UINavigationControllerDelega
                     ] as [String : Any]
                     
                     self.loadChatMsg(arrParam: param, timestamp: timestamp)
-                    /**guard let responseData = try? JSONSerialization.data(withJSONObject: param, options: []) else { return }
-                    do {
-                        let newMsg = try JSONDecoder().decode(Message.self, from: responseData)
-                        print(newMsg)
-                        if self.loadChatMsgToArray(msg: newMsg, timestamp: timestamp) {
-                            self.tblUserChat.reloadData()
-                            self.tblUserChat.scrollToRow(at: IndexPath(row: (self.arrSectionMsg![self.arrSectionMsg!.count - 1].count - 1), section: (self.arrSectionMsg!.count - 1)), at: .bottom, animated: true)
-                        }
-                    }
-                    catch let err
-                    {
-                        print(err)
-                        return
-                    }   //  */
                     
                     self.uploadData(apiParam: apiParam, data: videoD, type: "video", contentType: self.imgFileName.mimeType())
-                    /**DispatchQueue.main.async {
-                        NetworkManager.sharedInstance.uploadImage(dictiParam: apiParam, image: videoD, type: "video", contentType: self.imgFileName.mimeType())
-                        { imgUrl in
-                            print("Uploaded image -> \(imgUrl)")
-                        } errorCompletion: { errMsg in
-                            let toastMsg = ToastUtility.Builder(message: errMsg, controller: self, keyboardActive: false)
-                            toastMsg.setColor(background: .red, text: .black)
-                            toastMsg.show()
-                            
-                            self.arrSectionMsg![self.arrSectionMsg!.count - 1].removeLast()
-                            self.tblUserChat.reloadData()
-                        }
-                    }   //  */
                 }
                 catch
                 {
@@ -520,35 +451,8 @@ extension ChatVC : UIDocumentPickerDelegate, UIDocumentMenuDelegate
             ] as [String : Any]
             
             self.loadChatMsg(arrParam: param, timestamp: timestamp)
-            /**guard let responseData = try? JSONSerialization.data(withJSONObject: param, options: []) else { return }
-            do {
-                let newMsg = try JSONDecoder().decode(Message.self, from: responseData)
-                print(newMsg)
-                if self.loadChatMsgToArray(msg: newMsg, timestamp: timestamp) {
-                    self.tblUserChat.reloadData()
-                    self.tblUserChat.scrollToRow(at: IndexPath(row: (self.arrSectionMsg![self.arrSectionMsg!.count - 1].count - 1), section: (self.arrSectionMsg!.count - 1)), at: .bottom, animated: true)
-                }
-            }
-            catch let err
-            {
-                print(err)
-                return
-            }   //  */
             
             self.uploadData(apiParam: apiParam, data: image, type: "image", contentType: self.imgFileName.mimeType())
-            /**DispatchQueue.main.async {
-                NetworkManager.sharedInstance.uploadImage(dictiParam: apiParam, image: image, type: "image", contentType: self.imgFileName.mimeType())
-                { imgUrl in
-                    print("Uploaded image -> \(imgUrl)")
-                } errorCompletion: { errMsg in
-                    let toastMsg = ToastUtility.Builder(message: errMsg, controller: self, keyboardActive: false)
-                    toastMsg.setColor(background: .red, text: .black)
-                    toastMsg.show()
-                    
-                    self.arrSectionMsg![self.arrSectionMsg!.count - 1].removeLast()
-                    self.tblUserChat.reloadData()
-                }
-            }   //  */
         }
         else if arrDocExtension.contains((url.pathExtension).lowercased())
         {
@@ -584,35 +488,8 @@ extension ChatVC : UIDocumentPickerDelegate, UIDocumentMenuDelegate
                 ] as [String : Any]
                 
                 self.loadChatMsg(arrParam: param, timestamp: timestamp)
-                /**guard let responseData = try? JSONSerialization.data(withJSONObject: param, options: []) else { return }
-                do {
-                    let newMsg = try JSONDecoder().decode(Message.self, from: responseData)
-                    print(newMsg)
-                    if self.loadChatMsgToArray(msg: newMsg, timestamp: timestamp) {
-                        self.tblUserChat.reloadData()
-                        self.tblUserChat.scrollToRow(at: IndexPath(row: (self.arrSectionMsg![self.arrSectionMsg!.count - 1].count - 1), section: (self.arrSectionMsg!.count - 1)), at: .bottom, animated: true)
-                    }
-                }
-                catch let err
-                {
-                    print(err)
-                    return
-                }   //  */
                 
                 self.uploadData(apiParam: apiParam, data: url, type: "document", contentType: self.imgFileName.mimeType())
-                /**DispatchQueue.main.async {
-                    NetworkManager.sharedInstance.uploadImage(dictiParam: apiParam, image: url, type: "document", contentType: self.imgFileName.mimeType())
-                    { imgUrl in
-                        print("Uploaded image -> \(imgUrl)")
-                    } errorCompletion: { errMsg in
-                        let toastMsg = ToastUtility.Builder(message: errMsg, controller: self, keyboardActive: false)
-                        toastMsg.setColor(background: .red, text: .black)
-                        toastMsg.show()
-                        
-                        self.arrSectionMsg![self.arrSectionMsg!.count - 1].removeLast()
-                        self.tblUserChat.reloadData()
-                    }
-                }   //  */
             }
             catch let error
             {
@@ -654,35 +531,8 @@ extension ChatVC : UIDocumentPickerDelegate, UIDocumentMenuDelegate
                 ] as [String : Any]
                 
                 self.loadChatMsg(arrParam: param, timestamp: timestamp)
-                /**guard let responseData = try? JSONSerialization.data(withJSONObject: param, options: []) else { return }
-                do {
-                    let newMsg = try JSONDecoder().decode(Message.self, from: responseData)
-                    print(newMsg)
-                    if self.loadChatMsgToArray(msg: newMsg, timestamp: timestamp) {
-                        self.tblUserChat.reloadData()
-                        self.tblUserChat.scrollToRow(at: IndexPath(row: (self.arrSectionMsg![self.arrSectionMsg!.count - 1].count - 1), section: (self.arrSectionMsg!.count - 1)), at: .bottom, animated: true)
-                    }
-                }
-                catch let err
-                {
-                    print(err)
-                    return
-                }   //  */
                 
                 self.uploadData(apiParam: apiParam, data: myData, type: "audio", contentType: self.imgFileName.mimeType())
-                /**DispatchQueue.main.async {
-                    NetworkManager.sharedInstance.uploadImage(dictiParam: apiParam, image: myData, type: "audio", contentType: self.imgFileName.mimeType())
-                    { imgUrl in
-                        print("Uploaded image -> \(imgUrl)")
-                    } errorCompletion: { errMsg in
-                        let toastMsg = ToastUtility.Builder(message: errMsg, controller: self, keyboardActive: false)
-                        toastMsg.setColor(background: .red, text: .black)
-                        toastMsg.show()
-
-                        self.arrSectionMsg![self.arrSectionMsg!.count - 1].removeLast()
-                        self.tblUserChat.reloadData()
-                    }
-                }   //  */
             }
             catch let error
             {
@@ -740,33 +590,8 @@ extension ChatVC : UIDocumentPickerDelegate, UIDocumentMenuDelegate
                 ] as [String : Any]
                 
                 self.loadChatMsg(arrParam: param, timestamp: timestamp)
-                /**guard let responseData = try? JSONSerialization.data(withJSONObject: param, options: []) else { return }
-                do {
-                    let newMsg = try JSONDecoder().decode(Message.self, from: responseData)
-                    print(newMsg)
-                    if self.loadChatMsgToArray(msg: newMsg, timestamp: timestamp) {
-                        self.tblUserChat.reloadData()
-                        self.tblUserChat.scrollToRow(at: IndexPath(row: (self.arrSectionMsg![self.arrSectionMsg!.count - 1].count - 1), section: (self.arrSectionMsg!.count - 1)), at: .bottom, animated: true)
-                    }
-                } catch let err {
-                    print(err)
-                    return
-                }   //  */
                 
                 self.uploadData(apiParam: apiParam, data: videoD, type: "video", contentType: self.imgFileName.mimeType())
-                /**DispatchQueue.main.async {
-                    NetworkManager.sharedInstance.uploadImage(dictiParam: apiParam, image: videoD, type: "video", contentType: self.imgFileName.mimeType())
-                    { imgUrl in
-                        print("Uploaded image -> \(imgUrl)")
-                    } errorCompletion: { errMsg in
-                        let toastMsg = ToastUtility.Builder(message: errMsg, controller: self, keyboardActive: false)
-                        toastMsg.setColor(background: .red, text: .black)
-                        toastMsg.show()
-                        
-                        self.arrSectionMsg![self.arrSectionMsg!.count - 1].removeLast()
-                        self.tblUserChat.reloadData()
-                    }
-                }   //  */
             }
             catch let error
             {

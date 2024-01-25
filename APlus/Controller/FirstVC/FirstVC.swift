@@ -36,6 +36,7 @@ public class FirstVC: UIViewController {
     
     let activityIndicator = UIActivityIndicatorView()
     var isGetChatResponse: Bool = false
+    var isRecordAudioEnable: Bool = false
     var bundle = Bundle()
     
     public init()
@@ -345,6 +346,7 @@ extension FirstVC : UITableViewDelegate, UITableViewDataSource
                 vc.groupId = self.arrRecentChatGroupList?[indexPath.row].groupId ?? ""
                 vc.strDisName = self.arrRecentChatGroupList?[indexPath.row].groupName ?? ""
                 vc.strProfileImg = self.arrRecentChatGroupList?[indexPath.row].imagePath ?? ""
+                vc.isRecordAudioEnable = self.isRecordAudioEnable
                 self.navigationController?.pushViewController(vc, animated: true)
             }
             else
