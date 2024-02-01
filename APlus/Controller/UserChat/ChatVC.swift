@@ -106,7 +106,7 @@ public class ChatVC: UIViewController {
     
     var recordingSession: AVAudioSession!
     var audioRecorder: AVAudioRecorder!
-    var audioPlayer:AVAudioPlayer!
+    var audioPlayer: AVAudioPlayer?
     var isPress: Bool = false
     var audioFilePath: String?
     
@@ -282,6 +282,7 @@ public class ChatVC: UIViewController {
         SocketChatManager.sharedInstance.socketDelegate = self
         
         /// For activate long press on chat table.
+        self.setupView()
         self.setupLongPressGesture()
     }
     
@@ -1001,18 +1002,6 @@ extension ChatVC
         }
     }
     
-//    @objc func recordAudioButtonTapped(_ sender: UIButton)
-//    {
-//        if audioRecorder == nil
-//        {
-//            startRecording()
-//        }
-//        else
-//        {
-//            finishRecording(success: true)
-//        }
-//    }
-    
     func startRecording()
     {
         let audioFilename = getFileURL(forPlay: false)
@@ -1097,9 +1086,40 @@ extension ChatVC
     
     func getFileURL(forPlay: Bool) -> URL
     {
-        let path = getDocumentsDirectory().appendingPathComponent("\(Utility.fileName()).m4a")
+        let path = getDocumentsDirectory().appendingPathComponent("R\(Utility.fileName()).m4a")
         self.audioFilePath = (path as URL).absoluteString
+        
+        print("File path URL --> \(path)")
+        print("File self.audioFilePath --> \(self.audioFilePath ?? "")")
+        
         return path as URL
+    }
+    
+    func setupView()
+    {
+        recordingSession = AVAudioSession.sharedInstance()
+        
+        do
+        {
+            try recordingSession.setCategory(.playAndRecord, mode: .default, options: [.defaultToSpeaker])
+            try recordingSession.setActive(true)
+            
+            recordingSession.requestRecordPermission { allowed in
+                DispatchQueue.main.async
+                {
+                    if allowed
+                    {
+                        //self.loadRecordingUI()
+                        print("Permission Allowed...")
+                    }
+                    else
+                    {   /*failed to record*/   }
+                }
+            }
+            
+        }
+        catch
+        {   /*failed to record*/    }
     }
 }
 
